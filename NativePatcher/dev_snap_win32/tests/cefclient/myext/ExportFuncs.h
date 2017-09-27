@@ -4,7 +4,7 @@
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/cpptoc/string_visitor_cpptoc.h"
 
-class MyBrowser; //forward decl
+class MyBrowserWindowWrapper; //forward decl
 
 extern "C" {
 
@@ -26,17 +26,17 @@ extern "C" {
 
 
 	//3. create/manipulate browser
-	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
-	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback);
-	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
-	MY_DLL_EXPORT int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
+	MY_DLL_EXPORT MyBrowserWindowWrapper* MyCefCreateMyWebBrowser(managed_callback callback);
+	MY_DLL_EXPORT MyBrowserWindowWrapper* MyCefCreateMyWebBrowserOSR(managed_callback callback);
+	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
+	MY_DLL_EXPORT int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
 
 	//--------------------
-	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
-	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack);
+	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack);
+	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack);
 
 
-	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentHwnd);
+	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowserWindowWrapper* myBw, MyBrowserWindowWrapper* myBwDev, HWND parentHwnd);
 	//----------------------------
 
 
@@ -47,7 +47,7 @@ extern "C" {
 
 	MY_DLL_EXPORT CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig);
 	//----------------------------
-	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback);
+	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowserWindowWrapper* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback);
 	//----------------------------
 
 
@@ -64,16 +64,12 @@ extern "C" {
 		const wchar_t*  targetDomain,
 		bool allow_target_subdomains
 	);
-
-
-
-	//
-	MY_DLL_EXPORT void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
-	//
-	MY_DLL_EXPORT void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
-
+	 
 
 	//
+	MY_DLL_EXPORT void MyCefBwCall2(MyBrowserWindowWrapper* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
+	
+	 
 	MY_DLL_EXPORT void* CreateStdList(int elemType);
 
 	MY_DLL_EXPORT void GetListCount(int elemType, void* list, int32_t* size);

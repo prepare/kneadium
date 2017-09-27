@@ -1,13 +1,15 @@
 //MIT, 2015-2017, WinterDev
 #pragma once
-
+#define ENABLE_KNEADIUM_EXT 1
 //for auto gen content
 
 #include "myext.h"
 
 #include "include/internal/cef_types.h"
 #include "include/wrapper/cef_helpers.h"
-
+#include "include/cef_resource_bundle_handler.h"
+#include "include/cef_browser_process_handler.h"
+#include "include/cef_render_process_handler.h"
 //
 #include "include/capi/cef_resource_bundle_handler_capi.h"
 #include "include/capi/cef_resource_bundle_capi.h"
@@ -86,21 +88,1389 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7);
 	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 }
-
-
-
-
-inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
-
-	CefPoint* cefPoint = new CefPoint();
-	value->type = JSVALUE_TYPE_WRAPPED;
-	value->ptr = cefPoint;
-};
-
+ 
 
 //AUTOGEN
-namespace CefAuthCallbackExt {
+namespace CefAppExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,1 
+
+	class OnBeforeCommandLineProcessingArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* process_type;//1
+			cef_command_line_t* command_line;//2
+		};
+		argData arg;//
+		OnBeforeCommandLineProcessingArgs(const CefString* process_type, cef_command_line_t* command_line)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.process_type = process_type;
+			arg.command_line = command_line;
+		}
+		OnBeforeCommandLineProcessingArgs(const CefString& process_type, cef_command_line_t* command_line)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.process_type = &process_type;
+			arg.command_line = command_line;
+		}
+		OnBeforeCommandLineProcessingArgs(const CefString* process_type, CefRefPtr<CefCommandLine> command_line)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.process_type = process_type;
+			arg.command_line = CefCommandLineCToCpp::Unwrap(command_line);
+		}
+		~OnBeforeCommandLineProcessingArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefCommandLineCToCpp::Wrap(arg.command_line);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnBeforeCommandLineProcessingArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,2 
+
+	class OnRegisterCustomSchemesArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRawPtr<CefSchemeRegistrar> registrar;//1
+		};
+		argData arg;//
+		OnRegisterCustomSchemesArgs(CefRawPtr<CefSchemeRegistrar> registrar)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.registrar = registrar;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnRegisterCustomSchemesArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,3 
+
+	class GetResourceBundleHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefResourceBundleHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetResourceBundleHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetResourceBundleHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,4 
+
+	class GetBrowserProcessHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefBrowserProcessHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetBrowserProcessHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetBrowserProcessHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,5 
+
+	class GetRenderProcessHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefRenderProcessHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetRenderProcessHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetRenderProcessHandlerArgs);
+	};
+}
+namespace CefNavigationEntryVisitorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,6 
+
+	class VisitArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			cef_navigation_entry_t* entry;//1
+			bool current;//2
+			int index;//3
+			int total;//4
+		};
+		argData arg;//
+		VisitArgs(cef_navigation_entry_t* entry, bool current, int index, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.entry = entry;
+			arg.current = current;
+			arg.index = index;
+			arg.total = total;
+		}
+		VisitArgs(cef_navigation_entry_t* entry, int current, int index, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.entry = entry;
+			arg.current = current ? true : false;
+			arg.index = index;
+			arg.total = total;
+		}
+		VisitArgs(CefRefPtr<CefNavigationEntry> entry, bool current, int index, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.entry = CefNavigationEntryCToCpp::Unwrap(entry);
+			arg.current = current;
+			arg.index = index;
+			arg.total = total;
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefNavigationEntryCToCpp::Wrap(arg.entry);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
+	};
+}
+namespace CefClientExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,7 
+
+	class GetContextMenuHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefContextMenuHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetContextMenuHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetContextMenuHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,8 
+
+	class GetDialogHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefDialogHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetDialogHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetDialogHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,9 
+
+	class GetDisplayHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefDisplayHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetDisplayHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetDisplayHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,10 
+
+	class GetDownloadHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefDownloadHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetDownloadHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetDownloadHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,11 
+
+	class GetDragHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefDragHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetDragHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetDragHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,12 
+
+	class GetFindHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefFindHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetFindHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetFindHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,13 
+
+	class GetFocusHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefFocusHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetFocusHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetFocusHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,14 
+
+	class GetGeolocationHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefGeolocationHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetGeolocationHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetGeolocationHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,15 
+
+	class GetJSDialogHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefJSDialogHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetJSDialogHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetJSDialogHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,16 
+
+	class GetKeyboardHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefKeyboardHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetKeyboardHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetKeyboardHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,17 
+
+	class GetLifeSpanHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefLifeSpanHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetLifeSpanHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetLifeSpanHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,18 
+
+	class GetLoadHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefLoadHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetLoadHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetLoadHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,19 
+
+	class GetRenderHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefRenderHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetRenderHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetRenderHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,20 
+
+	class GetRequestHandlerArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefRequestHandler> myext_ret_value; //0
+		};
+		argData arg;//
+		GetRequestHandlerArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetRequestHandlerArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,21 
+
+	class OnProcessMessageReceivedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			cef_browser_t* browser;//1
+			CefProcessId source_process;//2
+			cef_process_message_t* message;//3
+		};
+		argData arg;//
+		OnProcessMessageReceivedArgs(cef_browser_t* browser, CefProcessId source_process, cef_process_message_t* message)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.source_process = source_process;
+			arg.message = message;
+		}
+		OnProcessMessageReceivedArgs(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 3);
+			arg.myext_ret_value = 0;
+			arg.browser = CefBrowserCToCpp::Unwrap(browser);
+			arg.source_process = source_process;
+			arg.message = CefProcessMessageCToCpp::Unwrap(message);
+		}
+		~OnProcessMessageReceivedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefBrowserCToCpp::Wrap(arg.browser);
+				CefProcessMessageCToCpp::Wrap(arg.message);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnProcessMessageReceivedArgs);
+	};
+}
+namespace CefCookieVisitorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,22 
+
+	class VisitArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			const CefCookie* cookie;//1
+			int count;//2
+			int total;//3
+			bool* deleteCookie;//4
+		};
+		argData arg;//
+		VisitArgs(const CefCookie* cookie, int count, int total, bool* deleteCookie)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.cookie = cookie;
+			arg.count = count;
+			arg.total = total;
+			arg.deleteCookie = deleteCookie;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
+	};
+}
+namespace CefDOMVisitorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,23 
+
+	class VisitArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_domdocument_t* document;//1
+		};
+		argData arg;//
+		VisitArgs(cef_domdocument_t* document)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.document = document;
+		}
+		VisitArgs(CefRefPtr<CefDOMDocument> document)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.document = CefDOMDocumentCToCpp::Unwrap(document);
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefDOMDocumentCToCpp::Wrap(arg.document);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
+	};
+}
+namespace CefMenuModelDelegateExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,24 
+
+	class ExecuteCommandArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+			int command_id;//2
+			cef_event_flags_t event_flags;//3
+		};
+		argData arg;//
+		ExecuteCommandArgs(cef_menu_model_t* menu_model, int command_id, cef_event_flags_t event_flags)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.menu_model = menu_model;
+			arg.command_id = command_id;
+			arg.event_flags = event_flags;
+		}
+		ExecuteCommandArgs(CefRefPtr<CefMenuModel> menu_model, int command_id, cef_event_flags_t event_flags)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.command_id = command_id;
+			arg.event_flags = event_flags;
+		}
+		~ExecuteCommandArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ExecuteCommandArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,25 
+
+	class MouseOutsideMenuArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+			const CefPoint* screen_point;//2
+		};
+		argData arg;//
+		MouseOutsideMenuArgs(cef_menu_model_t* menu_model, const CefPoint* screen_point)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.screen_point = screen_point;
+		}
+		MouseOutsideMenuArgs(CefRefPtr<CefMenuModel> menu_model, const CefPoint* screen_point)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.screen_point = screen_point;
+		}
+		~MouseOutsideMenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(MouseOutsideMenuArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,26 
+
+	class UnhandledOpenSubmenuArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+			bool is_rtl;//2
+		};
+		argData arg;//
+		UnhandledOpenSubmenuArgs(cef_menu_model_t* menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl;
+		}
+		UnhandledOpenSubmenuArgs(cef_menu_model_t* menu_model, int is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl ? true : false;
+		}
+		UnhandledOpenSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.is_rtl = is_rtl;
+		}
+		~UnhandledOpenSubmenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(UnhandledOpenSubmenuArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,27 
+
+	class UnhandledCloseSubmenuArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+			bool is_rtl;//2
+		};
+		argData arg;//
+		UnhandledCloseSubmenuArgs(cef_menu_model_t* menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl;
+		}
+		UnhandledCloseSubmenuArgs(cef_menu_model_t* menu_model, int is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl ? true : false;
+		}
+		UnhandledCloseSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.is_rtl = is_rtl;
+		}
+		~UnhandledCloseSubmenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(UnhandledCloseSubmenuArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,28 
+
+	class MenuWillShowArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+		};
+		argData arg;//
+		MenuWillShowArgs(cef_menu_model_t* menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.menu_model = menu_model;
+		}
+		MenuWillShowArgs(CefRefPtr<CefMenuModel> menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+		}
+		~MenuWillShowArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(MenuWillShowArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,29 
+
+	class MenuClosedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_menu_model_t* menu_model;//1
+		};
+		argData arg;//
+		MenuClosedArgs(cef_menu_model_t* menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.menu_model = menu_model;
+		}
+		MenuClosedArgs(CefRefPtr<CefMenuModel> menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+		}
+		~MenuClosedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(MenuClosedArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,30 
+
+	class FormatLabelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			cef_menu_model_t* menu_model;//1
+			CefString* label;//2
+		};
+		argData arg;//
+		FormatLabelArgs(cef_menu_model_t* menu_model, CefString* label)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.menu_model = menu_model;
+			arg.label = label;
+		}
+		FormatLabelArgs(cef_menu_model_t* menu_model, CefString& label)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.menu_model = menu_model;
+			arg.label = &label;
+		}
+		FormatLabelArgs(CefRefPtr<CefMenuModel> menu_model, CefString* label)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 2);
+			arg.myext_ret_value = 0;
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.label = label;
+		}
+		~FormatLabelArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(FormatLabelArgs);
+	};
+}
+namespace CefResponseFilterExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,31 
+
+	class InitFilterArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+		};
+		argData arg;//
+		InitFilterArgs()
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 0);
+			arg.myext_ret_value = 0;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(InitFilterArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,32 
+
+	class FilterArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_response_filter_status_t myext_ret_value; //0
+			void* data_in;//1
+			size_t data_in_size;//2
+			size_t* data_in_read;//3
+			void* data_out;//4
+			size_t data_out_size;//5
+			size_t* data_out_written;//6
+		};
+		argData arg;//
+		FilterArgs(void* data_in, size_t data_in_size, size_t* data_in_read, void* data_out, size_t data_out_size, size_t* data_out_written)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = (cef_response_filter_status_t)0;
+			arg.data_in = data_in;
+			arg.data_in_size = data_in_size;
+			arg.data_in_read = data_in_read;
+			arg.data_out = data_out;
+			arg.data_out_size = data_out_size;
+			arg.data_out_written = data_out_written;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(FilterArgs);
+	};
+}
+namespace CefSchemeHandlerFactoryExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,33 
+
+	class CreateArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefResourceHandler> myext_ret_value; //0
+			cef_browser_t* browser;//1
+			cef_frame_t* frame;//2
+			const CefString* scheme_name;//3
+			cef_request_t* request;//4
+		};
+		argData arg;//
+		CreateArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString* scheme_name, cef_request_t* request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.scheme_name = scheme_name;
+			arg.request = request;
+		}
+		CreateArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& scheme_name, cef_request_t* request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.scheme_name = &scheme_name;
+			arg.request = request;
+		}
+		CreateArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* scheme_name, CefRefPtr<CefRequest> request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = CefBrowserCToCpp::Unwrap(browser);
+			arg.frame = CefFrameCToCpp::Unwrap(frame);
+			arg.scheme_name = scheme_name;
+			arg.request = CefRequestCToCpp::Unwrap(request);
+		}
+		~CreateArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefBrowserCToCpp::Wrap(arg.browser);
+				CefFrameCToCpp::Wrap(arg.frame);
+				CefRequestCToCpp::Wrap(arg.request);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CreateArgs);
+	};
+}
+namespace CefStringVisitorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,34 
+
+	class VisitArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* string;//1
+		};
+		argData arg;//
+		VisitArgs(const CefString* string)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.string = string;
+		}
+		VisitArgs(const CefString& string)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.string = &string;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
+	};
+}
+namespace CefTaskExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,35 
+
+	class ExecuteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		ExecuteArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ExecuteArgs);
+	};
+}
+namespace CefURLRequestClientExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,36 
+
+	class OnRequestCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_urlrequest_t* request;//1
+		};
+		argData arg;//
+		OnRequestCompleteArgs(cef_urlrequest_t* request)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.request = request;
+		}
+		OnRequestCompleteArgs(CefRefPtr<CefURLRequest> request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+		}
+		~OnRequestCompleteArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnRequestCompleteArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,37 
+
+	class OnUploadProgressArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_urlrequest_t* request;//1
+			int64 current;//2
+			int64 total;//3
+		};
+		argData arg;//
+		OnUploadProgressArgs(cef_urlrequest_t* request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.request = request;
+			arg.current = current;
+			arg.total = total;
+		}
+		OnUploadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.current = current;
+			arg.total = total;
+		}
+		~OnUploadProgressArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnUploadProgressArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,38 
+
+	class OnDownloadProgressArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_urlrequest_t* request;//1
+			int64 current;//2
+			int64 total;//3
+		};
+		argData arg;//
+		OnDownloadProgressArgs(cef_urlrequest_t* request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.request = request;
+			arg.current = current;
+			arg.total = total;
+		}
+		OnDownloadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.current = current;
+			arg.total = total;
+		}
+		~OnDownloadProgressArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnDownloadProgressArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,39 
+
+	class OnDownloadDataArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_urlrequest_t* request;//1
+			const void* data;//2
+			size_t data_length;//3
+		};
+		argData arg;//
+		OnDownloadDataArgs(cef_urlrequest_t* request, const void* data, size_t data_length)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.request = request;
+			arg.data = data;
+			arg.data_length = data_length;
+		}
+		OnDownloadDataArgs(CefRefPtr<CefURLRequest> request, const void* data, size_t data_length)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.data = data;
+			arg.data_length = data_length;
+		}
+		~OnDownloadDataArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnDownloadDataArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,40 
+
+	class GetAuthCredentialsArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			bool isProxy;//1
+			const CefString* host;//2
+			int port;//3
+			const CefString* realm;//4
+			const CefString* scheme;//5
+			cef_auth_callback_t* callback;//6
+		};
+		argData arg;//
+		GetAuthCredentialsArgs(bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, cef_auth_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.isProxy = isProxy;
+			arg.host = host;
+			arg.port = port;
+			arg.realm = realm;
+			arg.scheme = scheme;
+			arg.callback = callback;
+		}
+		GetAuthCredentialsArgs(int isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, cef_auth_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.realm = &realm;
+			arg.scheme = &scheme;
+			arg.callback = callback;
+		}
+		GetAuthCredentialsArgs(bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, CefRefPtr<CefAuthCallback> callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 6);
+			arg.myext_ret_value = 0;
+			arg.isProxy = isProxy;
+			arg.host = host;
+			arg.port = port;
+			arg.realm = realm;
+			arg.scheme = scheme;
+			arg.callback = CefAuthCallbackCToCpp::Unwrap(callback);
+		}
+		~GetAuthCredentialsArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefAuthCallbackCToCpp::Wrap(arg.callback);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetAuthCredentialsArgs);
+	};
+}
+namespace CefV8AccessorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,41 
+
+	class GetArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			const CefString* name;//1
+			const cef_v8value_t* object;//2
+			CefRefPtr<CefV8Value>* retval;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~GetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,42 
+
+	class SetArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			const CefString* name;//1
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		SetArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = exception;
+		}
+		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~SetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(SetArgs);
+	};
+}
+namespace CefV8InterceptorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,43 
+
+	class GetArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			const CefString* name;//1
+			const cef_v8value_t* object;//2
+			CefRefPtr<CefV8Value>* retval;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~GetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(GetArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,44 
+
+	class Get1Args {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			int index;//1
+			const cef_v8value_t* object;//2
+			CefRefPtr<CefV8Value>* retval;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		Get1Args(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~Get1Args() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(Get1Args);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,45 
+
+	class SetArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			const CefString* name;//1
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		SetArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = exception;
+		}
+		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~SetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(SetArgs);
+	};
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,46 
+
+	class Set3Args {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			int index;//1
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
+			CefString* exception;//4
+		};
+		argData arg;//
+		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = exception;
+		}
+		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		Set3Args(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~Set3Args() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(Set3Args);
+	};
+}
+namespace CefWebPluginInfoVisitorExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,47 
+
+	class VisitArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool myext_ret_value; //0
+			cef_web_plugin_info_t* info;//1
+			int count;//2
+			int total;//3
+		};
+		argData arg;//
+		VisitArgs(cef_web_plugin_info_t* info, int count, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
+			arg.myext_ret_value = 0;
+			arg.info = info;
+			arg.count = count;
+			arg.total = total;
+		}
+		VisitArgs(CefRefPtr<CefWebPluginInfo> info, int count, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 3);
+			arg.myext_ret_value = 0;
+			arg.info = CefWebPluginInfoCToCpp::Unwrap(info);
+			arg.count = count;
+			arg.total = total;
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefWebPluginInfoCToCpp::Wrap(arg.info);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
+	};
+}
+namespace CefAuthCallbackExt {
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,48 
 
 	class ContinueArgs {
 	public:
@@ -116,10 +1486,16 @@ namespace CefAuthCallbackExt {
 			arg.username = username;
 			arg.password = password;
 		}
+		ContinueArgs(const CefString& username, const CefString& password)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.username = &username;
+			arg.password = &password;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,2 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,49 
 
 	class CancelArgs {
 	public:
@@ -136,7 +1512,7 @@ namespace CefAuthCallbackExt {
 	};
 }
 namespace CefRunFileDialogCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,3 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,50 
 
 	class OnFileDialogDismissedArgs {
 	public:
@@ -157,7 +1533,7 @@ namespace CefRunFileDialogCallbackExt {
 	};
 }
 namespace CefPdfPrintCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,4 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,51 
 
 	class OnPdfPrintFinishedArgs {
 	public:
@@ -173,12 +1549,18 @@ namespace CefPdfPrintCallbackExt {
 			arg.path = path;
 			arg.ok = ok;
 		}
+		OnPdfPrintFinishedArgs(const CefString& path, int ok)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = &path;
+			arg.ok = ok ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPdfPrintFinishedArgs);
 	};
 }
 namespace CefDownloadImageCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,5 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,52 
 
 	class OnDownloadImageFinishedArgs {
 	public:
@@ -186,22 +1568,41 @@ namespace CefDownloadImageCallbackExt {
 			int32_t myext_flags;
 			const CefString* image_url;//1
 			int http_status_code;//2
-			CefRefPtr<CefImage> image;//3
+			cef_image_t* image;//3
 		};
 		argData arg;//
-		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, CefRefPtr<CefImage> image)
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, cef_image_t* image)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.image_url = image_url;
 			arg.http_status_code = http_status_code;
 			arg.image = image;
 		}
+		OnDownloadImageFinishedArgs(const CefString& image_url, int http_status_code, cef_image_t* image)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.image_url = &image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = image;
+		}
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, CefRefPtr<CefImage> image)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.image_url = image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = CefImageCToCpp::Unwrap(image);
+		}
+		~OnDownloadImageFinishedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefImageCToCpp::Wrap(arg.image);
+			}
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnDownloadImageFinishedArgs);
 	};
 }
 namespace CefCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,6 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,53 
 
 	class ContinueArgs {
 	public:
@@ -216,7 +1617,7 @@ namespace CefCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,7 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,54 
 
 	class CancelArgs {
 	public:
@@ -233,7 +1634,7 @@ namespace CefCallbackExt {
 	};
 }
 namespace CefCompletionCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,8 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,55 
 
 	class OnCompleteArgs {
 	public:
@@ -250,7 +1651,7 @@ namespace CefCompletionCallbackExt {
 	};
 }
 namespace CefRunContextMenuCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,9 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,56 
 
 	class ContinueArgs {
 	public:
@@ -269,7 +1670,7 @@ namespace CefRunContextMenuCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,10 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,57 
 
 	class CancelArgs {
 	public:
@@ -286,7 +1687,7 @@ namespace CefRunContextMenuCallbackExt {
 	};
 }
 namespace CefSetCookieCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,11 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,58 
 
 	class OnCompleteArgs {
 	public:
@@ -300,12 +1701,17 @@ namespace CefSetCookieCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.success = success;
 		}
+		OnCompleteArgs(int success)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.success = success ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCompleteArgs);
 	};
 }
 namespace CefDeleteCookiesCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,12 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,59 
 
 	class OnCompleteArgs {
 	public:
@@ -324,7 +1730,7 @@ namespace CefDeleteCookiesCallbackExt {
 	};
 }
 namespace CefFileDialogCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,13 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,60 
 
 	class ContinueArgs {
 	public:
@@ -343,7 +1749,7 @@ namespace CefFileDialogCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,14 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,61 
 
 	class CancelArgs {
 	public:
@@ -360,7 +1766,7 @@ namespace CefFileDialogCallbackExt {
 	};
 }
 namespace CefBeforeDownloadCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,15 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,62 
 
 	class ContinueArgs {
 	public:
@@ -376,12 +1782,18 @@ namespace CefBeforeDownloadCallbackExt {
 			arg.download_path = download_path;
 			arg.show_dialog = show_dialog;
 		}
+		ContinueArgs(const CefString& download_path, int show_dialog)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.download_path = &download_path;
+			arg.show_dialog = show_dialog ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
 }
 namespace CefDownloadItemCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,16 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,63 
 
 	class CancelArgs {
 	public:
@@ -396,7 +1808,7 @@ namespace CefDownloadItemCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,17 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,64 
 
 	class PauseArgs {
 	public:
@@ -411,7 +1823,7 @@ namespace CefDownloadItemCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(PauseArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,18 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,65 
 
 	class ResumeArgs {
 	public:
@@ -428,7 +1840,7 @@ namespace CefDownloadItemCallbackExt {
 	};
 }
 namespace CefGetGeolocationCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,19 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,66 
 
 	class OnLocationUpdateArgs {
 	public:
@@ -447,7 +1859,7 @@ namespace CefGetGeolocationCallbackExt {
 	};
 }
 namespace CefGeolocationCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,20 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,67 
 
 	class ContinueArgs {
 	public:
@@ -461,12 +1873,17 @@ namespace CefGeolocationCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.allow = allow;
 		}
+		ContinueArgs(int allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
 }
 namespace CefJSDialogCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,21 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,68 
 
 	class ContinueArgs {
 	public:
@@ -482,12 +1899,18 @@ namespace CefJSDialogCallbackExt {
 			arg.success = success;
 			arg.user_input = user_input;
 		}
+		ContinueArgs(int success, const CefString& user_input)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.success = success ? true : false;
+			arg.user_input = &user_input;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
 }
 namespace CefPrintDialogCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,22 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,69 
 
 	class ContinueArgs {
 	public:
@@ -504,7 +1927,7 @@ namespace CefPrintDialogCallbackExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,23 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,70 
 
 	class CancelArgs {
 	public:
@@ -521,7 +1944,7 @@ namespace CefPrintDialogCallbackExt {
 	};
 }
 namespace CefPrintJobCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,24 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,71 
 
 	class ContinueArgs {
 	public:
@@ -538,7 +1961,7 @@ namespace CefPrintJobCallbackExt {
 	};
 }
 namespace CefResolveCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,25 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,72 
 
 	class OnResolveCompletedArgs {
 	public:
@@ -559,7 +1982,7 @@ namespace CefResolveCallbackExt {
 	};
 }
 namespace CefRequestCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,26 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,73 
 
 	class ContinueArgs {
 	public:
@@ -573,10 +1996,15 @@ namespace CefRequestCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.allow = allow;
 		}
+		ContinueArgs(int allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,27 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,74 
 
 	class CancelArgs {
 	public:
@@ -593,7 +2021,7 @@ namespace CefRequestCallbackExt {
 	};
 }
 namespace CefSelectClientCertificateCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,28 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,75 
 
 	class SelectArgs {
 	public:
@@ -612,7 +2040,7 @@ namespace CefSelectClientCertificateCallbackExt {
 	};
 }
 namespace CefEndTracingCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,29 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,76 
 
 	class OnEndTracingCompleteArgs {
 	public:
@@ -626,12 +2054,17 @@ namespace CefEndTracingCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.tracing_file = tracing_file;
 		}
+		OnEndTracingCompleteArgs(const CefString& tracing_file)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.tracing_file = &tracing_file;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnEndTracingCompleteArgs);
 	};
 }
 namespace CefWebPluginUnstableCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,30 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,77 
 
 	class IsUnstableArgs {
 	public:
@@ -647,12 +2080,18 @@ namespace CefWebPluginUnstableCallbackExt {
 			arg.path = path;
 			arg.unstable = unstable;
 		}
+		IsUnstableArgs(const CefString& path, int unstable)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = &path;
+			arg.unstable = unstable ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(IsUnstableArgs);
 	};
 }
 namespace CefRegisterCdmCallbackExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,31 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,78 
 
 	class OnCdmRegistrationCompleteArgs {
 	public:
@@ -668,6 +2107,12 @@ namespace CefRegisterCdmCallbackExt {
 			arg.result = result;
 			arg.error_message = error_message;
 		}
+		OnCdmRegistrationCompleteArgs(cef_cdm_registration_error_t result, const CefString& error_message)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.result = result;
+			arg.error_message = &error_message;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCdmRegistrationCompleteArgs);
 	};
@@ -682,7 +2127,7 @@ namespace CefAccessibilityHandlerExt
 	void OnAccessibilityLocationChange(managed_callback mcallback, CefRefPtr<CefValue> value);
 }
 namespace CefAccessibilityHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,32 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,79 
 
 	class OnAccessibilityTreeChangeArgs {
 	public:
@@ -709,7 +2154,7 @@ namespace CefAccessibilityHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnAccessibilityTreeChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,33 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,80 
 
 	class OnAccessibilityLocationChangeArgs {
 	public:
@@ -756,7 +2201,7 @@ namespace CefBrowserProcessHandlerExt
 	void OnScheduleMessagePumpWork(managed_callback mcallback, int64 delay_ms);
 }
 namespace CefBrowserProcessHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,34 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,81 
 
 	class OnContextInitializedArgs {
 	public:
@@ -771,7 +2216,7 @@ namespace CefBrowserProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnContextInitializedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,35 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,82 
 
 	class OnBeforeChildProcessLaunchArgs {
 	public:
@@ -798,7 +2243,7 @@ namespace CefBrowserProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeChildProcessLaunchArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,36 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,83 
 
 	class OnRenderProcessThreadCreatedArgs {
 	public:
@@ -825,7 +2270,7 @@ namespace CefBrowserProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnRenderProcessThreadCreatedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,37 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,84 
 
 	class GetPrintHandlerArgs {
 	public:
@@ -842,7 +2287,7 @@ namespace CefBrowserProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetPrintHandlerArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,38 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,85 
 
 	class OnScheduleMessagePumpWorkArgs {
 	public:
@@ -876,7 +2321,7 @@ namespace CefContextMenuHandlerExt
 	void OnContextMenuDismissed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame);
 }
 namespace CefContextMenuHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,39 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,86 
 
 	class OnBeforeContextMenuArgs {
 	public:
@@ -915,7 +2360,7 @@ namespace CefContextMenuHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeContextMenuArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,40 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,87 
 
 	class RunContextMenuArgs {
 	public:
@@ -961,7 +2406,7 @@ namespace CefContextMenuHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(RunContextMenuArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,41 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,88 
 
 	class OnContextMenuCommandArgs {
 	public:
@@ -1005,7 +2450,7 @@ namespace CefContextMenuHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnContextMenuCommandArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,42 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,89 
 
 	class OnContextMenuDismissedArgs {
 	public:
@@ -1044,7 +2489,7 @@ namespace CefDialogHandlerExt
 	bool OnFileDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback);
 }
 namespace CefDialogHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,43 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,90 
 
 	class OnFileDialogArgs {
 	public:
@@ -1068,6 +2513,18 @@ namespace CefDialogHandlerExt {
 			arg.mode = mode;
 			arg.title = title;
 			arg.default_file_path = default_file_path;
+			arg.accept_filters = accept_filters;
+			arg.selected_accept_filter = selected_accept_filter;
+			arg.callback = callback;
+		}
+		OnFileDialogArgs(cef_browser_t* browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>* accept_filters, int selected_accept_filter, cef_file_dialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 7);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.mode = mode;
+			arg.title = &title;
+			arg.default_file_path = &default_file_path;
 			arg.accept_filters = accept_filters;
 			arg.selected_accept_filter = selected_accept_filter;
 			arg.callback = callback;
@@ -1119,7 +2576,7 @@ namespace CefDisplayHandlerExt
 	bool OnConsoleMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line);
 }
 namespace CefDisplayHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,44 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,91 
 
 	class OnAddressChangeArgs {
 	public:
@@ -1137,6 +2594,13 @@ namespace CefDisplayHandlerExt {
 			arg.frame = frame;
 			arg.url = url;
 		}
+		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& url)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.url = &url;
+		}
 		OnAddressChangeArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* url)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
@@ -1153,7 +2617,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnAddressChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,45 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,92 
 
 	class OnTitleChangeArgs {
 	public:
@@ -1169,6 +2633,12 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.title = title;
 		}
+		OnTitleChangeArgs(cef_browser_t* browser, const CefString& title)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.title = &title;
+		}
 		OnTitleChangeArgs(CefRefPtr<CefBrowser> browser, const CefString* title)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -1183,7 +2653,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnTitleChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,46 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,93 
 
 	class OnFaviconURLChangeArgs {
 	public:
@@ -1213,7 +2683,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnFaviconURLChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,47 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,94 
 
 	class OnFullscreenModeChangeArgs {
 	public:
@@ -1229,6 +2699,12 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.fullscreen = fullscreen;
 		}
+		OnFullscreenModeChangeArgs(cef_browser_t* browser, int fullscreen)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.fullscreen = fullscreen ? true : false;
+		}
 		OnFullscreenModeChangeArgs(CefRefPtr<CefBrowser> browser, bool fullscreen)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -1243,7 +2719,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnFullscreenModeChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,48 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,95 
 
 	class OnTooltipArgs {
 	public:
@@ -1261,6 +2737,13 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.text = text;
 		}
+		OnTooltipArgs(cef_browser_t* browser, CefString& text)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.text = &text;
+		}
 		OnTooltipArgs(CefRefPtr<CefBrowser> browser, CefString* text)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 2);
@@ -1276,7 +2759,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnTooltipArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,49 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,96 
 
 	class OnStatusMessageArgs {
 	public:
@@ -1292,6 +2775,12 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.value = value;
 		}
+		OnStatusMessageArgs(cef_browser_t* browser, const CefString& value)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.value = &value;
+		}
 		OnStatusMessageArgs(CefRefPtr<CefBrowser> browser, const CefString* value)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -1306,7 +2795,7 @@ namespace CefDisplayHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnStatusMessageArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,50 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,97 
 
 	class OnConsoleMessageArgs {
 	public:
@@ -1326,6 +2815,15 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.message = message;
 			arg.source = source;
+			arg.line = line;
+		}
+		OnConsoleMessageArgs(cef_browser_t* browser, const CefString& message, const CefString& source, int line)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.message = &message;
+			arg.source = &source;
 			arg.line = line;
 		}
 		OnConsoleMessageArgs(CefRefPtr<CefBrowser> browser, const CefString* message, const CefString* source, int line)
@@ -1356,7 +2854,7 @@ namespace CefDownloadHandlerExt
 	void OnDownloadUpdated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback);
 }
 namespace CefDownloadHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,51 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,98 
 
 	class OnBeforeDownloadArgs {
 	public:
@@ -1374,6 +2872,14 @@ namespace CefDownloadHandlerExt {
 			arg.browser = browser;
 			arg.download_item = download_item;
 			arg.suggested_name = suggested_name;
+			arg.callback = callback;
+		}
+		OnBeforeDownloadArgs(cef_browser_t* browser, cef_download_item_t* download_item, const CefString& suggested_name, cef_before_download_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | 4);
+			arg.browser = browser;
+			arg.download_item = download_item;
+			arg.suggested_name = &suggested_name;
 			arg.callback = callback;
 		}
 		OnBeforeDownloadArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString* suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback)
@@ -1394,7 +2900,7 @@ namespace CefDownloadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeDownloadArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,52 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,99 
 
 	class OnDownloadUpdatedArgs {
 	public:
@@ -1440,7 +2946,7 @@ namespace CefDragHandlerExt
 	void OnDraggableRegionsChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions);
 }
 namespace CefDragHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,53 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,100 
 
 	class OnDragEnterArgs {
 	public:
@@ -1477,7 +2983,7 @@ namespace CefDragHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnDragEnterArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,54 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,101 
 
 	class OnDraggableRegionsChangedArgs {
 	public:
@@ -1515,7 +3021,7 @@ namespace CefFindHandlerExt
 	void OnFindResult(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate);
 }
 namespace CefFindHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,55 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,102 
 
 	class OnFindResultArgs {
 	public:
@@ -1538,6 +3044,16 @@ namespace CefFindHandlerExt {
 			arg.selectionRect = selectionRect;
 			arg.activeMatchOrdinal = activeMatchOrdinal;
 			arg.finalUpdate = finalUpdate;
+		}
+		OnFindResultArgs(cef_browser_t* browser, int identifier, int count, const CefRect* selectionRect, int activeMatchOrdinal, int finalUpdate)
+		{
+			arg.myext_flags = ((1 << 18) | 6);
+			arg.browser = browser;
+			arg.identifier = identifier;
+			arg.count = count;
+			arg.selectionRect = selectionRect;
+			arg.activeMatchOrdinal = activeMatchOrdinal;
+			arg.finalUpdate = finalUpdate ? true : false;
 		}
 		OnFindResultArgs(CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect* selectionRect, int activeMatchOrdinal, bool finalUpdate)
 		{
@@ -1571,7 +3087,7 @@ namespace CefFocusHandlerExt
 	void OnGotFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
 namespace CefFocusHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,56 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,103 
 
 	class OnTakeFocusArgs {
 	public:
@@ -1587,6 +3103,12 @@ namespace CefFocusHandlerExt {
 			arg.browser = browser;
 			arg.next = next;
 		}
+		OnTakeFocusArgs(cef_browser_t* browser, int next)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.next = next ? true : false;
+		}
 		OnTakeFocusArgs(CefRefPtr<CefBrowser> browser, bool next)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -1601,7 +3123,7 @@ namespace CefFocusHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnTakeFocusArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,57 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,104 
 
 	class OnSetFocusArgs {
 	public:
@@ -1634,7 +3156,7 @@ namespace CefFocusHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnSetFocusArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,58 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,105 
 
 	class OnGotFocusArgs {
 	public:
@@ -1672,7 +3194,7 @@ namespace CefGeolocationHandlerExt
 	void OnCancelGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int request_id);
 }
 namespace CefGeolocationHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,59 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,106 
 
 	class OnRequestGeolocationPermissionArgs {
 	public:
@@ -1694,6 +3216,15 @@ namespace CefGeolocationHandlerExt {
 			arg.request_id = request_id;
 			arg.callback = callback;
 		}
+		OnRequestGeolocationPermissionArgs(cef_browser_t* browser, const CefString& requesting_url, int request_id, cef_geolocation_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.requesting_url = &requesting_url;
+			arg.request_id = request_id;
+			arg.callback = callback;
+		}
 		OnRequestGeolocationPermissionArgs(CefRefPtr<CefBrowser> browser, const CefString* requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -1712,7 +3243,7 @@ namespace CefGeolocationHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnRequestGeolocationPermissionArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,60 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,107 
 
 	class OnCancelGeolocationPermissionArgs {
 	public:
@@ -1759,7 +3290,7 @@ namespace CefJSDialogHandlerExt
 	void OnDialogClosed(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
 namespace CefJSDialogHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,61 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,108 
 
 	class OnJSDialogArgs {
 	public:
@@ -1787,6 +3318,18 @@ namespace CefJSDialogHandlerExt {
 			arg.callback = callback;
 			arg.suppress_message = suppress_message;
 		}
+		OnJSDialogArgs(cef_browser_t* browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, cef_jsdialog_callback_t* callback, bool* suppress_message)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 7);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.origin_url = &origin_url;
+			arg.dialog_type = dialog_type;
+			arg.message_text = &message_text;
+			arg.default_prompt_text = &default_prompt_text;
+			arg.callback = callback;
+			arg.suppress_message = suppress_message;
+		}
 		OnJSDialogArgs(CefRefPtr<CefBrowser> browser, const CefString* origin_url, cef_jsdialog_type_t dialog_type, const CefString* message_text, const CefString* default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool* suppress_message)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 7);
@@ -1808,7 +3351,7 @@ namespace CefJSDialogHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnJSDialogArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,62 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,109 
 
 	class OnBeforeUnloadDialogArgs {
 	public:
@@ -1830,6 +3373,15 @@ namespace CefJSDialogHandlerExt {
 			arg.is_reload = is_reload;
 			arg.callback = callback;
 		}
+		OnBeforeUnloadDialogArgs(cef_browser_t* browser, const CefString& message_text, int is_reload, cef_jsdialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.message_text = &message_text;
+			arg.is_reload = is_reload ? true : false;
+			arg.callback = callback;
+		}
 		OnBeforeUnloadDialogArgs(CefRefPtr<CefBrowser> browser, const CefString* message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -1848,7 +3400,7 @@ namespace CefJSDialogHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeUnloadDialogArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,63 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,110 
 
 	class OnResetDialogStateArgs {
 	public:
@@ -1875,7 +3427,7 @@ namespace CefJSDialogHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnResetDialogStateArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,64 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,111 
 
 	class OnDialogClosedArgs {
 	public:
@@ -1913,7 +3465,7 @@ namespace CefKeyboardHandlerExt
 	bool OnKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event);
 }
 namespace CefKeyboardHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,65 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,112 
 
 	class OnPreKeyEventArgs {
 	public:
@@ -1952,7 +3504,7 @@ namespace CefKeyboardHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPreKeyEventArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,66 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,113 
 
 	class OnKeyEventArgs {
 	public:
@@ -2005,7 +3557,7 @@ namespace CefLifeSpanHandlerExt
 	void OnBeforeClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
 namespace CefLifeSpanHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,67 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,114 
 
 	class OnBeforePopupArgs {
 	public:
@@ -2041,6 +3593,22 @@ namespace CefLifeSpanHandlerExt {
 			arg.settings = settings;
 			arg.no_javascript_access = no_javascript_access;
 		}
+		OnBeforePopupArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, int user_gesture, const CefPopupFeatures* popupFeatures, CefWindowInfo* windowInfo, CefRefPtr<CefClient>* client, CefBrowserSettings* settings, bool* no_javascript_access)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 11);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.target_url = &target_url;
+			arg.target_frame_name = &target_frame_name;
+			arg.target_disposition = target_disposition;
+			arg.user_gesture = user_gesture ? true : false;
+			arg.popupFeatures = popupFeatures;
+			arg.windowInfo = windowInfo;
+			arg.client = client;
+			arg.settings = settings;
+			arg.no_javascript_access = no_javascript_access;
+		}
 		OnBeforePopupArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* target_url, const CefString* target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures* popupFeatures, CefWindowInfo* windowInfo, CefRefPtr<CefClient>* client, CefBrowserSettings* settings, bool* no_javascript_access)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 11);
@@ -2066,7 +3634,7 @@ namespace CefLifeSpanHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforePopupArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,68 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,115 
 
 	class OnAfterCreatedArgs {
 	public:
@@ -2093,7 +3661,7 @@ namespace CefLifeSpanHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnAfterCreatedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,69 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,116 
 
 	class DoCloseArgs {
 	public:
@@ -2123,7 +3691,7 @@ namespace CefLifeSpanHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(DoCloseArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,70 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,117 
 
 	class OnBeforeCloseArgs {
 	public:
@@ -2167,7 +3735,7 @@ namespace CefLoadHandlerExt
 	void OnLoadError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl);
 }
 namespace CefLoadHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,71 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,118 
 
 	class OnLoadingStateChangeArgs {
 	public:
@@ -2187,6 +3755,14 @@ namespace CefLoadHandlerExt {
 			arg.canGoBack = canGoBack;
 			arg.canGoForward = canGoForward;
 		}
+		OnLoadingStateChangeArgs(cef_browser_t* browser, int isLoading, int canGoBack, int canGoForward)
+		{
+			arg.myext_flags = ((1 << 18) | 4);
+			arg.browser = browser;
+			arg.isLoading = isLoading ? true : false;
+			arg.canGoBack = canGoBack ? true : false;
+			arg.canGoForward = canGoForward ? true : false;
+		}
 		OnLoadingStateChangeArgs(CefRefPtr<CefBrowser> browser, bool isLoading, bool canGoBack, bool canGoForward)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 4);
@@ -2203,7 +3779,7 @@ namespace CefLoadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnLoadingStateChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,72 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,119 
 
 	class OnLoadStartArgs {
 	public:
@@ -2237,7 +3813,7 @@ namespace CefLoadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnLoadStartArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,73 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,120 
 
 	class OnLoadEndArgs {
 	public:
@@ -2271,7 +3847,7 @@ namespace CefLoadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnLoadEndArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,74 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,121 
 
 	class OnLoadErrorArgs {
 	public:
@@ -2292,6 +3868,15 @@ namespace CefLoadHandlerExt {
 			arg.errorCode = errorCode;
 			arg.errorText = errorText;
 			arg.failedUrl = failedUrl;
+		}
+		OnLoadErrorArgs(cef_browser_t* browser, cef_frame_t* frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl)
+		{
+			arg.myext_flags = ((1 << 18) | 5);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.errorCode = errorCode;
+			arg.errorText = &errorText;
+			arg.failedUrl = &failedUrl;
 		}
 		OnLoadErrorArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString* errorText, const CefString* failedUrl)
 		{
@@ -2334,7 +3919,7 @@ namespace CefPrintHandlerExt
 	CefSize GetPdfPaperSize(managed_callback mcallback, int device_units_per_inch);
 }
 namespace CefPrintHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,75 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,122 
 
 	class OnPrintStartArgs {
 	public:
@@ -2361,7 +3946,7 @@ namespace CefPrintHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPrintStartArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,76 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,123 
 
 	class OnPrintSettingsArgs {
 	public:
@@ -2379,6 +3964,13 @@ namespace CefPrintHandlerExt {
 			arg.settings = settings;
 			arg.get_defaults = get_defaults;
 		}
+		OnPrintSettingsArgs(cef_browser_t* browser, cef_print_settings_t* settings, int get_defaults)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.settings = settings;
+			arg.get_defaults = get_defaults ? true : false;
+		}
 		OnPrintSettingsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefPrintSettings> settings, bool get_defaults)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
@@ -2395,7 +3987,7 @@ namespace CefPrintHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPrintSettingsArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,77 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,124 
 
 	class OnPrintDialogArgs {
 	public:
@@ -2415,6 +4007,14 @@ namespace CefPrintHandlerExt {
 			arg.has_selection = has_selection;
 			arg.callback = callback;
 		}
+		OnPrintDialogArgs(cef_browser_t* browser, int has_selection, cef_print_dialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.has_selection = has_selection ? true : false;
+			arg.callback = callback;
+		}
 		OnPrintDialogArgs(CefRefPtr<CefBrowser> browser, bool has_selection, CefRefPtr<CefPrintDialogCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 3);
@@ -2432,7 +4032,7 @@ namespace CefPrintHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPrintDialogArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,78 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,125 
 
 	class OnPrintJobArgs {
 	public:
@@ -2454,6 +4054,15 @@ namespace CefPrintHandlerExt {
 			arg.pdf_file_path = pdf_file_path;
 			arg.callback = callback;
 		}
+		OnPrintJobArgs(cef_browser_t* browser, const CefString& document_name, const CefString& pdf_file_path, cef_print_job_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.document_name = &document_name;
+			arg.pdf_file_path = &pdf_file_path;
+			arg.callback = callback;
+		}
 		OnPrintJobArgs(CefRefPtr<CefBrowser> browser, const CefString* document_name, const CefString* pdf_file_path, CefRefPtr<CefPrintJobCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -2472,7 +4081,7 @@ namespace CefPrintHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPrintJobArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,79 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,126 
 
 	class OnPrintResetArgs {
 	public:
@@ -2499,7 +4108,7 @@ namespace CefPrintHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPrintResetArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,80 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,127 
 
 	class GetPdfPaperSizeArgs {
 	public:
@@ -2562,7 +4171,7 @@ namespace CefRenderHandlerExt
 	void OnImeCompositionRangeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds);
 }
 namespace CefRenderHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,81 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,128 
 
 	class GetAccessibilityHandlerArgs {
 	public:
@@ -2579,7 +4188,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetAccessibilityHandlerArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,82 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,129 
 
 	class GetRootScreenRectArgs {
 	public:
@@ -2612,7 +4221,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetRootScreenRectArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,83 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,130 
 
 	class GetViewRectArgs {
 	public:
@@ -2645,7 +4254,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetViewRectArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,84 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,131 
 
 	class GetScreenPointArgs {
 	public:
@@ -2687,7 +4296,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetScreenPointArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,85 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,132 
 
 	class GetScreenInfoArgs {
 	public:
@@ -2720,7 +4329,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetScreenInfoArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,86 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,133 
 
 	class OnPopupShowArgs {
 	public:
@@ -2736,6 +4345,12 @@ namespace CefRenderHandlerExt {
 			arg.browser = browser;
 			arg.show = show;
 		}
+		OnPopupShowArgs(cef_browser_t* browser, int show)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.show = show ? true : false;
+		}
 		OnPopupShowArgs(CefRefPtr<CefBrowser> browser, bool show)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -2750,7 +4365,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPopupShowArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,87 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,134 
 
 	class OnPopupSizeArgs {
 	public:
@@ -2780,7 +4395,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPopupSizeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,88 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,135 
 
 	class OnPaintArgs {
 	public:
@@ -2822,7 +4437,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPaintArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,89 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,136 
 
 	class OnCursorChangeArgs {
 	public:
@@ -2858,7 +4473,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCursorChangeArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,90 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,137 
 
 	class StartDraggingArgs {
 	public:
@@ -2901,7 +4516,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(StartDraggingArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,91 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,138 
 
 	class UpdateDragCursorArgs {
 	public:
@@ -2931,7 +4546,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(UpdateDragCursorArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,92 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,139 
 
 	class OnScrollOffsetChangedArgs {
 	public:
@@ -2964,7 +4579,7 @@ namespace CefRenderHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnScrollOffsetChangedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,93 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,140 
 
 	class OnImeCompositionRangeChangedArgs {
 	public:
@@ -3035,7 +4650,7 @@ namespace CefRenderProcessHandlerExt
 	bool OnProcessMessageReceived(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message);
 }
 namespace CefRenderProcessHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,94 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,141 
 
 	class OnRenderThreadCreatedArgs {
 	public:
@@ -3062,7 +4677,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnRenderThreadCreatedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,95 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,142 
 
 	class OnWebKitInitializedArgs {
 	public:
@@ -3077,7 +4692,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnWebKitInitializedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,96 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,143 
 
 	class OnBrowserCreatedArgs {
 	public:
@@ -3104,7 +4719,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBrowserCreatedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,97 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,144 
 
 	class OnBrowserDestroyedArgs {
 	public:
@@ -3131,7 +4746,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBrowserDestroyedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,98 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,145 
 
 	class GetLoadHandlerArgs {
 	public:
@@ -3148,7 +4763,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetLoadHandlerArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,99 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,146 
 
 	class OnBeforeNavigationArgs {
 	public:
@@ -3172,6 +4787,16 @@ namespace CefRenderProcessHandlerExt {
 			arg.navigation_type = navigation_type;
 			arg.is_redirect = is_redirect;
 		}
+		OnBeforeNavigationArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, cef_navigation_type_t navigation_type, int is_redirect)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.navigation_type = navigation_type;
+			arg.is_redirect = is_redirect ? true : false;
+		}
 		OnBeforeNavigationArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, cef_navigation_type_t navigation_type, bool is_redirect)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -3192,7 +4817,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeNavigationArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,100 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,147 
 
 	class OnContextCreatedArgs {
 	public:
@@ -3227,7 +4852,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnContextCreatedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,101 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,148 
 
 	class OnContextReleasedArgs {
 	public:
@@ -3262,7 +4887,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnContextReleasedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,102 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,149 
 
 	class OnUncaughtExceptionArgs {
 	public:
@@ -3305,7 +4930,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnUncaughtExceptionArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,103 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,150 
 
 	class OnFocusedNodeChangedArgs {
 	public:
@@ -3340,7 +4965,7 @@ namespace CefRenderProcessHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnFocusedNodeChangedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,104 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,151 
 
 	class OnProcessMessageReceivedArgs {
 	public:
@@ -3388,7 +5013,7 @@ namespace CefRequestContextHandlerExt
 	bool OnBeforePluginLoad(managed_callback mcallback, const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy);
 }
 namespace CefRequestContextHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,105 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,152 
 
 	class GetCookieManagerArgs {
 	public:
@@ -3405,7 +5030,7 @@ namespace CefRequestContextHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetCookieManagerArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,106 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,153 
 
 	class OnBeforePluginLoadArgs {
 	public:
@@ -3428,6 +5053,17 @@ namespace CefRequestContextHandlerExt {
 			arg.plugin_url = plugin_url;
 			arg.is_main_frame = is_main_frame;
 			arg.top_origin_url = top_origin_url;
+			arg.plugin_info = plugin_info;
+			arg.plugin_policy = plugin_policy;
+		}
+		OnBeforePluginLoadArgs(const CefString& mime_type, const CefString& plugin_url, int is_main_frame, const CefString& top_origin_url, cef_web_plugin_info_t* plugin_info, cef_plugin_policy_t* plugin_policy)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.mime_type = &mime_type;
+			arg.plugin_url = &plugin_url;
+			arg.is_main_frame = is_main_frame ? true : false;
+			arg.top_origin_url = &top_origin_url;
 			arg.plugin_info = plugin_info;
 			arg.plugin_policy = plugin_policy;
 		}
@@ -3503,7 +5139,7 @@ namespace CefRequestHandlerExt
 	void OnRenderProcessTerminated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_termination_status_t status);
 }
 namespace CefRequestHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,107 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,154 
 
 	class OnBeforeBrowseArgs {
 	public:
@@ -3525,6 +5161,15 @@ namespace CefRequestHandlerExt {
 			arg.request = request;
 			arg.is_redirect = is_redirect;
 		}
+		OnBeforeBrowseArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, int is_redirect)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.is_redirect = is_redirect ? true : false;
+		}
 		OnBeforeBrowseArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool is_redirect)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -3544,7 +5189,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeBrowseArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,108 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,155 
 
 	class OnOpenURLFromTabArgs {
 	public:
@@ -3568,6 +5213,16 @@ namespace CefRequestHandlerExt {
 			arg.target_disposition = target_disposition;
 			arg.user_gesture = user_gesture;
 		}
+		OnOpenURLFromTabArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, int user_gesture)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.target_url = &target_url;
+			arg.target_disposition = target_disposition;
+			arg.user_gesture = user_gesture ? true : false;
+		}
 		OnOpenURLFromTabArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -3587,7 +5242,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnOpenURLFromTabArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,109 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,156 
 
 	class OnBeforeResourceLoadArgs {
 	public:
@@ -3629,7 +5284,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeResourceLoadArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,110 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,157 
 
 	class GetResourceHandlerArgs {
 	public:
@@ -3667,7 +5322,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetResourceHandlerArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,111 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,158 
 
 	class OnResourceRedirectArgs {
 	public:
@@ -3689,6 +5344,15 @@ namespace CefRequestHandlerExt {
 			arg.response = response;
 			arg.new_url = new_url;
 		}
+		OnResourceRedirectArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, cef_response_t* response, CefString& new_url)
+		{
+			arg.myext_flags = ((1 << 18) | 5);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.response = response;
+			arg.new_url = &new_url;
+		}
 		OnResourceRedirectArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString* new_url)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 5);
@@ -3709,7 +5373,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnResourceRedirectArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,112 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,159 
 
 	class OnResourceResponseArgs {
 	public:
@@ -3751,7 +5415,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnResourceResponseArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,113 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,160 
 
 	class GetResourceResponseFilterArgs {
 	public:
@@ -3793,7 +5457,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetResourceResponseFilterArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,114 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,161 
 
 	class OnResourceLoadCompleteArgs {
 	public:
@@ -3838,7 +5502,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnResourceLoadCompleteArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,115 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,162 
 
 	class GetAuthCredentialsArgs {
 	public:
@@ -3868,6 +5532,19 @@ namespace CefRequestHandlerExt {
 			arg.scheme = scheme;
 			arg.callback = callback;
 		}
+		GetAuthCredentialsArgs(cef_browser_t* browser, cef_frame_t* frame, int isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, cef_auth_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 8);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.realm = &realm;
+			arg.scheme = &scheme;
+			arg.callback = callback;
+		}
 		GetAuthCredentialsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, CefRefPtr<CefAuthCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 8);
@@ -3891,7 +5568,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetAuthCredentialsArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,116 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,163 
 
 	class OnQuotaRequestArgs {
 	public:
@@ -3913,6 +5590,15 @@ namespace CefRequestHandlerExt {
 			arg.new_size = new_size;
 			arg.callback = callback;
 		}
+		OnQuotaRequestArgs(cef_browser_t* browser, const CefString& origin_url, int64 new_size, cef_request_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.origin_url = &origin_url;
+			arg.new_size = new_size;
+			arg.callback = callback;
+		}
 		OnQuotaRequestArgs(CefRefPtr<CefBrowser> browser, const CefString* origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -3931,7 +5617,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnQuotaRequestArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,117 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,164 
 
 	class OnProtocolExecutionArgs {
 	public:
@@ -3949,6 +5635,13 @@ namespace CefRequestHandlerExt {
 			arg.url = url;
 			arg.allow_os_execution = allow_os_execution;
 		}
+		OnProtocolExecutionArgs(cef_browser_t* browser, const CefString& url, bool* allow_os_execution)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.url = &url;
+			arg.allow_os_execution = allow_os_execution;
+		}
 		OnProtocolExecutionArgs(CefRefPtr<CefBrowser> browser, const CefString* url, bool* allow_os_execution)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
@@ -3964,7 +5657,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnProtocolExecutionArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,118 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,165 
 
 	class OnCertificateErrorArgs {
 	public:
@@ -3988,6 +5681,16 @@ namespace CefRequestHandlerExt {
 			arg.ssl_info = ssl_info;
 			arg.callback = callback;
 		}
+		OnCertificateErrorArgs(cef_browser_t* browser, cef_errorcode_t cert_error, const CefString& request_url, cef_sslinfo_t* ssl_info, cef_request_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.cert_error = cert_error;
+			arg.request_url = &request_url;
+			arg.ssl_info = ssl_info;
+			arg.callback = callback;
+		}
 		OnCertificateErrorArgs(CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, const CefString* request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -4008,7 +5711,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCertificateErrorArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,119 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,166 
 
 	class OnSelectClientCertificateArgs {
 	public:
@@ -4034,6 +5737,17 @@ namespace CefRequestHandlerExt {
 			arg.certificates = certificates;
 			arg.callback = callback;
 		}
+		OnSelectClientCertificateArgs(cef_browser_t* browser, int isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>* certificates, cef_select_client_certificate_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.certificates = certificates;
+			arg.callback = callback;
+		}
 		OnSelectClientCertificateArgs(CefRefPtr<CefBrowser> browser, bool isProxy, const CefString* host, int port, const std::vector<CefRefPtr<CefX509Certificate>>* certificates, CefRefPtr<CefSelectClientCertificateCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 6);
@@ -4054,7 +5768,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnSelectClientCertificateArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,120 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,167 
 
 	class OnPluginCrashedArgs {
 	public:
@@ -4070,6 +5784,12 @@ namespace CefRequestHandlerExt {
 			arg.browser = browser;
 			arg.plugin_path = plugin_path;
 		}
+		OnPluginCrashedArgs(cef_browser_t* browser, const CefString& plugin_path)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.plugin_path = &plugin_path;
+		}
 		OnPluginCrashedArgs(CefRefPtr<CefBrowser> browser, const CefString* plugin_path)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
@@ -4084,7 +5804,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPluginCrashedArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,121 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,168 
 
 	class OnRenderViewReadyArgs {
 	public:
@@ -4111,7 +5831,7 @@ namespace CefRequestHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnRenderViewReadyArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,122 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,169 
 
 	class OnRenderProcessTerminatedArgs {
 	public:
@@ -4155,7 +5875,7 @@ namespace CefResourceBundleHandlerExt
 	bool GetDataResourceForScale(managed_callback mcallback, int resource_id, cef_scale_factor_t scale_factor, void*& data, size_t& data_size);
 }
 namespace CefResourceBundleHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,123 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,170 
 
 	class GetLocalizedStringArgs {
 	public:
@@ -4173,10 +5893,17 @@ namespace CefResourceBundleHandlerExt {
 			arg.string_id = string_id;
 			arg._string = _string;
 		}
+		GetLocalizedStringArgs(int string_id, CefString& _string)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.string_id = string_id;
+			arg._string = &_string;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetLocalizedStringArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,124 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,171 
 
 	class GetDataResourceArgs {
 	public:
@@ -4199,7 +5926,7 @@ namespace CefResourceBundleHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetDataResourceArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,125 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,172 
 
 	class GetDataResourceForScaleArgs {
 	public:
@@ -4247,7 +5974,7 @@ namespace CefResourceHandlerExt
 	void Cancel(managed_callback mcallback);
 }
 namespace CefResourceHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,126 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,173 
 
 	class ProcessRequestArgs {
 	public:
@@ -4281,7 +6008,7 @@ namespace CefResourceHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ProcessRequestArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,127 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,174 
 
 	class GetResponseHeadersArgs {
 	public:
@@ -4299,6 +6026,13 @@ namespace CefResourceHandlerExt {
 			arg.response_length = response_length;
 			arg.redirectUrl = redirectUrl;
 		}
+		GetResponseHeadersArgs(cef_response_t* response, int64* response_length, CefString& redirectUrl)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.response = response;
+			arg.response_length = response_length;
+			arg.redirectUrl = &redirectUrl;
+		}
 		GetResponseHeadersArgs(CefRefPtr<CefResponse> response, int64* response_length, CefString* redirectUrl)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
@@ -4314,7 +6048,7 @@ namespace CefResourceHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetResponseHeadersArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,128 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,175 
 
 	class ReadResponseArgs {
 	public:
@@ -4353,7 +6087,7 @@ namespace CefResourceHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ReadResponseArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,129 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,176 
 
 	class CanGetCookieArgs {
 	public:
@@ -4372,7 +6106,7 @@ namespace CefResourceHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(CanGetCookieArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,130 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,177 
 
 	class CanSetCookieArgs {
 	public:
@@ -4391,7 +6125,7 @@ namespace CefResourceHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(CanSetCookieArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,131 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,178 
 
 	class CancelArgs {
 	public:
@@ -4426,7 +6160,7 @@ namespace CefReadHandlerExt
 	bool MayBlock(managed_callback mcallback);
 }
 namespace CefReadHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,132 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,179 
 
 	class ReadArgs {
 	public:
@@ -4449,7 +6183,7 @@ namespace CefReadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ReadArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,133 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,180 
 
 	class SeekArgs {
 	public:
@@ -4470,7 +6204,7 @@ namespace CefReadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(SeekArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,134 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,181 
 
 	class TellArgs {
 	public:
@@ -4487,7 +6221,7 @@ namespace CefReadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(TellArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,135 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,182 
 
 	class EofArgs {
 	public:
@@ -4504,7 +6238,7 @@ namespace CefReadHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(EofArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,136 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,183 
 
 	class MayBlockArgs {
 	public:
@@ -4541,7 +6275,7 @@ namespace CefWriteHandlerExt
 	bool MayBlock(managed_callback mcallback);
 }
 namespace CefWriteHandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,137 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,184 
 
 	class WriteArgs {
 	public:
@@ -4564,7 +6298,7 @@ namespace CefWriteHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(WriteArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,138 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,185 
 
 	class SeekArgs {
 	public:
@@ -4585,7 +6319,7 @@ namespace CefWriteHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(SeekArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,139 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,186 
 
 	class TellArgs {
 	public:
@@ -4602,7 +6336,7 @@ namespace CefWriteHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(TellArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,140 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,187 
 
 	class FlushArgs {
 	public:
@@ -4619,7 +6353,7 @@ namespace CefWriteHandlerExt {
 	private:
 		DISALLOW_COPY_AND_ASSIGN(FlushArgs);
 	};
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,141 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,188 
 
 	class MayBlockArgs {
 	public:
@@ -4644,7 +6378,7 @@ namespace CefV8HandlerExt
 	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception);
 }
 namespace CefV8HandlerExt {
-	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,142 
+	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,189 
 
 	class ExecuteArgs {
 	public:
@@ -4668,6 +6402,16 @@ namespace CefV8HandlerExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
+		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg._object = _object;
+			arg.arguments = arguments;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
 		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -4687,3 +6431,6 @@ namespace CefV8HandlerExt {
 		DISALLOW_COPY_AND_ASSIGN(ExecuteArgs);
 	};
 }
+
+
+

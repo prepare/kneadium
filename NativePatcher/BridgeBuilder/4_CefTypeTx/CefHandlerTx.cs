@@ -17,7 +17,7 @@ namespace BridgeBuilder
         {
 
         }
-        void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder )
+        void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder)
         {
 
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -105,7 +105,7 @@ namespace BridgeBuilder
             if (!met.ReturnPlan.IsVoid)
             {
                 stbuilder.AppendLine("return args1.arg.myext_ret_value;");
-            } 
+            }
             stbuilder.AppendLine("}");
 
 
@@ -315,7 +315,7 @@ namespace BridgeBuilder
             CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
             if (callToDotNetMets.Count > 0)
             {
-                structModuleCodeGen.GenerateCsStructClass(orgDecl, callToDotNetMets, output._csCode);
+                structModuleCodeGen.GenerateCsStructClass(orgDecl, callToDotNetMets, output._csCode, false);
             }
 
             //back to cpp again...

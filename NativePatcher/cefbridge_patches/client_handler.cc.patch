@@ -112,9 +112,9 @@ browser, frame, url);
 return;
 }*/
 //###_POST
-// Only update the address for the main (top-level) frame.
+/*
 //###_POST
-if (frame->IsMain())
+if (this->mcallback_) {
 //###_END 0
 //###_BEGIN 0
 //###_PRE
@@ -468,9 +468,9 @@ return false;
 //###_APPEND_START 10
 //my extension ***
 
-managed_callback ClientHandler::GetManagedCallBack() { return NULL; }
 
 void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
+
 
 this->mcallback_ = m;
 

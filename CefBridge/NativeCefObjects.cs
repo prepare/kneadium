@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
-    
+
     public abstract class Cef3RefCountingValue : IDisposable
     {
         readonly IntPtr _ptr;
@@ -125,7 +125,7 @@ namespace LayoutFarm.CefBridge
         public bool IsFunc()
         {
             return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
-        } 
+        }
     }
 
 
@@ -150,7 +150,7 @@ namespace LayoutFarm.CefBridge
     //2. this is a quite large object, and is designed to be used on stack,
     //pass by reference to native side
     //---------------------------------------
-    
+
     [StructLayout(LayoutKind.Sequential)]
     public struct JsValue
     {
@@ -173,18 +173,13 @@ namespace LayoutFarm.CefBridge
         /// <summary>
         /// store 64 bits value
         /// </summary>
-        public long I64;// 
-
-        //--------------------------------
-
-
-
+        public long I64;//  
     }
 
 
 
     public enum JsValueType
-    {   
+    {
         UnknownError = -1,
         Empty = 0,
         Null = 1,
@@ -211,66 +206,6 @@ namespace LayoutFarm.CefBridge
         JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING = 31,
         JSVALUE_TYPE_MANAGED_CB = 32,
         MemError = 50,
+    }
 
-    }
-    public class NativeBrowser : Cef3RefCountingValue
-    {
-        public NativeBrowser(IntPtr ptr) : base(ptr)
-        {
-        }
-        public void ExecJavascript(string src, string url)
-        {
-            throw new NotSupportedException();
-        }
-    }
-    public class NativeFrame : Cef3RefCountingValue
-    {
-        public NativeFrame(IntPtr ptr) : base(ptr)
-        {
-        }
-        public NativeJsContext GetFrameContext()
-        {
-            return new NativeJsContext(Cef3Binder.MyCefFrame_GetContext(this.Ptr));
-        }
-        public string GetUrl()
-        {
-            unsafe
-            {
-                JsValue ret;
-                JsValue arg1 = new JsValue();
-                JsValue arg2 = new JsValue();
-                Cef3Binder.MyCefFrameCall2(this.Ptr, (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref arg1, ref arg2);
-                NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(ret.Ptr);
-                string url = ret_str.ReadString(ret.I32);
-                ret_str.Dispose();
-                return url;
-                //get url, in this version max size =255?
-                //char[] buffer = new char[255];
-                //int actualLength = 0;
-                //fixed (char* buffer_head = &buffer[0])
-                //{
-                //    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
-                //    return new string(buffer_head);
-                //}
-            }
-        }
-    }
-    public class NativeRendererApp : Cef3RefCountingValue
-    {
-        public NativeRendererApp(IntPtr ptr) : base(ptr)
-        {
-        }
-    }
-    public class NativeResourceMx : Cef3RefCountingValue
-    {
-        public NativeResourceMx(IntPtr ptr) : base(ptr)
-        {
-        }
-        public void AddResourceProvider(ResourceProvider resProvider)
-        {
-        }
-    }
-    public class ResourceProvider
-    {
-    }
 }

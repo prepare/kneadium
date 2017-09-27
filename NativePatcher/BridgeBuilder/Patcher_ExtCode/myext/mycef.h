@@ -44,3 +44,22 @@ extern "C" {
 	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
 	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
 }
+
+struct MyMetArgsN
+{
+	int32_t argCount;
+	jsvalue* vargs;
+};
+
+//-------------------------------
+//MACRO(s)
+
+//helper macro
+#define INIT_MY_MET_ARGS(args,n)\
+	MyMetArgsN args;\
+	memset(&args,0,sizeof(MyMetArgsN));\
+    args.argCount= n; \
+    jsvalue vargs[n+1];\
+    memset(&vargs, 0, sizeof(jsvalue)*(n+1));\
+	args.vargs= vargs;
+//

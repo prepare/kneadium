@@ -1,5 +1,5 @@
 //MIT, 2017, WinterDev
-//AUTOGEN
+ //AUTOGEN
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;
 const int CefTypeName_CefNavigationEntryVisitor = 3;
@@ -102,6 +102,26 @@ const int CefTypeName_CefSelectClientCertificateCallback = 99;
 const int CefTypeName_CefEndTracingCallback = 100;
 const int CefTypeName_CefWebPluginUnstableCallback = 101;
 const int CefTypeName_CefRegisterCdmCallback = 102;
+const int CefTypeName__cef_settings_t = 278;
+const int CefTypeName__cef_request_context_settings_t = 279;
+const int CefTypeName__cef_browser_settings_t = 280;
+const int CefTypeName__cef_urlparts_t = 281;
+const int CefTypeName__cef_cookie_t = 282;
+const int CefTypeName__cef_point_t = 283;
+const int CefTypeName__cef_rect_t = 284;
+const int CefTypeName__cef_size_t = 285;
+const int CefTypeName__cef_range_t = 286;
+const int CefTypeName__cef_insets_t = 287;
+const int CefTypeName__cef_draggable_region_t = 288;
+const int CefTypeName__cef_screen_info_t = 289;
+const int CefTypeName__cef_mouse_event_t = 290;
+const int CefTypeName__cef_key_event_t = 291;
+const int CefTypeName__cef_popup_features_t = 292;
+const int CefTypeName__cef_geoposition_t = 293;
+const int CefTypeName__cef_cursor_info_t = 294;
+const int CefTypeName__cef_pdf_print_settings_t = 295;
+const int CefTypeName__cef_box_layout_settings_t = 296;
+const int CefTypeName__cef_composition_underline_t = 297;
 namespace CefAppExt
 {
 	const int _typeName = CefTypeName_CefApp;

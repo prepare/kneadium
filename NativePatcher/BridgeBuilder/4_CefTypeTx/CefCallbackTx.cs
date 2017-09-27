@@ -93,6 +93,12 @@ namespace BridgeBuilder
             MaxMethodParCount = maxPar;
             //----------
             CppHandleCsMethodRequestCodeGen cppHandleCsMetCodeGen2 = new CppHandleCsMethodRequestCodeGen();
+            cppHandleCsMetCodeGen2.PrepareInstanceCallFromCppToCsMethodName(
+                this,
+                orgDecl,
+                ImplTypeDecl,
+                this.UnderlyingCType);
+            //
             cppHandleCsMetCodeGen2.GenerateCppCode(
                 this,
                 orgDecl,
@@ -115,7 +121,6 @@ namespace BridgeBuilder
             }
 
         }
-
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
 
@@ -123,7 +128,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             CsCallToNativeCodeGen csCallToNativeCodeGen = new CsCallToNativeCodeGen();
-            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, stbuilder);
+            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, null, stbuilder);
         }
 
     }

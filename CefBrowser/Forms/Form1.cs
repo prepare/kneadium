@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
+
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -41,10 +41,10 @@ namespace LayoutFarm.CefBridge
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            cefWebBrowser1.Agent.ExecJavascript(
-                 "window.open('https://html5test.com');", "about:blank");
             //cefWebBrowser1.Agent.ExecJavascript(
-            //    "alert('test!');", "about:blank");
+            //     "window.open('https://html5test.com');", "about:blank");
+            cefWebBrowser1.Agent.ExecJavascript(
+              "alert('test!');", "about:blank");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -170,5 +170,27 @@ namespace LayoutFarm.CefBridge
             this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
 
         }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            string data = "arg1=val1&arg2=val2";
+            byte[] dataBuffer = Encoding.UTF8.GetBytes(data);
+            using (var nativeBw = cefWebBrowser1.Agent.GetNativeBw())
+            using (var fr = nativeBw.GetMainFrame())
+            {
+                
+
+                Auto.CefRequest req = Auto.CefRequest.Create();
+                req.SetURL("http://localhost");
+                fr.LoadRequest(req);
+            }
+            //
+
+            //cefWebBrowser1.Agent.PostData(
+            //    "http://tests/request",
+            //    dataBuffer,
+            //    dataBuffer.Length);
+        }
     }
 }
+;

@@ -69,6 +69,27 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CefBridge\Auto\CefApiSwitchTables.cs">
+      <Link>CefBridgeCore\Auto\CefApiSwitchTables.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefCallbacks.cs">
+      <Link>CefBridgeCore\Auto\CefCallbacks.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefEnums.cs">
+      <Link>CefBridgeCore\Auto\CefEnums.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefHandlers.cs">
+      <Link>CefBridgeCore\Auto\CefHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefInstances_P1.cs">
+      <Link>CefBridgeCore\Auto\CefInstances_P1.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefInstances_P2.cs">
+      <Link>CefBridgeCore\Auto\CefInstances_P2.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Auto\CefPlainCStructs.cs">
+      <Link>CefBridgeCore\Auto\CefPlainCStructs.cs</Link>
+    </Compile>
     <Compile Include="..\CefBridge\Cef3Binder.cs">
       <Link>CefBridgeCore\Cef3Binder.cs</Link>
     </Compile>
@@ -77,9 +98,6 @@
     </Compile>
     <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs">
       <Link>CefBridgeCore\Cef3Binder_Auto2.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\Cef3Binder_Auto3.cs">
-      <Link>CefBridgeCore\Cef3Binder_Auto3.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridgeCore\Cef3InitEssential.cs</Link>
@@ -95,9 +113,6 @@
     </Compile>
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridgeCore\ClientApp.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\CustomSchemeAgent.cs">
-      <Link>CefBridgeCore\CustomSchemeAgent.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\MyCefBrowser.cs">
       <Link>CefBridgeCore\MyCefBrowser.cs</Link>

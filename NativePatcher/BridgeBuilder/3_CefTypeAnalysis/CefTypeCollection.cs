@@ -424,7 +424,7 @@ namespace BridgeBuilder
             return null;
         }
     }
-     
+
 
     class CefTypeCollection
     {
@@ -678,10 +678,20 @@ namespace BridgeBuilder
                 }
             }
             //-----------------------
-            if (cppMethodList.Count > 0)
+            //temp fix
+            int methodCount = cppMethodList.Count;
+            if (methodCount > 0)
             {
                 //find owner and add the implementation
+                for (int i = 0; i < methodCount; ++i)
+                {
+                    CodeMethodDeclaration metdecl = cppMethodList[i];
+                    if (metdecl.LineComments != null)
+                    {
+                        //for cef, some line comment has transformation info
 
+                    }
+                }
             }
             //-----------------------
             ResolveBaseTypes();

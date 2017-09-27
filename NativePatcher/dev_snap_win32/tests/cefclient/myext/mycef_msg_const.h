@@ -1,11 +1,8 @@
 //MIT, 2015-2017, WinterDev
 #pragma once 
 //----------------------------------------------------------------------
-//cef msg constant
-//----------------------------------------------------------------------
-//msg from native to cs
-//this is custom msgs
-const int CEF_MSG_RequestForMxCallback = 90;
+//my custom msgs
+ 
 const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
 const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
