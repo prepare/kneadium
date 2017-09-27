@@ -34,9 +34,15 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Auto\CefApiSwitchTables.cs" />
+    <Compile Include="Auto\CefCallbacks.cs" />
+    <Compile Include="Auto\CefEnums.cs" />
+    <Compile Include="Auto\CefHandlers.cs" />
+    <Compile Include="Auto\CefInstances_P1.cs" />
+    <Compile Include="Auto\CefInstances_P2.cs" />
+    <Compile Include="Auto\CefPlainCStructs.cs" />
     <Compile Include="Cef3Binder.cs" />
     <Compile Include="Cef3Binder_Auto.cs" />
-    <Compile Include="Cef3Binder_Auto3.cs" />
     <Compile Include="Cef3InitEssential.cs" />
     <Compile Include="Cef3WinForms.cs" />
     <Compile Include="Cef3Binder_Auto2.cs" />

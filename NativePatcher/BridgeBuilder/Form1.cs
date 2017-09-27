@@ -607,22 +607,13 @@ namespace BridgeBuilder
                 {
                 }
             }
-            //--------
-
-
-
 
             //--------
-            //code gen
+            //code gen 
 
-
-            List<CefTypeTx> customImplClasses = new List<CefTypeTx>(); 
-            int tt_count = 0;
+            List<CefTypeTx> customImplClasses = new List<CefTypeTx>();
             StringBuilder cppCodeStBuilder = new StringBuilder();
-            StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
-
-
 
             CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
             cppHeaderInternalForExportFunc.AppendLine(
@@ -636,15 +627,8 @@ namespace BridgeBuilder
             }
 
 
-            csCodeStBuilder.AppendLine(
-                "//MIT, 2017, WinterDev\r\n" +
-                "//AUTOGEN CONTENT\r\n" +
-                "using System;\r\n" +
-                "using System.Collections.Generic;\r\n" +
-                "using System.Runtime.InteropServices;\r\n" +
-                "namespace LayoutFarm.CefBridge.Auto{\r\n");
-
-
+            StringBuilder csCodeStBuilder = new StringBuilder();
+            AddCsCodeHeader(csCodeStBuilder);
             CefCodeGenOutput codeGenOutput = null;
             foreach (CefTypeTx tx in enumTxPlans)
             {
@@ -653,38 +637,95 @@ namespace BridgeBuilder
                 //get cs output
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
+            csCodeStBuilder.Append("}"); //close namespace
+            //save to file
+            System.IO.File.WriteAllText("CefEnums.cs", csCodeStBuilder.ToString());
+
             //-------------------------
             CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
             cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
+            //-------------------------
 
-            tt_count = 0;
-            foreach (CefInstanceElementTx tx in instanceClassPlans)
+            //cef instance is quite large             
+            //so we spit the code gen into 2 sections
+            int instance_count = instanceClassPlans.Count;
+            int mid = instance_count / 2;
             {
-
-                codeGenOutput = new CefCodeGenOutput();
-                tx.GenerateCode(codeGenOutput);
-                //---------------------------------------------------- 
-                cppCodeStBuilder.AppendLine();
-                cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
-                cppCodeStBuilder.AppendLine();
-                //---------------------------------------------------- 
-                csCodeStBuilder.AppendLine();
-                csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
-                csCodeStBuilder.AppendLine();
-                //--------------------------------------------
-
-                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
-                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
-                //----------
-                if (tx.CppImplClassNameId > 0)
+                //1st part
+                csCodeStBuilder = new StringBuilder();
+                AddCsCodeHeader(csCodeStBuilder);
+                //-------------------------         
+                for (int cc = 0; cc < mid; ++cc)
                 {
-                    customImplClasses.Add(tx);
+                    CefInstanceElementTx tx = instanceClassPlans[cc];
+                    codeGenOutput = new CefCodeGenOutput();
+                    tx.GenerateCode(codeGenOutput);
+                    //---------------------------------------------------- 
+                    cppCodeStBuilder.AppendLine();
+                    cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                    cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                    cppCodeStBuilder.AppendLine();
+                    //---------------------------------------------------- 
+                    csCodeStBuilder.AppendLine();
+                    csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                    csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                    csCodeStBuilder.AppendLine();
+                    //--------------------------------------------
+
+                    cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                    cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                    //----------
+                    if (tx.CppImplClassNameId > 0)
+                    {
+                        customImplClasses.Add(tx);
+                    }
                 }
-                tt_count++;
+                csCodeStBuilder.Append("}");
+                //save to file
+                System.IO.File.WriteAllText("CefInstances_P1.cs", csCodeStBuilder.ToString());
+                //------------------------- 
+            }
+            {
+                //2nd part
+                //1st part
+                csCodeStBuilder = new StringBuilder();
+                AddCsCodeHeader(csCodeStBuilder);
+
+                for (int cc = mid; cc < instance_count; ++cc)
+                {
+                    CefInstanceElementTx tx = instanceClassPlans[cc];
+                    codeGenOutput = new CefCodeGenOutput();
+                    tx.GenerateCode(codeGenOutput);
+                    //---------------------------------------------------- 
+                    cppCodeStBuilder.AppendLine();
+                    cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                    cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                    cppCodeStBuilder.AppendLine();
+                    //---------------------------------------------------- 
+                    csCodeStBuilder.AppendLine();
+                    csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                    csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                    csCodeStBuilder.AppendLine();
+                    //--------------------------------------------
+
+                    cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                    cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                    //----------
+                    if (tx.CppImplClassNameId > 0)
+                    {
+                        customImplClasses.Add(tx);
+                    }
+                }
+                csCodeStBuilder.Append("}");
+                //save to file
+                System.IO.File.WriteAllText("CefInstances_P2.cs", csCodeStBuilder.ToString());
+                //-------------------------  
             }
 
+
+
+            csCodeStBuilder = new StringBuilder();
+            AddCsCodeHeader(csCodeStBuilder);
             foreach (CefCallbackTx tx in callbackPlans)
             {
 
@@ -702,8 +743,12 @@ namespace BridgeBuilder
                     customImplClasses.Add(tx);
                 }
             }
-
-
+            csCodeStBuilder.Append("}");
+            //save to file
+            System.IO.File.WriteAllText("CefCallbacks.cs", csCodeStBuilder.ToString());
+            //------------------------- 
+            csCodeStBuilder = new StringBuilder();
+            AddCsCodeHeader(csCodeStBuilder);
             foreach (CefHandlerTx tx in handlerPlans)
             {
                 codeGenOutput = new CefCodeGenOutput();
@@ -716,18 +761,29 @@ namespace BridgeBuilder
                 cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
                 //---------- 
             }
+            csCodeStBuilder.Append("}");
+            //save to file
+            System.IO.File.WriteAllText("CefHandlers.cs", csCodeStBuilder.ToString());
+            //------------------------- 
+            csCodeStBuilder = new StringBuilder();
+            AddCsCodeHeader(csCodeStBuilder);
             foreach (CefCStructTx tx in cstructPlans)
             {
                 codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
-            //--------
+            csCodeStBuilder.Append("}");
+            //save to file
+            System.IO.File.WriteAllText("CefPlainCStructs.cs", csCodeStBuilder.ToString());
+            //------------------------- 
+            csCodeStBuilder = new StringBuilder();
+            AddCsCodeHeader(csCodeStBuilder);
             CsNativeHandlerSwitchTableCodeGen csNativeHandlerSwitchTableCodeGen = new CsNativeHandlerSwitchTableCodeGen();
             csNativeHandlerSwitchTableCodeGen.GenerateCefNativeRequestHandlers(handlerPlans, csCodeStBuilder);
-
             //cs...
-            csCodeStBuilder.AppendLine("}"); //end cs
+            csCodeStBuilder.AppendLine("}");
+            System.IO.File.WriteAllText("CefApiSwitchTables.cs", csCodeStBuilder.ToString());
             //--------
             //cpp
             CppSwicthTableCodeGen cppSwitchTableCodeGen = new CppSwicthTableCodeGen();
@@ -740,7 +796,16 @@ namespace BridgeBuilder
             cppCodeStBuilder.AppendLine("/////////////////////////////////////////////////");
             // 
         }
-
+        void AddCsCodeHeader(StringBuilder stbuilder)
+        {
+            stbuilder.AppendLine(
+                "//MIT, 2017, WinterDev\r\n" +
+                "//AUTOGEN CONTENT\r\n" +
+                "using System;\r\n" +
+                "using System.Collections.Generic;\r\n" +
+                "using System.Runtime.InteropServices;\r\n" +
+                "namespace LayoutFarm.CefBridge.Auto{\r\n");
+        }
         void AddCppBuiltInBeginCode(StringBuilder cppStBuilder)
         {
 
