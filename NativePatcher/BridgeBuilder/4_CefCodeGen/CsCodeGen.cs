@@ -930,7 +930,7 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
 
-             
+
             if (!skipCtorPart)
             {
                 stbuilder.Append("public struct " + className);
@@ -1231,7 +1231,13 @@ namespace BridgeBuilder
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
             //temp 
-            string className = met.Name + "NativeArgs";
+            string selectedMethodName = met.Name;
+            if (met.NewOverloadName != null)
+            {
+                selectedMethodName = met.NewOverloadName; 
+            }
+
+            string className = selectedMethodName + "NativeArgs";
             stbuilder.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
             stbuilder.AppendLine("public int argFlags;");
@@ -1405,7 +1411,15 @@ namespace BridgeBuilder
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
             //temp 
-            string className = met.Name + "Args";
+
+            string selectedMetName = met.Name;
+            if (met.HasDuplicatedMethodName)
+            {
+                selectedMetName = met.NewOverloadName;
+            }
+
+            string className = selectedMetName + "Args";
+
 
             stbuilder.AppendLine("public struct " + className + "{ ");
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
@@ -1415,7 +1429,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
 
             //--------------
-            string nativeArgClassName = met.Name + "NativeArgs";
+            string nativeArgClassName = selectedMetName + "NativeArgs";
             stbuilder.AppendLine("public void myext_finish(){");
             stbuilder.AppendLine("unsafe{");
             stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->argFlags |= MyCefArgsHelper.FINISH_FLAGS;");
@@ -1427,22 +1441,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("return MyCefArgsHelper.IsDone(((" + nativeArgClassName + "*)this.nativePtr)->argFlags);");
             stbuilder.AppendLine("}");
             stbuilder.AppendLine("}");
-            //public bool myext_isDone()
-            //{
-            //    unsafe
-            //    {
-            //        return ((((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->argFlags >> 21) & 1) == 1;
-            //    }
-            //}
-            //----------------------
-            //set return value method
-            //public void myext_setReturnType(bool ret)
-            //{
-            //    unsafe
-            //    {
-            //        ((OnTooltipNativeArgs*)this.nativePtr)->myext_ret_value = ret;
-            //    }
-            //}
+
             string metReturnTypeName = metDecl.ReturnType.Name;
             if (metReturnTypeName != "void")
             {
