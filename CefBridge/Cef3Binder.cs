@@ -161,19 +161,8 @@ namespace LayoutFarm.CefBridge
 
         static CefClientApp clientApp;
 
-
-        public static IWindowForm CreateBlankForm(int width, int height)
-        {
-            return Cef3WinForms.s_currentImpl.CreateNewWindow(width, height);
-        }
-        public static IWindowForm CreateNewBrowserWindow(int width, int height)
-        {
-            return Cef3WinForms.s_currentImpl.CreateNewBrowserWindow(width, height);
-        }
-        public static void SafeUIInvoke(SimpleDel del)
-        {
-            Cef3WinForms.s_currentImpl.SaveUIInvoke(del);
-        }
+ 
+       
 
         public static bool LoadCef3(Cef3InitEssential cefInitEssential)
         {

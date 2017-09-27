@@ -89,7 +89,7 @@ namespace LayoutFarm.CefBridge
         public override CefClientApp CreateClientApp()
         {
             var renderProcListener = new MyCefRendererProcessListener();
-            var clientApp = new CefClientApp(
+            var clientApp = new MyCefClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
             return clientApp;
