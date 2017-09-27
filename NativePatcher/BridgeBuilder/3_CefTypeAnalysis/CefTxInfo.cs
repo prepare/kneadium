@@ -43,7 +43,7 @@ namespace BridgeBuilder
         }
 #endif
     }
-     
+
 
     enum CefTypeModel
     {
@@ -167,7 +167,16 @@ namespace BridgeBuilder
 
         internal string CppMethodSwitchCaseName { get; set; }
 
-        internal bool HasDuplicatedMethodName { get; set; }
+
+        bool _dupName;
+        internal bool HasDuplicatedMethodName
+        {
+            get { return _dupName; }
+            set
+            {
+                _dupName = value;
+            }
+        }
         internal string NewOverloadName { get; set; }
 
         public bool CsLeftMethodBodyBlank { get; set; }
@@ -232,7 +241,7 @@ namespace BridgeBuilder
         InOut
     }
 
-     
+
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
@@ -734,6 +743,8 @@ namespace BridgeBuilder
             }
             else
             {
+               
+                //---------------------------------------------------------------------
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
 
@@ -756,7 +767,7 @@ namespace BridgeBuilder
 
             return typeTxInfo;
         }
-
+      
         FieldPlan MakeFieldPlan(CodeFieldDeclaration fieldDecl)
         {
             FieldPlan fieldTx = new FieldPlan(fieldDecl);

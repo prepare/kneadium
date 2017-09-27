@@ -466,6 +466,9 @@ namespace BridgeBuilder
             cefTypeCollection.RootFolder = cefDir;
             cefTypeCollection.SetTypeSystem(totalCuList);
 
+
+
+
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
@@ -584,8 +587,7 @@ namespace BridgeBuilder
                 ////eg. handlers and callbacks 
 
             }
-            //--------
-
+            //-------- 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._plainCStructs)
             {
                 //create raw type
@@ -606,11 +608,15 @@ namespace BridgeBuilder
                 }
             }
             //--------
+
+
+
+
+            //--------
             //code gen
 
 
-            List<CefTypeTx> customImplClasses = new List<CefTypeTx>();
-
+            List<CefTypeTx> customImplClasses = new List<CefTypeTx>(); 
             int tt_count = 0;
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
