@@ -7,6 +7,7 @@ namespace LayoutFarm.CefBridge
 {
     class RenderProcessHandler : CefRenderProcessHandler.I0
     {
+
         public void GetLoadHandler(CefRenderProcessHandler.GetLoadHandlerArgs args)
         {
 
@@ -25,10 +26,49 @@ namespace LayoutFarm.CefBridge
         {
 
         }
+        void Test001(int id, IntPtr argsPtr)
+        {
+#if DEBUG
+            //if (Cef3Binder.s_dbugIsRendererProcess)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
+#endif
+            var nativeCallArgs = new NativeCallArgs(argsPtr);
+            nativeCallArgs.SetOutput(0, "hello from managed side3 !");
+        }
+        void Test002(int id, IntPtr argsPtr)
+        {
+#if DEBUG
+            //if (Cef3Binder.s_dbugIsRendererProcess)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
+#endif
+            Auto.CefV8Handler.ExecuteArgs ex = new CefV8Handler.ExecuteArgs(argsPtr);
+            ex.SetReturnValue((Auto.CefV8Value.CreateString("hello from managed side NEW2")).nativePtr);
+
+        }
+        //public void OnContextCreated2(MyCefContextArgs args)
+        //{
+        //    CefV8Value cefV8Global = args.context.GetGlobal();
+        //    Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
+        //    Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
+        //    cefV8Global.Set("test001", func);
+        //    dbugRenderProcessLog.WriteLine("register test001!");
+        //}
         public void OnContextCreated(CefRenderProcessHandler.OnContextCreatedArgs args)
         {
 
             dbugRenderProcessLog.WriteLine("context_created");
+            CefV8Context context = args.context();
+            Auto.CefV8Value cefV8Global = context.GetGlobal();
+
+            Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler2(Test002));
+            var func = Auto.CefV8Value.CreateFunction("test001", funcHandler);
+            cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY); 
+
+            dbugRenderProcessLog.WriteLine("context_created-pass");
         }
         public void OnContextReleased(CefRenderProcessHandler.OnContextReleasedArgs args)
         {
@@ -53,7 +93,23 @@ namespace LayoutFarm.CefBridge
         }
         public void OnWebKitInitialized(CefRenderProcessHandler.OnWebKitInitializedArgs args)
         {
+
             dbugRenderProcessLog.WriteLine("webkit_init");
+            //sample!!!
+            string extensionCode =
+                      "var test;" +
+                       "if (!test)" +
+                       "  test = {};" +
+                       "(function() {" +
+                       "  test.myfunc = function() {" +
+                          "return 2;" +
+                       //"    native function myfunc();" +
+                       //"    return myfunc();" +
+                       "  };" +
+                       "})();";
+            //test regsiter extension
+            CefBinder2.RegisterCefExtension("v8/test", extensionCode);
+            dbugRenderProcessLog.WriteLine("register pass!");
         }
     }
 
@@ -62,7 +118,7 @@ namespace LayoutFarm.CefBridge
     {
         public static void WriteLine(string log)
         {
-            File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
+            // File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
         }
     }
 
@@ -70,13 +126,13 @@ namespace LayoutFarm.CefBridge
     class SubProcessClientApp : CefClientApp
     {
         RenderProcessHandler renderProcessHandler;
-        CefRenderProcessListener renderProcessListener;
+        //CefRenderProcessListener renderProcessListener;
 
         public SubProcessClientApp(IntPtr processHandle,
             CefRenderProcessListener renderProcessListener)
             : base(processHandle)
         {
-            this.renderProcessListener = renderProcessListener;
+            //this.renderProcessListener = renderProcessListener;
 
         }
         protected override MyCefCallback GetManagedCallbackImpl()
@@ -154,29 +210,34 @@ namespace LayoutFarm.CefBridge
                         //we can register external methods  for window object here.
                         //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextCreated(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
+                        //if (renderProcessHandler != null)
+                        //{
+                        //    renderProcessHandler.OnContextCreated2(
+                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                        //}
+                        //if (renderProcessListener != null)
+                        //{
+                        //    renderProcessListener.OnContextCreated(
+                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                        //}
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
                     {
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextReleased(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
+                        //if (renderProcessListener != null)
+                        //{
+                        //    renderProcessListener.OnContextReleased(
+                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                        //}
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
-                        if (renderProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnWebKitInitialized(args);
-                        }
+                        //if (renderProcessListener != null)
+                        //{
+                        //    NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        //    renderProcessListener.OnWebKitInitialized(args);
+                        //}
                     }
                     break;
             }

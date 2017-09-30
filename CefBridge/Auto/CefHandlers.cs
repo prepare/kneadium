@@ -12945,11 +12945,19 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
+
             public string exception()
             {
                 unsafe
                 {
                     return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                }
+            }
+            public void SetReturnValue(IntPtr value)
+            {
+                unsafe
+                {
+                    ((ExecuteNativeArgs*)this.nativePtr)->_returnValue2 = value;
                 }
             }
         }
@@ -12964,6 +12972,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr arguments;
             public IntPtr retval;
             public IntPtr exception;
+            public IntPtr _returnValue2;
         }
         public interface I0
         {

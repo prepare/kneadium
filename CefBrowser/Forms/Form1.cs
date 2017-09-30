@@ -66,8 +66,12 @@ namespace LayoutFarm.CefBridge
                 });
         }
 
+
         private void button4_Click(object sender, EventArgs e)
         {
+
+
+
             cefWebBrowser1.Agent.GetSource(
                 str =>
                 {
@@ -167,7 +171,8 @@ namespace LayoutFarm.CefBridge
         private void button17_Click(object sender, EventArgs e)
         {
             //load text
-            this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
+            //this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
+            this.cefWebBrowser1.Agent.LoadText("<html><head><script>function docload(){ console.log(test001());}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>", "http://localhost");
 
         }
 
@@ -178,7 +183,7 @@ namespace LayoutFarm.CefBridge
             using (var nativeBw = cefWebBrowser1.Agent.GetNativeBw())
             using (var fr = nativeBw.GetMainFrame())
             {
-                
+
 
                 Auto.CefRequest req = Auto.CefRequest.Create();
                 req.SetURL("http://localhost");
@@ -191,6 +196,7 @@ namespace LayoutFarm.CefBridge
             //    dataBuffer,
             //    dataBuffer.Length);
         }
+
     }
 }
 ;
