@@ -86,8 +86,8 @@ namespace LayoutFarm.CefBridge
         {
 
             //main raw msg switch table 
-            int object_type = met_id >> 16;
-            if (object_type > 0)
+
+            if ((met_id >> 16) > 0)
             {
                 //built in object
                 CefNativeRequestHandlers.HandleNativeReq_I0(myBwHandler, met_id, argsPtr);

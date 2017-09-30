@@ -21,11 +21,10 @@ namespace LayoutFarm.CefBridge
 
     public class MyCefContextArgs
     {
-      
+
         public readonly NativeJsContext context;
         public MyCefContextArgs(NativeCallArgs args)
         {
-             
             context = new NativeJsContext(args.GetArgAsNativePtr(4));
         }
     }

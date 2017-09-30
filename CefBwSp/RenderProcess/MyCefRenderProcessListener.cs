@@ -1,12 +1,77 @@
 ﻿//MIT, 2016-2017, WinterDev
 
 using System;
-
+using System.IO;
+using LayoutFarm.CefBridge.Auto;
 namespace LayoutFarm.CefBridge
 {
+    class RenderProcessHandler : CefRenderProcessHandler.I0
+    {
+        public void GetLoadHandler(CefRenderProcessHandler.GetLoadHandlerArgs args)
+        {
+
+        }
+        public void OnBeforeNavigation(CefRenderProcessHandler.OnBeforeNavigationArgs args)
+        {
+
+        }
+
+        public void OnBrowserCreated(CefRenderProcessHandler.OnBrowserCreatedArgs args)
+        {
+
+        }
+
+        public void OnBrowserDestroyed(CefRenderProcessHandler.OnBrowserDestroyedArgs args)
+        {
+
+        }
+        public void OnContextCreated(CefRenderProcessHandler.OnContextCreatedArgs args)
+        {
+
+            dbugRenderProcessLog.WriteLine("context_created");
+        }
+        public void OnContextReleased(CefRenderProcessHandler.OnContextReleasedArgs args)
+        {
+        }
+
+        public void OnFocusedNodeChanged(CefRenderProcessHandler.OnFocusedNodeChangedArgs args)
+        {
+
+        }
+
+        public void OnProcessMessageReceived(CefRenderProcessHandler.OnProcessMessageReceivedArgs args)
+        {
+
+        }
+
+        public void OnRenderThreadCreated(CefRenderProcessHandler.OnRenderThreadCreatedArgs args)
+        {
+        }
+        public void OnUncaughtException(CefRenderProcessHandler.OnUncaughtExceptionArgs args)
+        {
+
+        }
+        public void OnWebKitInitialized(CefRenderProcessHandler.OnWebKitInitializedArgs args)
+        {
+            dbugRenderProcessLog.WriteLine("webkit_init");
+        }
+    }
+
+    //tmp for debug only
+    static class dbugRenderProcessLog
+    {
+        public static void WriteLine(string log)
+        {
+            File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
+        }
+    }
+
+
     class SubProcessClientApp : CefClientApp
     {
+        RenderProcessHandler renderProcessHandler;
         CefRenderProcessListener renderProcessListener;
+
         public SubProcessClientApp(IntPtr processHandle,
             CefRenderProcessListener renderProcessListener)
             : base(processHandle)
@@ -26,14 +91,34 @@ namespace LayoutFarm.CefBridge
             }
             cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
         }
+
         /// <summary>
         /// handle native reqiest , this is called by native side.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="argsPtr"></param>
-        void HandleNativeReq(int id, System.IntPtr argsPtr)
+
+        void HandleNativeReq(int met_id, IntPtr argsPtr)
         {
-            switch ((MyCefMsg)id)
+            if (renderProcessHandler == null)
+            {
+                //check if the render process handler is create or not
+                //this method is called from native side
+                //must check here!
+                renderProcessHandler = new RenderProcessHandler();
+            }
+
+            //main raw msg switch table              
+            if ((met_id >> 16) > 0)
+            {
+                //built in object 
+                CefNativeRequestHandlers.HandleNativeReq_I0(renderProcessHandler, met_id, argsPtr);
+                return;
+            }
+
+            //this is custom msg 
+            dbugRenderProcessLog.WriteLine("custom_msg");
+            switch ((MyCefMsg)met_id)
             {
                 default:
 
@@ -96,8 +181,6 @@ namespace LayoutFarm.CefBridge
                     break;
             }
         }
-
-
     }
 
     class MyCefRendererProcessListener : CefRenderProcessListener

@@ -130,7 +130,6 @@
     <Compile Include="CefImpl\MyCef3InitEssential.cs" />
     <Compile Include="CefImpl\MyCef3WinForms.cs" />
     <Compile Include="CefImpl\MyCefBrowser.cs" />
-    <Compile Include="CefImpl\MyCefRenderProcessListener.cs" />
     <Compile Include="CefImpl\MyCefUIListener.cs" />
     <Compile Include="CefImpl\WindowControlImpl.cs" />
     <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />

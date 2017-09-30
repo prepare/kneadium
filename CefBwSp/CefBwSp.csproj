@@ -93,8 +93,8 @@
     <Compile Include="..\CefBrowser\LibFolderManager.cs">
       <Link>LibFolderManager.cs</Link>
     </Compile>
-    <Compile Include="CefBw\MyCef3InitEssential.cs" />
-    <Compile Include="CefBw\MyCefRenderProcessListener.cs" />
+    <Compile Include="RenderProcess\MyCefRenderProcessInitEssential.cs" />
+    <Compile Include="RenderProcess\MyCefRenderProcessListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -116,6 +116,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CefBw\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
