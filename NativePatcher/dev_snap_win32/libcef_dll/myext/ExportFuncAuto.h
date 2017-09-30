@@ -6380,7 +6380,7 @@ namespace CefV8HandlerExt
 }
 namespace CefV8HandlerExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,237 
-
+	 
 	class ExecuteArgs {
 	public:
 		struct argData {
@@ -6391,6 +6391,8 @@ namespace CefV8HandlerExt {
 			const CefV8ValueList* arguments;//3
 			CefRefPtr<CefV8Value>* retval;//4
 			CefString* exception;//5
+			///
+			cef_v8value_t* _returnValue2;
 		};
 		argData arg;//
 		ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
@@ -6402,6 +6404,7 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = exception;
+			arg._returnValue2 = NULL;
 		}
 		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
 		{
@@ -6412,6 +6415,7 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = &exception;
+			arg._returnValue2 = NULL;
 		}
 		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
@@ -6422,6 +6426,7 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = exception;
+			arg._returnValue2 = NULL;
 		}
 		~ExecuteArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {

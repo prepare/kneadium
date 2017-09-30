@@ -9719,6 +9719,8 @@ namespace CefV8HandlerExt {
 		if (mcallback) {
 			ExecuteArgs args1(&name, object, &arguments, &retval, &exception);
 			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1.arg);
+			//retval = CefV8Value::CreateString("ABCD");
+			retval = CefV8ValueCToCpp::Wrap(args1.arg._returnValue2);
 			return args1.arg.myext_ret_value;
 		}
 		return false;
