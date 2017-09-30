@@ -36,13 +36,12 @@ namespace LayoutFarm.CefBridge
 
     public class MyCefClientApp : CefClientApp
     {
-        CefRenderProcessListener renderProcessListener;
+
         public MyCefClientApp(
-          System.IntPtr processHandle,
-          CefRenderProcessListener renderProcessListener)
+          System.IntPtr processHandle)
             : base(processHandle)
         {
-            this.renderProcessListener = renderProcessListener;
+
         }
         protected override MyCefCallback GetManagedCallbackImpl()
         {
@@ -105,29 +104,29 @@ namespace LayoutFarm.CefBridge
                         //we can register external methods  for window object here.
                         //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextCreated(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
+                        //if (renderProcessListener != null)
+                        //{
+                        //    renderProcessListener.OnContextCreated(
+                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                        //}
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
                     {
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextReleased(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
+                        //if (renderProcessListener != null)
+                        //{
+                        //    renderProcessListener.OnContextReleased(
+                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                        //}
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
-                        if (renderProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnWebKitInitialized(args);
-                        }
+                        //    if (renderProcessListener != null)
+                        //    {
+                        //        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        //        renderProcessListener.OnWebKitInitialized(args);
+                        //    }
                     }
                     break;
             }

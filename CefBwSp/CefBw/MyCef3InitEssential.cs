@@ -8,7 +8,7 @@ namespace LayoutFarm.CefBridge
     /// <summary>
     /// Cef3 init essential for WindowForm
     /// </summary>
-    public class MyCef3InitEssential : Cef3InitEssential
+    class MyCef3InitEssential : Cef3InitEssential
     {
 
         static MyCef3InitEssential initEssential;
