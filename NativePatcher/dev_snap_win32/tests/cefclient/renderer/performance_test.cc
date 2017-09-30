@@ -148,7 +148,7 @@ namespace client {
 
 					CefRefPtr<CefV8Handler> handler = new V8Handler();
 
-					// Bind test functions.
+					//this example bind multiple test to single v8 handler
 					object->SetValue(kGetPerfTests,
 						CefV8Value::CreateFunction(kGetPerfTests, handler),
 						V8_PROPERTY_ATTRIBUTE_READONLY);

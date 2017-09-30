@@ -91,8 +91,6 @@ extern "C" {
 }
 
 
-
-
 //AUTOGEN
 namespace CefAppExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,1 
@@ -1241,7 +1239,7 @@ namespace CefV8AccessorExt {
 namespace CefV8InterceptorExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,73 
 
-	class GetArgs {
+	class get_bynameArgs {
 	public:
 		struct argData {
 			int32_t myext_flags;
@@ -1252,7 +1250,7 @@ namespace CefV8InterceptorExt {
 			CefString* exception;//4
 		};
 		argData arg;//
-		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_bynameArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1261,7 +1259,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		get_bynameArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1270,7 +1268,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = &exception;
 		}
-		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1279,17 +1277,17 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		~GetArgs() {
+		~get_bynameArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {
 				CefV8ValueCToCpp::Wrap(arg.object);
 			}
 		}
 	private:
-		DISALLOW_COPY_AND_ASSIGN(GetArgs);
+		DISALLOW_COPY_AND_ASSIGN(get_bynameArgs);
 	};
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,74 
 
-	class Get1Args {
+	class get_byindexArgs {
 	public:
 		struct argData {
 			int32_t myext_flags;
@@ -1300,7 +1298,7 @@ namespace CefV8InterceptorExt {
 			CefString* exception;//4
 		};
 		argData arg;//
-		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_byindexArgs(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1309,7 +1307,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		get_byindexArgs(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1318,7 +1316,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = &exception;
 		}
-		Get1Args(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_byindexArgs(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1327,17 +1325,17 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		~Get1Args() {
+		~get_byindexArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {
 				CefV8ValueCToCpp::Wrap(arg.object);
 			}
 		}
 	private:
-		DISALLOW_COPY_AND_ASSIGN(Get1Args);
+		DISALLOW_COPY_AND_ASSIGN(get_byindexArgs);
 	};
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,75 
 
-	class SetArgs {
+	class set_bynameArgs {
 	public:
 		struct argData {
 			int32_t myext_flags;
@@ -1348,7 +1346,7 @@ namespace CefV8InterceptorExt {
 			CefString* exception;//4
 		};
 		argData arg;//
-		SetArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
+		set_bynameArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1357,7 +1355,7 @@ namespace CefV8InterceptorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = exception;
 		}
-		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		set_bynameArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1366,7 +1364,7 @@ namespace CefV8InterceptorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = &exception;
 		}
-		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		set_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1375,18 +1373,18 @@ namespace CefV8InterceptorExt {
 			arg.value = CefV8ValueCToCpp::Unwrap(value);
 			arg.exception = exception;
 		}
-		~SetArgs() {
+		~set_bynameArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {
 				CefV8ValueCToCpp::Wrap(arg.object);
 				CefV8ValueCToCpp::Wrap(arg.value);
 			}
 		}
 	private:
-		DISALLOW_COPY_AND_ASSIGN(SetArgs);
+		DISALLOW_COPY_AND_ASSIGN(set_bynameArgs);
 	};
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,76 
 
-	class Set3Args {
+	class set_byindexArgs {
 	public:
 		struct argData {
 			int32_t myext_flags;
@@ -1397,7 +1395,7 @@ namespace CefV8InterceptorExt {
 			CefString* exception;//4
 		};
 		argData arg;//
-		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
+		set_byindexArgs(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1406,7 +1404,7 @@ namespace CefV8InterceptorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = exception;
 		}
-		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		set_byindexArgs(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1415,7 +1413,7 @@ namespace CefV8InterceptorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = &exception;
 		}
-		Set3Args(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		set_byindexArgs(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1424,14 +1422,14 @@ namespace CefV8InterceptorExt {
 			arg.value = CefV8ValueCToCpp::Unwrap(value);
 			arg.exception = exception;
 		}
-		~Set3Args() {
+		~set_byindexArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {
 				CefV8ValueCToCpp::Wrap(arg.object);
 				CefV8ValueCToCpp::Wrap(arg.value);
 			}
 		}
 	private:
-		DISALLOW_COPY_AND_ASSIGN(Set3Args);
+		DISALLOW_COPY_AND_ASSIGN(set_byindexArgs);
 	};
 }
 namespace CefWebPluginInfoVisitorExt {

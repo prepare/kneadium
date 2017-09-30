@@ -5736,7 +5736,7 @@ public:
 	//gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(const CefString& name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::GetArgs args1(&name, object, &retval, &exception);
+			CefV8InterceptorExt::get_bynameArgs args1(&name, object, &retval, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_1, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
@@ -5746,7 +5746,7 @@ public:
 	//gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::Get1Args args1(index, object, &retval, &exception);
+			CefV8InterceptorExt::get_byindexArgs args1(index, object, &retval, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_2, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
@@ -5756,7 +5756,7 @@ public:
 	//gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(const CefString& name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::SetArgs args1(&name, object, value, &exception);
+			CefV8InterceptorExt::set_bynameArgs args1(&name, object, value, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_3, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
@@ -5766,7 +5766,7 @@ public:
 	//gen! bool Set(int index,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::Set3Args args1(index, object, value, &exception);
+			CefV8InterceptorExt::set_byindexArgs args1(index, object, value, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_4, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
