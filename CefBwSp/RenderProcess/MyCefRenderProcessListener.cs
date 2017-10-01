@@ -26,17 +26,7 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        void Test001(int id, IntPtr argsPtr)
-        {
-#if DEBUG
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-            var nativeCallArgs = new NativeCallArgs(argsPtr);
-            nativeCallArgs.SetOutput(0, "hello from managed side3 !");
-        }
+        
         void Test002(int id, IntPtr argsPtr)
         {
 #if DEBUG
@@ -49,14 +39,7 @@ namespace LayoutFarm.CefBridge
             ex.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
 
         }
-        //public void OnContextCreated2(MyCefContextArgs args)
-        //{
-        //    CefV8Value cefV8Global = args.context.GetGlobal();
-        //    Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
-        //    Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
-        //    cefV8Global.Set("test001", func);
-        //    dbugRenderProcessLog.WriteLine("register test001!");
-        //}
+         
         public void OnContextCreated(CefRenderProcessHandler.OnContextCreatedArgs args)
         {
 
@@ -126,14 +109,11 @@ namespace LayoutFarm.CefBridge
     class SubProcessClientApp : CefClientApp
     {
         RenderProcessHandler renderProcessHandler;
-        //CefRenderProcessListener renderProcessListener;
-
+        
         public SubProcessClientApp(IntPtr processHandle,
             CefRenderProcessListener renderProcessListener)
             : base(processHandle)
-        {
-            //this.renderProcessListener = renderProcessListener;
-
+        { 
         }
         protected override MyCefCallback GetManagedCallbackImpl()
         {
@@ -244,45 +224,5 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    class MyCefRendererProcessListener : CefRenderProcessListener
-    {
-        public override void OnWebKitInitialized(NativeCallArgs nativeCallArgs)
-        {
-            //sample!!!
-            string extensionCode =
-                      "var test;" +
-                       "if (!test)" +
-                       "  test = {};" +
-                       "(function() {" +
-                       "  test.myfunc = function() {" +
-                          "return 2;" +
-                       //"    native function myfunc();" +
-                       //"    return myfunc();" +
-                       "  };" +
-                       "})();";
-            //test regsiter extension
-            CefBinder2.RegisterCefExtension("v8/test", extensionCode);
-        }
-        public override void OnContextCreated(MyCefContextArgs args)
-        {
-            //sample !!!
-            //call window.test001() from js 
-            CefV8Value cefV8Global = args.context.GetGlobal();
-            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
-            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
-            cefV8Global.Set("test001", func);
-        }
-
-        void Test001(int id, IntPtr argsPtr)
-        {
-#if DEBUG
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-            var nativeCallArgs = new NativeCallArgs(argsPtr);
-            nativeCallArgs.SetOutput(0, "hello from managed side !");
-        }
-    }
+   
 }
