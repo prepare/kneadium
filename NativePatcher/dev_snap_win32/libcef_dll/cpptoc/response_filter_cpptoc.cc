@@ -32,7 +32,7 @@ response_filter_init_filter(struct _cef_response_filter_t* self) {
   if (!self)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResponseFilterCppToC::Get(self);
 const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_InitFilter_1;
@@ -86,7 +86,7 @@ response_filter_filter(struct _cef_response_filter_t* self,
   // Translate param: data_out_written; type: simple_byref
   size_t data_out_writtenVal = data_out_written ? *data_out_written : 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResponseFilterCppToC::Get(self);
 const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_Filter_2;

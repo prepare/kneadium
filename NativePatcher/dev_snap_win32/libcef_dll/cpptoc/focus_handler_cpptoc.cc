@@ -38,7 +38,7 @@ void CEF_CALLBACK focus_handler_on_take_focus(struct _cef_focus_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin3
 #if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnTakeFocus_1;
@@ -71,7 +71,7 @@ int CEF_CALLBACK focus_handler_on_set_focus(struct _cef_focus_handler_t* self,
   if (!browser)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnSetFocus_2;
@@ -106,7 +106,7 @@ void CEF_CALLBACK focus_handler_on_got_focus(struct _cef_focus_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnGotFocus_3;

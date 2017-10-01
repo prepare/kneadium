@@ -90,6 +90,8 @@ extern "C" {
 	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 }
 
+
+
 //AUTOGEN
 namespace CefAppExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,1 
@@ -788,13 +790,6 @@ namespace CefMenuModelDelegateExt {
 			arg.menu_model = menu_model;
 			arg.label = label;
 		}
-		FormatLabelArgs(cef_menu_model_t* menu_model, CefString& label)
-		{
-			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
-			arg.myext_ret_value = 0;
-			arg.menu_model = menu_model;
-			arg.label = &label;
-		}
 		FormatLabelArgs(CefRefPtr<CefMenuModel> menu_model, CefString* label)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 2);
@@ -1207,14 +1202,14 @@ namespace CefV8AccessorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = exception;
 		}
-		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
 			arg.name = &name;
 			arg.object = (cef_v8value_t*)object;
 			arg.value = (cef_v8value_t*)value;
-			arg.exception = &exception;
+			arg.exception = exception;
 		}
 		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
 		{
@@ -1258,14 +1253,14 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		get_bynameArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString& exception)
+		get_bynameArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
 			arg.name = &name;
 			arg.object = (cef_v8value_t*)object;
 			arg.retval = retval;
-			arg.exception = &exception;
+			arg.exception = exception;
 		}
 		get_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
@@ -1306,15 +1301,6 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		get_byindexArgs(int index, const cef_v8value_t* object, cef_v8value_t** retval, CefString& exception)
-		{
-			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
-			arg.myext_ret_value = 0;
-			arg.index = index;
-			arg.object = (cef_v8value_t*)object;
-			arg.retval = retval;
-			arg.exception = &exception;
-		}
 		get_byindexArgs(int index, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -1354,14 +1340,14 @@ namespace CefV8InterceptorExt {
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = exception;
 		}
-		set_bynameArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		set_bynameArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
 			arg.name = &name;
 			arg.object = (cef_v8value_t*)object;
 			arg.value = (cef_v8value_t*)value;
-			arg.exception = &exception;
+			arg.exception = exception;
 		}
 		set_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
 		{
@@ -1402,15 +1388,6 @@ namespace CefV8InterceptorExt {
 			arg.object = (cef_v8value_t*)object;
 			arg.value = (cef_v8value_t*)value;
 			arg.exception = exception;
-		}
-		set_byindexArgs(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
-		{
-			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
-			arg.myext_ret_value = 0;
-			arg.index = index;
-			arg.object = (cef_v8value_t*)object;
-			arg.value = (cef_v8value_t*)value;
-			arg.exception = &exception;
 		}
 		set_byindexArgs(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
 		{
@@ -2736,13 +2713,6 @@ namespace CefDisplayHandlerExt {
 			arg.myext_ret_value = 0;
 			arg.browser = browser;
 			arg.text = text;
-		}
-		OnTooltipArgs(cef_browser_t* browser, CefString& text)
-		{
-			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
-			arg.myext_ret_value = 0;
-			arg.browser = browser;
-			arg.text = &text;
 		}
 		OnTooltipArgs(CefRefPtr<CefBrowser> browser, CefString* text)
 		{
@@ -5344,15 +5314,6 @@ namespace CefRequestHandlerExt {
 			arg.response = response;
 			arg.new_url = new_url;
 		}
-		OnResourceRedirectArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, cef_response_t* response, CefString& new_url)
-		{
-			arg.myext_flags = ((1 << 18) | 5);
-			arg.browser = browser;
-			arg.frame = frame;
-			arg.request = request;
-			arg.response = response;
-			arg.new_url = &new_url;
-		}
 		OnResourceRedirectArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString* new_url)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 5);
@@ -5893,13 +5854,6 @@ namespace CefResourceBundleHandlerExt {
 			arg.string_id = string_id;
 			arg._string = _string;
 		}
-		GetLocalizedStringArgs(int string_id, CefString& _string)
-		{
-			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
-			arg.myext_ret_value = 0;
-			arg.string_id = string_id;
-			arg._string = &_string;
-		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetLocalizedStringArgs);
 	};
@@ -6025,13 +5979,6 @@ namespace CefResourceHandlerExt {
 			arg.response = response;
 			arg.response_length = response_length;
 			arg.redirectUrl = redirectUrl;
-		}
-		GetResponseHeadersArgs(cef_response_t* response, int64* response_length, CefString& redirectUrl)
-		{
-			arg.myext_flags = ((1 << 18) | 3);
-			arg.response = response;
-			arg.response_length = response_length;
-			arg.redirectUrl = &redirectUrl;
 		}
 		GetResponseHeadersArgs(CefRefPtr<CefResponse> response, int64* response_length, CefString* redirectUrl)
 		{
@@ -6402,7 +6349,7 @@ namespace CefV8HandlerExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString& exception)
+		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
 			arg.myext_ret_value = 0;
@@ -6410,7 +6357,7 @@ namespace CefV8HandlerExt {
 			arg._object = (cef_v8value_t*)_object;
 			arg.arguments = arguments;
 			arg.retval = retval;
-			arg.exception = &exception;
+			arg.exception = exception;
 		}
 		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString* exception)
 		{

@@ -40,7 +40,7 @@ web_plugin_info_visitor_visit(struct _cef_web_plugin_info_visitor_t* self,
   if (!info)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefWebPluginInfoVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefWebPluginInfoVisitorExt::_typeName << 16) | CefWebPluginInfoVisitorExt::CefWebPluginInfoVisitorExt_Visit_1;

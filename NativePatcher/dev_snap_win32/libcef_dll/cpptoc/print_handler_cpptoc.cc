@@ -41,7 +41,7 @@ print_handler_on_print_start(struct _cef_print_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin6
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintStart_1;
@@ -80,7 +80,7 @@ print_handler_on_print_settings(struct _cef_print_handler_t* self,
   if (!settings)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin5
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintSettings_2;
@@ -120,7 +120,7 @@ print_handler_on_print_dialog(struct _cef_print_handler_t* self,
   if (!callback)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin4
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintDialog_3;
@@ -172,7 +172,7 @@ print_handler_on_print_job(struct _cef_print_handler_t* self,
   if (!callback)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin3
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintJob_4;
@@ -211,7 +211,7 @@ print_handler_on_print_reset(struct _cef_print_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintReset_5;
@@ -240,7 +240,7 @@ print_handler_get_pdf_paper_size(struct _cef_print_handler_t* self,
   if (!self)
     return CefSize();
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_GetPdfPaperSize_6;

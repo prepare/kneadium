@@ -54,7 +54,7 @@ namespace {
 
  
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin7
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1;
@@ -91,7 +91,7 @@ return;
 			return;
 		// Unverified params: title 
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin6
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTitleChange_2;
@@ -134,7 +134,7 @@ return;
 
  
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin5
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFaviconURLChange_3;
@@ -171,7 +171,7 @@ return;
 
  
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin4
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFullscreenModeChange_4;
@@ -211,14 +211,14 @@ return;
 
  
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin3
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTooltip_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg2 (text);
-CefDisplayHandlerExt::OnTooltipArgs args1(browser,tmp_arg2);
+CefDisplayHandlerExt::OnTooltipArgs args1(browser,&tmp_arg2);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
  return args1.arg.myext_ret_value;
@@ -252,7 +252,7 @@ m_callback(CALLER_CODE, &args1.arg);
 
 	 
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnStatusMessage_6;
@@ -291,7 +291,7 @@ return;
 		// Unverified params: message, source
 
  
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnConsoleMessage_7;

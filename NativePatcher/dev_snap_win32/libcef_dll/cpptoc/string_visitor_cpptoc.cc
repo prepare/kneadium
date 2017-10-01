@@ -33,7 +33,7 @@ void CEF_CALLBACK string_visitor_visit(struct _cef_string_visitor_t* self,
     return;
   // Unverified params: string
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefStringVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefStringVisitorExt::_typeName << 16) | CefStringVisitorExt::CefStringVisitorExt_Visit_1;

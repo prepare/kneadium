@@ -58,7 +58,7 @@ jsdialog_handler_on_jsdialog(struct _cef_jsdialog_handler_t* self,
   bool suppress_messageBool =
       (suppress_message && *suppress_message) ? true : false;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin4
 #if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnJSDialog_1;
@@ -116,7 +116,7 @@ jsdialog_handler_on_before_unload_dialog(struct _cef_jsdialog_handler_t* self,
     return 0;
   // Unverified params: message_text
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin3
 #if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnBeforeUnloadDialog_2;
@@ -154,7 +154,7 @@ jsdialog_handler_on_reset_dialog_state(struct _cef_jsdialog_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnResetDialogState_3;
@@ -187,7 +187,7 @@ jsdialog_handler_on_dialog_closed(struct _cef_jsdialog_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnDialogClosed_4;

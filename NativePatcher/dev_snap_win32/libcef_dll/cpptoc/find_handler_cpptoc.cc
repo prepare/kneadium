@@ -49,7 +49,7 @@ void CEF_CALLBACK find_handler_on_find_result(struct _cef_find_handler_t* self,
   // Translate param: selectionRect; type: simple_byref_const
   CefRect selectionRectVal = selectionRect ? *selectionRect : CefRect();
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefFindHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFindHandlerExt::_typeName << 16) | CefFindHandlerExt::CefFindHandlerExt_OnFindResult_1;

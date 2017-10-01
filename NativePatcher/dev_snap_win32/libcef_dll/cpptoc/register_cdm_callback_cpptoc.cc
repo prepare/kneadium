@@ -35,7 +35,7 @@ void CEF_CALLBACK register_cdm_callback_on_cdm_registration_complete(
     return;
   // Unverified params: error_message
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRegisterCdmCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefRegisterCdmCallbackExt::_typeName << 16) | CefRegisterCdmCallbackExt::CefRegisterCdmCallbackExt_OnCdmRegistrationComplete_1;

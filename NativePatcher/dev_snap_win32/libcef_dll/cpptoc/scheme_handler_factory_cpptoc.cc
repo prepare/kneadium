@@ -49,7 +49,7 @@ scheme_handler_factory_create(struct _cef_scheme_handler_factory_t* self,
     return NULL;
   // Unverified params: browser, frame
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefSchemeHandlerFactoryCppToC::Get(self);
 const int CALLER_CODE=(CefSchemeHandlerFactoryExt::_typeName << 16) | CefSchemeHandlerFactoryExt::CefSchemeHandlerFactoryExt_Create_1;

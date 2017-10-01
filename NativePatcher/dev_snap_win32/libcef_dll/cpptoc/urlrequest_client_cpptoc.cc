@@ -39,7 +39,7 @@ urlrequest_client_on_request_complete(struct _cef_urlrequest_client_t* self,
   if (!request)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin5
 #if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnRequestComplete_1;
@@ -74,7 +74,7 @@ urlrequest_client_on_upload_progress(struct _cef_urlrequest_client_t* self,
   if (!request)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin4
 #if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnUploadProgress_2;
@@ -109,7 +109,7 @@ urlrequest_client_on_download_progress(struct _cef_urlrequest_client_t* self,
   if (!request)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin3
 #if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadProgress_3;
@@ -148,7 +148,7 @@ urlrequest_client_on_download_data(struct _cef_urlrequest_client_t* self,
   if (!data)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadData_4;
@@ -195,7 +195,7 @@ urlrequest_client_get_auth_credentials(struct _cef_urlrequest_client_t* self,
     return 0;
   // Unverified params: realm
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_GetAuthCredentials_5;

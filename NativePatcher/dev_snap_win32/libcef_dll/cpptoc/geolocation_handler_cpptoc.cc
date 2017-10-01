@@ -50,7 +50,7 @@ int CEF_CALLBACK geolocation_handler_on_request_geolocation_permission(
   if (!callback)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefGeolocationHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnRequestGeolocationPermission_1;
@@ -90,7 +90,7 @@ void CEF_CALLBACK geolocation_handler_on_cancel_geolocation_permission(
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefGeolocationHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnCancelGeolocationPermission_2;

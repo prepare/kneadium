@@ -37,7 +37,7 @@ void CEF_CALLBACK domvisitor_visit(struct _cef_domvisitor_t* self,
   if (!document)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDOMVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefDOMVisitorExt::_typeName << 16) | CefDOMVisitorExt::CefDOMVisitorExt_Visit_1;
