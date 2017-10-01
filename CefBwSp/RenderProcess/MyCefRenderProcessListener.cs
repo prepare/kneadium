@@ -46,7 +46,7 @@ namespace LayoutFarm.CefBridge
             //}
 #endif
             Auto.CefV8Handler.ExecuteArgs ex = new CefV8Handler.ExecuteArgs(argsPtr);
-            ex.SetReturnValue((Auto.CefV8Value.CreateString("hello from managed side NEW2")).nativePtr);
+            ex.retval((Auto.CefV8Value.CreateString("hello from managed side NEW3")).nativePtr);
 
         }
         //public void OnContextCreated2(MyCefContextArgs args)

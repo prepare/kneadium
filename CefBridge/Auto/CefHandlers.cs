@@ -12953,26 +12953,29 @@ namespace LayoutFarm.CefBridge.Auto
                     return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
                 }
             }
-            public void SetReturnValue(IntPtr value)
+            public void retval(IntPtr value)
             {
                 unsafe
                 {
-                    ((ExecuteNativeArgs*)this.nativePtr)->_returnValue2 = value;
+                    ////get address if return value
+                    //IntPtr* retAdress = (IntPtr*)(((ExecuteNativeArgs*)this.nativePtr)->retval); 
+                    ////assign value to that adress
+                    //*retAdress = value; 
+                    *((IntPtr*)(((ExecuteNativeArgs*)this.nativePtr)->retval)) = value;
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1213
         [StructLayout(LayoutKind.Sequential)]
-        struct ExecuteNativeArgs
+        unsafe struct ExecuteNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr name;
             public IntPtr _object;
             public IntPtr arguments;
-            public IntPtr retval;
+            public IntPtr* retval;
             public IntPtr exception;
-            public IntPtr _returnValue2;
         }
         public interface I0
         {
