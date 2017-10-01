@@ -179,6 +179,7 @@ namespace BridgeBuilder
         CodeCompilationUnit cu;
         List<CodeMethodDeclaration> methods;
         List<string> simpleLineList = new List<string>();
+        int codeNum;
         int firstNamespaceStartAt;
         public CppToCsImplCodeGen()
         {
@@ -276,6 +277,7 @@ namespace BridgeBuilder
 
             return new MultiPartCodeMethodBody(codeParts);
         }
+
         public void PatchCppMethod(CodeCompilationUnit cu, string writeNewCodeToFile, string backupFolder)
         {
 
@@ -320,7 +322,8 @@ namespace BridgeBuilder
                 string metNameConst = "(" + cppExtNamespaceName + "::_typeName << 16) | " + cppExtNamespaceName + "::" + cppExtNamespaceName + "_" + cppMethodName + "_" + (i + 1);
 
 
-                newCodeStBuilder.AppendLine("//---kneadium-ext-begin");
+                newCodeStBuilder.AppendLine("//---kneadium-ext-begin" + (++codeNum));
+
                 newCodeStBuilder.AppendLine("#if ENABLE_KNEADIUM_EXT");
                 //some method parameters may need special preparation.
                 newCodeStBuilder.AppendLine("auto me = " + cppClassName + "CppToC::Get(self);");
@@ -358,11 +361,11 @@ namespace BridgeBuilder
                                     argCodeList.Add(par.ParameterName);
                                 }
                                 //-----------------
-
-
-
-
-                                //-----------------
+                            }
+                            break;
+                        case "_cef_v8value_t**":
+                            {
+                                argCodeList.Add(par.ParameterName);
                             }
                             break;
                         case "cef_string_list_t":
@@ -376,7 +379,15 @@ namespace BridgeBuilder
                             {
                                 string newArgName = "tmp_arg" + a;
                                 newCodeStBuilder.AppendLine("CefString " + newArgName + " (" + par.ParameterName + ");");
-                                argCodeList.Add(newArgName);
+                                if (par.IsConstPar)
+                                {
+                                    argCodeList.Add(newArgName);
+                                }
+                                else
+                                {
+                                    argCodeList.Add("&" + newArgName);
+                                }
+
                             }
                             break;
                     }
@@ -417,7 +428,7 @@ namespace BridgeBuilder
                 string retType = metDecl.ReturnType.ToString();
                 if (retType != "void")
                 {
- 
+
                     //the event is handled by user code
                     //before return we must check some restore parts
 
@@ -462,7 +473,7 @@ namespace BridgeBuilder
                 }
                 newCodeStBuilder.AppendLine("}");
 
- 
+
 
 
                 //method return value may need special preparation.
