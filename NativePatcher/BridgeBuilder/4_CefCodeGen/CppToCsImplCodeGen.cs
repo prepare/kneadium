@@ -179,7 +179,7 @@ namespace BridgeBuilder
         CodeCompilationUnit cu;
         List<CodeMethodDeclaration> methods;
         List<string> simpleLineList = new List<string>();
-        int codeNum;
+        static int codeNum;
         int firstNamespaceStartAt;
         public CppToCsImplCodeGen()
         {
