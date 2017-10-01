@@ -9717,10 +9717,13 @@ namespace CefV8HandlerExt {
 	//gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			ExecuteArgs args1(&name, object, &arguments, &retval, &exception);
+
+			//CefRefPtr<CefV8Value> ret2 = retval;
+			auto ret3= CefV8ValueCToCpp::Unwrap(retval);
+			ExecuteArgs args1(&name, object, &arguments, &ret3, &exception);
 			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1.arg);
 			//retval = CefV8Value::CreateString("ABCD");
-			retval = CefV8ValueCToCpp::Wrap(args1.arg._returnValue2);
+			retval = CefV8ValueCToCpp::Wrap(*args1.arg.retval);
 			return args1.arg.myext_ret_value;
 		}
 		return false;

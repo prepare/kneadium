@@ -148,8 +148,6 @@ void* MyCefJs_New_V8Handler2(managed_callback callback) {
 				CefV8HandlerExt::Execute(this->callback,
 					name, object, arguments, retval, exception
 				); 
-				
-				//retval = CefV8Value::CreateString("from mx_handler2");
 			}
 			//if (callback) {
 

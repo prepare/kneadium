@@ -67,7 +67,7 @@ namespace BridgeBuilder
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
-             
+
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
 
@@ -740,6 +740,7 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
 
+           
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;

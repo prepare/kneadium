@@ -6380,7 +6380,61 @@ namespace CefV8HandlerExt
 }
 namespace CefV8HandlerExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,237 
-	 
+	//class ExecuteArgs {
+	//public:
+	//	struct argData {
+	//		int32_t myext_flags;
+	//		bool myext_ret_value; //0
+	//		const CefString* name;//1
+	//		cef_v8value_t* _object;//2
+	//		const CefV8ValueList* arguments;//3
+	//		CefRefPtr<CefV8Value>* retval;//4
+	//		CefString* exception;//5
+	//							 ///
+	//		cef_v8value_t* _returnValue2;
+	//	};
+	//	argData arg;//
+	//	ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
+	//	{
+	//		arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+	//		arg.myext_ret_value = 0;
+	//		arg.name = name;
+	//		arg._object = (cef_v8value_t*)_object;
+	//		arg.arguments = arguments;
+	//		arg.retval = retval;
+	//		arg.exception = exception;
+	//		arg._returnValue2 = NULL;
+	//	}
+	//	ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
+	//	{
+	//		arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+	//		arg.myext_ret_value = 0;
+	//		arg.name = &name;
+	//		arg._object = (cef_v8value_t*)_object;
+	//		arg.arguments = arguments;
+	//		arg.retval = retval;
+	//		arg.exception = &exception;
+	//		arg._returnValue2 = NULL;
+	//	}
+	//	ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
+	//	{
+	//		arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
+	//		arg.myext_ret_value = 0;
+	//		arg.name = name;
+	//		arg._object = CefV8ValueCToCpp::Unwrap(_object);
+	//		arg.arguments = arguments;
+	//		arg.retval = retval;
+	//		arg.exception = exception;
+	//		arg._returnValue2 = NULL;
+	//	}
+	//	~ExecuteArgs() {
+	//		if (((arg.myext_flags >> 20) & 1) == 1) {
+	//			CefV8ValueCToCpp::Wrap(arg._object);
+	//		}
+	//	}
+	//private:
+	//	DISALLOW_COPY_AND_ASSIGN(ExecuteArgs);
+	//};
 	class ExecuteArgs {
 	public:
 		struct argData {
@@ -6389,13 +6443,11 @@ namespace CefV8HandlerExt {
 			const CefString* name;//1
 			cef_v8value_t* _object;//2
 			const CefV8ValueList* arguments;//3
-			CefRefPtr<CefV8Value>* retval;//4
-			CefString* exception;//5
-			///
-			cef_v8value_t* _returnValue2;
+			cef_v8value_t** retval;//4
+			CefString* exception;//5 
 		};
 		argData arg;//
-		ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
 			arg.myext_ret_value = 0;
@@ -6404,9 +6456,8 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = exception;
-			arg._returnValue2 = NULL;
 		}
-		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
 			arg.myext_ret_value = 0;
@@ -6415,9 +6466,8 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = &exception;
-			arg._returnValue2 = NULL;
 		}
-		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
 			arg.myext_ret_value = 0;
@@ -6426,7 +6476,6 @@ namespace CefV8HandlerExt {
 			arg.arguments = arguments;
 			arg.retval = retval;
 			arg.exception = exception;
-			arg._returnValue2 = NULL;
 		}
 		~ExecuteArgs() {
 			if (((arg.myext_flags >> 20) & 1) == 1) {
