@@ -90,7 +90,6 @@ extern "C" {
 	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 }
 
-
 //AUTOGEN
 namespace CefAppExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,1 
@@ -1147,11 +1146,11 @@ namespace CefV8AccessorExt {
 			bool myext_ret_value; //0
 			const CefString* name;//1
 			cef_v8value_t* object;//2
-			CefRefPtr<CefV8Value>* retval;//3
+			cef_v8value_t** retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		GetArgs(const CefString* name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1160,16 +1159,16 @@ namespace CefV8AccessorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		GetArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
 			arg.name = &name;
 			arg.object = (cef_v8value_t*)object;
 			arg.retval = retval;
-			arg.exception = &exception;
+			arg.exception = exception;
 		}
-		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1246,11 +1245,11 @@ namespace CefV8InterceptorExt {
 			bool myext_ret_value; //0
 			const CefString* name;//1
 			cef_v8value_t* object;//2
-			CefRefPtr<CefV8Value>* retval;//3
+			cef_v8value_t** retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		get_bynameArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_bynameArgs(const CefString* name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1259,7 +1258,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		get_bynameArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		get_bynameArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1268,7 +1267,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = &exception;
 		}
-		get_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_bynameArgs(const CefString* name, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -1294,11 +1293,11 @@ namespace CefV8InterceptorExt {
 			bool myext_ret_value; //0
 			int index;//1
 			cef_v8value_t* object;//2
-			CefRefPtr<CefV8Value>* retval;//3
+			cef_v8value_t** retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		get_byindexArgs(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_byindexArgs(int index, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1307,7 +1306,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		get_byindexArgs(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		get_byindexArgs(int index, const cef_v8value_t* object, cef_v8value_t** retval, CefString& exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1316,7 +1315,7 @@ namespace CefV8InterceptorExt {
 			arg.retval = retval;
 			arg.exception = &exception;
 		}
-		get_byindexArgs(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		get_byindexArgs(int index, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
 			arg.myext_ret_value = 0;
@@ -6380,61 +6379,7 @@ namespace CefV8HandlerExt
 }
 namespace CefV8HandlerExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,237 
-	//class ExecuteArgs {
-	//public:
-	//	struct argData {
-	//		int32_t myext_flags;
-	//		bool myext_ret_value; //0
-	//		const CefString* name;//1
-	//		cef_v8value_t* _object;//2
-	//		const CefV8ValueList* arguments;//3
-	//		CefRefPtr<CefV8Value>* retval;//4
-	//		CefString* exception;//5
-	//							 ///
-	//		cef_v8value_t* _returnValue2;
-	//	};
-	//	argData arg;//
-	//	ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
-	//	{
-	//		arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
-	//		arg.myext_ret_value = 0;
-	//		arg.name = name;
-	//		arg._object = (cef_v8value_t*)_object;
-	//		arg.arguments = arguments;
-	//		arg.retval = retval;
-	//		arg.exception = exception;
-	//		arg._returnValue2 = NULL;
-	//	}
-	//	ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
-	//	{
-	//		arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
-	//		arg.myext_ret_value = 0;
-	//		arg.name = &name;
-	//		arg._object = (cef_v8value_t*)_object;
-	//		arg.arguments = arguments;
-	//		arg.retval = retval;
-	//		arg.exception = &exception;
-	//		arg._returnValue2 = NULL;
-	//	}
-	//	ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
-	//	{
-	//		arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
-	//		arg.myext_ret_value = 0;
-	//		arg.name = name;
-	//		arg._object = CefV8ValueCToCpp::Unwrap(_object);
-	//		arg.arguments = arguments;
-	//		arg.retval = retval;
-	//		arg.exception = exception;
-	//		arg._returnValue2 = NULL;
-	//	}
-	//	~ExecuteArgs() {
-	//		if (((arg.myext_flags >> 20) & 1) == 1) {
-	//			CefV8ValueCToCpp::Wrap(arg._object);
-	//		}
-	//	}
-	//private:
-	//	DISALLOW_COPY_AND_ASSIGN(ExecuteArgs);
-	//};
+
 	class ExecuteArgs {
 	public:
 		struct argData {
@@ -6444,7 +6389,7 @@ namespace CefV8HandlerExt {
 			cef_v8value_t* _object;//2
 			const CefV8ValueList* arguments;//3
 			cef_v8value_t** retval;//4
-			CefString* exception;//5 
+			CefString* exception;//5
 		};
 		argData arg;//
 		ExecuteArgs(const CefString* name, cef_v8value_t* _object, const CefV8ValueList* arguments, cef_v8value_t** retval, CefString* exception)
