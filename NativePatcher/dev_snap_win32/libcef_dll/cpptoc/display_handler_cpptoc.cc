@@ -54,7 +54,7 @@ namespace {
 
  
 
-//---kneadium-ext-begin7
+//---kneadium-ext-begin42
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1;
@@ -91,7 +91,7 @@ return;
 			return;
 		// Unverified params: title 
 
-//---kneadium-ext-begin6
+//---kneadium-ext-begin41
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTitleChange_2;
@@ -134,7 +134,7 @@ return;
 
  
 
-//---kneadium-ext-begin5
+//---kneadium-ext-begin40
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFaviconURLChange_3;
@@ -171,7 +171,7 @@ return;
 
  
 
-//---kneadium-ext-begin4
+//---kneadium-ext-begin39
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFullscreenModeChange_4;
@@ -211,7 +211,7 @@ return;
 
  
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin38
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTooltip_5;
@@ -252,7 +252,7 @@ m_callback(CALLER_CODE, &args1.arg);
 
 	 
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin37
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnStatusMessage_6;
@@ -291,7 +291,7 @@ return;
 		// Unverified params: message, source
 
  
-//---kneadium-ext-begin1
+//---kneadium-ext-begin36
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnConsoleMessage_7;

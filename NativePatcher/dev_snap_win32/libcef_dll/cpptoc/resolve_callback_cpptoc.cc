@@ -40,7 +40,7 @@ resolve_callback_on_resolve_completed(struct _cef_resolve_callback_t* self,
   std::vector<CefString> resolved_ipsList;
   transfer_string_list_contents(resolved_ips, resolved_ipsList);
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin134
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResolveCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefResolveCallbackExt::_typeName << 16) | CefResolveCallbackExt::CefResolveCallbackExt_OnResolveCompleted_1;

@@ -56,7 +56,7 @@ download_handler_on_before_download(struct _cef_download_handler_t* self,
   if (!callback)
     return;
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin45
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnBeforeDownload_1;
@@ -102,7 +102,7 @@ download_handler_on_download_updated(struct _cef_download_handler_t* self,
   if (!callback)
     return;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin44
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnDownloadUpdated_2;

@@ -32,7 +32,7 @@ completion_callback_on_complete(struct _cef_completion_callback_t* self) {
   if (!self)
     return;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin28
 #if ENABLE_KNEADIUM_EXT
 auto me = CefCompletionCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefCompletionCallbackExt::_typeName << 16) | CefCompletionCallbackExt::CefCompletionCallbackExt_OnComplete_1;

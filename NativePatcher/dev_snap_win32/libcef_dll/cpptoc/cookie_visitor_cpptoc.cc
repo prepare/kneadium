@@ -50,7 +50,7 @@ int CEF_CALLBACK cookie_visitor_visit(struct _cef_cookie_visitor_t* self,
   // Translate param: deleteCookie; type: bool_byref
   bool deleteCookieBool = (deleteCookie && *deleteCookie) ? true : false;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin33
 #if ENABLE_KNEADIUM_EXT
 auto me = CefCookieVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefCookieVisitorExt::_typeName << 16) | CefCookieVisitorExt::CefCookieVisitorExt_Visit_1;

@@ -48,7 +48,7 @@ client_get_context_menu_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin15
+//---kneadium-ext-begin27
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetContextMenuHandler_1;
@@ -79,7 +79,7 @@ client_get_dialog_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin14
+//---kneadium-ext-begin26
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDialogHandler_2;
@@ -110,7 +110,7 @@ client_get_display_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin13
+//---kneadium-ext-begin25
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDisplayHandler_3;
@@ -141,7 +141,7 @@ client_get_download_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin12
+//---kneadium-ext-begin24
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDownloadHandler_4;
@@ -172,7 +172,7 @@ client_get_drag_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin11
+//---kneadium-ext-begin23
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDragHandler_5;
@@ -203,7 +203,7 @@ client_get_find_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin10
+//---kneadium-ext-begin22
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFindHandler_6;
@@ -234,7 +234,7 @@ client_get_focus_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin9
+//---kneadium-ext-begin21
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFocusHandler_7;
@@ -265,7 +265,7 @@ client_get_geolocation_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin8
+//---kneadium-ext-begin20
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetGeolocationHandler_8;
@@ -296,7 +296,7 @@ client_get_jsdialog_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin7
+//---kneadium-ext-begin19
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetJSDialogHandler_9;
@@ -327,7 +327,7 @@ client_get_keyboard_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin6
+//---kneadium-ext-begin18
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetKeyboardHandler_10;
@@ -358,7 +358,7 @@ client_get_life_span_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin5
+//---kneadium-ext-begin17
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLifeSpanHandler_11;
@@ -389,7 +389,7 @@ client_get_load_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin4
+//---kneadium-ext-begin16
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLoadHandler_12;
@@ -420,7 +420,7 @@ client_get_render_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin15
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRenderHandler_13;
@@ -451,7 +451,7 @@ client_get_request_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin14
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRequestHandler_14;
@@ -493,7 +493,7 @@ client_on_process_message_received(struct _cef_client_t* self,
   if (!message)
     return 0;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin13
 #if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_OnProcessMessageReceived_15;

@@ -41,7 +41,7 @@ int CEF_CALLBACK resource_bundle_handler_get_localized_string(
   // Translate param: string; type: string_byref
   CefString stringStr(string);
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin137
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetLocalizedString_1;
@@ -89,7 +89,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource(
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin136
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResource_2;
@@ -153,7 +153,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource_for_scale(
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin135
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResourceForScale_3;

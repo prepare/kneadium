@@ -60,7 +60,7 @@ int CEF_CALLBACK v8accessor_get(struct _cef_v8accessor_t* self,
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin157
 #if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Get_1;
@@ -138,7 +138,7 @@ int CEF_CALLBACK v8accessor_set(struct _cef_v8accessor_t* self,
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin156
 #if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Set_2;

@@ -35,7 +35,7 @@ void CEF_CALLBACK browser_process_handler_on_context_initialized(
   if (!self)
     return;
 
-//---kneadium-ext-begin5
+//---kneadium-ext-begin12
 #if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnContextInitialized_1;
@@ -67,7 +67,7 @@ void CEF_CALLBACK browser_process_handler_on_before_child_process_launch(
   if (!command_line)
     return;
 
-//---kneadium-ext-begin4
+//---kneadium-ext-begin11
 #if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2;
@@ -100,7 +100,7 @@ void CEF_CALLBACK browser_process_handler_on_render_process_thread_created(
   if (!extra_info)
     return;
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin10
 #if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3;
@@ -129,7 +129,7 @@ browser_process_handler_get_print_handler(
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin9
 #if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_GetPrintHandler_4;
@@ -161,7 +161,7 @@ void CEF_CALLBACK browser_process_handler_on_schedule_message_pump_work(
   if (!self)
     return;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin8
 #if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5;

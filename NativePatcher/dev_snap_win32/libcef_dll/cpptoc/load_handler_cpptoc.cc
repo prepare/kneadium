@@ -42,7 +42,7 @@ load_handler_on_loading_state_change(struct _cef_load_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin4
+//---kneadium-ext-begin70
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadingStateChange_1;
@@ -82,7 +82,7 @@ load_handler_on_load_start(struct _cef_load_handler_t* self,
   if (!frame)
     return;
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin69
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadStart_2;
@@ -121,7 +121,7 @@ void CEF_CALLBACK load_handler_on_load_end(struct _cef_load_handler_t* self,
   if (!frame)
     return;
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin68
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadEnd_3;
@@ -167,7 +167,7 @@ void CEF_CALLBACK load_handler_on_load_error(struct _cef_load_handler_t* self,
     return;
   // Unverified params: errorText
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin67
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadError_4;

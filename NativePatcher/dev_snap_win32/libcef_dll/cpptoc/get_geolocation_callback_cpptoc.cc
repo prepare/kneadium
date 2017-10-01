@@ -42,7 +42,7 @@ void CEF_CALLBACK get_geolocation_callback_on_location_update(
   if (position)
     positionObj.Set(*position, false);
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin56
 #if ENABLE_KNEADIUM_EXT
 auto me = CefGetGeolocationCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefGetGeolocationCallbackExt::_typeName << 16) | CefGetGeolocationCallbackExt::CefGetGeolocationCallbackExt_OnLocationUpdate_1;

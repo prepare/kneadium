@@ -45,7 +45,7 @@ resource_handler_process_request(struct _cef_resource_handler_t* self,
   if (!callback)
     return 0;
 
-//---kneadium-ext-begin6
+//---kneadium-ext-begin143
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_ProcessRequest_1;
@@ -96,7 +96,7 @@ resource_handler_get_response_headers(struct _cef_resource_handler_t* self,
   // Translate param: redirectUrl; type: string_byref
   CefString redirectUrlStr(redirectUrl);
 
-//---kneadium-ext-begin5
+//---kneadium-ext-begin142
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_GetResponseHeaders_2;
@@ -148,7 +148,7 @@ resource_handler_read_response(struct _cef_resource_handler_t* self,
   // Translate param: bytes_read; type: simple_byref
   int bytes_readVal = bytes_read ? *bytes_read : 0;
 
-//---kneadium-ext-begin4
+//---kneadium-ext-begin141
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_ReadResponse_3;
@@ -199,7 +199,7 @@ resource_handler_can_get_cookie(struct _cef_resource_handler_t* self,
   if (cookie)
     cookieObj.Set(*cookie, false);
 
-//---kneadium-ext-begin3
+//---kneadium-ext-begin140
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_CanGetCookie_4;
@@ -239,7 +239,7 @@ resource_handler_can_set_cookie(struct _cef_resource_handler_t* self,
   if (cookie)
     cookieObj.Set(*cookie, false);
 
-//---kneadium-ext-begin2
+//---kneadium-ext-begin139
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_CanSetCookie_5;
@@ -269,7 +269,7 @@ resource_handler_cancel(struct _cef_resource_handler_t* self) {
   if (!self)
     return;
 
-//---kneadium-ext-begin1
+//---kneadium-ext-begin138
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_Cancel_6;
