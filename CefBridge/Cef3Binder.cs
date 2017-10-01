@@ -805,15 +805,15 @@ namespace LayoutFarm.CefBridge
                 *((uint*)jsvalue->Ptr) = value;
             }
         }
-        internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
-        {
-            unsafe
-            {
+        //internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
+        //{
+        //    unsafe
+        //    {
 
-                JsValue* jsvalue = ((JsValue*)varr + index);
-                *((int*)jsvalue->Ptr) = value;
-            }
-        }
+        //        JsValue* jsvalue = ((JsValue*)varr + index);
+        //        *((int*)jsvalue->Ptr) = value;
+        //    }
+        //}
 
         unsafe static string MyCefJsReadString(JsValue* jsval)
         {

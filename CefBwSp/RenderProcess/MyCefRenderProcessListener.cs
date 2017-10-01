@@ -26,7 +26,7 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        
+
         void Test002(int id, IntPtr argsPtr)
         {
 #if DEBUG
@@ -36,10 +36,10 @@ namespace LayoutFarm.CefBridge
             //}
 #endif
             Auto.CefV8Handler.ExecuteArgs ex = new CefV8Handler.ExecuteArgs(argsPtr);
-            ex.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
+          ex.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
 
         }
-         
+
         public void OnContextCreated(CefRenderProcessHandler.OnContextCreatedArgs args)
         {
 
@@ -109,11 +109,10 @@ namespace LayoutFarm.CefBridge
     class SubProcessClientApp : CefClientApp
     {
         RenderProcessHandler renderProcessHandler;
-        
-        public SubProcessClientApp(IntPtr processHandle,
-            CefRenderProcessListener renderProcessListener)
+
+        public SubProcessClientApp(IntPtr processHandle)
             : base(processHandle)
-        { 
+        {
         }
         protected override MyCefCallback GetManagedCallbackImpl()
         {
@@ -224,5 +223,5 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-   
+
 }
