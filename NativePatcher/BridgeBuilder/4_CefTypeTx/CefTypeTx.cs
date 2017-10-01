@@ -1190,7 +1190,7 @@ namespace BridgeBuilder
                                         case "CefRefPtr<CefClient>":
                                             return "IntPtr";
                                         case "CefRefPtr<CefV8Value>":
-                                            return "IntPtr";
+                                            return "ref IntPtr";
                                         case "void*":
                                             return "IntPtr";
                                         case "CefRefPtr<CefV8Exception>":
