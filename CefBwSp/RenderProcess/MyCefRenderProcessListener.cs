@@ -46,7 +46,7 @@ namespace LayoutFarm.CefBridge
             //}
 #endif
             Auto.CefV8Handler.ExecuteArgs ex = new CefV8Handler.ExecuteArgs(argsPtr);
-            ex.retval((Auto.CefV8Value.CreateString("hello from managed side NEW3")).nativePtr);
+            ex.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
 
         }
         //public void OnContextCreated2(MyCefContextArgs args)
@@ -66,7 +66,7 @@ namespace LayoutFarm.CefBridge
 
             Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler2(Test002));
             var func = Auto.CefV8Value.CreateFunction("test001", funcHandler);
-            cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY); 
+            cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
 
             dbugRenderProcessLog.WriteLine("context_created-pass");
         }
