@@ -1668,7 +1668,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                    IntPtr str_address = *(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void text(string value)
+            {
+                unsafe
+                {
+                    *(((OnTooltipNativeArgs*)this.nativePtr)->text) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -1679,7 +1687,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr browser;
-            public IntPtr text;
+            public IntPtr* text;
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,479
@@ -1903,7 +1911,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// drawing tooltips and the return value is ignored.
             /// /*cef(optional_param=text)*/
             /// </summary>
-            bool OnTooltip(CefBrowser browser, string text);
+            bool OnTooltip(CefBrowser browser, ref string text);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,495
             /// <summary>
             /// Called when the browser receives a status message. |value| contains the
@@ -2088,8 +2096,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnTooltip(I1 i1, OnTooltipArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,515
+            string text = args.text();
             args.myext_setRetValue(i1.OnTooltip(args.browser(),
-            args.text()));
+            ref text));
+            args.text(text);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,516
         public static void OnStatusMessage(I1 i1, OnStatusMessageArgs args)
@@ -6542,9 +6552,16 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
-            public IntPtr buffer()
+            public bool buffer()
             {
                 throw new CefNotImplementedException();
+            }
+            public void buffer(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((OnPaintNativeArgs*)this.nativePtr)->buffer) = value;
+                }
             }
             public int width()
             {
@@ -6569,7 +6586,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
             public cef_paint_element_type_t type;
             public IntPtr dirtyRects;
-            public IntPtr buffer;
+            public IntPtr* buffer;
             public int width;
             public int height;
         }
@@ -7083,7 +7100,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// upper-left origin.
             /// /*cef()*/
             /// </summary>
-            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
+            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, ref IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
             /// <summary>
             /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -7429,12 +7446,14 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnPaint(I1 i1, OnPaintArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,843
+            IntPtr buffer = IntPtr.Zero;
             i1.OnPaint(args.browser(),
             args.type(),
             args.dirtyRects(),
-            args.buffer(),
+            ref buffer,
             args.width(),
             args.height());
+            args.buffer(buffer);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,844
         public static void OnCursorChange(I1 i1, OnCursorChangeArgs args)
@@ -9291,7 +9310,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                    IntPtr str_address = *(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void new_url(string value)
+            {
+                unsafe
+                {
+                    *(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -9304,7 +9331,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr frame;
             public IntPtr request;
             public IntPtr response;
-            public IntPtr new_url;
+            public IntPtr* new_url;
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,962
@@ -10376,7 +10403,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// callback.
             /// /*cef()*/
             /// </summary>
-            void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, string new_url);
+            void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, ref string new_url);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1005
             /// <summary>
             /// Called on the IO thread when a resource response is received. To allow the
@@ -10817,11 +10844,13 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnResourceRedirect(I1 i1, OnResourceRedirectArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1043
+            string new_url = args.new_url();
             i1.OnResourceRedirect(args.browser(),
             args.frame(),
             args.request(),
             args.response(),
-            args.new_url());
+            ref new_url);
+            args.new_url(new_url);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1044
         public static void OnResourceResponse(I1 i1, OnResourceResponseArgs args)
@@ -10986,7 +11015,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                    IntPtr str_address = *(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void _string(string value)
+            {
+                unsafe
+                {
+                    *(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -10997,7 +11034,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int argFlags;
             public bool myext_ret_value;
             public int string_id;
-            public IntPtr _string;
+            public IntPtr* _string;
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1069
@@ -11201,7 +11238,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// cef_pack_strings.h for a listing of valid string ID values.
             /// /*cef()*/
             /// </summary>
-            bool GetLocalizedString(int string_id, string _string);
+            bool GetLocalizedString(int string_id, ref string _string);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1077
             /// <summary>
             /// Called to retrieve data for the specified scale independent |resource_id|.
@@ -11297,8 +11334,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void GetLocalizedString(I1 i1, GetLocalizedStringArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1085
+            string _string = args._string();
             args.myext_setRetValue(i1.GetLocalizedString(args.string_id(),
-            args._string()));
+            ref _string));
+            args._string(_string);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1086
         public static void GetDataResource(I1 i1, GetDataResourceArgs args)
@@ -11445,14 +11484,29 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return ((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length;
+                    return *(((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length);
+                }
+            }
+            public void response_length(long value)
+            {
+                unsafe
+                {
+                    *(((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length) = value;
                 }
             }
             public string redirectUrl()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                    IntPtr str_address = *(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void redirectUrl(string value)
+            {
+                unsafe
+                {
+                    *(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -11462,8 +11516,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public IntPtr response;
-            public long response_length;
-            public IntPtr redirectUrl;
+            public long* response_length;
+            public IntPtr* redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1095
@@ -11503,9 +11557,16 @@ namespace LayoutFarm.CefBridge.Auto
                     ((ReadResponseNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public IntPtr data_out()
+            public bool data_out()
             {
                 throw new CefNotImplementedException();
+            }
+            public void data_out(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((ReadResponseNativeArgs*)this.nativePtr)->data_out) = value;
+                }
             }
             public int bytes_to_read()
             {
@@ -11542,7 +11603,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public bool myext_ret_value;
-            public IntPtr data_out;
+            public IntPtr* data_out;
             public int bytes_to_read;
             public int* bytes_read;
             public IntPtr callback;
@@ -11767,7 +11828,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// SetError() on |response| to indicate the error condition.
             /// /*cef()*/
             /// </summary>
-            void GetResponseHeaders(CefResponse response, long response_length, string redirectUrl);
+            void GetResponseHeaders(CefResponse response, ref long response_length, ref string redirectUrl);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1111
             /// <summary>
             /// Read response data. If data is available immediately copy up to
@@ -11777,7 +11838,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// data is available. To indicate response completion return false.
             /// /*cef()*/
             /// </summary>
-            bool ReadResponse(IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
+            bool ReadResponse(ref IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1112
             /// <summary>
             /// Return true if the specified cookie can be sent with the request or false
@@ -11930,19 +11991,25 @@ namespace LayoutFarm.CefBridge.Auto
         public static void GetResponseHeaders(I1 i1, GetResponseHeadersArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1126
+            long response_length = 0;
+            string redirectUrl = args.redirectUrl();
             i1.GetResponseHeaders(args.response(),
-            args.response_length(),
-            args.redirectUrl());
+            ref response_length,
+            ref redirectUrl);
+            args.response_length(response_length);
+            args.redirectUrl(redirectUrl);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1127
         public static void ReadResponse(I1 i1, ReadResponseArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1128
+            IntPtr data_out = IntPtr.Zero;
             int bytes_read = 0;
-            args.myext_setRetValue(i1.ReadResponse(args.data_out(),
+            args.myext_setRetValue(i1.ReadResponse(ref data_out,
             args.bytes_to_read(),
             ref bytes_read,
             args.callback()));
+            args.data_out(data_out);
             args.bytes_read(bytes_read);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1129
@@ -12012,9 +12079,16 @@ namespace LayoutFarm.CefBridge.Auto
                     ((ReadNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public IntPtr ptr()
+            public bool ptr()
             {
                 throw new CefNotImplementedException();
+            }
+            public void ptr(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((ReadNativeArgs*)this.nativePtr)->ptr) = value;
+                }
             }
             public uint size()
             {
@@ -12037,7 +12111,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public int myext_ret_value;
-            public IntPtr ptr;
+            public IntPtr* ptr;
             public uint size;
             public uint n;
         }
@@ -12273,7 +12347,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Read raw binary data.
             /// /*cef()*/
             /// </summary>
-            uint Read(IntPtr ptr, uint size, uint n);
+            uint Read(ref IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1152
             /// <summary>
             /// Seek to the specified offset position. |whence| may be any one of
@@ -12409,9 +12483,11 @@ namespace LayoutFarm.CefBridge.Auto
         public static void Read(I1 i1, ReadArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1164
-            i1.Read(args.ptr(),
+            IntPtr ptr = IntPtr.Zero;
+            i1.Read(ref ptr,
             args.size(),
             args.n());
+            args.ptr(ptr);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1165
         public static void Seek(I1 i1, SeekArgs args)
@@ -12487,9 +12563,16 @@ namespace LayoutFarm.CefBridge.Auto
                     ((WriteNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public IntPtr ptr()
+            public bool ptr()
             {
                 throw new CefNotImplementedException();
+            }
+            public void ptr(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((WriteNativeArgs*)this.nativePtr)->ptr) = value;
+                }
             }
             public uint size()
             {
@@ -12512,7 +12595,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public int myext_ret_value;
-            public IntPtr ptr;
+            public IntPtr* ptr;
             public uint size;
             public uint n;
         }
@@ -12748,7 +12831,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Write raw binary data.
             /// /*cef()*/
             /// </summary>
-            uint Write(IntPtr ptr, uint size, uint n);
+            uint Write(ref IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1190
             /// <summary>
             /// Seek to the specified offset position. |whence| may be any one of
@@ -12884,9 +12967,11 @@ namespace LayoutFarm.CefBridge.Auto
         public static void Write(I1 i1, WriteArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1202
-            i1.Write(args.ptr(),
+            IntPtr ptr = IntPtr.Zero;
+            i1.Write(ref ptr,
             args.size(),
             args.n());
+            args.ptr(ptr);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1203
         public static void Seek(I1 i1, SeekArgs args)
@@ -12998,7 +13083,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                    IntPtr str_address = *(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void exception(string value)
+            {
+                unsafe
+                {
+                    *(((ExecuteNativeArgs*)this.nativePtr)->exception) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -13012,7 +13105,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr _object;
             public IntPtr arguments;
             public IntPtr* retval;
-            public IntPtr exception;
+            public IntPtr* exception;
         }
         public interface I0
         {
@@ -13038,7 +13131,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// that will be thrown. Return true if execution was handled.
             /// /*cef()*/
             /// </summary>
-            bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, ref IntPtr retval, string exception);
+            bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, ref IntPtr retval, ref string exception);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1216
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -13079,12 +13172,14 @@ namespace LayoutFarm.CefBridge.Auto
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1220
             IntPtr retval = IntPtr.Zero;
+            string exception = args.exception();
             args.myext_setRetValue(i1.Execute(args.name(),
             args._object(),
             args.arguments(),
             ref retval,
-            args.exception()));
+            ref exception));
             args.retval(retval);
+            args.exception(exception);
         }
     }
 }
