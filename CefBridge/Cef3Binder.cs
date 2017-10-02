@@ -484,6 +484,17 @@ namespace LayoutFarm.CefBridge
             CopyStdStringList(stdStringList, outputList);
             Cef3Binder.MyCefDeletePtr(stdStringList);
         }
+
+        internal static string GetAsString(IntPtr cefStringPtr)
+        {
+            unsafe
+            {
+                char* rawCefString_char16_t;
+                int actualLen;
+                Cef3Binder.MyCefStringGetRawPtr(cefStringPtr, out rawCefString_char16_t, out actualLen);
+                return new string(rawCefString_char16_t, 0, actualLen);
+            }
+        }
     }
 
 
@@ -665,186 +676,5 @@ namespace LayoutFarm.CefBridge
     }
 
 
-
-    static class MyMetArgs
-    {
-        //TODO: inline? 
-
-        internal static IntPtr GetNativeObjPtr(IntPtr nativePtr, out int argCountAndFlags)
-        {
-            unsafe
-            {
-                //return address of vargs
-                argCountAndFlags = *((int*)nativePtr); //MyMetArgsN
-                                                       //check flags
-
-                if (((argCountAndFlags >> 18) & 1) == 1)
-                {
-                    //this native
-                    return nativePtr;
-                }
-                else
-                {     //struct MyMetArgsN
-                      //{
-                      //    int32_t argCount;
-                      //    jsvalue* vargs;
-                      //}; 
-                    IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
-                    return (IntPtr)(*((JsValue**)h1));
-                }
-
-            }
-        }
-        internal static string GetAsString(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return MyCefJsReadString((JsValue*)varr + index);
-            }
-        }
-        internal static string GetAsString(IntPtr cefStringPtr)
-        {
-            unsafe
-            {
-                char* rawCefString_char16_t;
-                int actualLen;
-                Cef3Binder.MyCefStringGetRawPtr(cefStringPtr, out rawCefString_char16_t, out actualLen);
-                return new string(rawCefString_char16_t, 0, actualLen);
-            }
-        }
-        internal static int GetAsInt32(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return ((JsValue*)varr + index)->I32;
-            }
-        }
-        internal static void SetAsInt32(IntPtr varr, int index, int value)
-        {
-            unsafe
-            {
-                ((JsValue*)varr + index)->I32 = value;
-            }
-        }
-        internal static uint GetAsUInt32(IntPtr varr, int index)
-        {
-            unsafe
-            {
-
-                return (uint)((JsValue*)varr + index)->I32;
-            }
-        }
-        internal static long GetAsInt64(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return ((JsValue*)varr + index)->I64;
-            }
-        }
-        internal static ulong GetAsUInt64(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return (ulong)((JsValue*)varr + index)->I64;
-            }
-        }
-        internal static bool GetAsBool(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return ((JsValue*)varr + index)->I32 != 0;
-            }
-        }
-        internal static double GetAsDouble(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return ((JsValue*)varr + index)->Num;
-            }
-        }
-        internal static float GetAsFloat(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return (float)((JsValue*)varr + index)->Num;
-            }
-        }
-        internal static IntPtr GetAsIntPtr(IntPtr varr, int index)
-        {
-            unsafe
-            {
-                return ((JsValue*)varr + index)->Ptr;
-            }
-        }
-        internal static void SetAsIntPtr(IntPtr varr, int index, IntPtr value)
-        {
-            unsafe
-            {
-                ((JsValue*)varr + index)->Ptr = value;
-            }
-        }
-        internal static void SetBoolToAddress(IntPtr varr, int index, bool value)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = ((JsValue*)varr + index);
-                *((bool*)jsvalue->Ptr) = value;
-            }
-        }
-        internal static void SetUInt32ToAddress(IntPtr varr, int index, uint value)
-        {
-            unsafe
-            {
-
-                JsValue* jsvalue = ((JsValue*)varr + index);
-                *((uint*)jsvalue->Ptr) = value;
-            }
-        }
-        //internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
-        //{
-        //    unsafe
-        //    {
-
-        //        JsValue* jsvalue = ((JsValue*)varr + index);
-        //        *((int*)jsvalue->Ptr) = value;
-        //    }
-        //}
-
-        unsafe static string MyCefJsReadString(JsValue* jsval)
-        {
-            int actualLen;
-            int buffLen = jsval->I32 + 1; //string len
-            //check if string is on method-call's frame stack or heap
-            if (jsval->Type == JsValueType.NativeCefString)
-            {
-                char* rawCefString_char16_t;
-                Cef3Binder.MyCefStringGetRawPtr(jsval->Ptr, out rawCefString_char16_t, out actualLen);
-                return new string(rawCefString_char16_t, 0, actualLen);
-            }
-            if (buffLen < 1024)
-            {
-                char* buffHead = stackalloc char[buffLen];
-                Cef3Binder.MyCefStringHolder_Read(jsval->Ptr, buffHead, buffLen, out actualLen);
-                if (actualLen > buffLen)
-                {
-                    //read more
-                }
-                return new string(buffHead, 0, actualLen);
-            }
-            else
-            {
-                char[] buffHead = new char[buffLen];
-                fixed (char* h = &buffHead[0])
-                {
-                    Cef3Binder.MyCefStringHolder_Read(jsval->Ptr, h, buffLen, out actualLen);
-                    if (actualLen > buffLen)
-                    {
-                        //read more
-                    }
-                }
-                return new string(buffHead, 0, actualLen);
-            }
-
-        }
-    }
+     
 }

@@ -1822,7 +1822,7 @@ namespace BridgeBuilder
                         {
                             stbuilder.AppendLine("unsafe{");
                             stbuilder.Append("return ");
-                            stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                            stbuilder.Append("Cef3Binder.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context    
                             break;
@@ -1851,7 +1851,7 @@ namespace BridgeBuilder
                             {
                                 stbuilder.AppendLine("unsafe{");
                                 stbuilder.Append("return ");
-                                stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                                stbuilder.Append("Cef3Binder.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
                                 stbuilder.AppendLine(";");
                                 stbuilder.AppendLine("}"); //close unsafe context    
                                 break;
@@ -1866,7 +1866,7 @@ namespace BridgeBuilder
                                 stbuilder.AppendLine(";");
 
                                 stbuilder.Append("return ");
-                                stbuilder.AppendLine("MyMetArgs.GetAsString(str_address);");
+                                stbuilder.AppendLine("Cef3Binder.GetAsString(str_address);");
                                 stbuilder.AppendLine("}"); //close unsafe context     
                                 stbuilder.AppendLine("}"); //close method
 
@@ -1886,11 +1886,7 @@ namespace BridgeBuilder
                         break;
                     case "ref bool":
                         //provide both getter and setter method
-                        {
-                            //stbuilder.AppendLine("unsafe{");
-                            //stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
-                            //stbuilder.Append("}");//close unsafe context  
-                            //stbuilder.Append("}"); //close method
+                        {       
 
                             stbuilder.AppendLine("unsafe{");
                             stbuilder.Append("return ");

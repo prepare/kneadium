@@ -79,7 +79,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeCommandLineProcessingNativeArgs*)this.nativePtr)->process_type);
+                    return Cef3Binder.GetAsString(((OnBeforeCommandLineProcessingNativeArgs*)this.nativePtr)->process_type);
                 }
             }
             public CefCommandLine command_line()
@@ -9019,7 +9019,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((FormatLabelNativeArgs*)this.nativePtr)->label);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void label(string value)
