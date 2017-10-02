@@ -40,7 +40,7 @@ menu_model_delegate_execute_command(struct _cef_menu_model_delegate_t* self,
   if (!menu_model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin77
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_ExecuteCommand_1;
@@ -81,7 +81,7 @@ menu_model_delegate_mouse_outside_menu(struct _cef_menu_model_delegate_t* self,
   // Translate param: screen_point; type: simple_byref_const
   CefPoint screen_pointVal = screen_point ? *screen_point : CefPoint();
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin76
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MouseOutsideMenu_2;
@@ -115,7 +115,7 @@ void CEF_CALLBACK menu_model_delegate_unhandled_open_submenu(
   if (!menu_model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin75
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledOpenSubmenu_3;
@@ -149,7 +149,7 @@ void CEF_CALLBACK menu_model_delegate_unhandled_close_submenu(
   if (!menu_model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin74
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledCloseSubmenu_4;
@@ -182,7 +182,7 @@ menu_model_delegate_menu_will_show(struct _cef_menu_model_delegate_t* self,
   if (!menu_model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin73
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuWillShow_5;
@@ -215,7 +215,7 @@ menu_model_delegate_menu_closed(struct _cef_menu_model_delegate_t* self,
   if (!menu_model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin72
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuClosed_6;
@@ -256,14 +256,14 @@ menu_model_delegate_format_label(struct _cef_menu_model_delegate_t* self,
   // Translate param: label; type: string_byref
   CefString labelStr(label);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin71
 #if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_FormatLabel_7;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg2 (label);
-CefMenuModelDelegateExt::FormatLabelArgs args1(menu_model,tmp_arg2);
+CefMenuModelDelegateExt::FormatLabelArgs args1(menu_model,&tmp_arg2);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
  return args1.arg.myext_ret_value;

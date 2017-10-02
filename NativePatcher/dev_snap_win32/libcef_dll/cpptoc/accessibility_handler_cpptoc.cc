@@ -38,7 +38,7 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_tree_change(
   if (!value)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin2
 #if ENABLE_KNEADIUM_EXT
 auto me = CefAccessibilityHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1;
@@ -71,7 +71,7 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_location_change(
   if (!value)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin1
 #if ENABLE_KNEADIUM_EXT
 auto me = CefAccessibilityHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2;

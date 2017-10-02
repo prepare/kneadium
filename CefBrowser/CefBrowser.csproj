@@ -102,9 +102,6 @@
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridgeCore\Cef3InitEssential.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\Cef3WinForms.cs">
-      <Link>CefBridgeCore\Cef3WinForms.cs</Link>
-    </Compile>
     <Compile Include="..\CefBridge\CefListeners.cs">
       <Link>CefBridgeCore\CefListeners.cs</Link>
     </Compile>
@@ -113,9 +110,6 @@
     </Compile>
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridgeCore\ClientApp.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\MyCefBrowser.cs">
-      <Link>CefBridgeCore\MyCefBrowser.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\MyCefDevWindow.cs">
       <Link>CefBridgeCore\MyCefDevWindow.cs</Link>
@@ -132,9 +126,10 @@
     <Compile Include="..\CefBridge\WindowWrapper.cs">
       <Link>CefBridgeCore\WindowWrapper.cs</Link>
     </Compile>
+    <Compile Include="CefImpl\Cef3WinForms.cs" />
     <Compile Include="CefImpl\MyCef3InitEssential.cs" />
     <Compile Include="CefImpl\MyCef3WinForms.cs" />
-    <Compile Include="CefImpl\MyCefRenderProcessListener.cs" />
+    <Compile Include="CefImpl\MyCefBrowser.cs" />
     <Compile Include="CefImpl\MyCefUIListener.cs" />
     <Compile Include="CefImpl\WindowControlImpl.cs" />
     <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
