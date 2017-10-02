@@ -19,11 +19,7 @@ const int CEF_MSG_BinaryResouceProvider_OnRequest = 145;
 const int CEF_MSG_CefSettings_Init = 150;
 const int CEF_MSG_MainContext_GetConsoleLogPath = 151;
 const int CEF_MSG_OSR_Render = 155;
-
-
-const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
-const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
-const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
+ 
 const int CEF_MSG_OnQuery = 205;
 
 

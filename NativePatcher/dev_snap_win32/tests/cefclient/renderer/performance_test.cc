@@ -213,31 +213,12 @@ namespace client {
 						V8_PROPERTY_ATTRIBUTE_READONLY);
 				}
 				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
-					//if (app->myMxCallback_) {
-
-					//	//TODO: review here, this is not correct
-					//	//should use wrap/unwrap
-					//	INIT_MY_MET_ARGS(metArgs, 1)
-					//		MyCefSetVoidPtr2(&vargs[1], app.get());
-					//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
-					//}
+					 
 				}
 				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
 					CefRefPtr<CefBrowser> browser,
 					CefRefPtr<CefFrame> frame,
-					CefRefPtr<CefV8Context> context) {
-					//if (app->myMxCallback_)
-					//{
-					//	//expose all to managed side
-					//	//browser,frame and context ?  
-					//	INIT_MY_MET_ARGS(metArgs, 4)
-					//		MyCefSetVoidPtr2(&vargs[1], app.get());
-					//	MyCefSetVoidPtr2(&vargs[2], browser.get());
-					//	MyCefSetVoidPtr2(&vargs[3], frame.get());
-					//	MyCefSetVoidPtr2(&vargs[4], context.get()); 
-					//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
-
-					//}
+					CefRefPtr<CefV8Context> context) { 
 				}
 
 			private:
