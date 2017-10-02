@@ -312,7 +312,7 @@ namespace LayoutFarm.CefBridge.Auto
         internal IntPtr nativePtr;
     }
     public struct CefTime
-    {   
+    {
         IntPtr nativePtr;
         public CefTime(IntPtr nativePtr)
         {
@@ -398,7 +398,14 @@ namespace LayoutFarm.CefBridge.Auto
         //should be int
         internal IntPtr nativePtr;
     }
-
+    public struct CefX509CertificateList
+    {
+        internal IntPtr nativePtr;
+        public CefX509CertificateList(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefV8ValueList
     {
         //implemented by ...
