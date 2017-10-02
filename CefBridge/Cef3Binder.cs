@@ -161,8 +161,8 @@ namespace LayoutFarm.CefBridge
 
         static CefClientApp clientApp;
 
- 
-       
+
+
 
         public static bool LoadCef3(Cef3InitEssential cefInitEssential)
         {
@@ -293,7 +293,7 @@ namespace LayoutFarm.CefBridge
         //TODO: review here, send setting as json?
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, CefSettingsKey keyName, string value);
-       
+
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
@@ -447,15 +447,6 @@ namespace LayoutFarm.CefBridge
         }
 
 
-        //public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
-        //{
-        //    unsafe
-        //    {
-        //        ret.Type = JsValueType.NativeCefString;
-        //        ret.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
-        //        ret.I32 = value.Length;
-        //    }
-        //}
         public static string CopyStringAndDestroyNativeSide(ref JsValue value)
         {
             NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(value.Ptr);
@@ -476,17 +467,21 @@ namespace LayoutFarm.CefBridge
             }
             Cef3Binder.MyCefDeletePtr(stdInt64List);
         }
-        public static void CopyStdStringListAndDestroyNativeSide(IntPtr stdStringList, System.Collections.Generic.List<string> outputList)
+        public static void CopyStdStringList(IntPtr stdStringList, System.Collections.Generic.List<string> outputList)
         {
             int listCount;
             Cef3Binder.GetListCount(2, stdStringList, out listCount);
-
             for (int i = 0; i < listCount; ++i)
             {
                 JsValue value = new JsValue();
                 Cef3Binder.GetListElement(2, stdStringList, i, ref value);
                 outputList.Add(CopyStringAndDestroyNativeSide(ref value));
             }
+
+        }
+        public static void CopyStdStringListAndDestroyNativeSide(IntPtr stdStringList, System.Collections.Generic.List<string> outputList)
+        {
+            CopyStdStringList(stdStringList, outputList);
             Cef3Binder.MyCefDeletePtr(stdStringList);
         }
     }

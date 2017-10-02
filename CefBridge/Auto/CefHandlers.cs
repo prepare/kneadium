@@ -1279,7 +1279,12 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public List<string> accept_filters()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFileDialogNativeArgs*)this.nativePtr)->accept_filters, outputlist);
+                    return outputlist;
+                }
             }
             public int selected_accept_filter()
             {
@@ -1559,7 +1564,12 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public List<string> icon_urls()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->icon_urls, outputlist);
+                    return outputlist;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,474

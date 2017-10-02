@@ -1535,7 +1535,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            
+             
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -1714,11 +1714,15 @@ namespace BridgeBuilder
                             parTx.InnerTypeName = csSetterParTypeName = "string";
                         }
                         break;
-                    case "IntPtr*":
-                        //this is managed class 
-                        //so just return IntPtr 
-                        stbuilder.Append("IntPtr");
-                        csSetterParTypeName = csParTypeName;
+                    case "List<string>":
+                        {
+                            //TODO: review here
+                            //we don't need a whole copy of list
+                            //we may use 'proxy' to the list
+
+                            stbuilder.Append(csParTypeName);
+                            csSetterParTypeName = csParTypeName;
+                        }
                         break;
                     default:
                         if (csParTypeName.StartsWith("ref"))
@@ -1760,9 +1764,20 @@ namespace BridgeBuilder
                             stbuilder.AppendLine("}"); //close unsafe context
                         }
                         break;
-
-                    case "List<object>":
                     case "List<string>":
+                        {
+                            //List<string> outputlist = new List<string>();
+                            //Cef3Binder.CopyStdStringList(((OnFileDialogNativeArgs*)this.nativePtr)->accept_filters, outputlist);
+                            //return outputlist;
+                            stbuilder.AppendLine("unsafe{"); //open unsafe 
+                            stbuilder.AppendLine("List<string> outputlist = new List<string>();");
+                            stbuilder.AppendLine("Cef3Binder.CopyStdStringList(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ",outputlist);");
+                            stbuilder.AppendLine("return outputlist;");
+                            stbuilder.AppendLine("}"); //close unsafe context
+
+                        }
+                        break;
+                    case "List<object>":
                     case "List<CefCompositionUnderline>":
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
@@ -1773,7 +1788,7 @@ namespace BridgeBuilder
                             stbuilder.Append("return ");
                             stbuilder.AppendLine("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
                             stbuilder.AppendLine("}"); //close unsafe context
-                        }                        
+                        }
                         break;
                     case "uint":
                         {
@@ -1962,7 +1977,7 @@ namespace BridgeBuilder
                             stbuilder.AppendLine("}");//close unsafe
                             stbuilder.AppendLine("}"); //close method
 
-                          
+
                             //generate setter part
                             stbuilder.AppendLine("public void " + parTx.Name + "(IntPtr value){");
                             stbuilder.AppendLine("unsafe{");
