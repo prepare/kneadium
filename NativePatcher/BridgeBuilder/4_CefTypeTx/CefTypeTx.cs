@@ -1201,7 +1201,7 @@ namespace BridgeBuilder
                                                 switch (name)
                                                 {
                                                     case "CefRefPtr<CefX509Certificate>":
-                                                        return "List<CefCompositionUnderline>";
+                                                        return "CefX509CertificateList";
                                                 }
 
                                                 //list of a smart pointer object

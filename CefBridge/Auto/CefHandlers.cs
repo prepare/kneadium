@@ -10013,9 +10013,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
                 }
             }
-            public List<CefCompositionUnderline> certificates()
+            public CefX509CertificateList certificates()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefX509CertificateList(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->certificates);
+                }
             }
             public CefSelectClientCertificateCallback callback()
             {
@@ -10512,7 +10515,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// so that it only contains certificates from issuers that the server trusts.
             /// /*cef()*/
             /// </summary>
-            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback);
+            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, CefX509CertificateList certificates, CefSelectClientCertificateCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1013
             /// <summary>
             /// Called on the browser process UI thread when a plugin has crashed.
