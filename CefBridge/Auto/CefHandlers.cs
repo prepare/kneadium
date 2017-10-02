@@ -3930,7 +3930,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPreKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
             public bool is_keyboard_shortcut()
             {
@@ -4011,7 +4014,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,640
@@ -4263,7 +4269,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr client()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnBeforePopupNativeArgs*)this.nativePtr)->client;
+                }
             }
             public CefBrowserSettings settings()
             {
@@ -6560,7 +6569,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr buffer()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPaintNativeArgs*)this.nativePtr)->buffer;
+                }
             }
             public int width()
             {
@@ -6626,7 +6638,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr cursor()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnCursorChangeNativeArgs*)this.nativePtr)->cursor;
+                }
             }
             public cef_cursor_type_t type()
             {
@@ -11081,7 +11096,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
@@ -11163,7 +11181,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
@@ -12562,7 +12583,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((WriteNativeArgs*)this.nativePtr)->ptr;
+                }
             }
             public uint size()
             {

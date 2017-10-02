@@ -1894,7 +1894,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnDownloadDataNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_length()
             {

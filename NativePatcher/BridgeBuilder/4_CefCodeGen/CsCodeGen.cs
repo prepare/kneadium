@@ -1535,7 +1535,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            if (codeGenNum == 373)
+            if (codeGenNum == 775)
             {
 
             }
@@ -1974,8 +1974,11 @@ namespace BridgeBuilder
                         }
                         break;
                     case "IntPtr":
-                        stbuilder.Append("throw new CefNotImplementedException();");
-
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.Append("return ");
+                        stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                        stbuilder.AppendLine(";");
+                        stbuilder.AppendLine("}"); //close unsafe context  
                         break;
                 }
                 stbuilder.AppendLine("}"); //method
