@@ -794,6 +794,10 @@ namespace BridgeBuilder
                             //temp fix
                             fieldType = "cef_v8value_t**";
                         }
+                        else if(fieldType== "CefRefPtr<CefV8Exception>*")
+                        {
+
+                        }
                     }
                 }
             }

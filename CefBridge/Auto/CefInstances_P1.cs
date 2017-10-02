@@ -3717,7 +3717,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public void InitFromArgv(int argc,
-        IntPtr argv)
+        ref IntPtr argv)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7073,7 +7073,7 @@ namespace LayoutFarm.CefBridge.Auto
         int pixel_height,
         cef_color_type_t color_type,
         cef_alpha_type_t alpha_type,
-        IntPtr pixel_data,
+        ref IntPtr pixel_data,
         uint pixel_data_size)
         {
             JsValue v1 = new JsValue();
@@ -7106,7 +7106,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public bool AddPNG(float scale_factor,
-        IntPtr png_data,
+        ref IntPtr png_data,
         uint png_data_size)
         {
             JsValue v1 = new JsValue();
@@ -7131,7 +7131,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public bool AddJPEG(float scale_factor,
-        IntPtr jpeg_data,
+        ref IntPtr jpeg_data,
         uint jpeg_data_size)
         {
             JsValue v1 = new JsValue();
@@ -9018,7 +9018,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((FormatLabelNativeArgs*)this.nativePtr)->label);
+                    IntPtr str_address = *(((FormatLabelNativeArgs*)this.nativePtr)->label);
+                    return MyMetArgs.GetAsString(str_address);
+                }
+            }
+            public void label(string value)
+            {
+                unsafe
+                {
+                    *(((FormatLabelNativeArgs*)this.nativePtr)->label) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
@@ -9029,7 +9037,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr menu_model;
-            public IntPtr label;
+            public IntPtr* label;
         }
         public interface I0
         {
@@ -9127,7 +9135,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Optionally modify a menu item label. Return true if |label| was modified.
             /// /*cef()*/
             /// </summary>
-            bool FormatLabel(CefMenuModel menu_model, string label);
+            bool FormatLabel(CefMenuModel menu_model, ref string label);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,206
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -9310,8 +9318,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void FormatLabel(I1 i1, FormatLabelArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,228
+            string label = args.label();
             args.myext_setRetValue(i1.FormatLabel(args.menu_model(),
-            args.label()));
+            ref label));
+            args.label(label);
         }
     }
 
@@ -10742,7 +10752,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public void SetToBytes(uint size,
-        IntPtr bytes)
+        ref IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10809,7 +10819,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public uint GetBytes(uint size,
-        IntPtr bytes)
+        ref IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11167,7 +11177,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         public bool SetPreference(string name,
         CefValue value,
-        string error)
+        ref string error)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();

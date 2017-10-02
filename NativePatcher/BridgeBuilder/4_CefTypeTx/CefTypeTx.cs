@@ -835,7 +835,7 @@ namespace BridgeBuilder
                                                 switch (elem_typename)
                                                 {
                                                     default:
-                                                        throw new NotSupportedException();                                                         
+                                                        throw new NotSupportedException();
                                                     case "CefTime":
                                                         {
                                                             string slotName = bridge.CefCppSlotName.ToString();
@@ -1041,47 +1041,6 @@ namespace BridgeBuilder
                                                     string slotName = bridge.CefCppSlotName.ToString();
                                                     par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
                                                 }
-
-
-
-
-                                                ////typedef 
-                                                //string elem_typename = refOrPtr.ElementType.ToString();
-                                                //switch (elem_typename)
-                                                //{
-                                                //    default:
-                                                //        break;
-                                                //    case "CefBrowserSettings":
-                                                //    case "CefPdfPrintSettings":
-                                                //    //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
-                                                //    case "CefKeyEvent":
-                                                //    case "CefMouseEvent":
-                                                //    //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
-                                                //    case "CefCookie":
-                                                //    //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
-                                                //    //
-
-                                                //    case "AttributeMap":
-                                                //    case "ElementVector":
-                                                //    //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
-                                                //    case "HeaderMap":
-                                                //    case "SwitchMap":
-                                                //    //eg. void GetSwitches(SwitchMap& switches)
-                                                //    case "cef_color_t":
-                                                //    //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
-                                                //    case "ArgumentList":
-                                                //    //eg. void GetArguments(ArgumentList& arguments)
-                                                //    case "CefV8ValueList":
-                                                //    //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
-                                                //    case "IssuerChainBinaryList":
-                                                //    //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
-                                                //    case "PageRangeList":
-                                                //    case "KeyList":     //eg. {bool GetKeys(KeyList& keys)}                                                
-                                                //        {
-
-                                                //        }
-                                                //        break;
-                                                //}
                                             }
                                             break;
 
@@ -1181,19 +1140,17 @@ namespace BridgeBuilder
                                 throw new NotSupportedException();
                             case TypeSymbolKind.ReferenceOrPointer:
                                 {
-                                    //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-
+                                    //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)                                    
                                     switch (elemType.ToString())
                                     {
                                         default:
                                             break;
                                         case "CefRefPtr<CefClient>":
                                             return "IntPtr";
+                                        case "CefRefPtr<CefV8Exception>":
                                         case "CefRefPtr<CefV8Value>":
                                             return "ref IntPtr";
                                         case "void*":
-                                            return "IntPtr";
-                                        case "CefRefPtr<CefV8Exception>":
                                             return "IntPtr";
                                     }
                                 }
@@ -1294,11 +1251,11 @@ namespace BridgeBuilder
                                             throw new NotSupportedException();
                                         case PrimitiveTypeKind.Char:
                                             //pointer or reference of char
-                                            return "IntPtr";
+                                            return "ref IntPtr";
                                         case PrimitiveTypeKind.Bool:
                                             return "ref bool";
                                         case PrimitiveTypeKind.CefString:
-                                            return "string";
+                                            return "ref string";
                                         case PrimitiveTypeKind.Double:
                                             return "ref  double";
                                         case PrimitiveTypeKind.Float:
@@ -1307,7 +1264,7 @@ namespace BridgeBuilder
                                         case PrimitiveTypeKind.Int32:
                                             return "ref int";
                                         case PrimitiveTypeKind.Int64:
-                                            return "long";
+                                            return "ref long";
                                         case PrimitiveTypeKind.NotPrimitiveType:
                                             //ref of this simple type
                                             return ss.Name;
@@ -1320,7 +1277,7 @@ namespace BridgeBuilder
                                         case PrimitiveTypeKind.Void:
                                             //request void* 
                                             //change this to IntPtr
-                                            return "IntPtr";
+                                            return "ref IntPtr";
                                     }
 
                                 }
