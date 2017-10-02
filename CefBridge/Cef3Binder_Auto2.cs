@@ -190,6 +190,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
 
     }
+    public struct CefRectList
+    {
+        internal IntPtr nativePtr;
+        public CefRectList(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+       
+    }
     public struct CefSize
     {
         internal IntPtr nativePtr;
@@ -280,6 +289,23 @@ namespace LayoutFarm.CefBridge.Auto
             return MarshalHelper.CopyToManaged<_cef_composition_underline_t>(this.nativePtr);
         }
     }
+    public struct CefDraggableRegion
+    {
+        internal IntPtr nativePtr;
+        public CefDraggableRegion(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefDraggableRegionList
+    {
+        internal IntPtr nativePtr;
+        public CefDraggableRegionList(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+
     public struct CefRange
     {
         internal IntPtr nativePtr;

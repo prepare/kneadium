@@ -2510,9 +2510,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
-            public List<object> regions()
+            public CefDraggableRegionList regions()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefDraggableRegionList(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->regions);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,541
@@ -2565,7 +2568,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// this method will be called with an empty vector.
             /// /*cef()*/
             /// </summary>
-            void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions);
+            void OnDraggableRegionsChanged(CefBrowser browser, CefDraggableRegionList regions);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,546
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -6573,9 +6576,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
                 }
             }
-            public List<object> dirtyRects()
+            public CefRectList dirtyRects()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnPaintNativeArgs*)this.nativePtr)->dirtyRects);
+                }
             }
             public IntPtr buffer()
             {
@@ -6925,9 +6931,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
                 }
             }
-            public List<object> character_bounds()
+            public CefRectList character_bounds()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->character_bounds);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,786
@@ -7124,7 +7133,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// upper-left origin.
             /// /*cef()*/
             /// </summary>
-            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
+            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, CefRectList dirtyRects, IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
             /// <summary>
             /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -7171,7 +7180,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// bounds of each character in view coordinates.
             /// /*cef()*/
             /// </summary>
-            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds);
+            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, CefRectList character_bounds);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,813
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
