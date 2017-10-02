@@ -11577,7 +11577,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data_out()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadResponseNativeArgs*)this.nativePtr)->data_out);
+                }
             }
             public void data_out(IntPtr value)
             {
@@ -12099,7 +12102,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadNativeArgs*)this.nativePtr)->ptr);
+                }
             }
             public void ptr(IntPtr value)
             {
@@ -13082,7 +13088,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ExecuteNativeArgs*)this.nativePtr)->retval);
+                }
             }
             public void retval(IntPtr value)
             {

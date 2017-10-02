@@ -143,7 +143,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data_in()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((FilterNativeArgs*)this.nativePtr)->data_in);
+                }
             }
             public void data_in(IntPtr value)
             {
@@ -175,7 +178,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data_out()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((FilterNativeArgs*)this.nativePtr)->data_out);
+                }
             }
             public void data_out(IntPtr value)
             {
@@ -2593,7 +2599,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((GetNativeArgs*)this.nativePtr)->retval);
+                }
             }
             public void retval(IntPtr value)
             {
@@ -2931,7 +2940,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((get_bynameNativeArgs*)this.nativePtr)->retval);
+                }
             }
             public void retval(IntPtr value)
             {
@@ -3022,7 +3034,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((get_byindexNativeArgs*)this.nativePtr)->retval);
+                }
             }
             public void retval(IntPtr value)
             {
