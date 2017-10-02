@@ -591,10 +591,7 @@ namespace BridgeBuilder
             //generate method sig 
             //--------------------------- 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
-            if (codeGenNum == 552)
-            {
-
-            }
+           
             //--------------------------- 
 
             stbuilder.Append(
@@ -605,10 +602,7 @@ namespace BridgeBuilder
             //---------------------------
             CodeGenUtils.AddComment(met.metDecl.LineComments, stbuilder);
 
-            if (codeGenNum == 505)
-            {
-
-            }
+            
 
             for (int i = 0; i < parCount; ++i)
             {
@@ -964,10 +958,6 @@ namespace BridgeBuilder
             //create a cpp class            
 
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
-            if (codeGenNum == 331)
-            {
-
-            }
 
             if (!skipCtorPart)
             {
@@ -1125,10 +1115,7 @@ namespace BridgeBuilder
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
-            if (codeGenNum == 515)
-            {
-
-            }
+           
             //temp 
             List<MethodParameter> pars = met.pars;
 
@@ -1259,10 +1246,7 @@ namespace BridgeBuilder
         void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ," + (++codeGenNum));
-            if (codeGenNum == 344)
-            {
 
-            }
             //find line comment
             Token[] lineComments = met.metDecl.LineComments;
             if (lineComments != null)
@@ -1295,9 +1279,14 @@ namespace BridgeBuilder
 
                 MethodParameter parTx = met.pars[i];
                 string parTypeName = CefTypeTx.GetCsRetName(parTx.TypeSymbol);
+
                 if (parTypeName == "ref string" && parTx.IsConst)
                 {
                     stbuilder.Append("string");
+                }
+                else if (parTypeName == "ref IntPtr" && parTx.IsConst)
+                {
+                    stbuilder.Append("IntPtr");
                 }
                 else
                 {
@@ -1313,7 +1302,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
-            if (codeGenNum == 470)
+            if (codeGenNum == 776)
             {
 
             }
@@ -1413,8 +1402,15 @@ namespace BridgeBuilder
                         parTx.InnerTypeName = "uint";
                         break;
                     case "ref IntPtr":
-                        parTx.ArgByRef = true;
-                        parTx.InnerTypeName = "IntPtr";
+                        if (!par.IsConstPar)
+                        {
+                            parTx.ArgByRef = true;
+                            parTx.InnerTypeName = "IntPtr";
+                        }
+                        else
+                        {
+                            csParTypeName = "IntPtr";
+                        }
                         break;
                     case "ref string":
                         if (!parTx.IsConst)
@@ -1542,14 +1538,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            if (codeGenNum == 334 || codeGenNum == 158)
-            {
-
-            }
-            else if (codeGenNum == 1212 || codeGenNum == 1093)
-            {
-
-            }
+            
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -1681,9 +1670,18 @@ namespace BridgeBuilder
                 switch (csParTypeName)
                 {
                     case "ref IntPtr":
-                        stbuilder.Append("bool");
-                        parTx.ArgByRef = true;//temp
-                        parTx.InnerTypeName = csSetterParTypeName = "IntPtr";
+                        if (parTx.IsConst)
+                        {
+                            csParTypeName = "IntPtr";
+                            stbuilder.Append("IntPtr");
+                        }
+                        else
+                        {
+                            //?
+                            stbuilder.Append("IntPtr");
+                            parTx.ArgByRef = true;//temp
+                            parTx.InnerTypeName = csSetterParTypeName = "IntPtr";
+                        }
                         break;
                     case "ref bool":
                         //provide both getter and setter method
