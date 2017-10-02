@@ -47,7 +47,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,374
@@ -87,7 +90,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityLocationChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,376

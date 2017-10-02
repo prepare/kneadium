@@ -591,7 +591,7 @@ namespace BridgeBuilder
             //generate method sig 
             //--------------------------- 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
-           
+
             //--------------------------- 
 
             stbuilder.Append(
@@ -602,7 +602,7 @@ namespace BridgeBuilder
             //---------------------------
             CodeGenUtils.AddComment(met.metDecl.LineComments, stbuilder);
 
-            
+
 
             for (int i = 0; i < parCount; ++i)
             {
@@ -1115,7 +1115,7 @@ namespace BridgeBuilder
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
-           
+
             //temp 
             List<MethodParameter> pars = met.pars;
 
@@ -1302,10 +1302,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
-            if (codeGenNum == 776)
-            {
 
-            }
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -1538,7 +1535,12 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            
+            if (codeGenNum == 373)
+            {
+
+            }
+
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -1770,7 +1772,13 @@ namespace BridgeBuilder
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "CefValue":
-                        stbuilder.Append("throw new CefNotImplementedException();");
+                        {
+                            //wrap native pointer with CefValue
+                            stbuilder.AppendLine("unsafe{"); //open unsafe 
+                            stbuilder.Append("return ");
+                            stbuilder.AppendLine("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
+                            stbuilder.AppendLine("}"); //close unsafe context
+                        }                        
                         break;
                     case "uint":
                         {
