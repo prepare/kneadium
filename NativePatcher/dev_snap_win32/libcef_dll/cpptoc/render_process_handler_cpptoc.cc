@@ -47,7 +47,7 @@ void CEF_CALLBACK render_process_handler_on_render_thread_created(
   if (!extra_info)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin115
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnRenderThreadCreated_1;
@@ -75,7 +75,7 @@ void CEF_CALLBACK render_process_handler_on_web_kit_initialized(
   if (!self)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin114
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnWebKitInitialized_2;
@@ -107,7 +107,7 @@ void CEF_CALLBACK render_process_handler_on_browser_created(
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin113
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBrowserCreated_3;
@@ -140,7 +140,7 @@ void CEF_CALLBACK render_process_handler_on_browser_destroyed(
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin112
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBrowserDestroyed_4;
@@ -168,7 +168,7 @@ cef_load_handler_t* CEF_CALLBACK render_process_handler_get_load_handler(
   if (!self)
     return NULL;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin111
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_GetLoadHandler_5;
@@ -216,7 +216,7 @@ int CEF_CALLBACK render_process_handler_on_before_navigation(
   if (!request)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin110
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBeforeNavigation_6;
@@ -264,7 +264,7 @@ void CEF_CALLBACK render_process_handler_on_context_created(
   if (!context)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin109
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnContextCreated_7;
@@ -308,7 +308,7 @@ void CEF_CALLBACK render_process_handler_on_context_released(
   if (!context)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin108
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnContextReleased_8;
@@ -362,7 +362,7 @@ void CEF_CALLBACK render_process_handler_on_uncaught_exception(
   if (!stackTrace)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin107
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnUncaughtException_9;
@@ -400,7 +400,7 @@ void CEF_CALLBACK render_process_handler_on_focused_node_changed(
     return;
   // Unverified params: frame, node
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin106
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnFocusedNodeChanged_10;
@@ -440,7 +440,7 @@ int CEF_CALLBACK render_process_handler_on_process_message_received(
   if (!message)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin105
 #if ENABLE_KNEADIUM_EXT
 auto me = CefRenderProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnProcessMessageReceived_11;

@@ -12,13 +12,66 @@
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "tests/cefclient/renderer/performance_test_setup.h"
 
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "libcef_dll/myext/ExportFuncAuto.h"
+//###_END
+
 namespace client {
 	namespace performance_test {
 
-		//###_BEGIN
-#include "tests/cefclient/myext/mycef_buildconfig.h"
+	 
+	   ///###_BEGIN
+		class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
+		public:
+			MyCefRenderDelegate() {}
+
+			virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
+				CefRefPtr<CefBrowser> browser,
+				CefRefPtr<CefFrame> frame,
+				CefRefPtr<CefV8Context> context) OVERRIDE {
+				 if (app->myMxCallback_) {			
+					app.get();
+					browser.get();
+					frame.get();
+				    context.get();
+				 	CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
+				 }
+
+				//if (app->myMxCallback_) {
+				//	//expose all to managed side
+				//	//browser,frame and context ?  
+				//	INIT_MY_MET_ARGS(metArgs, 4)
+				//	MyCefSetVoidPtr2(&vargs[1], app.get());
+				//	MyCefSetVoidPtr2(&vargs[2], browser.get());
+				//	MyCefSetVoidPtr2(&vargs[3], frame.get());
+				//	MyCefSetVoidPtr2(&vargs[4], context.get());
+				//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, &metArgs);
+				//}
+			}
+			virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
+				if (app->myMxCallback_) {
+					CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
+				}
+			}
+			virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+				CefRefPtr<CefBrowser> browser,
+				CefRefPtr<CefFrame> frame,
+				CefRefPtr<CefV8Context> context) {
+				if (app->myMxCallback_)
+				{
+					CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context);
+
+				}
+			}
+		private:
+			IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
+		};
+		///###_END 
+
 #if BUILD_TEST
-//###_END
+ 
 
 // Use more interations for a Release build.
 #if DCHECK_IS_ON()
@@ -159,46 +212,44 @@ namespace client {
 						CefV8Value::CreateFunction(kPerfTestReturnValue, handler),
 						V8_PROPERTY_ATTRIBUTE_READONLY);
 				}
-
-				//###_BEGIN
 				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
-					if (app->myMxCallback_) {
+					//if (app->myMxCallback_) {
 
-						//TODO: review here, this is not correct
-						//should use wrap/unwrap
-						INIT_MY_MET_ARGS(metArgs, 1)
-							MyCefSetVoidPtr2(&vargs[1], app.get());
-						app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
-					}
+					//	//TODO: review here, this is not correct
+					//	//should use wrap/unwrap
+					//	INIT_MY_MET_ARGS(metArgs, 1)
+					//		MyCefSetVoidPtr2(&vargs[1], app.get());
+					//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
+					//}
 				}
 				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
 					CefRefPtr<CefBrowser> browser,
 					CefRefPtr<CefFrame> frame,
 					CefRefPtr<CefV8Context> context) {
-					if (app->myMxCallback_)
-					{
-						//expose all to managed side
-						//browser,frame and context ?  
-						INIT_MY_MET_ARGS(metArgs, 4)
-							MyCefSetVoidPtr2(&vargs[1], app.get());
-						MyCefSetVoidPtr2(&vargs[2], browser.get());
-						MyCefSetVoidPtr2(&vargs[3], frame.get());
-						MyCefSetVoidPtr2(&vargs[4], context.get());
+					//if (app->myMxCallback_)
+					//{
+					//	//expose all to managed side
+					//	//browser,frame and context ?  
+					//	INIT_MY_MET_ARGS(metArgs, 4)
+					//		MyCefSetVoidPtr2(&vargs[1], app.get());
+					//	MyCefSetVoidPtr2(&vargs[2], browser.get());
+					//	MyCefSetVoidPtr2(&vargs[3], frame.get());
+					//	MyCefSetVoidPtr2(&vargs[4], context.get()); 
+					//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 
-						app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
-
-					}
+					//}
 				}
-				//###_END
 
 			private:
 				IMPLEMENT_REFCOUNTING(RenderDelegate);
 			};
 
+
 		}  // namespace
 
 		void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-			delegates.insert(new RenderDelegate);
+			//delegates.insert(new RenderDelegate);
+			delegates.insert(new MyCefRenderDelegate);
 		}
 
 		//###_BEGIN

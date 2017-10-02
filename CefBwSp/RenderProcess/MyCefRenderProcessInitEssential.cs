@@ -20,10 +20,9 @@ namespace LayoutFarm.CefBridge
         }
         public override CefClientApp CreateClientApp()
         {
-            var renderProcListener = new MyCefRendererProcessListener();
+
             var clientApp = new SubProcessClientApp(
-                System.Diagnostics.Process.GetCurrentProcess().Handle,
-                renderProcListener);
+                System.Diagnostics.Process.GetCurrentProcess().Handle);
             return clientApp;
         }
         public static void SetLibPath(string libPath)

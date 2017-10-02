@@ -38,7 +38,7 @@ void CEF_CALLBACK web_plugin_unstable_callback_is_unstable(
   if (!path)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin160
 #if ENABLE_KNEADIUM_EXT
 auto me = CefWebPluginUnstableCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefWebPluginUnstableCallbackExt::_typeName << 16) | CefWebPluginUnstableCallbackExt::CefWebPluginUnstableCallbackExt_IsUnstable_1;

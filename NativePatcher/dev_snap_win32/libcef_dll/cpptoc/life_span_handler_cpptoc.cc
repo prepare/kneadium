@@ -96,7 +96,7 @@ int CEF_CALLBACK life_span_handler_on_before_popup(
   bool no_javascript_accessBool =
       (no_javascript_access && *no_javascript_access) ? true : false;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin66
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLifeSpanHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnBeforePopup_1;
@@ -181,7 +181,7 @@ life_span_handler_on_after_created(struct _cef_life_span_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin65
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLifeSpanHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnAfterCreated_2;
@@ -214,7 +214,7 @@ life_span_handler_do_close(struct _cef_life_span_handler_t* self,
   if (!browser)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin64
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLifeSpanHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_DoClose_3;
@@ -250,7 +250,7 @@ life_span_handler_on_before_close(struct _cef_life_span_handler_t* self,
   if (!browser)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin63
 #if ENABLE_KNEADIUM_EXT
 auto me = CefLifeSpanHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnBeforeClose_4;

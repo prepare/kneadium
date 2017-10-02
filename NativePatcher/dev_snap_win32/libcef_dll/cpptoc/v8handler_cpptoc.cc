@@ -74,7 +74,7 @@ int CEF_CALLBACK v8handler_execute(struct _cef_v8handler_t* self,
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin158
 #if ENABLE_KNEADIUM_EXT
 auto me = CefV8HandlerCppToC::Get(self);
 const int CALLER_CODE=(CefV8HandlerExt::_typeName << 16) | CefV8HandlerExt::CefV8HandlerExt_Execute_1;
@@ -82,7 +82,7 @@ auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg1 (name);
 CefString tmp_arg6 (exception);
-CefV8HandlerExt::ExecuteArgs args1(tmp_arg1,object,&argumentsList,&retvalPtr,tmp_arg6);
+CefV8HandlerExt::ExecuteArgs args1(tmp_arg1,object,&argumentsList,retval,&tmp_arg6);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
 // Restore param: retval; type: refptr_diff_byref

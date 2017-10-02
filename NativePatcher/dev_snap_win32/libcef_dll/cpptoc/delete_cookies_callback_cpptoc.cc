@@ -33,7 +33,7 @@ delete_cookies_callback_on_complete(struct _cef_delete_cookies_callback_t* self,
   if (!self)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin34
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDeleteCookiesCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefDeleteCookiesCallbackExt::_typeName << 16) | CefDeleteCookiesCallbackExt::CefDeleteCookiesCallbackExt_OnComplete_1;

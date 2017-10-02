@@ -57,7 +57,7 @@ void CEF_CALLBACK context_menu_handler_on_before_context_menu(
   if (!model)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin32
 #if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnBeforeContextMenu_1;
@@ -112,7 +112,7 @@ int CEF_CALLBACK context_menu_handler_run_context_menu(
   if (!callback)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin31
 #if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_RunContextMenu_2;
@@ -162,7 +162,7 @@ int CEF_CALLBACK context_menu_handler_on_context_menu_command(
   if (!params)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin30
 #if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuCommand_3;
@@ -204,7 +204,7 @@ void CEF_CALLBACK context_menu_handler_on_context_menu_dismissed(
   if (!frame)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin29
 #if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuDismissed_4;

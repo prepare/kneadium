@@ -41,7 +41,7 @@ navigation_entry_visitor_visit(struct _cef_navigation_entry_visitor_t* self,
   if (!entry)
     return 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin78
 #if ENABLE_KNEADIUM_EXT
 auto me = CefNavigationEntryVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefNavigationEntryVisitorExt::_typeName << 16) | CefNavigationEntryVisitorExt::CefNavigationEntryVisitorExt_Visit_1;

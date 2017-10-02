@@ -57,7 +57,7 @@ keyboard_handler_on_pre_key_event(struct _cef_keyboard_handler_t* self,
   bool is_keyboard_shortcutBool =
       (is_keyboard_shortcut && *is_keyboard_shortcut) ? true : false;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin62
 #if ENABLE_KNEADIUM_EXT
 auto me = CefKeyboardHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnPreKeyEvent_1;
@@ -114,7 +114,7 @@ keyboard_handler_on_key_event(struct _cef_keyboard_handler_t* self,
   if (event)
     eventObj.Set(*event, false);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin61
 #if ENABLE_KNEADIUM_EXT
 auto me = CefKeyboardHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnKeyEvent_2;

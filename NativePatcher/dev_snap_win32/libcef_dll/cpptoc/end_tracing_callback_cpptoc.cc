@@ -37,7 +37,7 @@ void CEF_CALLBACK end_tracing_callback_on_end_tracing_complete(
   if (!tracing_file)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin49
 #if ENABLE_KNEADIUM_EXT
 auto me = CefEndTracingCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefEndTracingCallbackExt::_typeName << 16) | CefEndTracingCallbackExt::CefEndTracingCallbackExt_OnEndTracingComplete_1;

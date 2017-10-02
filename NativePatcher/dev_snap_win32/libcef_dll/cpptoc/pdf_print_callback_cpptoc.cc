@@ -38,7 +38,7 @@ pdf_print_callback_on_pdf_print_finished(struct _cef_pdf_print_callback_t* self,
   if (!path)
     return;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin79
 #if ENABLE_KNEADIUM_EXT
 auto me = CefPdfPrintCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefPdfPrintCallbackExt::_typeName << 16) | CefPdfPrintCallbackExt::CefPdfPrintCallbackExt_OnPdfPrintFinished_1;

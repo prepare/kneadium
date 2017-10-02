@@ -349,6 +349,8 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr MyCefJs_New_V8Handler2(MyCefCallback managedCallback);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
@@ -358,6 +360,8 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
+
+        //--------------------------------------------------- 
         /// <summary>
         /// create cef string holder
         /// </summary>
@@ -801,15 +805,15 @@ namespace LayoutFarm.CefBridge
                 *((uint*)jsvalue->Ptr) = value;
             }
         }
-        internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
-        {
-            unsafe
-            {
+        //internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
+        //{
+        //    unsafe
+        //    {
 
-                JsValue* jsvalue = ((JsValue*)varr + index);
-                *((int*)jsvalue->Ptr) = value;
-            }
-        }
+        //        JsValue* jsvalue = ((JsValue*)varr + index);
+        //        *((int*)jsvalue->Ptr) = value;
+        //    }
+        //}
 
         unsafe static string MyCefJsReadString(JsValue* jsval)
         {
