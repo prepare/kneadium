@@ -33,7 +33,7 @@ namespace LayoutFarm.CefBridge
 
 
         CEF_MSG_ClientHandler_SetResourceManager = 140,
-        CEF_MSG_RequestUrlFilter2 = 142,
+        //CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
 
         //
@@ -41,12 +41,10 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_MainContext_GetConsoleLogPath = 151,
         CEF_MSG_OSR_Render = 155,
         //
-        CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
-        CEF_MSG_RenderDelegate_OnContextCreated = 202,
-        CEF_MSG_RenderDelegate_OnContextReleased = 203,
+         
         CEF_MSG_OnQuery = 205,
         //
-        CEF_MSG_MyCefDomGetTextWalk_Visit = 302,
+        //CEF_MSG_MyCefDomGetTextWalk_Visit = 302,
         CEF_MSG_MyV8ManagedHandler_Execute = 301,
         CEF_MSG_HereOnRenderer = 303,
 
@@ -313,12 +311,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefPrintToPdf(IntPtr myCefBw, IntPtr setting, string filename, MyCefCallback callback);
         //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefDomGetTextWalk(IntPtr myCefBw, MyCefCallback strCallBack);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefDomGetSourceWalk(IntPtr myCefBw, MyCefCallback strCallBack);
-
+         
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(

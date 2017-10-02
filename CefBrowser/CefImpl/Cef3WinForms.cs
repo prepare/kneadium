@@ -96,39 +96,39 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
-                    {
-                        //client app callback
-                        //eg. from RenderClientApp
-                        //in render process ***
-                        //we can register external methods  for window object here.
-                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
+                //    {
+                //        //client app callback
+                //        //eg. from RenderClientApp
+                //        //in render process ***
+                //        //we can register external methods  for window object here.
+                //        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
-                        //if (renderProcessListener != null)
-                        //{
-                        //    renderProcessListener.OnContextCreated(
-                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        //}
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
-                    {
-                        //if (renderProcessListener != null)
-                        //{
-                        //    renderProcessListener.OnContextReleased(
-                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        //}
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
-                    {
-                        //    if (renderProcessListener != null)
-                        //    {
-                        //        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        //        renderProcessListener.OnWebKitInitialized(args);
-                        //    }
-                    }
-                    break;
+                //        //if (renderProcessListener != null)
+                //        //{
+                //        //    renderProcessListener.OnContextCreated(
+                //        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                //        //}
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
+                //    {
+                //        //if (renderProcessListener != null)
+                //        //{
+                //        //    renderProcessListener.OnContextReleased(
+                //        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                //        //}
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
+                //    {
+                //        //    if (renderProcessListener != null)
+                //        //    {
+                //        //        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                //        //        renderProcessListener.OnWebKitInitialized(args);
+                //        //    }
+                //    }
+                //    break;
             }
         }
 
