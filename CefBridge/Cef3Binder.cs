@@ -147,7 +147,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-
+    [System.Security.SuppressUnmanagedCodeSecurity]
     static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
@@ -157,11 +157,7 @@ namespace LayoutFarm.CefBridge
         public static bool s_dbugIsRendererProcess;
 #endif
 
-        static CefClientApp clientApp;
-
-
-
-
+        static CefClientApp clientApp; 
         public static bool LoadCef3(Cef3InitEssential cefInitEssential)
         {
             Cef3Binder.cefInitEssential = cefInitEssential;
@@ -250,18 +246,18 @@ namespace LayoutFarm.CefBridge
         //Cef
         //---------------------------------------------------
         //part 1:  
-        [System.Security.SuppressUnmanagedCodeSecurity]
+        
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefGetVersion();
         //
-        [System.Security.SuppressUnmanagedCodeSecurity]
+      
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int RegisterManagedCallBack(MyCefCallback funcPtr, int callbackKind);
 
         //client app init, build native-side process handle, dll-init-main,
         //when call to this func, native-side will ask back for cef-setting via registered
         //mananged delegate.
-        [System.Security.SuppressUnmanagedCodeSecurity]
+       
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
 
@@ -277,11 +273,11 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBw, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
 
-        [System.Security.SuppressUnmanagedCodeSecurity]
+       
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
 
-        [System.Security.SuppressUnmanagedCodeSecurity]
+        
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefQuitMessageLoop();
         //
@@ -296,7 +292,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
 
-        [System.Security.SuppressUnmanagedCodeSecurity]
+        
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDeletePtr(IntPtr nativePtr);
         //
