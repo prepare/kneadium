@@ -141,7 +141,7 @@ namespace LayoutFarm.CefBridge.Auto
                     ((FilterNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public bool data_in()
+            public IntPtr data_in()
             {
                 throw new CefNotImplementedException();
             }
@@ -173,7 +173,7 @@ namespace LayoutFarm.CefBridge.Auto
                     *(((FilterNativeArgs*)this.nativePtr)->data_in_read) = value;
                 }
             }
-            public bool data_out()
+            public IntPtr data_out()
             {
                 throw new CefNotImplementedException();
             }
@@ -1892,16 +1892,9 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefURLRequest(((OnDownloadDataNativeArgs*)this.nativePtr)->request);
                 }
             }
-            public bool data()
+            public IntPtr data()
             {
                 throw new CefNotImplementedException();
-            }
-            public void data(IntPtr value)
-            {
-                unsafe
-                {
-                    *(((OnDownloadDataNativeArgs*)this.nativePtr)->data) = value;
-                }
             }
             public uint data_length()
             {
@@ -1917,7 +1910,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public IntPtr request;
-            public IntPtr* data;
+            public IntPtr data;
             public uint data_length;
         }
         //gen! bool GetAuthCredentials(bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
@@ -2096,7 +2089,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// UR_FLAG_NO_DOWNLOAD_DATA flag is set on the request.
             /// /*cef()*/
             /// </summary>
-            void OnDownloadData(CefURLRequest request, ref IntPtr data, uint data_length);
+            void OnDownloadData(CefURLRequest request, IntPtr data, uint data_length);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,296
             /// <summary>
             /// Called on the IO thread when the browser needs credentials from the user.
@@ -2237,11 +2230,9 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnDownloadData(I1 i1, OnDownloadDataArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,311
-            IntPtr data = IntPtr.Zero;
             i1.OnDownloadData(args.request(),
-            ref data,
+            args.data(),
             args.data_length());
-            args.data(data);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,312
         public static void GetAuthCredentials(I1 i1, GetAuthCredentialsArgs args)
@@ -2597,7 +2588,7 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefV8Value(((GetNativeArgs*)this.nativePtr)->_object);
                 }
             }
-            public bool retval()
+            public IntPtr retval()
             {
                 throw new CefNotImplementedException();
             }
@@ -2935,7 +2926,7 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefV8Value(((get_bynameNativeArgs*)this.nativePtr)->_object);
                 }
             }
-            public bool retval()
+            public IntPtr retval()
             {
                 throw new CefNotImplementedException();
             }
@@ -3026,7 +3017,7 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefV8Value(((get_byindexNativeArgs*)this.nativePtr)->_object);
                 }
             }
-            public bool retval()
+            public IntPtr retval()
             {
                 throw new CefNotImplementedException();
             }
