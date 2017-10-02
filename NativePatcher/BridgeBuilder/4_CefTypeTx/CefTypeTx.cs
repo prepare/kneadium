@@ -1201,7 +1201,7 @@ namespace BridgeBuilder
                                                 switch (name)
                                                 {
                                                     case "CefRefPtr<CefX509Certificate>":
-                                                        return "List<CefCompositionUnderline>";
+                                                        return "CefX509CertificateList";
                                                 }
 
                                                 //list of a smart pointer object
@@ -1227,7 +1227,16 @@ namespace BridgeBuilder
                                                     default:
                                                         throw new NotSupportedException();
                                                     case PrimitiveTypeKind.NotPrimitiveType:
-                                                        return "List<object>";
+                                                        switch(ss.ToString())
+                                                        {
+                                                            case "CefDraggableRegion":
+                                                                return "CefDraggableRegionList";
+                                                            case "CefRect":
+                                                                return "CefRectList";
+                                                            default:
+                                                                return "List<object>";
+                                                        }
+                                                         
                                                     case PrimitiveTypeKind.Int64:
                                                         //list of unit
                                                         return "List<long>";

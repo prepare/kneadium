@@ -591,7 +591,7 @@ namespace BridgeBuilder
             //generate method sig 
             //--------------------------- 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
-           
+
             //--------------------------- 
 
             stbuilder.Append(
@@ -602,7 +602,7 @@ namespace BridgeBuilder
             //---------------------------
             CodeGenUtils.AddComment(met.metDecl.LineComments, stbuilder);
 
-            
+
 
             for (int i = 0; i < parCount; ++i)
             {
@@ -1115,7 +1115,7 @@ namespace BridgeBuilder
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
-           
+
             //temp 
             List<MethodParameter> pars = met.pars;
 
@@ -1302,10 +1302,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
-            if (codeGenNum == 776)
-            {
 
-            }
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -1538,7 +1535,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            
+             
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -1717,11 +1714,15 @@ namespace BridgeBuilder
                             parTx.InnerTypeName = csSetterParTypeName = "string";
                         }
                         break;
-                    case "IntPtr*":
-                        //this is managed class 
-                        //so just return IntPtr 
-                        stbuilder.Append("IntPtr");
-                        csSetterParTypeName = csParTypeName;
+                    case "List<string>":
+                        {
+                            //TODO: review here
+                            //we don't need a whole copy of list
+                            //we may use 'proxy' to the list
+
+                            stbuilder.Append(csParTypeName);
+                            csSetterParTypeName = csParTypeName;
+                        }
                         break;
                     default:
                         if (csParTypeName.StartsWith("ref"))
@@ -1763,14 +1764,31 @@ namespace BridgeBuilder
                             stbuilder.AppendLine("}"); //close unsafe context
                         }
                         break;
-
-                    case "List<object>":
                     case "List<string>":
+                        {
+                            //List<string> outputlist = new List<string>();
+                            //Cef3Binder.CopyStdStringList(((OnFileDialogNativeArgs*)this.nativePtr)->accept_filters, outputlist);
+                            //return outputlist;
+                            stbuilder.AppendLine("unsafe{"); //open unsafe 
+                            stbuilder.AppendLine("List<string> outputlist = new List<string>();");
+                            stbuilder.AppendLine("Cef3Binder.CopyStdStringList(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ",outputlist);");
+                            stbuilder.AppendLine("return outputlist;");
+                            stbuilder.AppendLine("}"); //close unsafe context
+
+                        }
+                        break;
+                    case "List<object>":
                     case "List<CefCompositionUnderline>":
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "CefValue":
-                        stbuilder.Append("throw new CefNotImplementedException();");
+                        {
+                            //wrap native pointer with CefValue
+                            stbuilder.AppendLine("unsafe{"); //open unsafe 
+                            stbuilder.Append("return ");
+                            stbuilder.AppendLine("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
+                            stbuilder.AppendLine("}"); //close unsafe context
+                        }
                         break;
                     case "uint":
                         {
@@ -1952,10 +1970,14 @@ namespace BridgeBuilder
                         }
                     case "ref IntPtr":
                         {
-                            stbuilder.Append("throw new CefNotImplementedException();");
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return ");
+                            stbuilder.Append("*(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}");//close unsafe
                             stbuilder.AppendLine("}"); //close method
 
-                            //method
+
                             //generate setter part
                             stbuilder.AppendLine("public void " + parTx.Name + "(IntPtr value){");
                             stbuilder.AppendLine("unsafe{");
@@ -1966,8 +1988,11 @@ namespace BridgeBuilder
                         }
                         break;
                     case "IntPtr":
-                        stbuilder.Append("throw new CefNotImplementedException();");
-
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.Append("return ");
+                        stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                        stbuilder.AppendLine(";");
+                        stbuilder.AppendLine("}"); //close unsafe context  
                         break;
                 }
                 stbuilder.AppendLine("}"); //method

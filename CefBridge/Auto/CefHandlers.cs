@@ -47,7 +47,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,374
@@ -87,7 +90,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityLocationChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,376
@@ -1273,7 +1279,12 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public List<string> accept_filters()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFileDialogNativeArgs*)this.nativePtr)->accept_filters, outputlist);
+                    return outputlist;
+                }
             }
             public int selected_accept_filter()
             {
@@ -1553,7 +1564,12 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public List<string> icon_urls()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->icon_urls, outputlist);
+                    return outputlist;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,474
@@ -2494,9 +2510,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
-            public List<object> regions()
+            public CefDraggableRegionList regions()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefDraggableRegionList(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->regions);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,541
@@ -2549,7 +2568,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// this method will be called with an empty vector.
             /// /*cef()*/
             /// </summary>
-            void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions);
+            void OnDraggableRegionsChanged(CefBrowser browser, CefDraggableRegionList regions);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,546
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -3924,7 +3943,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPreKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
             public bool is_keyboard_shortcut()
             {
@@ -4005,7 +4027,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,640
@@ -4257,7 +4282,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr client()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnBeforePopupNativeArgs*)this.nativePtr)->client;
+                }
             }
             public CefBrowserSettings settings()
             {
@@ -6548,13 +6576,19 @@ namespace LayoutFarm.CefBridge.Auto
                     return (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
                 }
             }
-            public List<object> dirtyRects()
+            public CefRectList dirtyRects()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnPaintNativeArgs*)this.nativePtr)->dirtyRects);
+                }
             }
             public IntPtr buffer()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPaintNativeArgs*)this.nativePtr)->buffer;
+                }
             }
             public int width()
             {
@@ -6620,7 +6654,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr cursor()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnCursorChangeNativeArgs*)this.nativePtr)->cursor;
+                }
             }
             public cef_cursor_type_t type()
             {
@@ -6894,9 +6931,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
                 }
             }
-            public List<object> character_bounds()
+            public CefRectList character_bounds()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->character_bounds);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,786
@@ -7093,7 +7133,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// upper-left origin.
             /// /*cef()*/
             /// </summary>
-            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
+            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, CefRectList dirtyRects, IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
             /// <summary>
             /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -7140,7 +7180,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// bounds of each character in view coordinates.
             /// /*cef()*/
             /// </summary>
-            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds);
+            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, CefRectList character_bounds);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,813
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -9982,9 +10022,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
                 }
             }
-            public List<CefCompositionUnderline> certificates()
+            public CefX509CertificateList certificates()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefX509CertificateList(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->certificates);
+                }
             }
             public CefSelectClientCertificateCallback callback()
             {
@@ -10481,7 +10524,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// so that it only contains certificates from issuers that the server trusts.
             /// /*cef()*/
             /// </summary>
-            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback);
+            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, CefX509CertificateList certificates, CefSelectClientCertificateCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1013
             /// <summary>
             /// Called on the browser process UI thread when a plugin has crashed.
@@ -11075,7 +11118,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
@@ -11157,7 +11203,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
@@ -11550,7 +11599,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data_out()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadResponseNativeArgs*)this.nativePtr)->data_out);
+                }
             }
             public void data_out(IntPtr value)
             {
@@ -12072,7 +12124,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadNativeArgs*)this.nativePtr)->ptr);
+                }
             }
             public void ptr(IntPtr value)
             {
@@ -12556,7 +12611,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((WriteNativeArgs*)this.nativePtr)->ptr;
+                }
             }
             public uint size()
             {
@@ -13052,7 +13110,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ExecuteNativeArgs*)this.nativePtr)->retval);
+                }
             }
             public void retval(IntPtr value)
             {
