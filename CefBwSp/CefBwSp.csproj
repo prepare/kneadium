@@ -118,10 +118,5 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\v8value_ctocpp.cc">
-      <Link>v8value_ctocpp.cc</Link>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

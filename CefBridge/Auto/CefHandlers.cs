@@ -6552,16 +6552,9 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
-            public bool buffer()
+            public IntPtr buffer()
             {
                 throw new CefNotImplementedException();
-            }
-            public void buffer(IntPtr value)
-            {
-                unsafe
-                {
-                    *(((OnPaintNativeArgs*)this.nativePtr)->buffer) = value;
-                }
             }
             public int width()
             {
@@ -6586,7 +6579,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
             public cef_paint_element_type_t type;
             public IntPtr dirtyRects;
-            public IntPtr* buffer;
+            public IntPtr buffer;
             public int width;
             public int height;
         }
@@ -7100,7 +7093,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// upper-left origin.
             /// /*cef()*/
             /// </summary>
-            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, ref IntPtr buffer, int width, int height);
+            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
             /// <summary>
             /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -7446,14 +7439,12 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnPaint(I1 i1, OnPaintArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,843
-            IntPtr buffer = IntPtr.Zero;
             i1.OnPaint(args.browser(),
             args.type(),
             args.dirtyRects(),
-            ref buffer,
+            args.buffer(),
             args.width(),
             args.height());
-            args.buffer(buffer);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,844
         public static void OnCursorChange(I1 i1, OnCursorChangeArgs args)
@@ -11557,7 +11548,7 @@ namespace LayoutFarm.CefBridge.Auto
                     ((ReadResponseNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public bool data_out()
+            public IntPtr data_out()
             {
                 throw new CefNotImplementedException();
             }
@@ -12079,7 +12070,7 @@ namespace LayoutFarm.CefBridge.Auto
                     ((ReadNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public bool ptr()
+            public IntPtr ptr()
             {
                 throw new CefNotImplementedException();
             }
@@ -12563,16 +12554,9 @@ namespace LayoutFarm.CefBridge.Auto
                     ((WriteNativeArgs*)this.nativePtr)->myext_ret_value = value;
                 }
             }
-            public bool ptr()
+            public IntPtr ptr()
             {
                 throw new CefNotImplementedException();
-            }
-            public void ptr(IntPtr value)
-            {
-                unsafe
-                {
-                    *(((WriteNativeArgs*)this.nativePtr)->ptr) = value;
-                }
             }
             public uint size()
             {
@@ -12595,7 +12579,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             public int argFlags;
             public int myext_ret_value;
-            public IntPtr* ptr;
+            public IntPtr ptr;
             public uint size;
             public uint n;
         }
@@ -12831,7 +12815,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Write raw binary data.
             /// /*cef()*/
             /// </summary>
-            uint Write(ref IntPtr ptr, uint size, uint n);
+            uint Write(IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1190
             /// <summary>
             /// Seek to the specified offset position. |whence| may be any one of
@@ -12967,11 +12951,9 @@ namespace LayoutFarm.CefBridge.Auto
         public static void Write(I1 i1, WriteArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1202
-            IntPtr ptr = IntPtr.Zero;
-            i1.Write(ref ptr,
+            i1.Write(args.ptr(),
             args.size(),
             args.n());
-            args.ptr(ptr);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1203
         public static void Seek(I1 i1, SeekArgs args)
@@ -13068,7 +13050,7 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefV8ValueList(((ExecuteNativeArgs*)this.nativePtr)->arguments);
                 }
             }
-            public bool retval()
+            public IntPtr retval()
             {
                 throw new CefNotImplementedException();
             }
