@@ -591,10 +591,17 @@ namespace BridgeBuilder
             //generate method sig 
             //--------------------------- 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
+            if (codeGenNum == 552)
+            {
+
+            }
+            //--------------------------- 
+
             stbuilder.Append(
                  "\r\n" +
                  "// gen! " + met.ToString() + "\r\n"
                  );
+
             //---------------------------
             CodeGenUtils.AddComment(met.metDecl.LineComments, stbuilder);
 
@@ -614,7 +621,12 @@ namespace BridgeBuilder
             stbuilder.AppendLine();
             //------------------
             stbuilder.Append("public ");
-            stbuilder.Append(CefTypeTx.GetCsRetName(ret.TypeSymbol));
+            string retType = CefTypeTx.GetCsRetName(ret.TypeSymbol);
+            if (retType.StartsWith("ref"))
+            {
+
+            }
+            stbuilder.Append(retType);
             stbuilder.Append(" ");
 
             //some method name should be renamed
@@ -636,7 +648,14 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(",");
                 }
                 MethodParameter parTx = pars[i];
-                stbuilder.Append(CefTypeTx.GetCsRetName(parTx.TypeSymbol));
+                string parType = CefTypeTx.GetCsRetName(parTx.TypeSymbol);
+                if (parType == "ref string" && parTx.IsConst)
+                {
+                    parType = "string";
+                }
+                stbuilder.Append(parType);
+
+
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -739,7 +758,13 @@ namespace BridgeBuilder
             stbuilder.AppendLine();
             //------------------
             stbuilder.Append("public static ");
-            stbuilder.Append(CefTypeTx.GetCsRetName(ret.TypeSymbol));
+
+            string csRetTye = CefTypeTx.GetCsRetName(ret.TypeSymbol);
+            if (csRetTye.StartsWith("ref"))
+            {
+
+            }
+            stbuilder.Append(csRetTye);
             stbuilder.Append(" ");
 
             //some method name should be renamed
@@ -761,7 +786,12 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(",");
                 }
                 MethodParameter parTx = pars[i];
-                stbuilder.Append(CefTypeTx.GetCsRetName(parTx.TypeSymbol));
+                string csParType = CefTypeTx.GetCsRetName(parTx.TypeSymbol);
+                if (csParType == "ref string" && parTx.IsConst)
+                {
+                    csParType = "string";
+                }
+                stbuilder.Append(csParType);
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -1095,7 +1125,10 @@ namespace BridgeBuilder
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
+            if (codeGenNum == 515)
+            {
 
+            }
             //temp 
             List<MethodParameter> pars = met.pars;
 
@@ -1108,18 +1141,29 @@ namespace BridgeBuilder
                     MethodParameter par = pars[i];
                     if (par.ArgByRef)
                     {
-                        stbuilder.Append(par.InnerTypeName + " " + par.Name);
+
                         //with default value
                         switch (par.InnerTypeName)
                         {
                             default:
+                                stbuilder.Append(par.InnerTypeName + " " + par.Name);
                                 stbuilder.AppendLine("=0;");
                                 break;
                             case "bool":
+                                stbuilder.Append(par.InnerTypeName + " " + par.Name);
                                 stbuilder.AppendLine("=false;");
                                 break;
                             case "IntPtr":
-                                stbuilder.AppendLine("=IntPtr.Zero;");
+                                if (par.TypeSymbol.ToString() == "CefString&")
+                                {
+                                    stbuilder.Append("string " + par.Name);
+                                    stbuilder.AppendLine("=args." + par.Name + "();"); //extract existing arg
+                                }
+                                else
+                                {
+                                    stbuilder.Append(par.InnerTypeName + " " + par.Name);
+                                    stbuilder.AppendLine("=IntPtr.Zero;");
+                                }
                                 break;
                         }
                     }
@@ -1215,7 +1259,10 @@ namespace BridgeBuilder
         void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ," + (++codeGenNum));
+            if (codeGenNum == 344)
+            {
 
+            }
             //find line comment
             Token[] lineComments = met.metDecl.LineComments;
             if (lineComments != null)
@@ -1227,7 +1274,12 @@ namespace BridgeBuilder
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
             //temp             
-            stbuilder.Append(CefTypeTx.GetCsRetName(met.ReturnPlan.TypeSymbol));
+            string retType = CefTypeTx.GetCsRetName(met.ReturnPlan.TypeSymbol);
+            if (retType.StartsWith("ref"))
+            {
+
+            }
+            stbuilder.Append(retType);
             stbuilder.Append(" ");
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
@@ -1243,7 +1295,14 @@ namespace BridgeBuilder
 
                 MethodParameter parTx = met.pars[i];
                 string parTypeName = CefTypeTx.GetCsRetName(parTx.TypeSymbol);
-                stbuilder.Append(parTypeName);
+                if (parTypeName == "ref string" && parTx.IsConst)
+                {
+                    stbuilder.Append("string");
+                }
+                else
+                {
+                    stbuilder.Append(parTypeName);
+                }
                 //some cpp name can't be use in C#
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
@@ -1254,7 +1313,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
-            if (codeGenNum == 1213)
+            if (codeGenNum == 470)
             {
 
             }
@@ -1357,15 +1416,35 @@ namespace BridgeBuilder
                         parTx.ArgByRef = true;
                         parTx.InnerTypeName = "IntPtr";
                         break;
+                    case "ref string":
+                        if (!parTx.IsConst)
+                        {
+                            parTx.ArgByRef = true;
+                            parTx.InnerTypeName = "IntPtr";
+                        }
+                        break;
+                    case "ref long":
+                        {
+                            parTx.ArgByRef = true;
+                            parTx.InnerTypeName = "long";
+                        }
+                        break;
                     default:
                         //stbuilder.Append(csParTypeName);
+                        {
+                            if (!parTx.IsConst && csParTypeName.StartsWith("ref"))
+                            {
+                                parTx.ArgByRef = true;//temp
+                                parTx.InnerTypeName = "string";
+                            }
+
+                        }
 
                         break;
                 }
 
                 //some cpp name can't be use in C#                 
                 stbuilder.Append(" ");
-
                 switch (csParTypeName)
                 {
                     default:
@@ -1383,6 +1462,19 @@ namespace BridgeBuilder
                             {
                                 stbuilder.AppendLine(csParTypeName.ToString());
                             }
+                        }
+                        break;
+                    case "ref string":
+                        {
+                            if (!parTx.IsConst)
+                            {
+                                stbuilder.Append("IntPtr*");
+                            }
+                            else
+                            {
+                                stbuilder.Append("IntPtr");
+                            }
+
                         }
                         break;
                     case "ref IntPtr":
@@ -1433,6 +1525,9 @@ namespace BridgeBuilder
                     case "ref uint":
                         stbuilder.Append("uint*");
                         break;
+                    case "ref long":
+                        stbuilder.Append("long*");
+                        break;
                 }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
@@ -1447,11 +1542,11 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-            if (codeGenNum == 158)
+            if (codeGenNum == 334 || codeGenNum == 158)
             {
 
             }
-            else if (codeGenNum == 1212)
+            else if (codeGenNum == 1212 || codeGenNum == 1093)
             {
 
             }
@@ -1596,6 +1691,12 @@ namespace BridgeBuilder
                         parTx.ArgByRef = true;//temp
                         parTx.InnerTypeName = csSetterParTypeName = "bool";
                         break;
+                    case "ref long":
+                        //provide both getter and setter method
+                        stbuilder.Append("long");
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "long";
+                        break;
                     case "ref int":
                         stbuilder.Append("int");
                         parTx.ArgByRef = true;//temp
@@ -1606,6 +1707,18 @@ namespace BridgeBuilder
                         parTx.ArgByRef = true;//temp
                         parTx.InnerTypeName = csSetterParTypeName = "uint";
                         break;
+                    case "ref string":
+                        if (parTx.IsConst)
+                        {
+                            stbuilder.Append("string");
+                        }
+                        else
+                        {
+                            stbuilder.Append("string");
+                            parTx.ArgByRef = true;//temp
+                            parTx.InnerTypeName = csSetterParTypeName = "string";
+                        }
+                        break;
                     case "IntPtr*":
                         //this is managed class 
                         //so just return IntPtr 
@@ -1613,6 +1726,10 @@ namespace BridgeBuilder
                         csSetterParTypeName = csParTypeName;
                         break;
                     default:
+                        if (csParTypeName.StartsWith("ref"))
+                        {
+
+                        }
                         stbuilder.Append(csParTypeName);
                         csSetterParTypeName = csParTypeName;
                         break;
@@ -1691,17 +1808,9 @@ namespace BridgeBuilder
                             stbuilder.Append("return ");
                             stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
                             stbuilder.AppendLine(";");
-                            stbuilder.AppendLine("}"); //close unsafe context  
-
-                            //----------------------------------------------------------------------------------
-                            //method
-                            //generate setter part
-                            if (parTx.TypeSymbol.ToString() == "CefString&" && !parTx.IsConst)
-                            {
-                                //create assign method for this value too!
-                            }
+                            stbuilder.AppendLine("}"); //close unsafe context    
+                            break;
                         }
-                        break;
                     case "bool":
                         {
                             stbuilder.AppendLine("unsafe{");
@@ -1718,6 +1827,45 @@ namespace BridgeBuilder
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
+                        }
+                        break;
+                    case "ref string":
+                        {
+                            if (parTx.IsConst)
+                            {
+                                stbuilder.AppendLine("unsafe{");
+                                stbuilder.Append("return ");
+                                stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                                stbuilder.AppendLine(";");
+                                stbuilder.AppendLine("}"); //close unsafe context    
+                                break;
+                            }
+                            else
+                            {
+                                //address of string
+                                //provide gettter and setter method  
+                                stbuilder.AppendLine("unsafe{");
+                                stbuilder.Append("IntPtr str_address= ");
+                                stbuilder.Append("*( ((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                                stbuilder.AppendLine(";");
+
+                                stbuilder.Append("return ");
+                                stbuilder.AppendLine("MyMetArgs.GetAsString(str_address);");
+                                stbuilder.AppendLine("}"); //close unsafe context     
+                                stbuilder.AppendLine("}"); //close method
+
+                                //----------------------------------------------------------------------------------
+                                //method
+                                //setter part, set bool value to address of var 
+                                stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                                stbuilder.AppendLine("unsafe{");
+                                //create string holder for this 
+                                //
+                                stbuilder.AppendLine("*(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")=Cef3Binder.MyCefCreateStringHolder(value);");
+                                stbuilder.AppendLine("}");
+                                stbuilder.AppendLine("}");
+                                continue;
+                            }
                         }
                         break;
                     case "ref bool":
@@ -1765,7 +1913,26 @@ namespace BridgeBuilder
                             stbuilder.AppendLine("}");//close method
                             continue;
                         }
+                    case "ref long":
+                        {
 
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return ");
+                            stbuilder.Append("*(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}");//close unsafe
+                            stbuilder.AppendLine("}"); //close method
+
+
+                            //method
+                            //generate setter part
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.AppendLine("*(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")=value;");
+                            stbuilder.AppendLine("}");//close unsafe
+                            stbuilder.AppendLine("}");//close method
+                            continue;
+                        }
                     case "ref uint":
                         {
 
