@@ -95,9 +95,10 @@
       <Link>LibFolderManager.cs</Link>
     </Compile>
     <Compile Include="RenderProcess\MyCefRenderProcessInitEssential.cs" />
-    <Compile Include="RenderProcess\MyCefRenderProcessListener.cs" />
+    <Compile Include="RenderProcess\RenderProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderProcess\RenderProcessClientApp.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

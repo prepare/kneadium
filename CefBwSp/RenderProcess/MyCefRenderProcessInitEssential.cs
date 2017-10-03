@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
         public override CefClientApp CreateClientApp()
         {
 
-            var clientApp = new SubProcessClientApp(
+            var clientApp = new RenderProcessClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle);
             return clientApp;
         }
