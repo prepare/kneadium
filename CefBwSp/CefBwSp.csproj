@@ -98,7 +98,7 @@
     <Compile Include="RenderProcess\RenderProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenderProcess\RenderProcessClientApp.cs" />
+    <Compile Include="RenderProcess\ClientAppRenderer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

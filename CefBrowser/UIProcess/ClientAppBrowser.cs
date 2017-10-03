@@ -4,10 +4,13 @@
 namespace LayoutFarm.CefBridge
 {
 
-    public class UIProcessCefClientApp : CefClientApp
+    /// <summary>
+    /// client app for UI process
+    /// </summary>
+    public class ClientAppBrowser : CefClientApp
     {
 
-        public UIProcessCefClientApp(
+        public ClientAppBrowser(
           System.IntPtr processHandle)
             : base(processHandle)
         {

@@ -5,11 +5,11 @@ using LayoutFarm.CefBridge.Auto;
 namespace LayoutFarm.CefBridge
 {
 
-    class RenderProcessClientApp : CefClientApp
+    class ClientAppRenderer : CefClientApp
     {
         RenderProcessHandler renderProcessHandler;
 
-        public RenderProcessClientApp(IntPtr processHandle)
+        public ClientAppRenderer(IntPtr processHandle)
             : base(processHandle)
         {
         }
