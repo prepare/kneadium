@@ -64,46 +64,11 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	}
 	return 1; //default
-}
-//3.
-void InitDllMainApp(CefMainArgs& main_args, CefRefPtr<CefApp> app) {
-
-	void* sandbox_info = NULL;
-#if defined(CEF_USE_SANDBOX)
-	// Manage the life span of the sandbox information object. This is necessary
-	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
-	CefScopedSandboxInfo scoped_sandbox;
-	sandbox_info = scoped_sandbox.sandbox_info();
-#endif      
-	// Execute the secondary process, if any.
-	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
-	if (exit_code >= 0)
-	{	
-		mainContext = NULL;
-		return;
-	}
-	// Parse command-line arguments.
-	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-	command_line->InitFromString(::GetCommandLineW());
-	//-------------------------------------------------------------------------------------
-	// Create the main context object.			 
-    mainContext = new client::MainContextImpl(command_line, true);
-	mainContext->myMxCallback_ = mycefmx::GetManagedCallback();
-	//setting 
-	CefSettings settings;
-	settings.log_severity = (cef_log_severity_t)99;//disable log
-												   //-------------------------------------------------------------------------------------
-#if !defined(CEF_USE_SANDBOX)
-	settings.no_sandbox = true;
-#endif		
-	mainContext->PopulateSettings(&settings);
-	mainContext->Initialize(main_args, settings, app, sandbox_info);
-	 
-}
-
+} 
 //------------------------------------------
 void* MyCefCreateClientApp(HINSTANCE hInstance)
-{   
+{		
+	//similar to main
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
@@ -133,13 +98,42 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	/* if (settings.multi_threaded_message_loop)
 	message_loop.reset(new MainMessageLoopMultithreadedWin);
 	else
-	message_loop.reset(new MainMessageLoopStd);*/
-
+	message_loop.reset(new MainMessageLoopStd);*/ 
 	//------------------------------------------------------------------
 	//set managed callback*** 
 	mycefmx::SetManagedCallback(myMxCallback_);
-	CefMainArgs main_args(hInstance);
-	InitDllMainApp(main_args, app);
+	CefMainArgs main_args(hInstance); 
+	//---------------------
+	void* sandbox_info = NULL;
+#if defined(CEF_USE_SANDBOX)
+	// Manage the life span of the sandbox information object. This is necessary
+	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+	CefScopedSandboxInfo scoped_sandbox;
+	sandbox_info = scoped_sandbox.sandbox_info();
+#endif      
+	// Execute the secondary process, if any.
+	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+	if (exit_code >= 0)
+	{
+		mainContext = NULL;
+		return NULL;
+	}
+ 
+	//-------------------------------------------------------------------------------------
+	// Create the main context object.			 
+	mainContext = new client::MainContextImpl(command_line, true);
+	mainContext->myMxCallback_ = mycefmx::GetManagedCallback();
+	//setting 
+	CefSettings settings;
+	settings.log_severity = (cef_log_severity_t)99;//disable log
+												   //-------------------------------------------------------------------------------------
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif		
+	mainContext->PopulateSettings(&settings);
+	mainContext->Initialize(main_args, settings, app, sandbox_info);
+	//---------------------
+
 	return app;
 }
 
