@@ -35,7 +35,6 @@
 #include "include/base/cef_build.h"
 
 #if defined(COMPILER_MSVC)
-
 #ifdef BUILDING_CEF_SHARED
 #define CEF_EXPORT __declspec(dllexport)
 #elif USING_CEF_SHARED

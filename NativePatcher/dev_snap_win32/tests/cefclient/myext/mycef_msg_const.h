@@ -8,7 +8,7 @@ const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
 const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
 
 
-const int CEF_MSG_ClientHandler_ShowDevTools = 107;
+ 
 const int CEF_MSG_ClientHandler_CloseDevTools = 108;
 
 const int CEF_MSG_ClientHandler_SetResourceManager = 140;
