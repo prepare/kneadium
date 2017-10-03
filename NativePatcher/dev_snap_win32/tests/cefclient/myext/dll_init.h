@@ -2,4 +2,4 @@
 #include "include/base/cef_scoped_ptr.h" 
 #include "tests/cefclient/browser/main_context_impl.h" 
 
-client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app);
+//client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app);

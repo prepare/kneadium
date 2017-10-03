@@ -25,10 +25,123 @@
 #include "libcef_dll/ctocpp/download_item_callback_ctocpp.h"
 #include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
 #include "libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h"
+#include "include/base/cef_scoped_ptr.h" 
+#include "tests/cefclient/browser/main_context_impl.h" 
+
+
+#if defined(CEF_USE_SANDBOX)
+// The cef_sandbox.lib static library is currently built with VS2013. It may not
+// link successfully with other VS versions.
+#include "include/cef_sandbox_win.h"
+// When generating projects with CMake the CEF_USE_SANDBOX value will be defined
+// automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
+// to the CMake command-line to disable use of the sandbox.
+// Uncomment this line to manually enable sandbox support.
+// #define CEF_USE_SANDBOX 1
+#pragma comment(lib, "cef_sandbox.lib")
+#endif
+
 
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
-managed_callback myMxCallback_ = NULL;
+managed_callback myMxCallback_ = NULL; 
+
+//1.
+int MyCefGetVersion()
+{
+	return 1011;
+}
+//2.
+int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
+{
+	switch (callbackKind)
+	{
+	case 3:
+	{
+		//set global mxCallback ***
+		myMxCallback_ = mxCallback;
+		return 0;
+	}
+	}
+	return 1; //default
+}
+//3.
+void InitDllMainApp(CefMainArgs& main_args, CefRefPtr<CefApp> app) {
+
+	void* sandbox_info = NULL;
+#if defined(CEF_USE_SANDBOX)
+	// Manage the life span of the sandbox information object. This is necessary
+	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+	CefScopedSandboxInfo scoped_sandbox;
+	sandbox_info = scoped_sandbox.sandbox_info();
+#endif      
+	// Execute the secondary process, if any.
+	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+	if (exit_code >= 0)
+	{	
+		mainContext = NULL;
+		return;
+	}
+	// Parse command-line arguments.
+	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+	command_line->InitFromString(::GetCommandLineW());
+	//-------------------------------------------------------------------------------------
+	// Create the main context object.			 
+    mainContext = new client::MainContextImpl(command_line, true);
+	mainContext->myMxCallback_ = mycefmx::GetManagedCallback();
+	//setting 
+	CefSettings settings;
+	settings.log_severity = (cef_log_severity_t)99;//disable log
+												   //-------------------------------------------------------------------------------------
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif		
+	mainContext->PopulateSettings(&settings);
+	mainContext->Initialize(main_args, settings, app, sandbox_info);
+	 
+}
+
+//------------------------------------------
+void* MyCefCreateClientApp(HINSTANCE hInstance)
+{   
+	// Parse command-line arguments.
+	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+	command_line->InitFromString(::GetCommandLineW());
+	//create browser process first?
+	client::ClientApp* app = NULL;
+	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
+
+	if (process_type == client::ClientApp::BrowserProcess)
+	{
+		app = new client::ClientAppBrowser();
+		app->myMxCallback_ = myMxCallback_;
+	}
+	else if (process_type == client::ClientApp::RendererProcess)
+	{
+		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
+		app = new client::ClientAppRenderer();
+		app->myMxCallback_ = myMxCallback_;
+	}
+	else if (process_type == client::ClientApp::OtherProcess)
+	{
+		app = new client::ClientAppOther();
+		app->myMxCallback_ = myMxCallback_;
+	}
+	// Create the main message loop object.
+	message_loop = new client::MainMessageLoopStd();
+	//message_loop.reset(new client::MainMessageLoopStd); 
+	/* if (settings.multi_threaded_message_loop)
+	message_loop.reset(new MainMessageLoopMultithreadedWin);
+	else
+	message_loop.reset(new MainMessageLoopStd);*/
+
+	//------------------------------------------------------------------
+	//set managed callback*** 
+	mycefmx::SetManagedCallback(myMxCallback_);
+	CefMainArgs main_args(hInstance);
+	InitDllMainApp(main_args, app);
+	return app;
+}
 
 
 //for handling a comment browser window msg
@@ -69,75 +182,6 @@ public:
 
 
 
-//1.
-int MyCefGetVersion()
-{
-	return 1011;
-}
-//2.
-int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
-{
-
-	switch (callbackKind)
-	{
-	case 3:
-	{
-		//set global mxCallback ***
-		myMxCallback_ = mxCallback;
-		return 0;
-	}
-	}
-	return 1; //default
-}
-//------------------------------------------
-void* MyCefCreateClientApp(HINSTANCE hInstance)
-{
-	//this similar to client::RunMain()
-	//
-	//this func returns client::ClientApp
-	///
-	//-----
-	//user must call RegisterManagedCallBack() before use this method *** 
-	//-----
-
-	// Parse command-line arguments.
-	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-	command_line->InitFromString(::GetCommandLineW());
-	//create browser process first?
-	client::ClientApp* app = NULL;
-	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
-
-	if (process_type == client::ClientApp::BrowserProcess)
-	{
-		app = new client::ClientAppBrowser();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	else if (process_type == client::ClientApp::RendererProcess)
-	{
-		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
-		app = new client::ClientAppRenderer();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	else if (process_type == client::ClientApp::OtherProcess)
-	{
-		app = new client::ClientAppOther();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	// Create the main message loop object.
-	message_loop = new client::MainMessageLoopStd();
-	//message_loop.reset(new client::MainMessageLoopStd); 
-	/* if (settings.multi_threaded_message_loop)
-	message_loop.reset(new MainMessageLoopMultithreadedWin);
-	else
-	message_loop.reset(new MainMessageLoopStd);*/
-
-	//------------------------------------------------------------------
-	//set managed callback*** 
-	mycefmx::SetManagedCallback(myMxCallback_);
-	CefMainArgs main_args(hInstance);
-	mainContext = DllInitMain(main_args, app);
-	return app;
-}
 
 void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
 	switch (keyName)
