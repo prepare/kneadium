@@ -158,11 +158,11 @@ namespace LayoutFarm.CefBridge
                 default:
 
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                    {
+                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
+                //    {
 
-                    }
-                    break;
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));

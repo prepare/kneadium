@@ -28,7 +28,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
 
 
-        CEF_MSG_ClientHandler_ShowDevTools = 107,
+        //CEF_MSG_ClientHandler_ShowDevTools = 107,
         CEF_MSG_ClientHandler_CloseDevTools = 108,
 
 

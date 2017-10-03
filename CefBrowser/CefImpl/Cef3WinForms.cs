@@ -68,16 +68,16 @@ namespace LayoutFarm.CefBridge
                 default:
 
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                    {
-                        //show dev tools
-                        Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
-                            newPopupForm.Show();
-                        });
-                    }
-                    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
+                //    {
+                //        //show dev tools
+                //        //Cef3Binder.SafeUIInvoke(() =>
+                //        //{
+                //        //    //IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //        //    //newPopupForm.Show();
+                //        //});
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));
