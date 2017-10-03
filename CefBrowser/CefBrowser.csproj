@@ -123,9 +123,6 @@
     <Compile Include="..\CefBridge\ReferencePaths.cs">
       <Link>CefBridge\ReferencePaths.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\WindowWrapper.cs">
-      <Link>CefBridge\WindowWrapper.cs</Link>
-    </Compile>
     <Compile Include="CefImpl\Cef3WinForms.cs" />
     <Compile Include="CefImpl\MyCef3InitEssential.cs" />
     <Compile Include="CefImpl\MyCef3WinForms.cs" />
@@ -133,6 +130,7 @@
     <Compile Include="CefImpl\MyCefDevWindow.cs" />
     <Compile Include="CefImpl\MyCefUIListener.cs" />
     <Compile Include="CefImpl\WindowControlImpl.cs" />
+    <Compile Include="CefImpl\WindowWrapper.cs" />
     <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>

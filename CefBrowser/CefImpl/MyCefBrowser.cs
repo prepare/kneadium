@@ -15,8 +15,7 @@ namespace LayoutFarm.CefBridge
         IWindowControl parentControl;
         IWindowForm topForm;
         IWindowForm devForm;
-        MyCefDevWindow cefDevWindow;
-        //CefUIProcessListener browserProcessListener;
+        MyCefDevWindow cefDevWindow; 
         CefOsrListener cefOsrListener;
         List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
         //----

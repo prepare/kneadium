@@ -91,9 +91,6 @@
     <Compile Include="..\CefBridge\ReferencePaths.cs">
       <Link>CefBridge\ReferencePaths.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\WindowWrapper.cs">
-      <Link>CefBridge\WindowWrapper.cs</Link>
-    </Compile>
     <Compile Include="..\CefBrowser\LibFolderManager.cs">
       <Link>LibFolderManager.cs</Link>
     </Compile>
