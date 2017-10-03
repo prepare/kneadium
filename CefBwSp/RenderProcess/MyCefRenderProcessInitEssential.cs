@@ -5,27 +5,34 @@ using System.Collections.Generic;
 
 namespace LayoutFarm.CefBridge
 {
+
     /// <summary>
-    /// Cef3 init essential for WindowForm
+    /// Cef3 Init essential for Render process
     /// </summary>
-    public class MyCef3InitEssential : Cef3InitEssential
+    class MyCef3RenderProcessInitEssential : Cef3InitEssential
     {
 
-        static MyCef3InitEssential initEssential;
+        static MyCef3RenderProcessInitEssential initEssential;
         static string libPath;
-        private MyCef3InitEssential(string[] startArgs)
+        private MyCef3RenderProcessInitEssential(string[] startArgs)
             : base(startArgs)
         {
         }
+        public override CefClientApp CreateClientApp()
+        {
+
+            var clientApp = new SubProcessClientApp(
+                System.Diagnostics.Process.GetCurrentProcess().Handle);
+            return clientApp;
+        }
         public static void SetLibPath(string libPath)
         {
-            MyCef3InitEssential.libPath = libPath;
+            MyCef3RenderProcessInitEssential.libPath = libPath;
         }
         public static string GetLibPath()
         {
             return libPath;
         }
-
         public override bool Init()
         {
             //must check proper location of libcef, cefclient dir 
@@ -33,10 +40,15 @@ namespace LayoutFarm.CefBridge
             libPath = ReferencePaths.LIB_PATH;
             return base.Init();
         }
+
+#if DEBUG
         List<string> logMessages = new List<string>();
+#endif
         public override void AddLogMessage(string msg)
         {
+#if DEBUG
             logMessages.Add(msg);
+#endif
         }
 
 
@@ -57,14 +69,7 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        public override CefClientApp CreateClientApp()
-        {
-            var renderProcListener = new MyCefRendererProcessListener();
-            var clientApp = new SubProcessClientApp(
-                System.Diagnostics.Process.GetCurrentProcess().Handle,
-                renderProcListener);
-            return clientApp;
-        }
+
 
         public override void SetupPreRun()
         {
@@ -84,7 +89,7 @@ namespace LayoutFarm.CefBridge
 
         public static bool LoadAndInitCef3(string[] args)
         {
-            initEssential = new MyCef3InitEssential(args);
+            initEssential = new MyCef3RenderProcessInitEssential(args);
             if (!initEssential.Init())
             {
                 return false;

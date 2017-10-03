@@ -17,7 +17,7 @@ extern "C" {
 	MY_DLL_EXPORT void* MyCefCreateClientApp(HINSTANCE hInstance);
 	//3.2
 	MY_DLL_EXPORT void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value);
-	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
+	 
 	MY_DLL_EXPORT void MyCefShutDown();
 
 	//
@@ -30,11 +30,8 @@ extern "C" {
 	MY_DLL_EXPORT MyBrowserWindowWrapper* MyCefCreateMyWebBrowserOSR(managed_callback callback);
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
 	MY_DLL_EXPORT int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
-
-	//--------------------
-	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack);
-	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack);
-
+	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
+	 
 
 	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowserWindowWrapper* myBw, MyBrowserWindowWrapper* myBwDev, HWND parentHwnd);
 	//----------------------------

@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CefBridge\Auto\CefApiSwitchTables.cs">
@@ -93,8 +94,8 @@
     <Compile Include="..\CefBrowser\LibFolderManager.cs">
       <Link>LibFolderManager.cs</Link>
     </Compile>
-    <Compile Include="CefBw\MyCef3InitEssential.cs" />
-    <Compile Include="CefBw\MyCefRenderProcessListener.cs" />
+    <Compile Include="RenderProcess\MyCefRenderProcessInitEssential.cs" />
+    <Compile Include="RenderProcess\MyCefRenderProcessListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

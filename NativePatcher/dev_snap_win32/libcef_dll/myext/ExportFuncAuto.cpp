@@ -5643,8 +5643,10 @@ public:
 	//gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(const CefString& name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			CefV8AccessorExt::GetArgs args1(&name, object, &retval, &exception);
+			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
+			CefV8AccessorExt::GetArgs args1(&name, object, &temp1, &exception);
 			mcallback((CefV8AccessorExt::_typeName << 16) | MyCefV8Accessor_Get_1, &args1.arg);
+			CefV8ValueCToCpp::Wrap(temp1);
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5736,8 +5738,10 @@ public:
 	//gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(const CefString& name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::GetArgs args1(&name, object, &retval, &exception);
+			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
+			CefV8InterceptorExt::get_bynameArgs args1(&name, object, &temp1, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_1, &args1.arg);
+			CefV8ValueCToCpp::Wrap(temp1);
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5746,8 +5750,11 @@ public:
 	//gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::Get1Args args1(index, object, &retval, &exception);
+			 
+			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
+			CefV8InterceptorExt::get_byindexArgs args1(index, object, &temp1, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_2, &args1.arg);
+			CefV8ValueCToCpp::Wrap(temp1);
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5756,7 +5763,7 @@ public:
 	//gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(const CefString& name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::SetArgs args1(&name, object, value, &exception);
+			CefV8InterceptorExt::set_bynameArgs args1(&name, object, value, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_3, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
@@ -5766,7 +5773,7 @@ public:
 	//gen! bool Set(int index,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::Set3Args args1(index, object, value, &exception);
+			CefV8InterceptorExt::set_byindexArgs args1(index, object, value, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_4, &args1.arg);
 			return args1.arg.myext_ret_value;
 		}
@@ -9717,8 +9724,13 @@ namespace CefV8HandlerExt {
 	//gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			ExecuteArgs args1(&name, object, &arguments, &retval, &exception);
+
+			//CefRefPtr<CefV8Value> ret2 = retval;
+			auto ret3 = CefV8ValueCToCpp::Unwrap(retval);
+			ExecuteArgs args1(&name, object, &arguments, &ret3, &exception);
 			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1.arg);
+			//retval = CefV8Value::CreateString("ABCD");
+			retval = CefV8ValueCToCpp::Wrap(*args1.arg.retval);
 			return args1.arg.myext_ret_value;
 		}
 		return false;

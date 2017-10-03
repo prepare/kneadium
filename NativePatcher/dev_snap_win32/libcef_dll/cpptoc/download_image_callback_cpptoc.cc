@@ -41,7 +41,7 @@ void CEF_CALLBACK download_image_callback_on_download_image_finished(
     return;
   // Unverified params: image
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin46
 #if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadImageCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadImageCallbackExt::_typeName << 16) | CefDownloadImageCallbackExt::CefDownloadImageCallbackExt_OnDownloadImageFinished_1;

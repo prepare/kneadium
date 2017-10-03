@@ -213,7 +213,7 @@ namespace BridgeBuilder
         }
         public override string ToString()
         {
-            return "";
+            return this.Name;
         }
         public ParameterDirection Direction { get; set; }
 

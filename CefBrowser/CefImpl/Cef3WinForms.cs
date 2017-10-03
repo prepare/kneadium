@@ -36,13 +36,12 @@ namespace LayoutFarm.CefBridge
 
     public class MyCefClientApp : CefClientApp
     {
-        CefRenderProcessListener renderProcessListener;
+
         public MyCefClientApp(
-          System.IntPtr processHandle,
-          CefRenderProcessListener renderProcessListener)
+          System.IntPtr processHandle)
             : base(processHandle)
         {
-            this.renderProcessListener = renderProcessListener;
+
         }
         protected override MyCefCallback GetManagedCallbackImpl()
         {
@@ -69,16 +68,16 @@ namespace LayoutFarm.CefBridge
                 default:
 
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                    {
-                        //show dev tools
-                        Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
-                            newPopupForm.Show();
-                        });
-                    }
-                    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
+                //    {
+                //        //show dev tools
+                //        //Cef3Binder.SafeUIInvoke(() =>
+                //        //{
+                //        //    //IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //        //    //newPopupForm.Show();
+                //        //});
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));
@@ -97,39 +96,39 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
-                    {
-                        //client app callback
-                        //eg. from RenderClientApp
-                        //in render process ***
-                        //we can register external methods  for window object here.
-                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
+                //    {
+                //        //client app callback
+                //        //eg. from RenderClientApp
+                //        //in render process ***
+                //        //we can register external methods  for window object here.
+                //        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextCreated(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
-                    {
-                        if (renderProcessListener != null)
-                        {
-                            renderProcessListener.OnContextReleased(
-                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        }
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
-                    {
-                        if (renderProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnWebKitInitialized(args);
-                        }
-                    }
-                    break;
+                //        //if (renderProcessListener != null)
+                //        //{
+                //        //    renderProcessListener.OnContextCreated(
+                //        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                //        //}
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
+                //    {
+                //        //if (renderProcessListener != null)
+                //        //{
+                //        //    renderProcessListener.OnContextReleased(
+                //        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
+                //        //}
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
+                //    {
+                //        //    if (renderProcessListener != null)
+                //        //    {
+                //        //        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                //        //        renderProcessListener.OnWebKitInitialized(args);
+                //        //    }
+                //    }
+                //    break;
             }
         }
 

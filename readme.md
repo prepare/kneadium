@@ -1,12 +1,10 @@
 Hello! 
 This is my C# <==> Cef3 project.
 
-under construction...
+**!! UNDER CONSTRUCTION !!**
  
 
-LICENSE:
-
-  BSD
+License :  MIT/ BSD
 
 ---
 

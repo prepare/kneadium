@@ -60,7 +60,7 @@ int CEF_CALLBACK v8accessor_get(struct _cef_v8accessor_t* self,
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin157
 #if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Get_1;
@@ -68,7 +68,7 @@ auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg1 (name);
 CefString tmp_arg4 (exception);
-CefV8AccessorExt::GetArgs args1(tmp_arg1,object,&retvalPtr,tmp_arg4);
+CefV8AccessorExt::GetArgs args1(tmp_arg1,object,retval,&tmp_arg4);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
 // Restore param: retval; type: refptr_diff_byref
@@ -138,7 +138,7 @@ int CEF_CALLBACK v8accessor_set(struct _cef_v8accessor_t* self,
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin156
 #if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Set_2;
@@ -146,7 +146,7 @@ auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg1 (name);
 CefString tmp_arg4 (exception);
-CefV8AccessorExt::SetArgs args1(tmp_arg1,object,value,tmp_arg4);
+CefV8AccessorExt::SetArgs args1(tmp_arg1,object,value,&tmp_arg4);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
  return args1.arg.myext_ret_value;

@@ -47,12 +47,15 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,374
         [StructLayout(LayoutKind.Sequential)]
-        struct OnAccessibilityTreeChangeNativeArgs
+        unsafe struct OnAccessibilityTreeChangeNativeArgs
         {
             public int argFlags;
             public IntPtr value;
@@ -87,12 +90,15 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefValue value()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefValue(((OnAccessibilityLocationChangeNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,376
         [StructLayout(LayoutKind.Sequential)]
-        struct OnAccessibilityLocationChangeNativeArgs
+        unsafe struct OnAccessibilityLocationChangeNativeArgs
         {
             public int argFlags;
             public IntPtr value;
@@ -240,7 +246,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,391
         [StructLayout(LayoutKind.Sequential)]
-        struct OnContextInitializedNativeArgs
+        unsafe struct OnContextInitializedNativeArgs
         {
             public int argFlags;
         }
@@ -285,7 +291,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,393
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeChildProcessLaunchNativeArgs
+        unsafe struct OnBeforeChildProcessLaunchNativeArgs
         {
             public int argFlags;
             public IntPtr command_line;
@@ -331,7 +337,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,395
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRenderProcessThreadCreatedNativeArgs
+        unsafe struct OnRenderProcessThreadCreatedNativeArgs
         {
             public int argFlags;
             public IntPtr extra_info;
@@ -374,7 +380,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,397
         [StructLayout(LayoutKind.Sequential)]
-        struct GetPrintHandlerNativeArgs
+        unsafe struct GetPrintHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -426,7 +432,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,399
         [StructLayout(LayoutKind.Sequential)]
-        struct OnScheduleMessagePumpWorkNativeArgs
+        unsafe struct OnScheduleMessagePumpWorkNativeArgs
         {
             public int argFlags;
             public long delay_ms;
@@ -745,7 +751,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,429
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeContextMenuNativeArgs
+        unsafe struct OnBeforeContextMenuNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -830,7 +836,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,431
         [StructLayout(LayoutKind.Sequential)]
-        struct RunContextMenuNativeArgs
+        unsafe struct RunContextMenuNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -918,7 +924,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,433
         [StructLayout(LayoutKind.Sequential)]
-        struct OnContextMenuCommandNativeArgs
+        unsafe struct OnContextMenuCommandNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -973,7 +979,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,435
         [StructLayout(LayoutKind.Sequential)]
-        struct OnContextMenuDismissedNativeArgs
+        unsafe struct OnContextMenuDismissedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1261,19 +1267,24 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
+                    return Cef3Binder.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
                 }
             }
             public string default_file_path()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
+                    return Cef3Binder.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
                 }
             }
             public List<string> accept_filters()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFileDialogNativeArgs*)this.nativePtr)->accept_filters, outputlist);
+                    return outputlist;
+                }
             }
             public int selected_accept_filter()
             {
@@ -1292,7 +1303,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,460
         [StructLayout(LayoutKind.Sequential)]
-        struct OnFileDialogNativeArgs
+        unsafe struct OnFileDialogNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -1454,13 +1465,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
+                    return Cef3Binder.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,470
         [StructLayout(LayoutKind.Sequential)]
-        struct OnAddressChangeNativeArgs
+        unsafe struct OnAddressChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1505,13 +1516,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
+                    return Cef3Binder.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,472
         [StructLayout(LayoutKind.Sequential)]
-        struct OnTitleChangeNativeArgs
+        unsafe struct OnTitleChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1553,12 +1564,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public List<string> icon_urls()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    List<string> outputlist = new List<string>();
+                    Cef3Binder.CopyStdStringList(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->icon_urls, outputlist);
+                    return outputlist;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,474
         [StructLayout(LayoutKind.Sequential)]
-        struct OnFaviconURLChangeNativeArgs
+        unsafe struct OnFaviconURLChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1612,7 +1628,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,476
         [StructLayout(LayoutKind.Sequential)]
-        struct OnFullscreenModeChangeNativeArgs
+        unsafe struct OnFullscreenModeChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1668,18 +1684,26 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                    IntPtr str_address = *(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void text(string value)
+            {
+                unsafe
+                {
+                    *(((OnTooltipNativeArgs*)this.nativePtr)->text) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,478
         [StructLayout(LayoutKind.Sequential)]
-        struct OnTooltipNativeArgs
+        unsafe struct OnTooltipNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr browser;
-            public IntPtr text;
+            public IntPtr* text;
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,479
@@ -1720,13 +1744,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
+                    return Cef3Binder.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,480
         [StructLayout(LayoutKind.Sequential)]
-        struct OnStatusMessageNativeArgs
+        unsafe struct OnStatusMessageNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -1778,14 +1802,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
+                    return Cef3Binder.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
                 }
             }
             public string source()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
+                    return Cef3Binder.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
                 }
             }
             public int line()
@@ -1798,7 +1822,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,482
         [StructLayout(LayoutKind.Sequential)]
-        struct OnConsoleMessageNativeArgs
+        unsafe struct OnConsoleMessageNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -1903,7 +1927,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// drawing tooltips and the return value is ignored.
             /// /*cef(optional_param=text)*/
             /// </summary>
-            bool OnTooltip(CefBrowser browser, string text);
+            bool OnTooltip(CefBrowser browser, ref string text);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,495
             /// <summary>
             /// Called when the browser receives a status message. |value| contains the
@@ -2088,8 +2112,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnTooltip(I1 i1, OnTooltipArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,515
+            string text = args.text();
             args.myext_setRetValue(i1.OnTooltip(args.browser(),
-            args.text()));
+            ref text));
+            args.text(text);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,516
         public static void OnStatusMessage(I1 i1, OnStatusMessageArgs args)
@@ -2168,7 +2194,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
+                    return Cef3Binder.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
                 }
             }
             public CefBeforeDownloadCallback callback()
@@ -2181,7 +2207,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,522
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeDownloadNativeArgs
+        unsafe struct OnBeforeDownloadNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -2244,7 +2270,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,524
         [StructLayout(LayoutKind.Sequential)]
-        struct OnDownloadUpdatedNativeArgs
+        unsafe struct OnDownloadUpdatedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -2438,7 +2464,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,539
         [StructLayout(LayoutKind.Sequential)]
-        struct OnDragEnterNativeArgs
+        unsafe struct OnDragEnterNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -2484,14 +2510,17 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
-            public List<object> regions()
+            public CefDraggableRegionList regions()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefDraggableRegionList(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->regions);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,541
         [StructLayout(LayoutKind.Sequential)]
-        struct OnDraggableRegionsChangedNativeArgs
+        unsafe struct OnDraggableRegionsChangedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -2539,7 +2568,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// this method will be called with an empty vector.
             /// /*cef()*/
             /// </summary>
-            void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions);
+            void OnDraggableRegionsChanged(CefBrowser browser, CefDraggableRegionList regions);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,546
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -2695,7 +2724,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,556
         [StructLayout(LayoutKind.Sequential)]
-        struct OnFindResultNativeArgs
+        unsafe struct OnFindResultNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -2838,7 +2867,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,566
         [StructLayout(LayoutKind.Sequential)]
-        struct OnTakeFocusNativeArgs
+        unsafe struct OnTakeFocusNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -2897,7 +2926,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,568
         [StructLayout(LayoutKind.Sequential)]
-        struct OnSetFocusNativeArgs
+        unsafe struct OnSetFocusNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -2941,7 +2970,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,570
         [StructLayout(LayoutKind.Sequential)]
-        struct OnGotFocusNativeArgs
+        unsafe struct OnGotFocusNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -3148,7 +3177,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
+                    return Cef3Binder.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
                 }
             }
             public int request_id()
@@ -3168,7 +3197,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,590
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRequestGeolocationPermissionNativeArgs
+        unsafe struct OnRequestGeolocationPermissionNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -3222,7 +3251,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,592
         [StructLayout(LayoutKind.Sequential)]
-        struct OnCancelGeolocationPermissionNativeArgs
+        unsafe struct OnCancelGeolocationPermissionNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -3409,7 +3438,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public cef_jsdialog_type_t dialog_type()
@@ -3423,14 +3452,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public string default_prompt_text()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
                 }
             }
             public CefJSDialogCallback callback()
@@ -3444,17 +3473,20 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsBool(nativePtr, 7);
+                    return *(((OnJSDialogNativeArgs*)this.nativePtr)->suppress_message);
                 }
             }
             public void suppress_message(bool value)
             {
-                MyMetArgs.SetBoolToAddress(nativePtr, 7, value);
+                unsafe
+                {
+                    *(((OnJSDialogNativeArgs*)this.nativePtr)->suppress_message) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,607
         [StructLayout(LayoutKind.Sequential)]
-        struct OnJSDialogNativeArgs
+        unsafe struct OnJSDialogNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -3464,7 +3496,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr message_text;
             public IntPtr default_prompt_text;
             public IntPtr callback;
-            public double suppress_message;
+            public bool* suppress_message;
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,608
@@ -3516,7 +3548,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
+                    return Cef3Binder.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public bool is_reload()
@@ -3536,7 +3568,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,609
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeUnloadDialogNativeArgs
+        unsafe struct OnBeforeUnloadDialogNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -3584,7 +3616,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,611
         [StructLayout(LayoutKind.Sequential)]
-        struct OnResetDialogStateNativeArgs
+        unsafe struct OnResetDialogStateNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -3626,7 +3658,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,613
         [StructLayout(LayoutKind.Sequential)]
-        struct OnDialogClosedNativeArgs
+        unsafe struct OnDialogClosedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -3911,30 +3943,36 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPreKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
             public bool is_keyboard_shortcut()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsBool(nativePtr, 4);
+                    return *(((OnPreKeyEventNativeArgs*)this.nativePtr)->is_keyboard_shortcut);
                 }
             }
             public void is_keyboard_shortcut(bool value)
             {
-                MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
+                unsafe
+                {
+                    *(((OnPreKeyEventNativeArgs*)this.nativePtr)->is_keyboard_shortcut) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,638
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPreKeyEventNativeArgs
+        unsafe struct OnPreKeyEventNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr browser;
             public IntPtr _event;
             public IntPtr os_event;
-            public double is_keyboard_shortcut;
+            public bool* is_keyboard_shortcut;
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,639
@@ -3989,12 +4027,15 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr os_event()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnKeyEventNativeArgs*)this.nativePtr)->os_event;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,640
         [StructLayout(LayoutKind.Sequential)]
-        struct OnKeyEventNativeArgs
+        unsafe struct OnKeyEventNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -4201,14 +4242,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
+                    return Cef3Binder.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public string target_frame_name()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
+                    return Cef3Binder.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
@@ -4241,7 +4282,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr client()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnBeforePopupNativeArgs*)this.nativePtr)->client;
+                }
             }
             public CefBrowserSettings settings()
             {
@@ -4254,17 +4298,20 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsBool(nativePtr, 11);
+                    return *(((OnBeforePopupNativeArgs*)this.nativePtr)->no_javascript_access);
                 }
             }
             public void no_javascript_access(bool value)
             {
-                MyMetArgs.SetBoolToAddress(nativePtr, 11, value);
+                unsafe
+                {
+                    *(((OnBeforePopupNativeArgs*)this.nativePtr)->no_javascript_access) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,655
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforePopupNativeArgs
+        unsafe struct OnBeforePopupNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -4278,7 +4325,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr windowInfo;
             public IntPtr client;
             public IntPtr settings;
-            public double no_javascript_access;
+            public bool* no_javascript_access;
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,656
@@ -4318,7 +4365,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,657
         [StructLayout(LayoutKind.Sequential)]
-        struct OnAfterCreatedNativeArgs
+        unsafe struct OnAfterCreatedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -4452,7 +4499,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,659
         [StructLayout(LayoutKind.Sequential)]
-        struct DoCloseNativeArgs
+        unsafe struct DoCloseNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -4499,7 +4546,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,661
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeCloseNativeArgs
+        unsafe struct OnBeforeCloseNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -4973,7 +5020,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,686
         [StructLayout(LayoutKind.Sequential)]
-        struct OnLoadingStateChangeNativeArgs
+        unsafe struct OnLoadingStateChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5041,7 +5088,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,688
         [StructLayout(LayoutKind.Sequential)]
-        struct OnLoadStartNativeArgs
+        unsafe struct OnLoadStartNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5106,7 +5153,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,690
         [StructLayout(LayoutKind.Sequential)]
-        struct OnLoadEndNativeArgs
+        unsafe struct OnLoadEndNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5169,20 +5216,20 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
+                    return Cef3Binder.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
                 }
             }
             public string failedUrl()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
+                    return Cef3Binder.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,692
         [StructLayout(LayoutKind.Sequential)]
-        struct OnLoadErrorNativeArgs
+        unsafe struct OnLoadErrorNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5469,7 +5516,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,717
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPrintStartNativeArgs
+        unsafe struct OnPrintStartNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5527,7 +5574,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,719
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPrintSettingsNativeArgs
+        unsafe struct OnPrintSettingsNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5594,7 +5641,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,721
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPrintDialogNativeArgs
+        unsafe struct OnPrintDialogNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -5649,14 +5696,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
+                    return Cef3Binder.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
                 }
             }
             public string pdf_file_path()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
+                    return Cef3Binder.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
                 }
             }
             public CefPrintJobCallback callback()
@@ -5669,7 +5716,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,723
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPrintJobNativeArgs
+        unsafe struct OnPrintJobNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -5715,7 +5762,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,725
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPrintResetNativeArgs
+        unsafe struct OnPrintResetNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -5767,7 +5814,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,727
         [StructLayout(LayoutKind.Sequential)]
-        struct GetPdfPaperSizeNativeArgs
+        unsafe struct GetPdfPaperSizeNativeArgs
         {
             public int argFlags;
             public int myext_ret_value_w;
@@ -6095,7 +6142,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,762
         [StructLayout(LayoutKind.Sequential)]
-        struct GetAccessibilityHandlerNativeArgs
+        unsafe struct GetAccessibilityHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -6152,7 +6199,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,764
         [StructLayout(LayoutKind.Sequential)]
-        struct GetRootScreenRectNativeArgs
+        unsafe struct GetRootScreenRectNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -6211,7 +6258,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,766
         [StructLayout(LayoutKind.Sequential)]
-        struct GetViewRectNativeArgs
+        unsafe struct GetViewRectNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -6276,32 +6323,44 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int screenX()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return *(((GetScreenPointNativeArgs*)this.nativePtr)->screenX);
+                }
             }
             public void screenX(int value)
             {
-                MyMetArgs.SetInt32ToAddress(nativePtr, 4, value);
+                unsafe
+                {
+                    *(((GetScreenPointNativeArgs*)this.nativePtr)->screenX) = value;
+                }
             }
             public int screenY()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return *(((GetScreenPointNativeArgs*)this.nativePtr)->screenY);
+                }
             }
             public void screenY(int value)
             {
-                MyMetArgs.SetInt32ToAddress(nativePtr, 5, value);
+                unsafe
+                {
+                    *(((GetScreenPointNativeArgs*)this.nativePtr)->screenY) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,768
         [StructLayout(LayoutKind.Sequential)]
-        struct GetScreenPointNativeArgs
+        unsafe struct GetScreenPointNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr browser;
             public int viewX;
             public int viewY;
-            public int screenX;
-            public int screenY;
+            public int* screenX;
+            public int* screenY;
         }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,769
@@ -6360,7 +6419,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,770
         [StructLayout(LayoutKind.Sequential)]
-        struct GetScreenInfoNativeArgs
+        unsafe struct GetScreenInfoNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -6412,7 +6471,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,772
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPopupShowNativeArgs
+        unsafe struct OnPopupShowNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6463,7 +6522,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,774
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPopupSizeNativeArgs
+        unsafe struct OnPopupSizeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6517,13 +6576,19 @@ namespace LayoutFarm.CefBridge.Auto
                     return (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
                 }
             }
-            public List<object> dirtyRects()
+            public CefRectList dirtyRects()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnPaintNativeArgs*)this.nativePtr)->dirtyRects);
+                }
             }
             public IntPtr buffer()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnPaintNativeArgs*)this.nativePtr)->buffer;
+                }
             }
             public int width()
             {
@@ -6542,7 +6607,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,776
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPaintNativeArgs
+        unsafe struct OnPaintNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6589,7 +6654,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr cursor()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((OnCursorChangeNativeArgs*)this.nativePtr)->cursor;
+                }
             }
             public cef_cursor_type_t type()
             {
@@ -6608,7 +6676,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,778
         [StructLayout(LayoutKind.Sequential)]
-        struct OnCursorChangeNativeArgs
+        unsafe struct OnCursorChangeNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6700,7 +6768,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,780
         [StructLayout(LayoutKind.Sequential)]
-        struct StartDraggingNativeArgs
+        unsafe struct StartDraggingNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -6756,7 +6824,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,782
         [StructLayout(LayoutKind.Sequential)]
-        struct UpdateDragCursorNativeArgs
+        unsafe struct UpdateDragCursorNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6813,7 +6881,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,784
         [StructLayout(LayoutKind.Sequential)]
-        struct OnScrollOffsetChangedNativeArgs
+        unsafe struct OnScrollOffsetChangedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -6863,14 +6931,17 @@ namespace LayoutFarm.CefBridge.Auto
                     return new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
                 }
             }
-            public List<object> character_bounds()
+            public CefRectList character_bounds()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefRectList(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->character_bounds);
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,786
         [StructLayout(LayoutKind.Sequential)]
-        struct OnImeCompositionRangeChangedNativeArgs
+        unsafe struct OnImeCompositionRangeChangedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -7062,7 +7133,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// upper-left origin.
             /// /*cef()*/
             /// </summary>
-            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
+            void OnPaint(CefBrowser browser, cef_paint_element_type_t type, CefRectList dirtyRects, IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
             /// <summary>
             /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -7109,7 +7180,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// bounds of each character in view coordinates.
             /// /*cef()*/
             /// </summary>
-            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds);
+            void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, CefRectList character_bounds);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,813
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -7518,7 +7589,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,856
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRenderThreadCreatedNativeArgs
+        unsafe struct OnRenderThreadCreatedNativeArgs
         {
             public int argFlags;
             public IntPtr extra_info;
@@ -7553,7 +7624,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,858
         [StructLayout(LayoutKind.Sequential)]
-        struct OnWebKitInitializedNativeArgs
+        unsafe struct OnWebKitInitializedNativeArgs
         {
             public int argFlags;
         }
@@ -7596,7 +7667,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,860
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBrowserCreatedNativeArgs
+        unsafe struct OnBrowserCreatedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -7638,7 +7709,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,862
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBrowserDestroyedNativeArgs
+        unsafe struct OnBrowserDestroyedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -7680,7 +7751,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,864
         [StructLayout(LayoutKind.Sequential)]
-        struct GetLoadHandlerNativeArgs
+        unsafe struct GetLoadHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -7759,7 +7830,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,866
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeNavigationNativeArgs
+        unsafe struct OnBeforeNavigationNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -7824,7 +7895,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,868
         [StructLayout(LayoutKind.Sequential)]
-        struct OnContextCreatedNativeArgs
+        unsafe struct OnContextCreatedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -7883,7 +7954,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,870
         [StructLayout(LayoutKind.Sequential)]
-        struct OnContextReleasedNativeArgs
+        unsafe struct OnContextReleasedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -7957,7 +8028,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,872
         [StructLayout(LayoutKind.Sequential)]
-        struct OnUncaughtExceptionNativeArgs
+        unsafe struct OnUncaughtExceptionNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -8022,7 +8093,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,874
         [StructLayout(LayoutKind.Sequential)]
-        struct OnFocusedNodeChangedNativeArgs
+        unsafe struct OnFocusedNodeChangedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -8089,7 +8160,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,876
         [StructLayout(LayoutKind.Sequential)]
-        struct OnProcessMessageReceivedNativeArgs
+        unsafe struct OnProcessMessageReceivedNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -8614,7 +8685,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,936
         [StructLayout(LayoutKind.Sequential)]
-        struct GetCookieManagerNativeArgs
+        unsafe struct GetCookieManagerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -8672,14 +8743,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
                 }
             }
             public string plugin_url()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
                 }
             }
             public bool is_main_frame()
@@ -8693,7 +8764,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
                 }
             }
             public CefWebPluginInfo plugin_info()
@@ -8713,7 +8784,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,938
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforePluginLoadNativeArgs
+        unsafe struct OnBeforePluginLoadNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -8954,7 +9025,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,953
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeBrowseNativeArgs
+        unsafe struct OnBeforeBrowseNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9028,7 +9099,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
+                    return Cef3Binder.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
@@ -9048,7 +9119,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,955
         [StructLayout(LayoutKind.Sequential)]
-        struct OnOpenURLFromTabNativeArgs
+        unsafe struct OnOpenURLFromTabNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9128,7 +9199,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,957
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeResourceLoadNativeArgs
+        unsafe struct OnBeforeResourceLoadNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -9198,7 +9269,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,959
         [StructLayout(LayoutKind.Sequential)]
-        struct GetResourceHandlerNativeArgs
+        unsafe struct GetResourceHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -9270,20 +9341,28 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                    IntPtr str_address = *(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void new_url(string value)
+            {
+                unsafe
+                {
+                    *(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,961
         [StructLayout(LayoutKind.Sequential)]
-        struct OnResourceRedirectNativeArgs
+        unsafe struct OnResourceRedirectNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
             public IntPtr response;
-            public IntPtr new_url;
+            public IntPtr* new_url;
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,962
@@ -9353,7 +9432,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,963
         [StructLayout(LayoutKind.Sequential)]
-        struct OnResourceResponseNativeArgs
+        unsafe struct OnResourceResponseNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9429,7 +9508,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,965
         [StructLayout(LayoutKind.Sequential)]
-        struct GetResourceResponseFilterNativeArgs
+        unsafe struct GetResourceResponseFilterNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -9513,7 +9592,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,967
         [StructLayout(LayoutKind.Sequential)]
-        struct OnResourceLoadCompleteNativeArgs
+        unsafe struct OnResourceLoadCompleteNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -9590,7 +9669,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
@@ -9604,14 +9683,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
                 }
             }
             public string scheme()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
                 }
             }
             public CefAuthCallback callback()
@@ -9624,7 +9703,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,969
         [StructLayout(LayoutKind.Sequential)]
-        struct GetAuthCredentialsNativeArgs
+        unsafe struct GetAuthCredentialsNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9687,7 +9766,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
+                    return Cef3Binder.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public long new_size()
@@ -9707,7 +9786,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,971
         [StructLayout(LayoutKind.Sequential)]
-        struct OnQuotaRequestNativeArgs
+        unsafe struct OnQuotaRequestNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9758,29 +9837,32 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
+                    return Cef3Binder.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
                 }
             }
             public bool allow_os_execution()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsBool(nativePtr, 3);
+                    return *(((OnProtocolExecutionNativeArgs*)this.nativePtr)->allow_os_execution);
                 }
             }
             public void allow_os_execution(bool value)
             {
-                MyMetArgs.SetBoolToAddress(nativePtr, 3, value);
+                unsafe
+                {
+                    *(((OnProtocolExecutionNativeArgs*)this.nativePtr)->allow_os_execution) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,973
         [StructLayout(LayoutKind.Sequential)]
-        struct OnProtocolExecutionNativeArgs
+        unsafe struct OnProtocolExecutionNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
             public IntPtr url;
-            public double allow_os_execution;
+            public bool* allow_os_execution;
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,974
@@ -9839,7 +9921,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
+                    return Cef3Binder.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
                 }
             }
             public CefSSLInfo ssl_info()
@@ -9859,7 +9941,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,975
         [StructLayout(LayoutKind.Sequential)]
-        struct OnCertificateErrorNativeArgs
+        unsafe struct OnCertificateErrorNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -9930,7 +10012,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
+                    return Cef3Binder.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
@@ -9940,9 +10022,12 @@ namespace LayoutFarm.CefBridge.Auto
                     return ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
                 }
             }
-            public List<CefCompositionUnderline> certificates()
+            public CefX509CertificateList certificates()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return new CefX509CertificateList(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->certificates);
+                }
             }
             public CefSelectClientCertificateCallback callback()
             {
@@ -9954,7 +10039,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,977
         [StructLayout(LayoutKind.Sequential)]
-        struct OnSelectClientCertificateNativeArgs
+        unsafe struct OnSelectClientCertificateNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -10004,13 +10089,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
+                    return Cef3Binder.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,979
         [StructLayout(LayoutKind.Sequential)]
-        struct OnPluginCrashedNativeArgs
+        unsafe struct OnPluginCrashedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -10055,7 +10140,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,981
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRenderViewReadyNativeArgs
+        unsafe struct OnRenderViewReadyNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -10106,7 +10191,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,983
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRenderProcessTerminatedNativeArgs
+        unsafe struct OnRenderProcessTerminatedNativeArgs
         {
             public int argFlags;
             public IntPtr browser;
@@ -10352,7 +10437,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// callback.
             /// /*cef()*/
             /// </summary>
-            void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, string new_url);
+            void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, ref string new_url);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1005
             /// <summary>
             /// Called on the IO thread when a resource response is received. To allow the
@@ -10439,7 +10524,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// so that it only contains certificates from issuers that the server trusts.
             /// /*cef()*/
             /// </summary>
-            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback);
+            bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, CefX509CertificateList certificates, CefSelectClientCertificateCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1013
             /// <summary>
             /// Called on the browser process UI thread when a plugin has crashed.
@@ -10793,11 +10878,13 @@ namespace LayoutFarm.CefBridge.Auto
         public static void OnResourceRedirect(I1 i1, OnResourceRedirectArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1043
+            string new_url = args.new_url();
             i1.OnResourceRedirect(args.browser(),
             args.frame(),
             args.request(),
             args.response(),
-            args.new_url());
+            ref new_url);
+            args.new_url(new_url);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1044
         public static void OnResourceResponse(I1 i1, OnResourceResponseArgs args)
@@ -10962,18 +11049,26 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                    IntPtr str_address = *(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void _string(string value)
+            {
+                unsafe
+                {
+                    *(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1068
         [StructLayout(LayoutKind.Sequential)]
-        struct GetLocalizedStringNativeArgs
+        unsafe struct GetLocalizedStringNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public int string_id;
-            public IntPtr _string;
+            public IntPtr* _string;
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1069
@@ -11023,26 +11118,35 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 3);
+                unsafe
+                {
+                    return *(((GetDataResourceNativeArgs*)this.nativePtr)->data_size);
+                }
             }
             public void data_size(uint value)
             {
-                MyMetArgs.SetUInt32ToAddress(nativePtr, 3, value);
+                unsafe
+                {
+                    *(((GetDataResourceNativeArgs*)this.nativePtr)->data_size) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1070
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDataResourceNativeArgs
+        unsafe struct GetDataResourceNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public int resource_id;
             public IntPtr data;
-            public uint data_size;
+            public uint* data_size;
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1071
@@ -11099,27 +11203,36 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->data;
+                }
             }
             public uint data_size()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 4);
+                unsafe
+                {
+                    return *(((GetDataResourceForScaleNativeArgs*)this.nativePtr)->data_size);
+                }
             }
             public void data_size(uint value)
             {
-                MyMetArgs.SetUInt32ToAddress(nativePtr, 4, value);
+                unsafe
+                {
+                    *(((GetDataResourceForScaleNativeArgs*)this.nativePtr)->data_size) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1072
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDataResourceForScaleNativeArgs
+        unsafe struct GetDataResourceForScaleNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public int resource_id;
             public cef_scale_factor_t scale_factor;
             public IntPtr data;
-            public uint data_size;
+            public uint* data_size;
         }
         public interface I0
         {
@@ -11165,7 +11278,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// cef_pack_strings.h for a listing of valid string ID values.
             /// /*cef()*/
             /// </summary>
-            bool GetLocalizedString(int string_id, string _string);
+            bool GetLocalizedString(int string_id, ref string _string);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1077
             /// <summary>
             /// Called to retrieve data for the specified scale independent |resource_id|.
@@ -11261,8 +11374,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void GetLocalizedString(I1 i1, GetLocalizedStringArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1085
+            string _string = args._string();
             args.myext_setRetValue(i1.GetLocalizedString(args.string_id(),
-            args._string()));
+            ref _string));
+            args._string(_string);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1086
         public static void GetDataResource(I1 i1, GetDataResourceArgs args)
@@ -11356,7 +11471,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1092
         [StructLayout(LayoutKind.Sequential)]
-        struct ProcessRequestNativeArgs
+        unsafe struct ProcessRequestNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -11409,25 +11524,40 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return ((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length;
+                    return *(((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length);
+                }
+            }
+            public void response_length(long value)
+            {
+                unsafe
+                {
+                    *(((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length) = value;
                 }
             }
             public string redirectUrl()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                    IntPtr str_address = *(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void redirectUrl(string value)
+            {
+                unsafe
+                {
+                    *(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1094
         [StructLayout(LayoutKind.Sequential)]
-        struct GetResponseHeadersNativeArgs
+        unsafe struct GetResponseHeadersNativeArgs
         {
             public int argFlags;
             public IntPtr response;
-            public long response_length;
-            public IntPtr redirectUrl;
+            public long* response_length;
+            public IntPtr* redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1095
@@ -11469,7 +11599,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr data_out()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadResponseNativeArgs*)this.nativePtr)->data_out);
+                }
+            }
+            public void data_out(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((ReadResponseNativeArgs*)this.nativePtr)->data_out) = value;
+                }
             }
             public int bytes_to_read()
             {
@@ -11480,11 +11620,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int bytes_read()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return *(((ReadResponseNativeArgs*)this.nativePtr)->bytes_read);
+                }
             }
             public void bytes_read(int value)
             {
-                MyMetArgs.SetInt32ToAddress(nativePtr, 3, value);
+                unsafe
+                {
+                    *(((ReadResponseNativeArgs*)this.nativePtr)->bytes_read) = value;
+                }
             }
             public CefCallback callback()
             {
@@ -11496,13 +11642,13 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1096
         [StructLayout(LayoutKind.Sequential)]
-        struct ReadResponseNativeArgs
+        unsafe struct ReadResponseNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
-            public IntPtr data_out;
+            public IntPtr* data_out;
             public int bytes_to_read;
-            public int bytes_read;
+            public int* bytes_read;
             public IntPtr callback;
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
@@ -11551,7 +11697,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1098
         [StructLayout(LayoutKind.Sequential)]
-        struct CanGetCookieNativeArgs
+        unsafe struct CanGetCookieNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -11602,7 +11748,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1100
         [StructLayout(LayoutKind.Sequential)]
-        struct CanSetCookieNativeArgs
+        unsafe struct CanSetCookieNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -11638,7 +11784,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1102
         [StructLayout(LayoutKind.Sequential)]
-        struct CancelNativeArgs
+        unsafe struct CancelNativeArgs
         {
             public int argFlags;
         }
@@ -11725,7 +11871,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// SetError() on |response| to indicate the error condition.
             /// /*cef()*/
             /// </summary>
-            void GetResponseHeaders(CefResponse response, long response_length, string redirectUrl);
+            void GetResponseHeaders(CefResponse response, ref long response_length, ref string redirectUrl);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1111
             /// <summary>
             /// Read response data. If data is available immediately copy up to
@@ -11735,7 +11881,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// data is available. To indicate response completion return false.
             /// /*cef()*/
             /// </summary>
-            bool ReadResponse(IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
+            bool ReadResponse(ref IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1112
             /// <summary>
             /// Return true if the specified cookie can be sent with the request or false
@@ -11888,19 +12034,25 @@ namespace LayoutFarm.CefBridge.Auto
         public static void GetResponseHeaders(I1 i1, GetResponseHeadersArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1126
+            long response_length = 0;
+            string redirectUrl = args.redirectUrl();
             i1.GetResponseHeaders(args.response(),
-            args.response_length(),
-            args.redirectUrl());
+            ref response_length,
+            ref redirectUrl);
+            args.response_length(response_length);
+            args.redirectUrl(redirectUrl);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1127
         public static void ReadResponse(I1 i1, ReadResponseArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1128
+            IntPtr data_out = IntPtr.Zero;
             int bytes_read = 0;
-            args.myext_setRetValue(i1.ReadResponse(args.data_out(),
+            args.myext_setRetValue(i1.ReadResponse(ref data_out,
             args.bytes_to_read(),
             ref bytes_read,
             args.callback()));
+            args.data_out(data_out);
             args.bytes_read(bytes_read);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1129
@@ -11972,7 +12124,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ReadNativeArgs*)this.nativePtr)->ptr);
+                }
+            }
+            public void ptr(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((ReadNativeArgs*)this.nativePtr)->ptr) = value;
+                }
             }
             public uint size()
             {
@@ -11991,11 +12153,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1137
         [StructLayout(LayoutKind.Sequential)]
-        struct ReadNativeArgs
+        unsafe struct ReadNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
-            public IntPtr ptr;
+            public IntPtr* ptr;
             public uint size;
             public uint n;
         }
@@ -12052,7 +12214,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1139
         [StructLayout(LayoutKind.Sequential)]
-        struct SeekNativeArgs
+        unsafe struct SeekNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -12096,7 +12258,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1141
         [StructLayout(LayoutKind.Sequential)]
-        struct TellNativeArgs
+        unsafe struct TellNativeArgs
         {
             public int argFlags;
             public long myext_ret_value;
@@ -12138,7 +12300,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1143
         [StructLayout(LayoutKind.Sequential)]
-        struct EofNativeArgs
+        unsafe struct EofNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -12182,7 +12344,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1145
         [StructLayout(LayoutKind.Sequential)]
-        struct MayBlockNativeArgs
+        unsafe struct MayBlockNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -12231,7 +12393,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Read raw binary data.
             /// /*cef()*/
             /// </summary>
-            uint Read(IntPtr ptr, uint size, uint n);
+            uint Read(ref IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1152
             /// <summary>
             /// Seek to the specified offset position. |whence| may be any one of
@@ -12367,9 +12529,11 @@ namespace LayoutFarm.CefBridge.Auto
         public static void Read(I1 i1, ReadArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1164
-            i1.Read(args.ptr(),
+            IntPtr ptr = IntPtr.Zero;
+            i1.Read(ref ptr,
             args.size(),
             args.n());
+            args.ptr(ptr);
         }
         //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ,1165
         public static void Seek(I1 i1, SeekArgs args)
@@ -12447,7 +12611,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr ptr()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return ((WriteNativeArgs*)this.nativePtr)->ptr;
+                }
             }
             public uint size()
             {
@@ -12466,7 +12633,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1175
         [StructLayout(LayoutKind.Sequential)]
-        struct WriteNativeArgs
+        unsafe struct WriteNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -12527,7 +12694,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1177
         [StructLayout(LayoutKind.Sequential)]
-        struct SeekNativeArgs
+        unsafe struct SeekNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -12571,7 +12738,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1179
         [StructLayout(LayoutKind.Sequential)]
-        struct TellNativeArgs
+        unsafe struct TellNativeArgs
         {
             public int argFlags;
             public long myext_ret_value;
@@ -12613,7 +12780,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1181
         [StructLayout(LayoutKind.Sequential)]
-        struct FlushNativeArgs
+        unsafe struct FlushNativeArgs
         {
             public int argFlags;
             public int myext_ret_value;
@@ -12657,7 +12824,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1183
         [StructLayout(LayoutKind.Sequential)]
-        struct MayBlockNativeArgs
+        unsafe struct MayBlockNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -12924,7 +13091,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -12943,27 +13110,45 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public IntPtr retval()
             {
-                throw new CefNotImplementedException();
+                unsafe
+                {
+                    return *(((ExecuteNativeArgs*)this.nativePtr)->retval);
+                }
+            }
+            public void retval(IntPtr value)
+            {
+                unsafe
+                {
+                    *(((ExecuteNativeArgs*)this.nativePtr)->retval) = value;
+                }
             }
             public string exception()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                    IntPtr str_address = *(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void exception(string value)
+            {
+                unsafe
+                {
+                    *(((ExecuteNativeArgs*)this.nativePtr)->exception) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,1213
         [StructLayout(LayoutKind.Sequential)]
-        struct ExecuteNativeArgs
+        unsafe struct ExecuteNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr name;
             public IntPtr _object;
             public IntPtr arguments;
-            public IntPtr retval;
-            public IntPtr exception;
+            public IntPtr* retval;
+            public IntPtr* exception;
         }
         public interface I0
         {
@@ -12989,7 +13174,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// that will be thrown. Return true if execution was handled.
             /// /*cef()*/
             /// </summary>
-            bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, IntPtr retval, string exception);
+            bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, ref IntPtr retval, ref string exception);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1216
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -13029,11 +13214,15 @@ namespace LayoutFarm.CefBridge.Auto
         public static void Execute(I1 i1, ExecuteArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,1220
+            IntPtr retval = IntPtr.Zero;
+            string exception = args.exception();
             args.myext_setRetValue(i1.Execute(args.name(),
             args._object(),
             args.arguments(),
-            args.retval(),
-            args.exception()));
+            ref retval,
+            ref exception));
+            args.retval(retval);
+            args.exception(exception);
         }
     }
 }

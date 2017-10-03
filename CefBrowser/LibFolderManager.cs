@@ -9,7 +9,7 @@ namespace LayoutFarm.CefBridge
             //where are native lib/exe. 
             //set proper dir here
             //depend on what you want
-            
+
             //------   
 #if DEBUG
             ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
@@ -17,7 +17,8 @@ namespace LayoutFarm.CefBridge
             ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
 #endif
             //ReferencePaths.LIB_PATH = @"D:\projects\kneadium\bin\Release"; //test
-            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
+             ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
+            //ReferencePaths.SUB_PROCESS_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release\CefBwSp.exe";
             ReferencePaths.OUTPUT_DIR = @"_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir

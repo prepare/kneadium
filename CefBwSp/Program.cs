@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
 
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
-            if (!MyCef3InitEssential.LoadAndInitCef3(args))
+            if (!MyCef3RenderProcessInitEssential.LoadAndInitCef3(args))
             {
                 return;
             }
@@ -35,14 +35,14 @@ namespace LayoutFarm.CefBridge
             //(***please note that 
             //*** we call ShutDownCef3 only in main thread ***)
 
-            if (!MyCef3InitEssential.IsInMainProcess)
+            if (!MyCef3RenderProcessInitEssential.IsInMainProcess)
             {
-                MyCef3InitEssential.ClearRemainingCefMsg();
+                MyCef3RenderProcessInitEssential.ClearRemainingCefMsg();
                 return;
             }
             /////////////////////////////////////////////
-            MyCef3InitEssential.ClearRemainingCefMsg();
-            MyCef3InitEssential.ShutDownCef3();
+            MyCef3RenderProcessInitEssential.ClearRemainingCefMsg();
+            MyCef3RenderProcessInitEssential.ShutDownCef3();
             //(***please note that 
             //*** we call ShutDownCef3 only in main thread ***)
         }
