@@ -1,7 +1,6 @@
 ﻿//MIT, 2016-2017, WinterDev
 
 using System;
-using System.IO;
 using LayoutFarm.CefBridge.Auto;
 namespace LayoutFarm.CefBridge
 {
