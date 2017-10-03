@@ -153,7 +153,7 @@ namespace LayoutFarm.CefBridge
         static Cef3InitEssential cefInitEssential;
 
         const string CEF_CLIENT_DLL = "cefclient.dll";
-        
+
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
 #endif
@@ -277,7 +277,7 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-         
+
         //
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
@@ -334,14 +334,11 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_ExitContext(IntPtr cefV8Context);
         //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_New_V8Handler2(MyCefCallback managedCallback);
         //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
-        //
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefV8Value_IsFunc(IntPtr target);
         //
