@@ -91,43 +91,7 @@ CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler)
 	cefFunc->AddRef();
 	return cefFunc.get();
 }
-CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
-
-	//-----------------------------------------------
-	class MyV8ManagedHandler : public CefV8Handler {
-	public:
-		managed_callback callback;
-		MyV8ManagedHandler(managed_callback callback) {
-
-			this->callback = callback;
-		}
-		virtual bool Execute(const CefString& name,
-			CefRefPtr<CefV8Value> object,
-			const CefV8ValueList& arguments,
-			CefRefPtr<CefV8Value>& retval,
-			CefString& exception)
-		{
-			if (callback) {
-
-				INIT_MY_MET_ARGS(metArgs, 3)
-					MyCefSetVoidPtr(&vargs[1], object);
-				MyCefSetVoidPtr2(&vargs[2], &arguments);
-				MyCefSetInt32(&vargs[3], (int32_t)arguments.size());
-				//-------------------------------------------
-				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
-				//check result
-				retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value);
-				//retval = CefV8Value::CreateString("Hello, world!");
-			}
-			return true;
-		}
-	private:
-		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
-	};
-	//----------------------------------------------- 
-	return new MyV8ManagedHandler(callback);
-}
-
+ 
 void* MyCefJs_New_V8Handler2(managed_callback callback) {
 
 	//-----------------------------------------------
