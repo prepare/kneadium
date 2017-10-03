@@ -79,11 +79,14 @@
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridge\ClientApp.cs</Link>
     </Compile>
+    <Compile Include="..\CefBridge\JsValue.cs">
+      <Link>CefBridge\JsValue.cs</Link>
+    </Compile>
     <Compile Include="..\CefBridge\NativeCallArgs.cs">
       <Link>CefBridge\NativeCallArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\NativeCefObjects.cs">
-      <Link>CefBridge\NativeCefObjects.cs</Link>
+    <Compile Include="..\CefBridge\NativeModuleLoader.cs">
+      <Link>CefBridge\NativeModuleLoader.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\ReferencePaths.cs">
       <Link>CefBridge\ReferencePaths.cs</Link>

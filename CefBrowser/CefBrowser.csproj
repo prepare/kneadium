@@ -70,66 +70,67 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CefBridge\Auto\CefApiSwitchTables.cs">
-      <Link>CefBridgeCore\Auto\CefApiSwitchTables.cs</Link>
+      <Link>CefBridge\Auto\CefApiSwitchTables.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefCallbacks.cs">
-      <Link>CefBridgeCore\Auto\CefCallbacks.cs</Link>
+      <Link>CefBridge\Auto\CefCallbacks.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefEnums.cs">
-      <Link>CefBridgeCore\Auto\CefEnums.cs</Link>
+      <Link>CefBridge\Auto\CefEnums.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefHandlers.cs">
-      <Link>CefBridgeCore\Auto\CefHandlers.cs</Link>
+      <Link>CefBridge\Auto\CefHandlers.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefInstances_P1.cs">
-      <Link>CefBridgeCore\Auto\CefInstances_P1.cs</Link>
+      <Link>CefBridge\Auto\CefInstances_P1.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefInstances_P2.cs">
-      <Link>CefBridgeCore\Auto\CefInstances_P2.cs</Link>
+      <Link>CefBridge\Auto\CefInstances_P2.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Auto\CefPlainCStructs.cs">
-      <Link>CefBridgeCore\Auto\CefPlainCStructs.cs</Link>
+      <Link>CefBridge\Auto\CefPlainCStructs.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3Binder.cs">
-      <Link>CefBridgeCore\Cef3Binder.cs</Link>
+      <Link>CefBridge\Cef3Binder.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3Binder_Auto.cs">
-      <Link>CefBridgeCore\Cef3Binder_Auto.cs</Link>
+      <Link>CefBridge\Cef3Binder_Auto.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs">
-      <Link>CefBridgeCore\Cef3Binder_Auto2.cs</Link>
+      <Link>CefBridge\Cef3Binder_Auto2.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
-      <Link>CefBridgeCore\Cef3InitEssential.cs</Link>
+      <Link>CefBridge\Cef3InitEssential.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\CefListeners.cs">
-      <Link>CefBridgeCore\CefListeners.cs</Link>
+      <Link>CefBridge\CefListeners.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\CefStartArgs.cs">
-      <Link>CefBridgeCore\CefStartArgs.cs</Link>
+      <Link>CefBridge\CefStartArgs.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\ClientApp.cs">
-      <Link>CefBridgeCore\ClientApp.cs</Link>
+      <Link>CefBridge\ClientApp.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\MyCefDevWindow.cs">
-      <Link>CefBridgeCore\MyCefDevWindow.cs</Link>
+    <Compile Include="..\CefBridge\JsValue.cs">
+      <Link>CefBridge\JsValue.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\NativeCallArgs.cs">
-      <Link>CefBridgeCore\NativeCallArgs.cs</Link>
+      <Link>CefBridge\NativeCallArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\NativeCefObjects.cs">
-      <Link>CefBridgeCore\NativeCefObjects.cs</Link>
+    <Compile Include="..\CefBridge\NativeModuleLoader.cs">
+      <Link>CefBridge\NativeModuleLoader.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\ReferencePaths.cs">
-      <Link>CefBridgeCore\ReferencePaths.cs</Link>
+      <Link>CefBridge\ReferencePaths.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\WindowWrapper.cs">
-      <Link>CefBridgeCore\WindowWrapper.cs</Link>
+      <Link>CefBridge\WindowWrapper.cs</Link>
     </Compile>
     <Compile Include="CefImpl\Cef3WinForms.cs" />
     <Compile Include="CefImpl\MyCef3InitEssential.cs" />
     <Compile Include="CefImpl\MyCef3WinForms.cs" />
     <Compile Include="CefImpl\MyCefBrowser.cs" />
+    <Compile Include="CefImpl\MyCefDevWindow.cs" />
     <Compile Include="CefImpl\MyCefUIListener.cs" />
     <Compile Include="CefImpl\WindowControlImpl.cs" />
     <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
