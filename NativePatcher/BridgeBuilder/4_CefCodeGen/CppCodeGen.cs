@@ -67,7 +67,7 @@ namespace BridgeBuilder
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
-             
+
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
 
@@ -729,6 +729,81 @@ namespace BridgeBuilder
     class CppToCsMethodArgsClassGen : CppCodeGen
     {
         static int codeGenNum;
+
+        class FieldToArg
+        {
+            public MethodParameter parTx;
+            public string fieldType;
+            public bool add_const = false;
+            public bool generateCtorForBool = false;
+            public bool generateCtorForCefStringRef = false;
+
+            public FieldToArg(MethodParameter parTx)
+            {
+                this.parTx = parTx;
+
+                if (parTx.CppUnwrapType != null)
+                {
+                    fieldType = parTx.CppUnwrapType;
+                }
+                else
+                {
+                    fieldType = parTx.TypeSymbol.ToString();
+                }
+
+                if (fieldType.EndsWith("&"))
+                {
+                    //temp here
+                    fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                }
+
+                add_const = false;
+                //------------------
+                if (fieldType == "bool")
+                {
+                    generateCtorForBool = true;
+                }
+                else if (fieldType == "CefString*")
+                {
+                    if (parTx.IsConst)
+                    {
+                        generateCtorForCefStringRef = true;
+                    }
+
+                }
+
+                if (parTx.IsConst)
+                {
+                    //temp
+                    if (fieldType.StartsWith("CefRefPtr") ||
+                        fieldType == "cef_v8value_t*")
+                    {
+
+                    }
+                    else
+                    {
+                        add_const = true;
+                    }
+                }
+                else
+                {
+                    if (fieldType.EndsWith("*"))
+                    {
+                        if (fieldType == "CefRefPtr<CefV8Value>*")
+                        {
+                            //temp fix
+                            fieldType = "cef_v8value_t**";
+                        }
+                        else if(fieldType== "CefRefPtr<CefV8Exception>*")
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
+
         /// <summary>
         /// generate native method args class
         /// </summary>
@@ -739,7 +814,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-
+ 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -781,61 +856,34 @@ namespace BridgeBuilder
                 }
             }
             //met args  => fields
-            List<string> field_types = new List<string>();
+            List<FieldToArg> field_types = new List<FieldToArg>();
             bool generate_special_ctor = false;
-
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameter parTx = met.pars[i];
-
-                string fieldType = null;
-                if (parTx.CppUnwrapType != null)
+                FieldToArg fieldToArg = new FieldToArg(parTx);
+                field_types.Add(fieldToArg);
+                //--------------------------
+                if (fieldToArg.add_const)
                 {
-                    fieldType = parTx.CppUnwrapType;
+                    stbuilder.Append("const ");
                 }
-                else
-                {
-                    fieldType = parTx.TypeSymbol.ToString();
-                }
-
-                if (fieldType.EndsWith("&"))
-                {
-                    //temp here
-                    fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
-                }
-
-                field_types.Add(fieldType);
-                //------------------
-                if (fieldType == "bool")
-                {
-                    generate_special_ctor = true;
-                }
-                else if (fieldType == "CefString*")
-                {
-                    generate_special_ctor = true;
-                }
-
-                if (parTx.IsConst)
-                {
-                    //temp
-                    if (fieldType.StartsWith("CefRefPtr") ||
-                        fieldType == "cef_v8value_t*")
-                    {
-
-                    }
-                    else
-                    {
-                        stbuilder.Append("const ");
-                    }
-                }
-                stbuilder.Append(fieldType);
+                stbuilder.Append(fieldToArg.fieldType);
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
                 stbuilder.AppendLine(";//" + (i + 1));
+
+                if (!generate_special_ctor)
+                {
+                    generate_special_ctor = fieldToArg.generateCtorForBool || fieldToArg.generateCtorForCefStringRef;
+                }
             }
+
+
             stbuilder.AppendLine("};"); //close struct
+            //-----------------------------------------------
             //args field,
             stbuilder.Append("argData arg;");
             //private class's flags
@@ -848,7 +896,6 @@ namespace BridgeBuilder
                 //not void
                 flags += "|(1<< 19)";
             }
-
             //-----------------------------
             //ctor style 1 not wrap (1<<20) = 0
             //or wrap (1<<20) =1
@@ -868,7 +915,8 @@ namespace BridgeBuilder
                 {
                     stbuilder.Append("const ");
                 }
-                stbuilder.Append(field_types[i]);
+                FieldToArg fieldToArg = field_types[i];
+                stbuilder.Append(fieldToArg.fieldType);//use the same as field
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -895,7 +943,9 @@ namespace BridgeBuilder
                 CodeMethodParameter par = pars[i];
                 MethodParameter parTx = met.pars[i];
                 stbuilder.Append("arg." + parTx.Name + "=");
-                if (field_types[i] == "cef_v8value_t*")
+                //temp fix
+                FieldToArg fieldToArg = field_types[i];
+                if (fieldToArg.fieldType == "cef_v8value_t*")
                 {
                     stbuilder.AppendLine("(cef_v8value_t*)" + parTx.Name + "; ");
                 }
@@ -930,13 +980,16 @@ namespace BridgeBuilder
                     {
                         stbuilder.Append("const ");
                     }
-                    string fieldType = field_types[i];
-                    if (fieldType == "bool")
+                    FieldToArg fieldToArg = field_types[i];
+                    string fieldType = fieldToArg.fieldType;
+
+                    if (fieldToArg.generateCtorForBool && fieldToArg.fieldType == "bool")
                     {
                         fieldType = "int";
                     }
-                    else if (fieldType == "CefString*")
+                    else if (fieldToArg.generateCtorForCefStringRef && fieldType == "CefString*")
                     {
+                        //temp fix
                         fieldType = "CefString&";
                     }
                     stbuilder.Append(fieldType);
@@ -963,17 +1016,19 @@ namespace BridgeBuilder
                 {
                     CodeMethodParameter par = pars[i];
                     MethodParameter parTx = met.pars[i];
-                    string fieldType = field_types[i];
+                    FieldToArg fieldToArg = field_types[i];
+                    string fieldType = fieldToArg.fieldType;
+
                     stbuilder.Append("arg." + parTx.Name + "=");
                     if (fieldType == "cef_v8value_t*")
                     {
                         stbuilder.AppendLine("(cef_v8value_t*)" + parTx.Name + ";");
                     }
-                    else if (fieldType == "bool")
+                    else if (fieldToArg.generateCtorForBool && fieldType == "bool")
                     {
                         stbuilder.AppendLine(parTx.Name + "?true:false;");
                     }
-                    else if (fieldType == "CefString*")
+                    else if (fieldToArg.generateCtorForCefStringRef && fieldType == "CefString*")
                     {
                         stbuilder.AppendLine("&" + parTx.Name + ";");
                     }
@@ -1009,17 +1064,27 @@ namespace BridgeBuilder
                     //move this to method
                     CodeMethodParameter par = pars[i];
                     MethodParameter parTx = met.pars[i];
-                    if (parTx.IsConst)
+
+                    string fieldType = null;
+                    if (field_types[i].fieldType == "cef_v8value_t**")
                     {
-                        stbuilder.Append("const ");
+                        fieldType = field_types[i].fieldType;
+                    }
+                    else
+                    {
+                        if (parTx.IsConst)
+                        {
+                            stbuilder.Append("const ");
+                        }
+
+                        fieldType = parTx.TypeSymbol.ToString();
+                        if (fieldType.EndsWith("&"))
+                        {
+                            //temp 
+                            fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                        }
                     }
 
-                    string fieldType = parTx.TypeSymbol.ToString();
-                    if (fieldType.EndsWith("&"))
-                    {
-                        //temp 
-                        fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
-                    }
                     stbuilder.Append(fieldType);
                     stbuilder.Append(" ");
                     stbuilder.Append(parTx.Name);

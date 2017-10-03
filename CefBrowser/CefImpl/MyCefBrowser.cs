@@ -86,8 +86,8 @@ namespace LayoutFarm.CefBridge
         {
 
             //main raw msg switch table 
-            int object_type = met_id >> 16;
-            if (object_type > 0)
+
+            if ((met_id >> 16) > 0)
             {
                 //built in object
                 CefNativeRequestHandlers.HandleNativeReq_I0(myBwHandler, met_id, argsPtr);
@@ -167,16 +167,16 @@ namespace LayoutFarm.CefBridge
                 //        }
                 //    }
                 //    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                    {
-                        //show dev tools
-                        Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
-                            newPopupForm.Show();
-                        });
-                    }
-                    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
+                //    {
+                //        //show dev tools
+                //        //Cef3Binder.SafeUIInvoke(() =>
+                //        //{
+                //        //    IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //        //    newPopupForm.Show();
+                //        //});
+                //    }
+                //    break;
                 //case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
                 //    {
                 //        //load page error
@@ -477,31 +477,27 @@ namespace LayoutFarm.CefBridge
                 frame1.GetText(visitor);
 
                 //keep alive callback
-                InternalGetText((id, nativePtr) =>
-                {
-                    //INIT_MY_MET_ARGS(metArgs, 1) 
-                    //SetCefStringToJsValue2(&vargs[1], string);
+                //InternalGetText((id, nativePtr) =>
+                //{
+                //    //INIT_MY_MET_ARGS(metArgs, 1) 
+                //    //SetCefStringToJsValue2(&vargs[1], string);
 
-                    var args = new NativeCallArgs(nativePtr);
-                    strCallback(args.GetArgAsString(1));
-                });
+                //    var args = new NativeCallArgs(nativePtr);
+                //    strCallback(args.GetArgAsString(1));
+                //});
                 //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
-            }
-
-
-
-
+            } 
         }
         public void GetSource(Action<string> strCallback)
         {
-            //keep alive callback
-            InternalGetSource((id, nativePtr) =>
-            {
-                //INIT_MY_MET_ARGS(metArgs, 1) 
-                //SetCefStringToJsValue2(&vargs[1], string);
-                var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(1));
-            });
+            ////keep alive callback
+            //InternalGetSource((id, nativePtr) =>
+            //{
+            //    //INIT_MY_MET_ARGS(metArgs, 1) 
+            //    //SetCefStringToJsValue2(&vargs[1], string);
+            //    var args = new NativeCallArgs(nativePtr);
+            //    strCallback(args.GetArgAsString(1));
+            //});
         }
         public void GetSource2(Action<string> strCallback)
         {
@@ -540,18 +536,7 @@ namespace LayoutFarm.CefBridge
             }
         }
 
-        void InternalGetSource(MyCefCallback strCallback)
-        {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            Cef3Binder.MyCefDomGetSourceWalk(_myCefBw.ptr, strCallback);
-        }
-        void InternalGetText(MyCefCallback strCallback)
-        {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            Cef3Binder.MyCefDomGetTextWalk(_myCefBw.ptr, strCallback);
-        }
+         
 
         public void Stop()
         {

@@ -79,7 +79,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeCommandLineProcessingNativeArgs*)this.nativePtr)->process_type);
+                    return Cef3Binder.GetAsString(((OnBeforeCommandLineProcessingNativeArgs*)this.nativePtr)->process_type);
                 }
             }
             public CefCommandLine command_line()
@@ -92,7 +92,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,3
         [StructLayout(LayoutKind.Sequential)]
-        struct OnBeforeCommandLineProcessingNativeArgs
+        unsafe struct OnBeforeCommandLineProcessingNativeArgs
         {
             public int argFlags;
             public IntPtr process_type;
@@ -138,7 +138,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,5
         [StructLayout(LayoutKind.Sequential)]
-        struct OnRegisterCustomSchemesNativeArgs
+        unsafe struct OnRegisterCustomSchemesNativeArgs
         {
             public int argFlags;
             public IntPtr registrar;
@@ -183,7 +183,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,7
         [StructLayout(LayoutKind.Sequential)]
-        struct GetResourceBundleHandlerNativeArgs
+        unsafe struct GetResourceBundleHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -226,7 +226,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,9
         [StructLayout(LayoutKind.Sequential)]
-        struct GetBrowserProcessHandlerNativeArgs
+        unsafe struct GetBrowserProcessHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -269,7 +269,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,11
         [StructLayout(LayoutKind.Sequential)]
-        struct GetRenderProcessHandlerNativeArgs
+        unsafe struct GetRenderProcessHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -980,7 +980,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,41
         [StructLayout(LayoutKind.Sequential)]
-        struct VisitNativeArgs
+        unsafe struct VisitNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -2420,7 +2420,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,51
         [StructLayout(LayoutKind.Sequential)]
-        struct GetContextMenuHandlerNativeArgs
+        unsafe struct GetContextMenuHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2463,7 +2463,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,53
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDialogHandlerNativeArgs
+        unsafe struct GetDialogHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2505,7 +2505,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,55
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDisplayHandlerNativeArgs
+        unsafe struct GetDisplayHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2548,7 +2548,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,57
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDownloadHandlerNativeArgs
+        unsafe struct GetDownloadHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2590,7 +2590,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,59
         [StructLayout(LayoutKind.Sequential)]
-        struct GetDragHandlerNativeArgs
+        unsafe struct GetDragHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2632,7 +2632,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,61
         [StructLayout(LayoutKind.Sequential)]
-        struct GetFindHandlerNativeArgs
+        unsafe struct GetFindHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2674,7 +2674,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,63
         [StructLayout(LayoutKind.Sequential)]
-        struct GetFocusHandlerNativeArgs
+        unsafe struct GetFocusHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2717,7 +2717,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,65
         [StructLayout(LayoutKind.Sequential)]
-        struct GetGeolocationHandlerNativeArgs
+        unsafe struct GetGeolocationHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2760,7 +2760,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,67
         [StructLayout(LayoutKind.Sequential)]
-        struct GetJSDialogHandlerNativeArgs
+        unsafe struct GetJSDialogHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2802,7 +2802,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,69
         [StructLayout(LayoutKind.Sequential)]
-        struct GetKeyboardHandlerNativeArgs
+        unsafe struct GetKeyboardHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2844,7 +2844,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,71
         [StructLayout(LayoutKind.Sequential)]
-        struct GetLifeSpanHandlerNativeArgs
+        unsafe struct GetLifeSpanHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2886,7 +2886,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,73
         [StructLayout(LayoutKind.Sequential)]
-        struct GetLoadHandlerNativeArgs
+        unsafe struct GetLoadHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2928,7 +2928,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,75
         [StructLayout(LayoutKind.Sequential)]
-        struct GetRenderHandlerNativeArgs
+        unsafe struct GetRenderHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -2970,7 +2970,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,77
         [StructLayout(LayoutKind.Sequential)]
-        struct GetRequestHandlerNativeArgs
+        unsafe struct GetRequestHandlerNativeArgs
         {
             public int argFlags;
             public IntPtr myext_ret_value;
@@ -3035,7 +3035,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,79
         [StructLayout(LayoutKind.Sequential)]
-        struct OnProcessMessageReceivedNativeArgs
+        unsafe struct OnProcessMessageReceivedNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
@@ -3717,7 +3717,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public void InitFromArgv(int argc,
-        IntPtr argv)
+        ref IntPtr argv)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4787,24 +4787,27 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsBool(nativePtr, 4);
+                    return *(((VisitNativeArgs*)this.nativePtr)->deleteCookie);
                 }
             }
             public void deleteCookie(bool value)
             {
-                MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
+                unsafe
+                {
+                    *(((VisitNativeArgs*)this.nativePtr)->deleteCookie) = value;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,159
         [StructLayout(LayoutKind.Sequential)]
-        struct VisitNativeArgs
+        unsafe struct VisitNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr cookie;
             public int count;
             public int total;
-            public double deleteCookie;
+            public bool* deleteCookie;
         }
         public interface I0
         {
@@ -4950,7 +4953,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,169
         [StructLayout(LayoutKind.Sequential)]
-        struct VisitNativeArgs
+        unsafe struct VisitNativeArgs
         {
             public int argFlags;
             public IntPtr document;
@@ -7070,7 +7073,7 @@ namespace LayoutFarm.CefBridge.Auto
         int pixel_height,
         cef_color_type_t color_type,
         cef_alpha_type_t alpha_type,
-        IntPtr pixel_data,
+        ref IntPtr pixel_data,
         uint pixel_data_size)
         {
             JsValue v1 = new JsValue();
@@ -7103,7 +7106,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public bool AddPNG(float scale_factor,
-        IntPtr png_data,
+        ref IntPtr png_data,
         uint png_data_size)
         {
             JsValue v1 = new JsValue();
@@ -7128,7 +7131,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public bool AddJPEG(float scale_factor,
-        IntPtr jpeg_data,
+        ref IntPtr jpeg_data,
         uint jpeg_data_size)
         {
             JsValue v1 = new JsValue();
@@ -8726,7 +8729,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,179
         [StructLayout(LayoutKind.Sequential)]
-        struct ExecuteCommandNativeArgs
+        unsafe struct ExecuteCommandNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -8778,7 +8781,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,181
         [StructLayout(LayoutKind.Sequential)]
-        struct MouseOutsideMenuNativeArgs
+        unsafe struct MouseOutsideMenuNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -8829,7 +8832,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,183
         [StructLayout(LayoutKind.Sequential)]
-        struct UnhandledOpenSubmenuNativeArgs
+        unsafe struct UnhandledOpenSubmenuNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -8880,7 +8883,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,185
         [StructLayout(LayoutKind.Sequential)]
-        struct UnhandledCloseSubmenuNativeArgs
+        unsafe struct UnhandledCloseSubmenuNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -8923,7 +8926,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,187
         [StructLayout(LayoutKind.Sequential)]
-        struct MenuWillShowNativeArgs
+        unsafe struct MenuWillShowNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -8965,7 +8968,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,189
         [StructLayout(LayoutKind.Sequential)]
-        struct MenuClosedNativeArgs
+        unsafe struct MenuClosedNativeArgs
         {
             public int argFlags;
             public IntPtr menu_model;
@@ -9015,18 +9018,26 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((FormatLabelNativeArgs*)this.nativePtr)->label);
+                    IntPtr str_address = *(((FormatLabelNativeArgs*)this.nativePtr)->label);
+                    return Cef3Binder.GetAsString(str_address);
+                }
+            }
+            public void label(string value)
+            {
+                unsafe
+                {
+                    *(((FormatLabelNativeArgs*)this.nativePtr)->label) = Cef3Binder.MyCefCreateStringHolder(value);
                 }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,191
         [StructLayout(LayoutKind.Sequential)]
-        struct FormatLabelNativeArgs
+        unsafe struct FormatLabelNativeArgs
         {
             public int argFlags;
             public bool myext_ret_value;
             public IntPtr menu_model;
-            public IntPtr label;
+            public IntPtr* label;
         }
         public interface I0
         {
@@ -9124,7 +9135,7 @@ namespace LayoutFarm.CefBridge.Auto
             /// Optionally modify a menu item label. Return true if |label| was modified.
             /// /*cef()*/
             /// </summary>
-            bool FormatLabel(CefMenuModel menu_model, string label);
+            bool FormatLabel(CefMenuModel menu_model, ref string label);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,206
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -9307,8 +9318,10 @@ namespace LayoutFarm.CefBridge.Auto
         public static void FormatLabel(I1 i1, FormatLabelArgs args)
         {
             //CsStructModuleCodeGen:: GenerateCsExpandMethodContent ,228
+            string label = args.label();
             args.myext_setRetValue(i1.FormatLabel(args.menu_model(),
-            args.label()));
+            ref label));
+            args.label(label);
         }
     }
 
@@ -10739,7 +10752,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public void SetToBytes(uint size,
-        IntPtr bytes)
+        ref IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10806,7 +10819,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
 
         public uint GetBytes(uint size,
-        IntPtr bytes)
+        ref IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11164,7 +11177,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         public bool SetPreference(string name,
         CefValue value,
-        string error)
+        ref string error)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();

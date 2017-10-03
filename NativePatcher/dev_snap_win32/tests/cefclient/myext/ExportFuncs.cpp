@@ -175,10 +175,7 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	}
 }
 
-void MyCefDoMessageLoopWork()
-{
-	CefDoMessageLoopWork();
-}
+ 
 void MyCefShutDown() {
 
 	// Shut down CEF.
@@ -282,44 +279,7 @@ int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int
 }
 
 
-//---------------------
-class MyCefStringVisitor : public CefStringVisitor {
-public:
-	managed_callback mcallback;
-	explicit MyCefStringVisitor() {
-		mcallback = NULL;
-	}
-	virtual void Visit(const CefString& string) OVERRIDE {
-
-		if (mcallback) {
-
-			INIT_MY_MET_ARGS(metArgs, 1)
-				SetCefStringToJsValue2(&vargs[1], string);
-			mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
-		}
-	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
-};
-
-void MyCefDomGetTextWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack)
-{
-	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor();
-	bwVisitor->mcallback = strCallBack;
-	bw->GetMainFrame()->GetText(bwVisitor);
-	//this is not blocking method, so=> need to create visitor on heap
-
-}
-void MyCefDomGetSourceWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack)
-{
-	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor();
-	bwVisitor->mcallback = strCallBack;
-	bw->GetMainFrame()->GetSource(bwVisitor);
-	//this is not blocking method, so=> need to create visitor on heap
-}
-
+ 
 
 
 //4. 
@@ -463,7 +423,9 @@ void MyCefJsNotifyRenderer(const managed_callback callback, MyMetArgsN* args) {
 	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
 
-
+void MyCefDoMessageLoopWork() {
+	CefDoMessageLoopWork();
+}
 
 bool MyCefAddCrossOriginWhitelistEntry(
 	const wchar_t*  sourceOrigin,

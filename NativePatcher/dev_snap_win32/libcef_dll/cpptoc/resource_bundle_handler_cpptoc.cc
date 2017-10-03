@@ -41,14 +41,14 @@ int CEF_CALLBACK resource_bundle_handler_get_localized_string(
   // Translate param: string; type: string_byref
   CefString stringStr(string);
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin137
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetLocalizedString_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
 CefString tmp_arg2 (string);
-CefResourceBundleHandlerExt::GetLocalizedStringArgs args1(string_id,tmp_arg2);
+CefResourceBundleHandlerExt::GetLocalizedStringArgs args1(string_id,&tmp_arg2);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
  return args1.arg.myext_ret_value;
@@ -89,7 +89,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource(
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin136
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResource_2;
@@ -153,7 +153,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource_for_scale(
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
 
-//---kneadium-ext-begin
+//---kneadium-ext-begin135
 #if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResourceForScale_3;

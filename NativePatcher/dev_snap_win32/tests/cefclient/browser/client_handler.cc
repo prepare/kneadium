@@ -1037,11 +1037,7 @@ namespace client {
 		CefBrowserSettings settings;
 		//###_APPEND_START 6
 		if (this->mcallback_)
-		{
-			//TODO: send cmd to managed side
-			//create dev window
-			//send cef client 
-			this->mcallback_(CEF_MSG_ClientHandler_ShowDevTools, NULL);
+		{	
 			return;
 		}
 		//###_APPEND_STOP
