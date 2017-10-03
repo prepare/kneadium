@@ -1267,14 +1267,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
+                    return Cef3Binder.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
                 }
             }
             public string default_file_path()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
+                    return Cef3Binder.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
                 }
             }
             public List<string> accept_filters()
@@ -1465,7 +1465,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
+                    return Cef3Binder.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
                 }
             }
         }
@@ -1516,7 +1516,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
+                    return Cef3Binder.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
                 }
             }
         }
@@ -1685,7 +1685,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((OnTooltipNativeArgs*)this.nativePtr)->text);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void text(string value)
@@ -1744,7 +1744,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
+                    return Cef3Binder.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
                 }
             }
         }
@@ -1802,14 +1802,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
+                    return Cef3Binder.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
                 }
             }
             public string source()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
+                    return Cef3Binder.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
                 }
             }
             public int line()
@@ -2194,7 +2194,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
+                    return Cef3Binder.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
                 }
             }
             public CefBeforeDownloadCallback callback()
@@ -3177,7 +3177,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
+                    return Cef3Binder.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
                 }
             }
             public int request_id()
@@ -3438,7 +3438,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public cef_jsdialog_type_t dialog_type()
@@ -3452,14 +3452,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public string default_prompt_text()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
+                    return Cef3Binder.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
                 }
             }
             public CefJSDialogCallback callback()
@@ -3548,7 +3548,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
+                    return Cef3Binder.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public bool is_reload()
@@ -4242,14 +4242,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
+                    return Cef3Binder.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public string target_frame_name()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
+                    return Cef3Binder.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
@@ -5216,14 +5216,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
+                    return Cef3Binder.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
                 }
             }
             public string failedUrl()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
+                    return Cef3Binder.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
                 }
             }
         }
@@ -5696,14 +5696,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
+                    return Cef3Binder.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
                 }
             }
             public string pdf_file_path()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
+                    return Cef3Binder.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
                 }
             }
             public CefPrintJobCallback callback()
@@ -8743,14 +8743,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
                 }
             }
             public string plugin_url()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
                 }
             }
             public bool is_main_frame()
@@ -8764,7 +8764,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
+                    return Cef3Binder.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
                 }
             }
             public CefWebPluginInfo plugin_info()
@@ -9099,7 +9099,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
+                    return Cef3Binder.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
@@ -9342,7 +9342,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void new_url(string value)
@@ -9669,7 +9669,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
@@ -9683,14 +9683,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
                 }
             }
             public string scheme()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
                 }
             }
             public CefAuthCallback callback()
@@ -9766,7 +9766,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
+                    return Cef3Binder.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public long new_size()
@@ -9837,7 +9837,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
+                    return Cef3Binder.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
                 }
             }
             public bool allow_os_execution()
@@ -9921,7 +9921,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
+                    return Cef3Binder.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
                 }
             }
             public CefSSLInfo ssl_info()
@@ -10012,7 +10012,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
+                    return Cef3Binder.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
@@ -10089,7 +10089,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
+                    return Cef3Binder.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
                 }
             }
         }
@@ -11050,7 +11050,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void _string(string value)
@@ -11539,7 +11539,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void redirectUrl(string value)
@@ -13091,7 +13091,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -13127,7 +13127,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((ExecuteNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)

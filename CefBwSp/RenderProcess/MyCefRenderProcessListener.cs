@@ -158,11 +158,11 @@ namespace LayoutFarm.CefBridge
                 default:
 
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                    {
+                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
+                //    {
 
-                    }
-                    break;
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));
@@ -180,45 +180,7 @@ namespace LayoutFarm.CefBridge
                         //not visit here?
 
                     }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
-                    {
-                        //client app callback
-                        //eg. from RenderClientApp
-                        //in render process ***
-                        //we can register external methods  for window object here.
-                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
-
-                        //if (renderProcessHandler != null)
-                        //{
-                        //    renderProcessHandler.OnContextCreated2(
-                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        //}
-                        //if (renderProcessListener != null)
-                        //{
-                        //    renderProcessListener.OnContextCreated(
-                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        //}
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
-                    {
-                        //if (renderProcessListener != null)
-                        //{
-                        //    renderProcessListener.OnContextReleased(
-                        //        new MyCefContextArgs(new NativeCallArgs(argsPtr)));
-                        //}
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
-                    {
-                        //if (renderProcessListener != null)
-                        //{
-                        //    NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        //    renderProcessListener.OnWebKitInitialized(args);
-                        //}
-                    }
-                    break;
+                    break; 
             }
         }
     }

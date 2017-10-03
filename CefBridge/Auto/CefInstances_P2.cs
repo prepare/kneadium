@@ -476,7 +476,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((CreateNativeArgs*)this.nativePtr)->scheme_name);
+                    return Cef3Binder.GetAsString(((CreateNativeArgs*)this.nativePtr)->scheme_name);
                 }
             }
             public CefRequest request()
@@ -1135,7 +1135,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((VisitNativeArgs*)this.nativePtr)->_string);
+                    return Cef3Binder.GetAsString(((VisitNativeArgs*)this.nativePtr)->_string);
                 }
             }
         }
@@ -1972,7 +1972,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
@@ -1986,14 +1986,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
                 }
             }
             public string scheme()
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
+                    return Cef3Binder.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
                 }
             }
             public CefAuthCallback callback()
@@ -2587,7 +2587,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((GetNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((GetNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -2616,7 +2616,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((GetNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
@@ -2680,7 +2680,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((SetNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((SetNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -2702,7 +2702,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((SetNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
@@ -2928,7 +2928,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((get_bynameNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((get_bynameNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -2957,7 +2957,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((get_bynameNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
@@ -3051,7 +3051,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((get_byindexNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
@@ -3116,7 +3116,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return MyMetArgs.GetAsString(((set_bynameNativeArgs*)this.nativePtr)->name);
+                    return Cef3Binder.GetAsString(((set_bynameNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
@@ -3138,7 +3138,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((set_bynameNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
@@ -3224,7 +3224,7 @@ namespace LayoutFarm.CefBridge.Auto
                 unsafe
                 {
                     IntPtr str_address = *(((set_byindexNativeArgs*)this.nativePtr)->exception);
-                    return MyMetArgs.GetAsString(str_address);
+                    return Cef3Binder.GetAsString(str_address);
                 }
             }
             public void exception(string value)
