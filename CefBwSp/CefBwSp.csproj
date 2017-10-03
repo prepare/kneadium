@@ -70,8 +70,8 @@
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridge\Cef3InitEssential.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\CefListeners.cs">
-      <Link>CefBridge\CefListeners.cs</Link>
+    <Compile Include="..\CefBridge\CefOsrListener.cs">
+      <Link>CefBridge\CefOsrListener.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\CefStartArgs.cs">
       <Link>CefBridge\CefStartArgs.cs</Link>

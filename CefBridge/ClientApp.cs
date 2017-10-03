@@ -6,6 +6,9 @@ namespace LayoutFarm.CefBridge
 
     public abstract class CefClientApp
     {
+        /// <summary>
+        /// native side client app 
+        /// </summary>
         IntPtr clientAppPtr;
         static bool isInitWithProcessHandle;
         static readonly object sync_ = new object();
