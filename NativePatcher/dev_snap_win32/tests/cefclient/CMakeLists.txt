@@ -6,9 +6,7 @@
 #
 # Source files.
 # //###_APPEND_START 0
-set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  myext/dll_init.cpp
-  myext/dll_init.h
+set(CEFCLIENT_MYCEF_MYCEF_SRCS 
   myext/ExportFuncs.cpp
   myext/ExportFuncs.h
   myext/mycef.cc
@@ -16,7 +14,6 @@ set(CEFCLIENT_MYCEF_MYCEF_SRCS
   myext/MyCefJs.cpp
   myext/MyCefJs.h
   myext/mycef_msg_const.h
-  myext/MyCef_Win.cpp
   myext/mycef_buildconfig.h
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
