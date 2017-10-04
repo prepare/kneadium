@@ -123,28 +123,28 @@
     <Compile Include="..\CefBridge\ReferencePaths.cs">
       <Link>CefBridge\ReferencePaths.cs</Link>
     </Compile>
-    <Compile Include="CefImpl\Cef3WinForms.cs" />
-    <Compile Include="CefImpl\MyCef3InitEssential.cs" />
-    <Compile Include="CefImpl\MyCef3WinForms.cs" />
-    <Compile Include="CefImpl\MyCefBrowser.cs" />
-    <Compile Include="CefImpl\MyCefDevWindow.cs" />
-    <Compile Include="CefImpl\MyCefUIListener.cs" />
-    <Compile Include="CefImpl\WindowControlImpl.cs" />
-    <Compile Include="CefImpl\WindowWrapper.cs" />
-    <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
+    <Compile Include="BrowserProcess\Cef3WinForms.cs" />
+    <Compile Include="BrowserProcess\MyCef3InitEssential.cs" />
+    <Compile Include="BrowserProcess\MyCef3WinForms.cs" />
+    <Compile Include="BrowserProcess\MyCefBrowser.cs" />
+    <Compile Include="BrowserProcess\MyCefDevWindow.cs" />
+    <Compile Include="BrowserProcess\MyCefUIListener.cs" />
+    <Compile Include="BrowserProcess\WindowControlImpl.cs" />
+    <Compile Include="BrowserProcess\WindowWrapper.cs" />
+    <Compile Include="BrowserProcess\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CefImpl\CefWebBrowser.cs">
+    <Compile Include="BrowserProcess\CefWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LibFolderManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIProcess\ClientAppBrowser.cs" />
+    <Compile Include="BrowserProcess\ClientAppBrowser.cs" />
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
