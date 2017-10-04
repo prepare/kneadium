@@ -113,7 +113,7 @@ namespace client {
 		if (this->myMxCallback_) {
 
 			INIT_MY_MET_ARGS(metArgs, 0)
-				this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+		    this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
 
 			auto bufferHolder = GetBufferHolder(&vargs[0]);
 			std::string str = std::string(bufferHolder->buffer);
@@ -156,14 +156,7 @@ namespace client {
 		}
 
 		CefString(&settings->cache_path) =
-			command_line_->GetSwitchValue(switches::kCachePath);
-
-		//###_BEGIN
-		if (this->myMxCallback_) {
-			//send direct setting? 
-			this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
-		}
-		//###_END
+			command_line_->GetSwitchValue(switches::kCachePath); 
 
 		if (use_windowless_rendering_)
 			settings->windowless_rendering_enabled = true;
