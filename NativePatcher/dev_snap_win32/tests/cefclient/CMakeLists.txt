@@ -8,8 +8,7 @@
 # //###_APPEND_START 0
 set(CEFCLIENT_MYCEF_MYCEF_SRCS 
   myext/ExportFuncs.cpp
-  myext/ExportFuncs.h
-  myext/mycef.cc
+  myext/ExportFuncs.h 
   myext/mycef.h
   myext/MyCefJs.cpp
   myext/MyCefJs.h

@@ -1,9 +1,5 @@
-//MIT, 2015-2017, WinterDev
-
-
-
-#include "ExportFuncs.h"   
-#include "dll_init.h" 
+//MIT, 2015-2017, WinterDev 
+#include "ExportFuncs.h"    
 #include "mycef.h"
 
 #include "include/cef_parser.h"
@@ -41,10 +37,10 @@
 #pragma comment(lib, "cef_sandbox.lib")
 #endif
 
-
+client::ClientApp* app_global;
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
-managed_callback myMxCallback_ = NULL; 
+managed_callback myMxCallback_ = NULL;
 
 //1.
 int MyCefGetVersion()
@@ -64,11 +60,21 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	}
 	return 1; //default
-} 
+}
 //------------------------------------------
+client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line);
+//3. 
 void* MyCefCreateClientApp(HINSTANCE hInstance)
-{		
-	//similar to main
+{	
+	// Enable High-DPI support on Windows 7 or newer.
+#if OS_WIN
+	CefEnableHighDPISupport();
+#endif
+
+	//-----
+	//user must call RegisterManagedCallBack() before use this method *** 
+	//-----
+
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
@@ -80,64 +86,63 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	{
 		app = new client::ClientAppBrowser();
 		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
 	}
 	else if (process_type == client::ClientApp::RendererProcess)
 	{
 		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
 		app = new client::ClientAppRenderer();
 		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
 	}
 	else if (process_type == client::ClientApp::OtherProcess)
 	{
 		app = new client::ClientAppOther();
 		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
 	}
 	// Create the main message loop object.
-	message_loop = new client::MainMessageLoopStd();
-	//message_loop.reset(new client::MainMessageLoopStd); 
-	/* if (settings.multi_threaded_message_loop)
-	message_loop.reset(new MainMessageLoopMultithreadedWin);
-	else
-	message_loop.reset(new MainMessageLoopStd);*/ 
-	//------------------------------------------------------------------
-	//set managed callback*** 
-	mycefmx::SetManagedCallback(myMxCallback_);
-	CefMainArgs main_args(hInstance); 
-	//---------------------
-	void* sandbox_info = NULL;
+	message_loop = new client::MainMessageLoopStd(); 
+
+	//
+	CefMainArgs main_args(hInstance);
+	mainContext = DllInitMain(main_args, app, command_line);
+	
+	return app;
+
+}
+client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line) {
+
+
+	void* sandbox_info = NULL; 
 #if defined(CEF_USE_SANDBOX)
 	// Manage the life span of the sandbox information object. This is necessary
 	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
 	CefScopedSandboxInfo scoped_sandbox;
 	sandbox_info = scoped_sandbox.sandbox_info();
-#endif      
+#endif  
+ 
 	// Execute the secondary process, if any.
 	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
 	if (exit_code >= 0)
 	{
-		mainContext = NULL;
 		return NULL;
-	}
- 
-	//-------------------------------------------------------------------------------------
-	// Create the main context object.			 
-	mainContext = new client::MainContextImpl(command_line, true);
-	mainContext->myMxCallback_ = mycefmx::GetManagedCallback();
+	}  
+	auto mainContext1 = new client::MainContextImpl(command_line, true);
+	mainContext1->myMxCallback_ = myMxCallback_;
 	//setting 
 	CefSettings settings;
 	settings.log_severity = (cef_log_severity_t)99;//disable log
 												   //-------------------------------------------------------------------------------------
 #if !defined(CEF_USE_SANDBOX)
 	settings.no_sandbox = true;
-#endif		
-	mainContext->PopulateSettings(&settings);
-	mainContext->Initialize(main_args, settings, app, sandbox_info);
-	//---------------------
-
-	return app;
+#endif
+	// Populate the settings based on command line arguments.	 
+	mainContext1->PopulateSettings(&settings); 
+	mainContext1->Initialize(main_args, settings, app, sandbox_info); 
+	return mainContext1;
 }
-
-
+ 
 //for handling a comment browser window msg
 class MyCefBrowserWindowDelegate :public client::BrowserWindow::Delegate {
 	//this class is used in this module only 
@@ -213,7 +218,7 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	}
 }
 
- 
+
 void MyCefShutDown() {
 
 	// Shut down CEF.
@@ -317,7 +322,7 @@ int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int
 }
 
 
- 
+
 
 
 //4. 
@@ -365,7 +370,7 @@ void MyCefPrintToPdf(MyBrowserWindowWrapper* myBw, CefPdfPrintSettings* setting,
 			if (m_callback) {
 				//callback
 				INIT_MY_MET_ARGS(metArgs, 2)
-				MyCefSetBool(&vargs[1], ok);
+					MyCefSetBool(&vargs[1], ok);
 				SetCefStringToJsValue2(&vargs[2], path);
 				m_callback(0, &metArgs);
 			}
