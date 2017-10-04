@@ -20,7 +20,46 @@ namespace LayoutFarm.CefBridge
         {
 
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
+            //load test url
+
+            cmbAddressBar.Items.AddRange(new string[]
+            {
+                "https://html5test.com",
+                "http://www.youtube.com",
+                "https://www.google.com",
+                "http://localhost",
+                "http://localhost/LiborMasekThesis.pdf",
+                "http://localhost/pdfjs/web/viewer.html",
+                "http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf",
+
+            });
+            this.cmbAddressBar.SelectedIndexChanged += cmbAddressBar_SelectedIndexChanged;
+            this.cmbAddressBar.KeyDown += cmbAddressBar_KeyDown;
         }
+        private void cmbAddressBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string selectedUrl = cmbAddressBar.Text;
+                if (selectedUrl != null)
+                {
+                    this.cefWebBrowser1.Focus();
+                    this.cefWebBrowser1.NavigateTo(selectedUrl);
+                }
+            }
+
+        }
+
+        private void cmbAddressBar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedUrl = this.cmbAddressBar.SelectedItem as string;
+            if (selectedUrl != null)
+            {
+                this.cefWebBrowser1.Focus();
+                this.cefWebBrowser1.NavigateTo(selectedUrl);
+            }
+        }
+
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             cefWebBrowser1.Agent.SetSize(splitContainer1.Panel2.Width, splitContainer1.Panel2.Height);
@@ -29,16 +68,7 @@ namespace LayoutFarm.CefBridge
         {
             this.cefWebBrowser1.NavigateTo(url);
         }
-        private void button7_Click(object sender, EventArgs e)
-        {
-            this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("https://html5test.com");
-            //this.cefWebBrowser1.NavigateTo("http://localhost");
-            //this.cefWebBrowser1.NavigateTo("http://localhost/LiborMasekThesis.pdf");
-            //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
-            //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf");
 
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             //cefWebBrowser1.Agent.ExecJavascript(
@@ -115,28 +145,11 @@ namespace LayoutFarm.CefBridge
         {
             //stop
             this.cefWebBrowser1.Agent.Stop();
-        }
-
+        } 
         private void cmdReloadIgnoreCache_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.ReloadIgnoreCache();
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-            this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("http://www.youtube.com");
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            this.cefWebBrowser1.Focus();
-            //this.cefWebBrowser1.NavigateTo("http://localhost/index2.html");
-
-            //this.cefWebBrowser2.Focus();
-            this.cefWebBrowser1.NavigateTo("https://www.google.com");
-        }
-
+        } 
         private void button6_Click(object sender, EventArgs e)
         {
             {
@@ -196,6 +209,7 @@ namespace LayoutFarm.CefBridge
             //    dataBuffer,
             //    dataBuffer.Length);
         }
+
 
     }
 }
