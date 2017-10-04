@@ -40,6 +40,8 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefDeletePtr(void* ptr);
 	MY_DLL_EXPORT void MyCefDeletePtrArray(jsvalue* ptr);
 
+	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
+	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
 
 
 	MY_DLL_EXPORT CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig);

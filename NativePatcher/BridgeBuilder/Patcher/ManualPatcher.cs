@@ -31,17 +31,14 @@ namespace BridgeBuilder
             var patch = new PatchFile(RootDir + "\\cefclient\\" + "CMakeLists.txt");
 
             patch.NewTask("# Source files.")
-                .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  myext/dll_init.cpp
-  myext/dll_init.h
+                .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS 
   myext/ExportFuncs.cpp
   myext/ExportFuncs.h
   myext/mycef.cc
   myext/mycef.h
   myext/MyCefJs.cpp
   myext/MyCefJs.h
-  myext/mycef_msg_const.h
-  myext/MyCef_Win.cpp
+  myext/mycef_msg_const.h 
   myext/mycef_buildconfig.h
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})

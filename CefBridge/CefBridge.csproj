@@ -45,15 +45,14 @@
     <Compile Include="Cef3Binder_Auto.cs" />
     <Compile Include="Cef3InitEssential.cs" />
     <Compile Include="Cef3Binder_Auto2.cs" />
-    <Compile Include="CefListeners.cs" />
+    <Compile Include="CefOsrListener.cs" />
     <Compile Include="CefStartArgs.cs" />
     <Compile Include="ClientApp.cs" />
-    <Compile Include="MyCefDevWindow.cs" />
     <Compile Include="NativeCallArgs.cs" />
-    <Compile Include="NativeCefObjects.cs" />
+    <Compile Include="JsValue.cs" />
+    <Compile Include="NativeModuleLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferencePaths.cs" />
-    <Compile Include="WindowWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
