@@ -1190,6 +1190,9 @@ namespace BridgeBuilder
     class PatcherPreset
     {
         public EnvName EnvName { get; set; }
+        /// <summary>
+        /// original cef src folder, to be modified by the patcher
+        /// </summary>
         public string CefSrcFolder { get; set; }
         /// <summary>
         /// path to newly create patch
