@@ -1280,12 +1280,16 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
-            string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
-            foreach (var f in srcFiles)
+            if (Directory.Exists(srcFolder))
             {
-                System.IO.File.Copy(f,
-                    targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
+                string[] srcFiles = Directory.GetFiles(srcFolder);
+                foreach (var f in srcFiles)
+                {
+                    System.IO.File.Copy(f,
+                        targetFolder + "\\" + Path.GetFileName(f), true);
+                }
             }
+
         }
 
     }
