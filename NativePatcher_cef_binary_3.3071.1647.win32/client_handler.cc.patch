@@ -101,7 +101,6 @@ switch (command_id) {
 //###_POST
 case CLIENT_ID_SHOW_DEVTOOLS:
 //###_END 0
- 
 //###_BEGIN 0
 //###_PRE
 const CefString& title) {
