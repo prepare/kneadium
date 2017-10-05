@@ -23,23 +23,33 @@ namespace BridgeBuilder
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string bridgeBuilderRootFolder = @"d:\projects\kneadium";
 
-            _patcherPresets.AddRange(
-                new PatcherPreset[]
-                {
-                    new PatcherPreset(){
-                        EnvName = EnvName.Win32,
-                        CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win32",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win32",
-                        Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_cef_binary_3.3071.1647.win32",
-                    },
-                    new PatcherPreset(){
-                        EnvName = EnvName.Win64,
-                        CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win64",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win64",
-                        Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_cef_binary_3.3071.1647.win64",
-                    },
-                });
-
+            //-----------
+            {
+                string cef_ver = "cef_binary_3.3071.1647.win32";
+                _patcherPresets.Add(
+                     new PatcherPreset()
+                     {
+                         EnvName = EnvName.Win32,
+                         CefSrcFolder = @"D:\projects\" + cef_ver,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + cef_ver,
+                         Backup_NativePatcher_Folder = bridgeBuilderRootFolder + @"\NativePatcher_" + cef_ver,
+                     }
+                );
+            }
+            //-----------
+            {
+                string cef_ver = "cef_binary_3.3071.1647.win64";
+                _patcherPresets.Add(
+                     new PatcherPreset()
+                     {
+                         EnvName = EnvName.Win64,
+                         CefSrcFolder = @"D:\projects\" + cef_ver,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + cef_ver,
+                         Backup_NativePatcher_Folder = bridgeBuilderRootFolder + @"\NativePatcher_" + cef_ver,
+                     }
+                );
+            }
+            //-----------
 
             //
             SetCurrentPreset(_patcherPresets[0]);//default             
