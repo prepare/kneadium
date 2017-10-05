@@ -22,7 +22,6 @@ namespace BridgeBuilder
             InitializeComponent();
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string bridgeBuilderRootFolder = @"d:\projects\kneadium";
-            string bridgeBuilderFolder = bridgeBuilderRootFolder + @"\NativePatcher\BridgeBuilder";
 
             _patcherPresets.AddRange(
                 new PatcherPreset[]
@@ -30,18 +29,16 @@ namespace BridgeBuilder
                     new PatcherPreset(){
                         EnvName = EnvName.Win32,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win32",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches",
-                        PatchFolder = "d:\\WImageTest\\cefbridge_patches",
-                        Backup_NativePatcherFolder= bridgeBuilderRootFolder + @"\NativePatcher",
-                        ProjectNativePatcher_BridgeFolder = bridgeBuilderFolder,
+                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_w32",
+                        PatchFolder = "d:\\WImageTest\\cefbridge_patches_w32",
+                        Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_w32",
                     },
                     new PatcherPreset(){
                         EnvName = EnvName.Win64,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win64",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches",
-                        PatchFolder = "d:\\WImageTest\\cefbridge_patches",
-                        Backup_NativePatcherFolder= bridgeBuilderRootFolder + @"\NativePatcher",
-                        ProjectNativePatcher_BridgeFolder = bridgeBuilderFolder,
+                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_w64",
+                        PatchFolder = "d:\\WImageTest\\cefbridge_patches_w64",
+                        Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_w64",
                     },
                 });
             //
@@ -51,6 +48,17 @@ namespace BridgeBuilder
         {
             _selectedPreSet = preset;
             _cefSrcRootDir = preset.CefSrcFolder;
+            //create some target folder if not exists
+            FolderUtils.CreateFolderIfNotExist(preset.NewlyCreatedPatchSaveToFolder);
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_Folder);
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder);
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode\\myext");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_libcef_dll");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_libcef_dll\\myext");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_mac");
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_Others");
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -98,8 +106,8 @@ namespace BridgeBuilder
             //3.1 copy newly generate patch to backup folder 
             //this code will push to github ***
             //----------------------------------
-            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcherFolder;
-            string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.ProjectNativePatcher_BridgeFolder;
+            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcher_Folder;
+            string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.Backup_NativePatcher_BridgeBuilder;
 
             FolderUtils.CopyFileInFolder(newPatchFolder, backup_nativePatcher);
 
@@ -128,7 +136,7 @@ namespace BridgeBuilder
         }
         private void cmdCopyDevSnap_Click(object sender, EventArgs e)
         {
-            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcherFolder;
+            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcher_Folder;
 
             string snapBackupFolder = backup_nativePatcher + @"\dev_snap_win32";
 
@@ -143,8 +151,8 @@ namespace BridgeBuilder
 
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
-            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcherFolder;
-            string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.ProjectNativePatcher_BridgeFolder;
+            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcher_Folder;
+            string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.Backup_NativePatcher_BridgeBuilder;
             string srcRootDir0 = _cefSrcRootDir;
 
             //where is patch folder

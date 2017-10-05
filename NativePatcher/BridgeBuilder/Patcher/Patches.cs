@@ -1202,11 +1202,17 @@ namespace BridgeBuilder
         /// <summary>
         /// this is a project subfolder that will push newly created patch to github 
         /// </summary>
-        public string Backup_NativePatcherFolder { get; set; }
+        public string Backup_NativePatcher_Folder { get; set; }
         /// <summary>
         /// this project NativeBridge folder
         /// </summary>
-        public string ProjectNativePatcher_BridgeFolder { get; set; }
+        public string Backup_NativePatcher_BridgeBuilder
+        {
+            get
+            {
+                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder";
+            }
+        }
         public override string ToString()
         {
             return CefSrcFolder;
@@ -1215,6 +1221,13 @@ namespace BridgeBuilder
 
     public static class FolderUtils
     {
+        public static void CreateFolderIfNotExist(string folderName)
+        {
+            if (!Directory.Exists(folderName))
+            {
+                Directory.CreateDirectory(folderName);
+            }
+        }
         /// <summary>
         /// copy a single file and place (overwrite) into destination target folder
         /// </summary>
