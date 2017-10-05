@@ -101,21 +101,7 @@ switch (command_id) {
 //###_POST
 case CLIENT_ID_SHOW_DEVTOOLS:
 //###_END 0
-//###_BEGIN 0
-//###_PRE
-const CefString& url) {
-//###_PRE
-CEF_REQUIRE_UI_THREAD();
-/*if (this->mcallback_) {
-CefDisplayHandlerExt::OnAddressChange(this->mcallback_,
-browser, frame, url);
-return;
-}*/
-//###_POST
-/*
-//###_POST
-if (this->mcallback_) {
-//###_END 0
+ 
 //###_BEGIN 0
 //###_PRE
 const CefString& title) {
