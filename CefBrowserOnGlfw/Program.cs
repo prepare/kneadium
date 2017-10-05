@@ -9,8 +9,7 @@ namespace TestGlfw
         [STAThread]
         static void Main(string[] args)
         {
-            bool is64BitsApp = System.Runtime.InteropServices.Marshal.SizeOf(typeof(IntPtr)) == 8;
-            //SimpleWindowProgram.Start(args);
+            SimpleWindowProgram.Start(args);
         }
     }
 }
