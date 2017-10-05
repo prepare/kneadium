@@ -32,13 +32,15 @@
             this.cmdLoadPatchAndDoPatch = new System.Windows.Forms.Button();
             this.cmdMacApplyPatches = new System.Windows.Forms.Button();
             this.cmdMacBuildPatchesFromSrc = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cmdCefBridgeCodeGen = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.cmbCefSrcFolder = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdMakePatchFiles
             // 
-            this.cmdMakePatchFiles.Location = new System.Drawing.Point(442, 39);
+            this.cmdMakePatchFiles.Location = new System.Drawing.Point(52, 218);
             this.cmdMakePatchFiles.Name = "cmdMakePatchFiles";
             this.cmdMakePatchFiles.Size = new System.Drawing.Size(282, 40);
             this.cmdMakePatchFiles.TabIndex = 1;
@@ -48,9 +50,9 @@
             // 
             // cmdLoadPatchAndDoPatch
             // 
-            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(36, 39);
+            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(52, 174);
             this.cmdLoadPatchAndDoPatch.Name = "cmdLoadPatchAndDoPatch";
-            this.cmdLoadPatchAndDoPatch.Size = new System.Drawing.Size(294, 40);
+            this.cmdLoadPatchAndDoPatch.Size = new System.Drawing.Size(282, 40);
             this.cmdLoadPatchAndDoPatch.TabIndex = 2;
             this.cmdLoadPatchAndDoPatch.Text = "LoadPatch and Apply Patch";
             this.cmdLoadPatchAndDoPatch.UseVisualStyleBackColor = true;
@@ -58,9 +60,9 @@
             // 
             // cmdMacApplyPatches
             // 
-            this.cmdMacApplyPatches.Location = new System.Drawing.Point(36, 187);
+            this.cmdMacApplyPatches.Location = new System.Drawing.Point(52, 322);
             this.cmdMacApplyPatches.Name = "cmdMacApplyPatches";
-            this.cmdMacApplyPatches.Size = new System.Drawing.Size(294, 40);
+            this.cmdMacApplyPatches.Size = new System.Drawing.Size(282, 40);
             this.cmdMacApplyPatches.TabIndex = 4;
             this.cmdMacApplyPatches.Text = "[TEST mac] LoadPatch and Apply Patch";
             this.cmdMacApplyPatches.UseVisualStyleBackColor = true;
@@ -68,7 +70,7 @@
             // 
             // cmdMacBuildPatchesFromSrc
             // 
-            this.cmdMacBuildPatchesFromSrc.Location = new System.Drawing.Point(442, 187);
+            this.cmdMacBuildPatchesFromSrc.Location = new System.Drawing.Point(52, 368);
             this.cmdMacBuildPatchesFromSrc.Name = "cmdMacBuildPatchesFromSrc";
             this.cmdMacBuildPatchesFromSrc.Size = new System.Drawing.Size(282, 40);
             this.cmdMacBuildPatchesFromSrc.TabIndex = 3;
@@ -76,19 +78,19 @@
             this.cmdMacBuildPatchesFromSrc.UseVisualStyleBackColor = true;
             this.cmdMacBuildPatchesFromSrc.Click += new System.EventHandler(this.cmdMacBuildPatchesFromSrc_Click);
             // 
-            // button2
+            // cmdCefBridgeCodeGen
             // 
-            this.button2.Location = new System.Drawing.Point(36, 532);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(282, 40);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "TestWrapperApiBuilder";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cmdCefBridgeCodeGen.Location = new System.Drawing.Point(36, 532);
+            this.cmdCefBridgeCodeGen.Name = "cmdCefBridgeCodeGen";
+            this.cmdCefBridgeCodeGen.Size = new System.Drawing.Size(282, 40);
+            this.cmdCefBridgeCodeGen.TabIndex = 6;
+            this.cmdCefBridgeCodeGen.Text = "TestWrapperApiBuilder";
+            this.cmdCefBridgeCodeGen.UseVisualStyleBackColor = true;
+            this.cmdCefBridgeCodeGen.Click += new System.EventHandler(this.cmdCefBridgeCodeGen_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(442, 97);
+            this.button3.Location = new System.Drawing.Point(52, 276);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(282, 40);
             this.button3.TabIndex = 7;
@@ -96,20 +98,41 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // cmbCefSrcFolder
+            // 
+            this.cmbCefSrcFolder.FormattingEnabled = true;
+            this.cmbCefSrcFolder.Location = new System.Drawing.Point(138, 24);
+            this.cmbCefSrcFolder.Name = "cmbCefSrcFolder";
+            this.cmbCefSrcFolder.Size = new System.Drawing.Size(260, 21);
+            this.cmbCefSrcFolder.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(98, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Cef Original Source";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 682);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmbCefSrcFolder);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.cmdCefBridgeCodeGen);
             this.Controls.Add(this.cmdMacApplyPatches);
             this.Controls.Add(this.cmdMacBuildPatchesFromSrc);
             this.Controls.Add(this.cmdLoadPatchAndDoPatch);
             this.Controls.Add(this.cmdMakePatchFiles);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -118,8 +141,10 @@
         private System.Windows.Forms.Button cmdLoadPatchAndDoPatch;
         private System.Windows.Forms.Button cmdMacApplyPatches;
         private System.Windows.Forms.Button cmdMacBuildPatchesFromSrc;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdCefBridgeCodeGen;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox cmbCefSrcFolder;
+        private System.Windows.Forms.Label label1;
     }
 }
 

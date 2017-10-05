@@ -70,6 +70,7 @@
     <Compile Include="2_CefApiParser\CefCppParser.cs" />
     <Compile Include="3_CefTypeAnalysis\SymbolDefinition.cs" />
     <Compile Include="3_CefTypeAnalysis\TypeSymbolWalk.cs" />
+    <Compile Include="4_CefCodeGen\CefBridgeCodeGen.cs" />
     <Compile Include="4_CefCodeGen\CefCodeGenOutput.cs" />
     <Compile Include="4_CefCodeGen\CodeGenUtils.cs" />
     <Compile Include="4_CefCodeGen\CppToCsImplCodeGen.cs" />
