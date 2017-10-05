@@ -1,7 +1,10 @@
+#include "mycef_buildconfig.h" //enable wrapper side func
 #include "mycef_msg_const.h"
 #include "mycef.h"
 #include "MyCefJs.h"
-
+#include "libcef_dll/ctocpp/v8value_ctocpp.h"
+#include "libcef_dll/cpptoc/v8handler_cpptoc.h"
+#include "libcef_dll/myext/ExportFuncAuto.h"
 
 CefV8Context* MyCefJsGetCurrentContext() {
 	auto currentContext = CefV8Context::GetCurrentContext();
@@ -88,7 +91,8 @@ CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler)
 	cefFunc->AddRef();
 	return cefFunc.get();
 }
-CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
+ 
+void* MyCefJs_New_V8Handler2(managed_callback callback) {
 
 	//-----------------------------------------------
 	class MyV8ManagedHandler : public CefV8Handler {
@@ -104,25 +108,31 @@ CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 			CefRefPtr<CefV8Value>& retval,
 			CefString& exception)
 		{
-			if (callback) {
-
-				INIT_MY_MET_ARGS(metArgs, 3)
-					MyCefSetVoidPtr(&vargs[1], object);
-				MyCefSetVoidPtr2(&vargs[2], &arguments);
-				MyCefSetInt32(&vargs[3], (int32_t)arguments.size());
-				//-------------------------------------------
-				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
-				//check result
-				retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value);
-				//retval = CefV8Value::CreateString("Hello, world!");
+			if (this->callback) {
+				CefV8HandlerExt::Execute(this->callback,
+					name, object, arguments, retval, exception
+				); 
 			}
+			//if (callback) {
+
+			//	INIT_MY_MET_ARGS(metArgs, 3)
+			//		MyCefSetVoidPtr(&vargs[1], object);
+			//	MyCefSetVoidPtr2(&vargs[2], &arguments);
+			//	MyCefSetInt32(&vargs[3], (int32_t)arguments.size());
+			//	//-------------------------------------------
+			//	callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
+			//	//check result
+			//	retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value);
+			//	//retval = CefV8Value::CreateString("Hello, world!");
+			//}
 			return true;
 		}
 	private:
 		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
 	};
 	//----------------------------------------------- 
-	return new MyV8ManagedHandler(callback);
+	CefRefPtr<CefV8Handler> myV8Handler = new MyV8ManagedHandler(callback); 
+	return CefV8HandlerCppToC::Wrap(myV8Handler); 
 }
 //---------------------------------------
 CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFunc, CefV8Context* context, const wchar_t* argAsJsonString)

@@ -4,8 +4,9 @@
 #include "libcef_dll/myext/myext.h"
 
 extern "C" {
-	MY_DLL_EXPORT CefV8Context* MyCefFrame_GetContext(CefFrame* wbFrame);
-	MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback);
+	MY_DLL_EXPORT CefV8Context* MyCefFrame_GetContext(CefFrame* wbFrame); 
+	MY_DLL_EXPORT void* MyCefJs_New_V8Handler2(managed_callback callback);
+	//
 	//
 	MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext();
 	MY_DLL_EXPORT CefV8Context* MyCefJs_GetEnteredContext();

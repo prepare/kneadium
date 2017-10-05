@@ -2,13 +2,13 @@
 #pragma once 
 //----------------------------------------------------------------------
 //my custom msgs
- 
+
 const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
 const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
 
 
-const int CEF_MSG_ClientHandler_ShowDevTools = 107;
+
 const int CEF_MSG_ClientHandler_CloseDevTools = 108;
 
 const int CEF_MSG_ClientHandler_SetResourceManager = 140;
@@ -20,15 +20,10 @@ const int CEF_MSG_CefSettings_Init = 150;
 const int CEF_MSG_MainContext_GetConsoleLogPath = 151;
 const int CEF_MSG_OSR_Render = 155;
 
-
-const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
-const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
-const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
 const int CEF_MSG_OnQuery = 205;
 
 
 const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
-const int CEF_MSG_MyCefDomGetTextWalk_Visit = 302;
 const int CEF_MSG_HereOnRenderer = 303;
 
 const int CEF_MSG_ClientHandler_NotifyTitle = 502;

@@ -22,7 +22,7 @@ namespace BridgeBuilder
             InitializeComponent();
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string bridgeBuilderRootFolder = @"d:\projects\kneadium";
-            string bridgeBuilderFolder = bridgeBuilderRootFolder + @"\NativePacther\BridgeBuilder";
+            string bridgeBuilderFolder = bridgeBuilderRootFolder + @"\NativePatcher\BridgeBuilder";
 
             _patcherPresets.AddRange(
                 new PatcherPreset[]
@@ -117,7 +117,7 @@ namespace BridgeBuilder
             //3.4 copy file by file
             //this code will push to github  (same) 
             FolderUtils.CopyFile(_cefSrcRootDir + "\\include\\cef_base.h",
-               backup_NativePatcher_BridgeBuilder_folder + @"\BridgeBuilder\Patcher_ExtCode_Others");
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_Others");
             //3.5 //this code will push to github  (same) 
             FolderUtils.CopyFile(_cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
                backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_Others");

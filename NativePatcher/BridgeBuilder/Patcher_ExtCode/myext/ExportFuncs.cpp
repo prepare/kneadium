@@ -1,9 +1,5 @@
-//MIT, 2015-2017, WinterDev
-
-
-
-#include "ExportFuncs.h"   
-#include "dll_init.h" 
+//MIT, 2015-2017, WinterDev 
+#include "ExportFuncs.h"    
 #include "mycef.h"
 
 #include "include/cef_parser.h"
@@ -25,17 +21,142 @@
 #include "libcef_dll/ctocpp/download_item_callback_ctocpp.h"
 #include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
 #include "libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h"
+#include "include/base/cef_scoped_ptr.h" 
+#include "tests/cefclient/browser/main_context_impl.h" 
 
+
+#if defined(CEF_USE_SANDBOX)
+// The cef_sandbox.lib static library is currently built with VS2013. It may not
+// link successfully with other VS versions.
+#include "include/cef_sandbox_win.h"
+// When generating projects with CMake the CEF_USE_SANDBOX value will be defined
+// automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
+// to the CMake command-line to disable use of the sandbox.
+// Uncomment this line to manually enable sandbox support.
+// #define CEF_USE_SANDBOX 1
+#pragma comment(lib, "cef_sandbox.lib")
+#endif
+
+client::ClientApp* app_global;
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 managed_callback myMxCallback_ = NULL;
 
+//1. check version
+int MyCefGetVersion()
+{
+	return 1011;
+}
+//2. register global  managed_callback (.net-side event listener/ event handler)
+int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
+{
+	switch (callbackKind)
+	{
+	case 3:
+	{
+		//set global mxCallback ***
+		myMxCallback_ = mxCallback;
+		return 0;
+	}
+	}
+	return 1; //default
+}
+//------------------------------------------
+client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line);
 
+//3. create process-based client app. 1 process => 1 client app
+void* MyCefCreateClientApp(HINSTANCE hInstance)
+{	
+	// Enable High-DPI support on Windows 7 or newer.
+#if OS_WIN
+	CefEnableHighDPISupport();
+#endif
 
-class MyCefRootWindow :public client::BrowserWindow::Delegate {
+	//-----
+	//user must call RegisterManagedCallBack() before use this method *** 
+	//-----
 
-	//this class is used in this module only
+	// Parse command-line arguments.
+	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+	command_line->InitFromString(::GetCommandLineW());
+	//create browser process first?
+	client::ClientApp* app = NULL;
+	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
+
+	if (process_type == client::ClientApp::BrowserProcess)
+	{
+		app = new client::ClientAppBrowser();
+		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
+	}
+	else if (process_type == client::ClientApp::RendererProcess)
+	{
+		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
+		app = new client::ClientAppRenderer();
+		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
+	}
+	else if (process_type == client::ClientApp::OtherProcess)
+	{
+		app = new client::ClientAppOther();
+		app->myMxCallback_ = myMxCallback_;
+		app_global = app;
+	}
+	// Create the main message loop object.
+	message_loop = new client::MainMessageLoopStd(); 
+
 	//
+	CefMainArgs main_args(hInstance);
+	mainContext = DllInitMain(main_args, app, command_line);
+	
+	return app;
+
+}
+
+client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line) {
+
+
+	void* sandbox_info = NULL; 
+#if defined(CEF_USE_SANDBOX)
+	// Manage the life span of the sandbox information object. This is necessary
+	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+	CefScopedSandboxInfo scoped_sandbox;
+	sandbox_info = scoped_sandbox.sandbox_info();
+#endif  
+ 
+	// Execute the secondary process, if any.
+	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+	if (exit_code >= 0)
+	{
+		return NULL;
+	}  
+	auto mainContext1 = new client::MainContextImpl(command_line, true);
+	mainContext1->myMxCallback_ = myMxCallback_;
+	//setting 
+	CefSettings settings;
+	settings.log_severity = (cef_log_severity_t)99;//disable log
+												   //-------------------------------------------------------------------------------------
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif
+	// Populate the settings based on command line arguments.	 
+	mainContext1->PopulateSettings(&settings); 
+
+	 
+	//ask managed
+	if (myMxCallback_) {
+		//send direct setting? 
+		myMxCallback_(CEF_MSG_CefSettings_Init, &settings);
+	}	 
+	//
+
+	mainContext1->Initialize(main_args, settings, app, sandbox_info); 
+	return mainContext1;
+}
+ 
+ 
+class MyCefBrowserWindowDelegate :public client::BrowserWindow::Delegate {
+	//this class is used in this module only 
 public:
 	void OnBrowserCreated(CefRefPtr<CefBrowser> browser) OVERRIDE {
 
@@ -63,85 +184,12 @@ public:
 };
 
 
-class MyBrowser
+class MyBrowserWindowWrapper
 {
 public:
-	MyCefRootWindow* rootWin;
 	client::BrowserWindow* bwWindow;
 };
-
-
-
-//1.
-int MyCefGetVersion()
-{
-	return 1011;
-}
-//2.
-int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
-{
-
-	switch (callbackKind)
-	{
-	case 3:
-	{
-		//set global mxCallback ***
-		myMxCallback_ = mxCallback;
-		return 0;
-	}
-	}
-	return 1; //default
-}
-//------------------------------------------
-void* MyCefCreateClientApp(HINSTANCE hInstance)
-{
-	//this similar to client::RunMain()
-	//
-	//this func returns client::ClientApp
-	///
-	//-----
-	//user must call RegisterManagedCallBack() before use this method *** 
-	//-----
-
-	// Parse command-line arguments.
-	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-	command_line->InitFromString(::GetCommandLineW());
-	//create browser process first?
-	client::ClientApp* app = NULL;
-	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
-
-	if (process_type == client::ClientApp::BrowserProcess)
-	{
-		app = new client::ClientAppBrowser();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	else if (process_type == client::ClientApp::RendererProcess)
-	{
-		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
-		app = new client::ClientAppRenderer();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	else if (process_type == client::ClientApp::OtherProcess)
-	{
-		app = new client::ClientAppOther();
-		app->myMxCallback_ = myMxCallback_;
-	}
-	// Create the main message loop object.
-	message_loop = new client::MainMessageLoopStd();
-	//message_loop.reset(new client::MainMessageLoopStd); 
-	/* if (settings.multi_threaded_message_loop)
-	message_loop.reset(new MainMessageLoopMultithreadedWin);
-	else
-	message_loop.reset(new MainMessageLoopStd);*/
-
-	//------------------------------------------------------------------
-	//set managed callback*** 
-	mycefmx::SetManagedCallback(myMxCallback_);
-	CefMainArgs main_args(hInstance);
-	mainContext = DllInitMain(main_args, app);
-	return app;
-}
-
+ 
 void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
 	switch (keyName)
 	{
@@ -178,10 +226,7 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	}
 }
 
-void MyCefDoMessageLoopWork()
-{
-	CefDoMessageLoopWork();
-}
+
 void MyCefShutDown() {
 
 	// Shut down CEF.
@@ -193,19 +238,21 @@ void MyCefShutDown() {
 //--------------------------------------
 //browser instance...
 //--------------------------------------
-MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
+MyBrowserWindowWrapper* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	auto myBw = new MyBrowser();
-
-	auto rootWindow = new MyCefRootWindow();//new client::RootWindowWin();
-	myBw->rootWin = rootWindow;
+	//my custom browser window wrapper
+	auto myBw = new MyBrowserWindowWrapper();
 
 	//1. create browser window handler
-	//TODO: review here again, don't store at this module!
-	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
+	auto bwWindowEventHandler = new MyCefBrowserWindowDelegate();//new client::RootWindowWin();
+
+
+	//2. create browser window  (for Windows) 
+	//(this will create a built-in CefClientHandler-> will be used in next step)	 
+	auto bwWindow = new client::BrowserWindowStdWin(bwWindowEventHandler, "");
 	myBw->bwWindow = bwWindow;
 
-	//2. browser event handler	 
+	//3. set managed callback to the CefClientHandler 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
 
@@ -213,30 +260,30 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 }
 
 
-MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
+MyBrowserWindowWrapper* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
-	auto myBw = new MyBrowser();
+	//my custom browser window wrapper
+	auto myBw = new MyBrowserWindowWrapper();
+	//1. create browser window handler
+	auto bwWindowEventHandler = new MyCefBrowserWindowDelegate(); //new client::RootWindowWin(); 
 
-	auto rootWindow = new MyCefRootWindow(); //new client::RootWindowWin();
-	myBw->rootWin = rootWindow;
-
-
+	//2.1 setting for OSR window
 	client::OsrRenderer::Settings settings;
 	client::MainContext::Get()->PopulateOsrSettings(&settings);
 
-	//1. create browser window handler
-	//TODO: review here again, don't store at this module!
-	auto bwWindow = new client::BrowserWindowOsrWin(rootWindow, "", settings);
+	//2.2 create OSR window (for Windows) 
+	auto bwWindow = new client::BrowserWindowOsrWin(bwWindowEventHandler, "", settings);
 	myBw->bwWindow = bwWindow;
 
-	//2. browser event handler
+	//3. set managed callback to the CefClientHandler 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
+
 	return myBw;
 }
 
 
-int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
+int MyCefSetupBrowserHwnd(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 	RECT r;
 	r.left = x;
@@ -267,7 +314,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 }
 
 
-int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
+int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
 	////--off-screen-rendering-enabled 
@@ -283,48 +330,11 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 }
 
 
-//---------------------
-class MyCefStringVisitor : public CefStringVisitor {
-public:
-	managed_callback mcallback;
-	explicit MyCefStringVisitor() {
-		mcallback = NULL;
-	}
-	virtual void Visit(const CefString& string) OVERRIDE {
-
-		if (mcallback) {
-
-			INIT_MY_MET_ARGS(metArgs, 1)
-				SetCefStringToJsValue2(&vargs[1], string);
-			mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
-		}
-	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
-};
-
-void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
-{
-	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor();
-	bwVisitor->mcallback = strCallBack;
-	bw->GetMainFrame()->GetText(bwVisitor);
-	//this is not blocking method, so=> need to create visitor on heap
-
-}
-void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
-{
-	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor();
-	bwVisitor->mcallback = strCallBack;
-	bw->GetMainFrame()->GetSource(bwVisitor);
-	//this is not blocking method, so=> need to create visitor on heap
-}
 
 
 
 //4. 
-void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
+void MyCefShowDevTools(MyBrowserWindowWrapper* myBw, MyBrowserWindowWrapper* myBwDev, HWND parentWindow)
 {
 
 	//TODO : fine tune here
@@ -356,7 +366,7 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 }
 
 
-void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
+void MyCefPrintToPdf(MyBrowserWindowWrapper* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
 
 
 	//
@@ -464,7 +474,9 @@ void MyCefJsNotifyRenderer(const managed_callback callback, MyMetArgsN* args) {
 	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
 
-
+void MyCefDoMessageLoopWork() {
+	CefDoMessageLoopWork();
+}
 
 bool MyCefAddCrossOriginWhitelistEntry(
 	const wchar_t*  sourceOrigin,
@@ -546,7 +558,7 @@ const int CefBw_GetMainFrame = 29;
 const int CefBw_GetCefBrowser = 31;
 //----------------
 
-void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+void MyCefBwCall2(MyBrowserWindowWrapper* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
 	auto bw = myBw->bwWindow->GetBrowser();
 	ret->type = JSVALUE_TYPE_EMPTY;
@@ -610,14 +622,6 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}
 }
 
-
-void MyCefCustCallN(void* me1, int metName, jsvalue* ret, managed_callback cb, int argcount, jsvalue* args) {
-	//test create post context 
-	//and then call back to native side
-
-
-
-}
 
 
 void* CreateStdList(int elemType) {

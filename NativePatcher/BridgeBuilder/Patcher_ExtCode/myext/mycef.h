@@ -34,17 +34,7 @@
 #include "libcef_dll/myext/myext.h"
 #include "libcef_dll/myext/MyCefStringHolder.h" 
 
-namespace mycefmx {
-	managed_callback GetManagedCallback();
-	void SetManagedCallback(managed_callback callback); 
-}
-
-extern "C" {
-	 
-	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
-	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
-}
-
+ 
 struct MyMetArgsN
 {
 	int32_t argCount;
