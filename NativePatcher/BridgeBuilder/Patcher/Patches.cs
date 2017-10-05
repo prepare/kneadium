@@ -1198,7 +1198,7 @@ namespace BridgeBuilder
         /// <summary>
         /// path to patch folder
         /// </summary>
-        public string PatchFolder { get; set; }
+        public string PatchFolder { get { return NewlyCreatedPatchSaveToFolder; } }
         /// <summary>
         /// this is a project subfolder that will push newly created patch to github 
         /// </summary>
@@ -1207,6 +1207,13 @@ namespace BridgeBuilder
         /// this project NativeBridge folder
         /// </summary>
         public string Backup_NativePatcher_BridgeBuilder
+        {
+            get
+            {
+                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder";
+            }
+        }
+        public string Backup_NativePatcher_DevSnapFolder
         {
             get
             {
