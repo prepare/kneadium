@@ -20,7 +20,6 @@ namespace BridgeBuilder
         public Form1()
         {
             InitializeComponent();
-
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string bridgeBuilderRootFolder = @"d:\projects\kneadium";
             string bridgeBuilderFolder = bridgeBuilderRootFolder + @"\NativePacther\BridgeBuilder";
@@ -256,8 +255,7 @@ namespace BridgeBuilder
         {
 
             //EXPERIMENT!
-            //cef_binary_3.3071.1647
-            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
+            //cef_binary_3.3071.1647 
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.macos\tests";
             string patchSrcFolder = "d:\\WImageTest\\cefbridge_patches_mac";
 

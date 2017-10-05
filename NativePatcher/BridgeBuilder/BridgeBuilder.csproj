@@ -86,7 +86,7 @@
     <Compile Include="4_CefCodeGen\CodeStringBuilder.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
-    <Compile Include="Patcher\Patchs.cs" />
+    <Compile Include="Patcher\Patches.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
