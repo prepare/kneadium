@@ -15,14 +15,15 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NO_WINFORMS;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -55,11 +56,85 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CefBrowser\CefBridge\MyCefRenderProcessListener.cs">
-      <Link>CefBridge\MyCefRenderProcessListener.cs</Link>
+    <Compile Include="..\cefbridge\auto\CefApiSwitchTables.cs">
+      <Link>CefBridge\Auto\CefApiSwitchTables.cs</Link>
     </Compile>
-    <Compile Include="CefBridge\MyCef3InitEssential.cs" />
-    <Compile Include="CefBridge\WindowControlImpl.cs" />
+    <Compile Include="..\cefbridge\auto\CefCallbacks.cs">
+      <Link>CefBridge\Auto\CefCallbacks.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\auto\CefEnums.cs">
+      <Link>CefBridge\Auto\CefEnums.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\auto\CefHandlers.cs">
+      <Link>CefBridge\Auto\CefHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\auto\CefInstances_P1.cs">
+      <Link>CefBridge\Auto\CefInstances_P1.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\auto\CefInstances_P2.cs">
+      <Link>CefBridge\Auto\CefInstances_P2.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\auto\CefPlainCStructs.cs">
+      <Link>CefBridge\Auto\CefPlainCStructs.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\Cef3Binder.cs">
+      <Link>CefBridge\Cef3Binder.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\Cef3Binder_Auto.cs">
+      <Link>CefBridge\Cef3Binder_Auto.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\Cef3Binder_Auto2.cs">
+      <Link>CefBridge\Cef3Binder_Auto2.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\Cef3InitEssential.cs">
+      <Link>CefBridge\Cef3InitEssential.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\CefOsrListener.cs">
+      <Link>CefBridge\CefOsrListener.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\CefStartArgs.cs">
+      <Link>CefBridge\CefStartArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\ClientApp.cs">
+      <Link>CefBridge\ClientApp.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\JsValue.cs">
+      <Link>CefBridge\JsValue.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\NativeCallArgs.cs">
+      <Link>CefBridge\NativeCallArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\NativeModuleLoader.cs">
+      <Link>CefBridge\NativeModuleLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\cefbridge\ReferencePaths.cs">
+      <Link>CefBridge\ReferencePaths.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\Cef3WinForms.cs">
+      <Link>BroswerProcess\Cef3WinForms.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\ClientAppBrowser.cs">
+      <Link>BroswerProcess\ClientAppBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCef3InitEssential.cs">
+      <Link>BroswerProcess\MyCef3InitEssential.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefBrowser.cs">
+      <Link>BroswerProcess\MyCefBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefDevWindow.cs">
+      <Link>BroswerProcess\MyCefDevWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefUIListener.cs">
+      <Link>BroswerProcess\MyCefUIListener.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\BrowserProcess\WindowWrapper.cs">
+      <Link>BroswerProcess\WindowWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\LibFolderManager.cs">
+      <Link>LibFolderManager.cs</Link>
+    </Compile>
+    <Compile Include="NoWinForms\WindowControlImpl.cs" />
     <Compile Include="NoWinForms\CefWebBrowser.cs" />
     <Compile Include="NoWinForms\MyFormWrapper.cs" />
     <Compile Include="Program.cs" />

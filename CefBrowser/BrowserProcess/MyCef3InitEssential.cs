@@ -101,8 +101,10 @@ namespace LayoutFarm.CefBridge
             if (!s_skipPreRun)
             {
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
+#if !NO_WINFORMS
                 System.Windows.Forms.Application.EnableVisualStyles();
                 System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+#endif
             }
 
         }
