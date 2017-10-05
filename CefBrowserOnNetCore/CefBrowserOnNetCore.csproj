@@ -2,45 +2,64 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeIdentifiers>win7-x64;win10-x64;osx.10.11-x64</RuntimeIdentifiers>
   </PropertyGroup>
    
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <Prefer32Bit>True</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DefineConstants>TRACE;DEBUG;NO_WINFORMS;;NETCOREAPP2_0</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cef\**" />
+    <EmbeddedResource Remove="Cef\**" />
+    <None Remove="Cef\**" />
+  </ItemGroup>
  
     
   <ItemGroup>
-    <Compile Include="..\CefBridge\Cef3Binder.cs" Link="Cef\Cef3Binder.cs" />
-    <Compile Include="..\CefBridge\Cef3Binder_Auto.cs" Link="Cef\Cef3Binder_Auto.cs" />
-    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs" Link="Cef\Cef3Binder_Auto2.cs" />
-    <Compile Include="..\CefBridge\Cef3Binder_Auto3.cs" Link="Cef\Cef3Binder_Auto3.cs" />
-    <Compile Include="..\CefBridge\Cef3InitEssential.cs" Link="Cef\Cef3InitEssential.cs" />
-    <Compile Include="..\CefBridge\Cef3WinForms.cs" Link="Cef\Cef3WinForms.cs" />
-    <Compile Include="..\CefBridge\CefListeners.cs" Link="Cef\CefListeners.cs" />
-    <Compile Include="..\CefBridge\CefStartArgs.cs" Link="Cef\CefStartArgs.cs" />
-    <Compile Include="..\CefBridge\ClientApp.cs" Link="Cef\ClientApp.cs" />
-    <Compile Include="..\CefBridge\CustomSchemeAgent.cs" Link="Cef\CustomSchemeAgent.cs" />
-    <Compile Include="..\CefBridge\MyCefBrowser.cs" Link="Cef\MyCefBrowser.cs" />
-    <Compile Include="..\CefBridge\MyCefDevWindow.cs" Link="Cef\MyCefDevWindow.cs" />
-    <Compile Include="..\CefBridge\NativeCallArgs.cs" Link="Cef\NativeCallArgs.cs" />
-    <Compile Include="..\CefBridge\NativeCefObjects.cs" Link="Cef\NativeCefObjects.cs" />
-    <Compile Include="..\CefBridge\ReferencePaths.cs" Link="Cef\ReferencePaths.cs" />
-    <Compile Include="..\CefBridge\WindowWrapper.cs" Link="Cef\WindowWrapper.cs" />
-    <Compile Include="..\CefBrowserOnGlfw\CefBridge\MyCef3InitEssential.cs" Link="CefBridge\MyCef3InitEssential.cs" />
-    <Compile Include="..\CefBrowserOnGlfw\CefBridge\WindowControlImpl.cs" Link="CefBridge\WindowControlImpl.cs" />
-    <Compile Include="..\CefBrowser\CefBridge\MyCefRenderProcessListener.cs" Link="CefBridge\MyCefRenderProcessListener.cs" />
+    <Compile Include="..\cefbridge\auto\CefApiSwitchTables.cs" Link="CefBridge\Auto\CefApiSwitchTables.cs" />
+    <Compile Include="..\cefbridge\auto\CefCallbacks.cs" Link="CefBridge\Auto\CefCallbacks.cs" />
+    <Compile Include="..\cefbridge\auto\CefEnums.cs" Link="CefBridge\Auto\CefEnums.cs" />
+    <Compile Include="..\cefbridge\auto\CefHandlers.cs" Link="CefBridge\Auto\CefHandlers.cs" />
+    <Compile Include="..\cefbridge\auto\CefInstances_P1.cs" Link="CefBridge\Auto\CefInstances_P1.cs" />
+    <Compile Include="..\cefbridge\auto\CefInstances_P2.cs" Link="CefBridge\Auto\CefInstances_P2.cs" />
+    <Compile Include="..\cefbridge\auto\CefPlainCStructs.cs" Link="CefBridge\Auto\CefPlainCStructs.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder.cs" Link="CefBridge\Cef3Binder.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder_Auto.cs" Link="CefBridge\Cef3Binder_Auto.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs" Link="CefBridge\Cef3Binder_Auto2.cs" />
+    <Compile Include="..\CefBridge\Cef3InitEssential.cs" Link="CefBridge\Cef3InitEssential.cs" />
+    <Compile Include="..\cefbridge\CefOsrListener.cs" Link="CefBridge\CefOsrListener.cs" />
+    <Compile Include="..\CefBridge\CefStartArgs.cs" Link="CefBridge\CefStartArgs.cs" />
+    <Compile Include="..\CefBridge\ClientApp.cs" Link="CefBridge\ClientApp.cs" />
+    <Compile Include="..\cefbridge\JsValue.cs" Link="CefBridge\JsValue.cs" />
+    <Compile Include="..\CefBridge\NativeCallArgs.cs" Link="CefBridge\NativeCallArgs.cs" />
+    <Compile Include="..\cefbridge\NativeModuleLoader.cs" Link="CefBridge\NativeModuleLoader.cs" />
+    <Compile Include="..\CefBridge\ReferencePaths.cs" Link="CefBridge\ReferencePaths.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\NoWinForms\CefWebBrowser.cs" Link="NoWinForms\CefWebBrowser.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\NoWinForms\MyFormWrapper.cs" Link="NoWinForms\MyFormWrapper.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\NoWinForms\WindowControlImpl.cs" Link="NoWinForms\WindowControlImpl.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\Cef3WinForms.cs" Link="BrowserProcess2\Cef3WinForms.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\ClientAppBrowser.cs" Link="BrowserProcess2\ClientAppBrowser.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCef3InitEssential.cs" Link="BrowserProcess2\MyCef3InitEssential.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefBrowser.cs" Link="BrowserProcess2\MyCefBrowser.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefDevWindow.cs" Link="BrowserProcess2\MyCefDevWindow.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefUIListener.cs" Link="BrowserProcess2\MyCefUIListener.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\WindowWrapper.cs" Link="BrowserProcess2\WindowWrapper.cs" />
+    <Compile Include="..\CefBrowser\LibFolderManager.cs" Link="LibFolderManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cef\" />
+    <Folder Include="CefBridge\Auto\" />
+    <Folder Include="BrowserProcess2\" />
+    <Folder Include="NoWinForms\" />
   </ItemGroup>
 
   <ItemGroup>
