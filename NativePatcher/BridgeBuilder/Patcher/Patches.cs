@@ -75,7 +75,13 @@ namespace BridgeBuilder
         List<PatchTask> patchTasks = new List<PatchTask>();
         public PatchFile(string originalFilename)
         {
-            this.OriginalFileName = originalFilename;
+            this.PatchFileName = this.OriginalFileName = originalFilename;
+
+        }
+        public string PatchFileName
+        {
+            get;
+            set;
         }
         public string OriginalFileName
         {
@@ -187,12 +193,6 @@ namespace BridgeBuilder
                     }
                 }
             }
-
-
-
-
-
-
             output.Save();
         }
         public int TaskCount
@@ -203,6 +203,7 @@ namespace BridgeBuilder
         public PatchTask NewTask(string landMark)
         {
             var srcPos = new PatchTask(landMark, patchTasks.Count);
+            srcPos.Owner = this;
             patchTasks.Add(srcPos);
             return srcPos;
         }
@@ -526,6 +527,8 @@ namespace BridgeBuilder
                                 string cmd_value = sourceFile.GetLine(i);
                                 //create new task
                                 ptask = new PatchTask(cmd_value, taskId);
+                                ptask.Owner = patchFile;
+
                                 if (additionalInfo == "-X") //special cmd 
                                 {
                                     ptask.PatchStartCmd = additionalInfo;
@@ -539,6 +542,8 @@ namespace BridgeBuilder
                                 //begin block ***
                                 //create new patch block
                                 ptask = new PatchTask("", taskId);//we will set land mark later
+                                ptask.Owner = patchFile;
+
                                 ptask.IsPatchBlock = true;
                                 patchFile.AddTask(ptask);
                                 ParseAutoContextPatchBlock(ptask, sourceFile, ref i);
@@ -736,13 +741,29 @@ namespace BridgeBuilder
         public List<string> postNotes = new List<string>();
         public List<string> ContentLines { get; set; }
         //-----------------------------------------
+#if DEBUG
+        static int dbug_totalId;
+        public readonly int dbugId = dbug_totalId++;
 
+#endif
         public PatchTask(string landMark, int taskId)
         {
+
+#if DEBUG
+            if (dbugId == 93)
+            {
+
+            }
+#endif
             //each patch start with landmark
             this.LandMark = landMark.Trim();
             this.TaskId = taskId;
             PatchStartCmd = "";
+        }
+        public PatchFile Owner
+        {
+            get;
+            set;
         }
 
         public bool IsPatchBlock { get; set; }
@@ -894,10 +915,13 @@ namespace BridgeBuilder
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {
+                    string ownerPatchFilename = this.Owner.OriginalFileName;
+
                     throw new NotSupportedException();
                 }
                 else
                 {
+
                     //found 
                     if (p == 0)
                     {
