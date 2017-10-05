@@ -1,0 +1,31 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\common//scheme_test_common.cc
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace scheme_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_POST
+void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
+//###_POST
+std::vector<CefString>& cookiable_schemes) {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+registrar->AddCustomScheme("client", true, false, false, false, true, false);
+//###_PRE
+}
+#else
+
+void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
+std::vector<CefString>& cookiable_schemes) {
+
+}
+
+#endif //BUILD_TEST
+//###_POST
+}  // namespace scheme_test
+//###_POST
+}  // namespace client
+//###_END 0

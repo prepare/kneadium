@@ -1,0 +1,49 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//main_context_impl.cc
+//###_BEGIN 0
+//###_PRE
+#include "include/cef_web_plugin.h"
+//###_PRE
+#include "tests/shared/common/client_switches.h"
+#include "tests/cefclient/myext/ExportFuncs.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
+//###_POST
+namespace client {
+//###_POST
+namespace {
+//###_END 0
+//###_START 1
+// The default URL to load in a browser window.
+//###_APPEND_START 1
+const char kDefaultUrl[] = "about:blank";
+//const char kDefaultUrl[] = "http://www.google.com";
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 1
+}  // namespace
+//###_START 3
+if (main_url_.empty())
+//###_APPEND_START 3
+{
+main_url_ = kDefaultUrl;
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 3
+use_windowless_rendering_ =
+//###_START 2
+std::string MainContextImpl::GetConsoleLogPath() {
+//###_APPEND_START 2
+if (this->myMxCallback_) {
+
+INIT_MY_MET_ARGS(metArgs, 0)
+this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+
+auto bufferHolder = GetBufferHolder(&vargs[0]);
+std::string str = std::string(bufferHolder->buffer);
+//delete bufferHolder;
+return str;
+}
+else {
+return GetAppWorkingDirectory() + "console.log";
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 2
+}

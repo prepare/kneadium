@@ -22,21 +22,20 @@ namespace BridgeBuilder
             InitializeComponent();
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string bridgeBuilderRootFolder = @"d:\projects\kneadium";
-            
+
             _patcherPresets.AddRange(
                 new PatcherPreset[]
                 {
                     new PatcherPreset(){
                         EnvName = EnvName.Win32,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win32",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win32",                         
+                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win32",
                         Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_cef_binary_3.3071.1647.win32",
                     },
                     new PatcherPreset(){
                         EnvName = EnvName.Win64,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win64",
-                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_w64",
-                        PatchFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win64",
+                        NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_cef_binary_3.3071.1647.win64",
                         Backup_NativePatcher_Folder= bridgeBuilderRootFolder + @"\NativePatcher_cef_binary_3.3071.1647.win64",
                     },
                 });
