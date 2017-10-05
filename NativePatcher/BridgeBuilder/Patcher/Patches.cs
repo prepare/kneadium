@@ -747,14 +747,7 @@ namespace BridgeBuilder
 
 #endif
         public PatchTask(string landMark, int taskId)
-        {
-
-#if DEBUG
-            if (dbugId == 93)
-            {
-
-            }
-#endif
+        {   
             //each patch start with landmark
             this.LandMark = landMark.Trim();
             this.TaskId = taskId;
@@ -892,6 +885,8 @@ namespace BridgeBuilder
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {
+                    string ownerPatchFilename = this.Owner.OriginalFileName;
+
                     throw new NotSupportedException();
                 }
                 else

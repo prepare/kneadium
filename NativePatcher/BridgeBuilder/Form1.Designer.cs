@@ -44,17 +44,17 @@
             this.cmdMakePatchFiles.Location = new System.Drawing.Point(52, 218);
             this.cmdMakePatchFiles.Name = "cmdMakePatchFiles";
             this.cmdMakePatchFiles.Size = new System.Drawing.Size(282, 40);
-            this.cmdMakePatchFiles.TabIndex = 1;
+            this.cmdMakePatchFiles.TabIndex = 10;
             this.cmdMakePatchFiles.Text = "Create New Patches from Source";
             this.cmdMakePatchFiles.UseVisualStyleBackColor = true;
             this.cmdMakePatchFiles.Click += new System.EventHandler(this.cmdCreatePatchFiles_Click);
             // 
             // cmdLoadPatchAndDoPatch
             // 
-            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(52, 174);
+            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(52, 93);
             this.cmdLoadPatchAndDoPatch.Name = "cmdLoadPatchAndDoPatch";
             this.cmdLoadPatchAndDoPatch.Size = new System.Drawing.Size(282, 40);
-            this.cmdLoadPatchAndDoPatch.TabIndex = 2;
+            this.cmdLoadPatchAndDoPatch.TabIndex = 1;
             this.cmdLoadPatchAndDoPatch.Text = "LoadPatch and Apply Patch";
             this.cmdLoadPatchAndDoPatch.UseVisualStyleBackColor = true;
             this.cmdLoadPatchAndDoPatch.Click += new System.EventHandler(this.cmdLoadPatchAndApplyPatch_Click);
