@@ -1239,11 +1239,18 @@ namespace BridgeBuilder
                 return this.Backup_NativePatcher_Folder + "\\BridgeBuilder";
             }
         }
-        public string Backup_NativePatcher_DevSnapFolder
+        public string Backup_NativePatcher_BridgeBuilder_DevSnapFolder
         {
             get
             {
                 return this.Backup_NativePatcher_Folder + "\\BridgeBuilder\\dev_snap";
+            }
+        }
+        public string Backup_NativePatcher_BridgeBuilder_DevSnapFolder_TempPatches
+        {
+            get
+            {
+                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder\\dev_snap\\temp_patches";
             }
         }
         public override string ToString()

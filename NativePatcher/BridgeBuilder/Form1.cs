@@ -52,7 +52,7 @@ namespace BridgeBuilder
             //-----------
 
             //
-           
+
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
@@ -62,8 +62,8 @@ namespace BridgeBuilder
             FolderUtils.CreateFolderIfNotExist(preset.NewlyCreatedPatchSaveToFolder);
             FolderUtils.CreateFolderIfNotExist(preset.PatchFolder);
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_Folder);
+            //
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder);
-            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_DevSnapFolder);
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher");
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode");
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode\\myext");
@@ -71,10 +71,13 @@ namespace BridgeBuilder
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_libcef_dll\\myext");
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_mac");
             FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder + "\\Patcher_ExtCode_Others");
+            //
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder_DevSnapFolder);
+            FolderUtils.CreateFolderIfNotExist(preset.Backup_NativePatcher_BridgeBuilder_DevSnapFolder_TempPatches);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            cmbCefSrcFolder.Items.AddRange(_patcherPresets.ToArray()); 
+            cmbCefSrcFolder.Items.AddRange(_patcherPresets.ToArray());
             cmbCefSrcFolder.SelectedIndexChanged += (s1, e1) =>
             {
                 SetCurrentPreset((PatcherPreset)cmbCefSrcFolder.SelectedItem);
@@ -116,21 +119,21 @@ namespace BridgeBuilder
             //3.1 copy newly generate patch to backup folder 
             //this code will push to github ***
             //----------------------------------
-            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcher_Folder;
+            string backup_NativePatcher = _selectedPreSet.Backup_NativePatcher_Folder;
             string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.Backup_NativePatcher_BridgeBuilder;
 
-            FolderUtils.CopyFileInFolder(newPatchFolder, backup_nativePatcher);
+            FolderUtils.CopyFileInFolder(newPatchFolder, backup_NativePatcher);
 
             //3.2 copy newly generate patch to backup folder 
             //this code will push to github (same) 
             FolderUtils.CopyFileInFolder(
-                _cefSrcRootDir + @"\tests\cefclient\myext",
-                 backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode\myext");
+               _cefSrcRootDir + @"\tests\cefclient\myext",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode\myext");
             //3.3 copy newly generate patch to backup folder 
             //this code will push to github  (same) 
             FolderUtils.CopyFileInFolder(
-                _cefSrcRootDir + @"\libcef_dll\myext",
-                backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_libcef_dll\myext");
+               _cefSrcRootDir + @"\libcef_dll\myext",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
             //3.4 copy file by file
             //this code will push to github  (same) 
@@ -147,15 +150,44 @@ namespace BridgeBuilder
         private void cmdCopyDevSnap_Click(object sender, EventArgs e)
         {
 
-
-            string snapBackupFolder = _selectedPreSet.Backup_NativePatcher_DevSnapFolder;
-
+            string snapBackupFolder = _selectedPreSet.Backup_NativePatcher_BridgeBuilder_DevSnapFolder;
             //check if we have snap folder,
             //if not => create it
             FolderUtils.CopyFolder(_cefSrcRootDir + "\\libcef_dll", snapBackupFolder);
             FolderUtils.CopyFolder(_cefSrcRootDir + "\\tests", snapBackupFolder);
             FolderUtils.CopyFolder(_cefSrcRootDir + "\\include", snapBackupFolder);
+
             //----------  
+            //backup existing generated patch result 
+            string newPatchFolder = _selectedPreSet.NewlyCreatedPatchSaveToFolder;
+            string devSnap_tempPatches = _selectedPreSet.Backup_NativePatcher_BridgeBuilder_DevSnapFolder_TempPatches;
+
+            string backup_NativePatcher_BridgeBuilder_folder = _selectedPreSet.Backup_NativePatcher_BridgeBuilder;
+
+            FolderUtils.CopyFileInFolder(newPatchFolder, devSnap_tempPatches);
+
+            //3.2 copy newly generate patch to backup folder 
+            //this code will push to github (same) 
+            FolderUtils.CopyFileInFolder(
+               _cefSrcRootDir + @"\tests\cefclient\myext",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode\myext");
+            //3.3 copy newly generate patch to backup folder 
+            //this code will push to github  (same) 
+            FolderUtils.CopyFileInFolder(
+               _cefSrcRootDir + @"\libcef_dll\myext",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_libcef_dll\myext");
+            //---------- 
+            //3.4 copy file by file
+            //this code will push to github  (same) 
+            FolderUtils.CopyFile(_cefSrcRootDir + "\\include\\cef_base.h",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_Others");
+            //3.5 //this code will push to github  (same) 
+            FolderUtils.CopyFile(_cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_Others");
+            //3.6 //this code will push to github  (same) 
+            FolderUtils.CopyFile(_cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
+               backup_NativePatcher_BridgeBuilder_folder + @"\Patcher_ExtCode_Others");
+
         }
 
 
