@@ -41,7 +41,10 @@ namespace BridgeBuilder
         private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
         {
             //open cefSrcRootDir in Windows Explorer
-            System.Diagnostics.Process.Start("explorer.exe", cefSrcRootDir);
+            System.Threading.ThreadPool.QueueUserWorkItem(s =>
+            {
+                System.Diagnostics.Process.Start("explorer.exe", cefSrcRootDir);
+            });
         }
         private void cmdCefBridgeCodeGen_Click(object sender, EventArgs e)
         {
