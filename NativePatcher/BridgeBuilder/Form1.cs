@@ -12,6 +12,10 @@ namespace BridgeBuilder
         /// original cef src folder
         /// </summary>
         string cefSrcRootDir = null;
+        /// <summary>
+        /// absolute path to this bridge builder app (eg. d:\\projects\\kneadium)
+        /// </summary>
+        string bridgeBuilderRootFolder;
 
         public Form1()
         {
@@ -33,10 +37,14 @@ namespace BridgeBuilder
             {
                 cefSrcRootDir = cmbCefSrcFolder.SelectedItem as string;
             };
-        } 
-
+        }
+        private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
+        {
+            //open cefSrcRootDir in Windows Explorer
+            System.Diagnostics.Process.Start("explorer.exe", cefSrcRootDir);
+        }
         private void cmdCefBridgeCodeGen_Click(object sender, EventArgs e)
-        {   
+        {
             //cpp-to-c wrapper and c-to-cpp wrapper
             //read original cef src, apply pacth and generate cpp/cs bridge code 
             CefBridgeCodeGen cefBrideCodeGen = new CefBridgeCodeGen();
@@ -54,42 +62,51 @@ namespace BridgeBuilder
             builder.MakePatch();
 
             //2. save patch to...
-            string saveFolder = "d:\\WImageTest\\cefbridge_patches";
-            builder.Save(saveFolder);
+            string newPatchFolder = "d:\\WImageTest\\cefbridge_patches";
+            builder.Save(newPatchFolder);
 
-            //----------
-            //copy extension code          
-            CopyFileInFolder(saveFolder,
+            ////----------------------------------
+            //3.1 copy newly generate patch to backup folder 
+            //this code will push to github ***
+            //----------------------------------
+
+            CopyFileInFolder(newPatchFolder,
                 @"D:\projects\Kneadium\NativePatcher\cefbridge_patches"
                );
-            //copy ext from actual src 
+            //3.2 copy newly generate patch to backup folder 
+            //this code will push to github (same) 
             CopyFileInFolder(
                 cefSrcRootDir + @"\tests\cefclient\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
-            //----------
-            //copy ext from actual src 
+            //3.3 copy newly generate patch to backup folder 
+            //this code will push to github  (same) 
             CopyFileInFolder(
                 cefSrcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
-            //copy file by file
+            //3.4 copy file by file
+            //this code will push to github  (same) 
             CopyFile(cefSrcRootDir + "\\include\\cef_base.h",
                     @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //3.5 //this code will push to github  (same) 
             CopyFile(cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //3.6 //this code will push to github  (same) 
             CopyFile(cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
-
         }
-       
-        private void button3_Click(object sender, EventArgs e)
+        private void cmdCopyDevSnap_Click(object sender, EventArgs e)
         {
-            string snapFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
-            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapFolder);
-            CopyFolder(cefSrcRootDir + "\\tests", snapFolder);
-            CopyFolder(cefSrcRootDir + "\\include", snapFolder);
+            string snapBackupFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
+            //check if we have snap folder,
+            //if not => create it
+            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapBackupFolder);
+            CopyFolder(cefSrcRootDir + "\\tests", snapBackupFolder);
+            CopyFolder(cefSrcRootDir + "\\include", snapBackupFolder);
             //----------  
         }
+
+
         /// <summary>
         /// copy a single file and place (overwrite) into destination target folder
         /// </summary>
@@ -144,10 +161,12 @@ namespace BridgeBuilder
         {
 
             string srcRootDir0 = cefSrcRootDir;
-            string saveFolder = "d:\\WImageTest\\cefbridge_patches";
+
+            //where is patch folder
+            string cefBridge_PatchFolder = "d:\\WImageTest\\cefbridge_patches";
             string newPathName = srcRootDir0 + "\\tests";
 
-            //copy my extension file
+            //copy my extension file relative folder to this project
             CopyFolder(@"..\..\Patcher_ExtCode\myext", newPathName + "\\cefclient");
             //copy my extension file
             CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll");
@@ -171,7 +190,7 @@ namespace BridgeBuilder
             PatchBuilder builder2 = new PatchBuilder(new string[]{
                 newPathName,
             });
-            builder2.LoadPatchesFromFolder(saveFolder);
+            builder2.LoadPatchesFromFolder(cefBridge_PatchFolder);
 
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir; 
@@ -207,6 +226,10 @@ namespace BridgeBuilder
             }
         }
 
+
+        //------------------------------------------------------------------------------------------------------
+
+        //EXPERIMENT!
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
         {
 
@@ -236,7 +259,7 @@ namespace BridgeBuilder
             CopyFileInFolder(srcRootDir + "\\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_mac\myext");
         }
-
+        //EXPERIMENT!
         private void cmdMacApplyPatches_Click(object sender, EventArgs e)
         {
 
@@ -287,8 +310,6 @@ namespace BridgeBuilder
             //manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
         }
-
-
 
 
     }
