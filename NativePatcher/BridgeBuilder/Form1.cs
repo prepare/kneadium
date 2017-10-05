@@ -31,13 +31,13 @@ namespace BridgeBuilder
                         EnvName = EnvName.Win32,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win32",
                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches",
-                        NewlyCreatedPatchBackupFolder= bridgeBuilderRootFolder + @"\NativePatcher\BridgeBuilder",
+                        Backup_NativePatcherFolder= bridgeBuilderRootFolder + @"\NativePatcher",
                     },
                     new PatcherPreset(){
                         EnvName = EnvName.Win64,
                         CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win64",
                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches",
-                        NewlyCreatedPatchBackupFolder= bridgeBuilderRootFolder + @"\NativePatcher\BridgeBuilder",
+                        Backup_NativePatcherFolder= bridgeBuilderRootFolder + @"\NativePatcher",
                     },
                 });
             //
@@ -94,35 +94,38 @@ namespace BridgeBuilder
             //3.1 copy newly generate patch to backup folder 
             //this code will push to github ***
             //----------------------------------
+            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcherFolder;
 
-            FolderUtils.CopyFileInFolder(newPatchFolder,
-                @"D:\projects\Kneadium\NativePatcher\cefbridge_patches"
-               );
+            FolderUtils.CopyFileInFolder(newPatchFolder, backup_nativePatcher);
+
             //3.2 copy newly generate patch to backup folder 
             //this code will push to github (same) 
             FolderUtils.CopyFileInFolder(
                 _cefSrcRootDir + @"\tests\cefclient\myext",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+                 backup_nativePatcher + @"\BridgeBuilder\Patcher_ExtCode\myext");
             //3.3 copy newly generate patch to backup folder 
             //this code will push to github  (same) 
             FolderUtils.CopyFileInFolder(
                 _cefSrcRootDir + @"\libcef_dll\myext",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
+                backup_nativePatcher + @"\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
             //3.4 copy file by file
             //this code will push to github  (same) 
             FolderUtils.CopyFile(_cefSrcRootDir + "\\include\\cef_base.h",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+               backup_nativePatcher + @"\BridgeBuilder\Patcher_ExtCode_Others");
             //3.5 //this code will push to github  (same) 
             FolderUtils.CopyFile(_cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+               backup_nativePatcher + @"\BridgeBuilder\Patcher_ExtCode_Others");
             //3.6 //this code will push to github  (same) 
             FolderUtils.CopyFile(_cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+               backup_nativePatcher + @"\BridgeBuilder\Patcher_ExtCode_Others");
         }
         private void cmdCopyDevSnap_Click(object sender, EventArgs e)
         {
-            string snapBackupFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
+            string backup_nativePatcher = _selectedPreSet.Backup_NativePatcherFolder;
+
+            string snapBackupFolder = backup_nativePatcher + @"\dev_snap_win32";
+
             //check if we have snap folder,
             //if not => create it
             FolderUtils.CopyFolder(_cefSrcRootDir + "\\libcef_dll", snapBackupFolder);

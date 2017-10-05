@@ -1195,7 +1195,7 @@ namespace BridgeBuilder
         /// <summary>
         /// this is a project subfolder that will push newly created patch to github 
         /// </summary>
-        public string NewlyCreatedPatchBackupFolder { get; set; }
+        public string Backup_NativePatcherFolder { get; set; }
         public override string ToString()
         {
             return CefSrcFolder;
