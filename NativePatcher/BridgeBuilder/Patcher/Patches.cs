@@ -747,7 +747,7 @@ namespace BridgeBuilder
 
 #endif
         public PatchTask(string landMark, int taskId)
-        {   
+        {
             //each patch start with landmark
             this.LandMark = landMark.Trim();
             this.TaskId = taskId;
@@ -1243,7 +1243,7 @@ namespace BridgeBuilder
         {
             get
             {
-                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder";
+                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder\\dev_snap";
             }
         }
         public override string ToString()
