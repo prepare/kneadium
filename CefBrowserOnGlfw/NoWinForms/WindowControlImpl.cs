@@ -99,6 +99,8 @@ namespace LayoutFarm.CefBridge
         Form form;
         Timer tmClosingCheck;
         bool startClosing;
+        public event EventHandler FormClosed;
+
         private MyWindowForm(Form form)
         {
             this.form = form;
@@ -115,6 +117,12 @@ namespace LayoutFarm.CefBridge
         void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             //form has closed
+            
+            if (FormClosed != null)
+            {
+                FormClosed(null, EventArgs.Empty);
+            }
+
             ((IWindowForm)this).MarkAsDisposed();
         }
         void TmClosingCheck_Tick(object sender, EventArgs e)
@@ -163,6 +171,9 @@ namespace LayoutFarm.CefBridge
             }
         }
         static Dictionary<Form, MyWindowForm> registerControls = new Dictionary<Form, MyWindowForm>();
+
+
+
         public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form form)
         {
             MyWindowForm myWinForm;

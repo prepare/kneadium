@@ -25,9 +25,15 @@ namespace TestGlfw
             }
         }
 
+        public event EventHandler FormClosed;
+
         public void Close()
         {
-
+            //TODO implement this
+            if (FormClosed != null)
+            {
+                FormClosed(null, EventArgs.Empty);
+            }
         }
 
         public void Dispose()

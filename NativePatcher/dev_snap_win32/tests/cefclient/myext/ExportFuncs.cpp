@@ -42,12 +42,12 @@ client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 managed_callback myMxCallback_ = NULL;
 
-//1.
+//1. check version
 int MyCefGetVersion()
 {
 	return 1011;
 }
-//2.
+//2. register global  managed_callback (.net-side event listener/ event handler)
 int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 {
 	switch (callbackKind)
@@ -63,7 +63,8 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 }
 //------------------------------------------
 client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line);
-//3. 
+
+//3. create process-based client app. 1 process => 1 client app
 void* MyCefCreateClientApp(HINSTANCE hInstance)
 {	
 	// Enable High-DPI support on Windows 7 or newer.
@@ -111,6 +112,7 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	return app;
 
 }
+
 client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line) {
 
 
@@ -139,11 +141,20 @@ client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> a
 #endif
 	// Populate the settings based on command line arguments.	 
 	mainContext1->PopulateSettings(&settings); 
+
+	 
+	//ask managed
+	if (myMxCallback_) {
+		//send direct setting? 
+		myMxCallback_(CEF_MSG_CefSettings_Init, &settings);
+	}	 
+	//
+
 	mainContext1->Initialize(main_args, settings, app, sandbox_info); 
 	return mainContext1;
 }
  
-//for handling a comment browser window msg
+ 
 class MyCefBrowserWindowDelegate :public client::BrowserWindow::Delegate {
 	//this class is used in this module only 
 public:
@@ -178,10 +189,7 @@ class MyBrowserWindowWrapper
 public:
 	client::BrowserWindow* bwWindow;
 };
-
-
-
-
+ 
 void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
 	switch (keyName)
 	{

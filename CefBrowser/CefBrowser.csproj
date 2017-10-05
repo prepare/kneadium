@@ -125,20 +125,20 @@
     </Compile>
     <Compile Include="BrowserProcess\Cef3WinForms.cs" />
     <Compile Include="BrowserProcess\MyCef3InitEssential.cs" />
-    <Compile Include="BrowserProcess\MyCef3WinForms.cs" />
+    <Compile Include="WinForms\MyCef3WinForms.cs" />
     <Compile Include="BrowserProcess\MyCefBrowser.cs" />
     <Compile Include="BrowserProcess\MyCefDevWindow.cs" />
     <Compile Include="BrowserProcess\MyCefUIListener.cs" />
-    <Compile Include="BrowserProcess\WindowControlImpl.cs" />
+    <Compile Include="WinForms\WindowControlImpl.cs" />
     <Compile Include="BrowserProcess\WindowWrapper.cs" />
-    <Compile Include="BrowserProcess\WinFormsMsgLoopPump.cs" />
+    <Compile Include="WinForms\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="BrowserProcess\CefWebBrowser.cs">
+    <Compile Include="WinForms\CefWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LibFolderManager.cs" />

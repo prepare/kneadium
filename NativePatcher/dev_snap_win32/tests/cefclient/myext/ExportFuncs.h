@@ -13,9 +13,9 @@ extern "C" {
 	MY_DLL_EXPORT int MyCefGetVersion();
 	//2. register global  managed_callback (.net-side event listener/ event handler)
 	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback, int callBackKind);
-	//3.1 create process-based client app. 1 process => 1 client app
+	//3. create process-based client app. 1 process => 1 client app
 	MY_DLL_EXPORT void* MyCefCreateClientApp(HINSTANCE hInstance);
-	//3.2
+	//4.
 	MY_DLL_EXPORT void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value);
 	 
 	MY_DLL_EXPORT void MyCefShutDown();
