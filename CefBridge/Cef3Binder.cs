@@ -28,10 +28,6 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
 
 
-        //CEF_MSG_ClientHandler_ShowDevTools = 107,
-        CEF_MSG_ClientHandler_CloseDevTools = 108,
-
-
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         //CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
@@ -40,11 +36,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_CefSettings_Init = 150,
         CEF_MSG_MainContext_GetConsoleLogPath = 151,
         CEF_MSG_OSR_Render = 155,
-        //
-
         CEF_MSG_OnQuery = 205,
-        //
-        //CEF_MSG_MyCefDomGetTextWalk_Visit = 302,
         CEF_MSG_MyV8ManagedHandler_Execute = 301,
         CEF_MSG_HereOnRenderer = 303,
 
@@ -153,7 +145,7 @@ namespace LayoutFarm.CefBridge
         static Cef3InitEssential cefInitEssential;
 
         const string CEF_CLIENT_DLL = "cefclient.dll";
-        
+
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
 #endif
@@ -277,7 +269,7 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-         
+
         //
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
@@ -312,41 +304,12 @@ namespace LayoutFarm.CefBridge
            string schemeName,
            string startURL,
            IntPtr clientSchemeHandlerFactoryObject);
-        //--------------------------------------------------- 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJsGetCurrentContext();
-        //
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJsNotifyRenderer(MyCefCallback handler, IntPtr pars);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJs_GetEnteredContext();
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefFrame_GetContext(IntPtr nativeFrame);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJs_EnterContext(IntPtr cefV8Context);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefJs_ExitContext(IntPtr cefV8Context);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_New_V8Handler2(MyCefCallback managedCallback);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern bool MyCefJs_CefV8Value_IsFunc(IntPtr target);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
 
         //--------------------------------------------------- 
         /// <summary>
@@ -368,13 +331,7 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern unsafe IntPtr MyCefCreateBufferHolderWithInitData(int len, byte* initData);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static unsafe extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, char* argAsJsonString);
-        //
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
         //
@@ -386,21 +343,8 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringGetRawPtr(IntPtr cefstring, out char* outputBuffer, out int actualLength);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, out int actualLength);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, out int actualLength);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MyCefJs_MetReadArgAsCefV8Value(IntPtr jsArgs, int index);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
+
+
         //list func
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr CreateStdList(int listType);
@@ -410,13 +354,7 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
-        //     
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern MyCefCallback MyCefJsValueGetManagedCallback(ref JsValue v);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefJsValueSetManagedCallback(ref JsValue v, MyCefCallback cb);
-        //
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
@@ -494,171 +432,6 @@ namespace LayoutFarm.CefBridge
         public static void NotifyRendererAsync(MyCefCallback callback)
         {
             Cef3Binder.MyCefJsNotifyRenderer(callback, IntPtr.Zero);
-        }
-    }
-
-
-    enum OsPlatform
-    {
-        Unknown,
-        Windows,
-        Mac,
-        Linux
-    }
-    static class PlatformNeutralMethods
-    {
-        static NativeModuleLoader nativeModuleLoader;
-        static PlatformNeutralMethods()
-        {
-            //evaluate current platform
-            switch (GetOsName())
-            {
-                //TODO: review here for linux
-                default:
-                    throw new NotSupportedException();
-                case OsPlatform.Windows:
-                    nativeModuleLoader = new Win32NativeModuleLoader();
-                    break;
-                case OsPlatform.Mac:
-                    nativeModuleLoader = new MacOsNativeModuleLoader();
-                    break;
-            }
-        }
-        public static OsPlatform GetOsName()
-        {
-            //check platform
-#if NETCOREAPP1_1
-            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
-                System.Runtime.InteropServices.OSPlatform.OSX))
-            {
-                return OsPlatform.Mac;
-            }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
-                System.Runtime.InteropServices.OSPlatform.Linux)
-                )
-            {
-                return OsPlatform.Linux;
-            }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
-              System.Runtime.InteropServices.OSPlatform.Windows))
-            {
-                return OsPlatform.Windows;
-            }
-            else
-            {
-                return OsPlatform.Unknown;
-            }            
-#else
-            OperatingSystem os = Environment.OSVersion;
-            switch (os.Platform)
-            {
-                default:
-                    throw new NotSupportedException();
-                case PlatformID.MacOSX:
-                    return OsPlatform.Mac;
-                case PlatformID.Win32NT:
-                    return OsPlatform.Windows;
-            }
-#endif
-        }
-
-
-        public static IntPtr LoadLibrary(string libname)
-        {
-            return nativeModuleLoader.LoadLib(libname);
-        }
-        public static string GetError()
-        {
-            return nativeModuleLoader.GetError();
-        }
-    }
-
-
-    abstract class NativeModuleLoader
-    {
-
-        public abstract IntPtr LoadLib(string libname);
-        public abstract bool FreeLib(IntPtr hModule);
-        public abstract IntPtr GetFunc(IntPtr hModule, string funcName);
-        public abstract string GetError();
-
-    }
-    class Win32NativeModuleLoader : NativeModuleLoader
-    {
-        //TODO: review here, check for other platforms
-        //-----------------------------------------------
-        //this is Windows Specific class ***
-        [DllImport("Kernel32.dll")]
-        static extern IntPtr LoadLibrary(string libraryName);
-        [DllImport("Kernel32.dll")]
-        static extern bool FreeLibrary(IntPtr hModule);
-        [DllImport("Kernel32.dll")]
-        static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
-        [DllImport("Kernel32.dll")]
-        static extern uint SetErrorMode(int uMode);
-        [DllImport("Kernel32.dll")]
-        static extern uint GetLastError();
-
-        public override IntPtr LoadLib(string libname)
-        {
-            return LoadLibrary(libname);
-        }
-
-        public override bool FreeLib(IntPtr hModule)
-        {
-            return FreeLibrary(hModule);
-        }
-
-        public override IntPtr GetFunc(IntPtr hModule, string funcName)
-        {
-            return GetProcAddress(hModule, funcName);
-        }
-        public override string GetError()
-        {
-            uint lastError = GetLastError();
-            if (lastError == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return lastError.ToString();
-            }
-        }
-        //---------------------- 
-
-    }
-    class MacOsNativeModuleLoader : NativeModuleLoader
-    {
-        /*
-#define RTLD_LAZY   1
-#define RTLD_NOW    2
-#define RTLD_GLOBAL 4
-*/
-        [DllImport("libdl.so")]
-        static extern IntPtr dlopen(string filename, int flags);
-        [DllImport("libdl.so")]
-        static extern int dlclose(IntPtr handle);
-        [DllImport("libdl.so")]
-        static extern IntPtr dlsym(IntPtr handle, string symbol);
-        [DllImport("libdl.so")]
-        static extern string dlerror();
-
-        public override bool FreeLib(IntPtr hModule)
-        {
-            return dlclose(hModule) != 0;
-        }
-        public override IntPtr GetFunc(IntPtr hModule, string funcName)
-        {
-            return dlsym(hModule, funcName);
-        }
-        public override IntPtr LoadLib(string libname)
-        {
-            return dlopen(libname, 2);
-        }
-        public override string GetError()
-        {
-            return dlerror();
         }
     }
 

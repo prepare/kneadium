@@ -70,8 +70,8 @@
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridge\Cef3InitEssential.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\CefListeners.cs">
-      <Link>CefBridge\CefListeners.cs</Link>
+    <Compile Include="..\CefBridge\CefOsrListener.cs">
+      <Link>CefBridge\CefOsrListener.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\CefStartArgs.cs">
       <Link>CefBridge\CefStartArgs.cs</Link>
@@ -79,25 +79,26 @@
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridge\ClientApp.cs</Link>
     </Compile>
+    <Compile Include="..\CefBridge\JsValue.cs">
+      <Link>CefBridge\JsValue.cs</Link>
+    </Compile>
     <Compile Include="..\CefBridge\NativeCallArgs.cs">
       <Link>CefBridge\NativeCallArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\NativeCefObjects.cs">
-      <Link>CefBridge\NativeCefObjects.cs</Link>
+    <Compile Include="..\CefBridge\NativeModuleLoader.cs">
+      <Link>CefBridge\NativeModuleLoader.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\ReferencePaths.cs">
       <Link>CefBridge\ReferencePaths.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\WindowWrapper.cs">
-      <Link>CefBridge\WindowWrapper.cs</Link>
     </Compile>
     <Compile Include="..\CefBrowser\LibFolderManager.cs">
       <Link>LibFolderManager.cs</Link>
     </Compile>
     <Compile Include="RenderProcess\MyCefRenderProcessInitEssential.cs" />
-    <Compile Include="RenderProcess\MyCefRenderProcessListener.cs" />
+    <Compile Include="RenderProcess\RenderProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderProcess\ClientAppRenderer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
