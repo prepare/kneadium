@@ -4,10 +4,11 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
-
-
 namespace BridgeBuilder
 {
+
+
+
     public enum PatchCommandKind
     {
         Unknown,
@@ -1176,5 +1177,25 @@ namespace BridgeBuilder
 
 
 
+
+
+    enum EnvName
+    {
+        Win32,
+        Win64,
+        macOS,
+        Linux
+    }
+
+    class PatcherPreset
+    {
+        public EnvName EnvName { get; set; }
+        public string CefSrcFolder { get; set; }
+
+        public override string ToString()
+        {
+            return CefSrcFolder;
+        }
+    }
 
 }

@@ -11,31 +11,43 @@ namespace BridgeBuilder
         /// <summary>
         /// original cef src folder
         /// </summary>
-        string cefSrcRootDir = null;
+        string _cefSrcRootDir = null;
         /// <summary>
         /// absolute path to this bridge builder app (eg. d:\\projects\\kneadium)
         /// </summary>
         string bridgeBuilderRootFolder;
 
+        PatcherPreset _selectedPreSet = null;
+        List<PatcherPreset> _patcherPresets = new List<PatcherPreset>();
+
         public Form1()
         {
             InitializeComponent();
+
+            _patcherPresets.AddRange(
+                new PatcherPreset[]
+                {
+                    new PatcherPreset(){ EnvName= EnvName.Win32, CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win32"},
+                    new PatcherPreset(){ EnvName= EnvName.Win64, CefSrcFolder = @"D:\projects\cef_binary_3.3071.1647.win64"},
+                });
+            //
+            SetCurrentPreset(_patcherPresets[0]);//default             
+        }
+        void SetCurrentPreset(PatcherPreset preset)
+        {
+            _selectedPreSet = preset;
+            _cefSrcRootDir = preset.CefSrcFolder;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            cmbCefSrcFolder.Items.AddRange(
-                new string[]
-                {
-                    @"D:\projects\cef_binary_3.3071.1647.win32",
-                    @"D:\projects\cef_binary_3.3071.1647.win64"
-                });
-
+            cmbCefSrcFolder.Items.AddRange(_patcherPresets.ToArray());
             cmbCefSrcFolder.SelectedIndex = 0; //set default
-            cefSrcRootDir = cmbCefSrcFolder.SelectedItem as string;//default
+
             //
             cmbCefSrcFolder.SelectedIndexChanged += (s1, e1) =>
             {
-                cefSrcRootDir = cmbCefSrcFolder.SelectedItem as string;
+                SetCurrentPreset((PatcherPreset)cmbCefSrcFolder.SelectedItem);
+               
             };
         }
         private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
@@ -43,7 +55,7 @@ namespace BridgeBuilder
             //open cefSrcRootDir in Windows Explorer
             System.Threading.ThreadPool.QueueUserWorkItem(s =>
             {
-                System.Diagnostics.Process.Start("explorer.exe", cefSrcRootDir);
+                System.Diagnostics.Process.Start("explorer.exe", _cefSrcRootDir);
             });
         }
         private void cmdCefBridgeCodeGen_Click(object sender, EventArgs e)
@@ -51,7 +63,7 @@ namespace BridgeBuilder
             //cpp-to-c wrapper and c-to-cpp wrapper
             //read original cef src, apply pacth and generate cpp/cs bridge code 
             CefBridgeCodeGen cefBrideCodeGen = new CefBridgeCodeGen();
-            cefBrideCodeGen.GenerateBridge(cefSrcRootDir);
+            cefBrideCodeGen.GenerateBridge(_cefSrcRootDir);
         }
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
@@ -59,8 +71,8 @@ namespace BridgeBuilder
 
             //1. analyze modified source files, in source folder  
             PatchBuilder builder = new PatchBuilder(new string[]{
-                cefSrcRootDir + @"\tests\cefclient",
-                cefSrcRootDir + @"\tests\shared"
+                _cefSrcRootDir + @"\tests\cefclient",
+                _cefSrcRootDir + @"\tests\shared"
             });
             builder.MakePatch();
 
@@ -79,23 +91,23 @@ namespace BridgeBuilder
             //3.2 copy newly generate patch to backup folder 
             //this code will push to github (same) 
             CopyFileInFolder(
-                cefSrcRootDir + @"\tests\cefclient\myext",
+                _cefSrcRootDir + @"\tests\cefclient\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
             //3.3 copy newly generate patch to backup folder 
             //this code will push to github  (same) 
             CopyFileInFolder(
-                cefSrcRootDir + @"\libcef_dll\myext",
+                _cefSrcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
             //3.4 copy file by file
             //this code will push to github  (same) 
-            CopyFile(cefSrcRootDir + "\\include\\cef_base.h",
+            CopyFile(_cefSrcRootDir + "\\include\\cef_base.h",
                     @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
             //3.5 //this code will push to github  (same) 
-            CopyFile(cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
+            CopyFile(_cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
             //3.6 //this code will push to github  (same) 
-            CopyFile(cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
+            CopyFile(_cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
         }
         private void cmdCopyDevSnap_Click(object sender, EventArgs e)
@@ -103,9 +115,9 @@ namespace BridgeBuilder
             string snapBackupFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
             //check if we have snap folder,
             //if not => create it
-            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapBackupFolder);
-            CopyFolder(cefSrcRootDir + "\\tests", snapBackupFolder);
-            CopyFolder(cefSrcRootDir + "\\include", snapBackupFolder);
+            CopyFolder(_cefSrcRootDir + "\\libcef_dll", snapBackupFolder);
+            CopyFolder(_cefSrcRootDir + "\\tests", snapBackupFolder);
+            CopyFolder(_cefSrcRootDir + "\\include", snapBackupFolder);
             //----------  
         }
 
@@ -163,7 +175,7 @@ namespace BridgeBuilder
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
 
-            string srcRootDir0 = cefSrcRootDir;
+            string srcRootDir0 = _cefSrcRootDir;
 
             //where is patch folder
             string cefBridge_PatchFolder = "d:\\WImageTest\\cefbridge_patches";
