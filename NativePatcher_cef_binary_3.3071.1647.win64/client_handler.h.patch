@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//client_handler.h
 //###_START 0
 #include "tests/cefclient/browser/client_types.h"
 //###_APPEND_START 0
@@ -15,6 +15,7 @@ bool is_osr() const { return is_osr_; }
 managed_callback mcallback_;//my extension
 void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
+managed_callback GetManagedCallBack(int callerCode);
 //###_APPEND_STOP
 //###_START 2
 // Set of Handlers registered with the message router.

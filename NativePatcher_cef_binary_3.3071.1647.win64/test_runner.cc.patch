@@ -1,15 +1,27 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//test_runner.cc
-//###_START 0
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//test_runner.cc
+//###_BEGIN 0
+//###_PRE
+#include "tests/cefclient/browser/urlrequest_test.h"
+//###_PRE
 #include "tests/cefclient/browser/window_test.h"
-//###_APPEND_START 0
 #include "include/wrapper/cef_byte_read_handler.h"
 #include "tests/cefclient/myext/mycef_msg_const.h"
-//###_APPEND_STOP
-//###_START 1
+//###_POST
+#include "tests/shared/browser/resource_util.h"
+//###_POST
+namespace client {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
 namespace test_runner {
-//###_APPEND_START 1
 managed_callback mcallback_ = NULL;
-//###_APPEND_STOP
+//###_POST
+namespace {
+//###_POST
+const char kTestOrigin[] = "http://tests/";
+//###_END 0
 //###_START 2
 class RequestDumpResourceProvider : public CefResourceManager::Provider {
 //###_FIND_NEXT_LANDMARK 2
@@ -21,16 +33,14 @@ std::string RequestUrlFilter2(const std::string& url) {
 
 if (client::test_runner::mcallback_)
 {
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-
-//-----------------------------------------
-CefString cef_str(url);
-metArgs.SetArgAsString(0, cef_str.c_str());
+CefString cefStrUrl = url;
+INIT_MY_MET_ARGS(metArgs, 2)
+SetCefStringToJsValue2(&vargs[1], cefStrUrl);
+mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
 client::test_runner::mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
-if (metArgs.result0.i32 == 0) {
+if (vargs[0].i32 == 0) {
 //no change
 return url;
 }
@@ -38,7 +48,7 @@ else {
 //changed
 //
 std::string s1("");
-s1.append((const char*)metArgs.result1.ptr, metArgs.result1.i32);
+s1.append((const char*)vargs[2].ptr, vargs[2].i32);
 return s1;
 }
 
@@ -46,13 +56,11 @@ return s1;
 return url;
 }
 //###_APPEND_STOP
-//###_START 3
-void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
-//###_FIND_NEXT_LANDMARK 3
+//###_BEGIN 0
+//###_PRE
 #endif
-//###_FIND_NEXT_LANDMARK 3
+//###_PRE
 }
-//###_APPEND_START 3
 void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {
 
 // Provider of binary resources.
@@ -73,35 +81,42 @@ CEF_REQUIRE_IO_THREAD();
 
 if (mcallback)
 {
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
 
-const std::string& url = request->url();
-CefString cefStr(url);
-metArgs.SetArgAsString(0, cefStr.c_str());
-metArgs.SetArgAsNativeObject(1, request);
 
-//get data from managed side
-mcallback(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs); //get resource 
+CefString cefStr(request->url());
+//0: bool , return value
+//1: [in] url
+//2: [in] request
+//3: [out] buffer stream
+//4: [out] stream kind
 
-if (metArgs.result0.i32 == 0) {
+INIT_MY_MET_ARGS(metArgs, 4)
+SetCefStringToJsValue2(&vargs[1], cefStr);
+MyCefSetVoidPtr(&vargs[2], request);
+
+mcallback_(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs);
+client::test_runner::mcallback_(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs);
+if (vargs[0].i32 == 0)
+{
 return false; //not handle by this handler
 }
 
+MyCefBufferHolder* bufferHolder = (MyCefBufferHolder*)vargs[3].ptr;
 //has resource in managed buffer form
 //so we need to copy to unmanaged form
 CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
 new CefByteReadHandler(
-(const unsigned char*)metArgs.result1.ptr,
-(size_t)metArgs.result1.i32,
+(const unsigned char*)bufferHolder->buffer,
+(size_t)bufferHolder->len,
 NULL));
-
-CefString cefStr2(metArgs.ReadOutputAsString(2));
 CefRefPtr<CefResourceHandler> handler = new CefStreamResourceHandler(
-cefStr2,
+GetStringHolder(&vargs[4])->value,
 stream);
 
 request->Continue(handler);
+//-----
+//delete unmanaged args?/ check owner of the data?
+
 
 return true;
 }
@@ -166,4 +181,8 @@ resource_manager->AddDirectoryProvider(test_origin, resource_dir,
 }
 #endif
 }
-//###_APPEND_STOP
+//###_POST
+void Alert(CefRefPtr<CefBrowser> browser, const std::string& message) {
+//###_POST
+// Escape special characters in the message.
+//###_END 0

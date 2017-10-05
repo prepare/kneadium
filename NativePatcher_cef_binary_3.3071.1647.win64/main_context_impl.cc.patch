@@ -1,10 +1,16 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//main_context_impl.cc
-//###_START 0
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//main_context_impl.cc
+//###_BEGIN 0
+//###_PRE
+#include "include/cef_web_plugin.h"
+//###_PRE
 #include "tests/shared/common/client_switches.h"
-//###_APPEND_START 0
 #include "tests/cefclient/myext/ExportFuncs.h"
 #include "tests/cefclient/myext/mycef_msg_const.h"
-//###_APPEND_STOP
+//###_POST
+namespace client {
+//###_POST
+namespace {
+//###_END 0
 //###_START 1
 // The default URL to load in a browser window.
 //###_APPEND_START 1
@@ -27,11 +33,13 @@ std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
 if (this->myMxCallback_) {
 
-MethodArgs args;
-memset(&args, 0, sizeof(MethodArgs));
-this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
-CefString cefStr(args.ReadOutputAsString(0));
-return cefStr;
+INIT_MY_MET_ARGS(metArgs, 0)
+this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+
+auto bufferHolder = GetBufferHolder(&vargs[0]);
+std::string str = std::string(bufferHolder->buffer);
+//delete bufferHolder;
+return str;
 }
 else {
 return GetAppWorkingDirectory() + "console.log";
@@ -39,15 +47,3 @@ return GetAppWorkingDirectory() + "console.log";
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 2
 }
-//###_START 3
-void MainContextImpl::PopulateSettings(CefSettings* settings) {
-//###_FIND_NEXT_LANDMARK 3
-CefString(&settings->cache_path) =
-//###_FIND_NEXT_LANDMARK 3
-command_line_->GetSwitchValue(switches::kCachePath);
-//###_APPEND_START 3
-if (this->myMxCallback_) {
-//send direct setting? 
-this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
-}
-//###_APPEND_STOP

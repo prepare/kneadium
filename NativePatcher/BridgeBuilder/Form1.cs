@@ -80,7 +80,7 @@ namespace BridgeBuilder
                 SetCurrentPreset((PatcherPreset)cmbCefSrcFolder.SelectedItem);
 
             };
-            cmbCefSrcFolder.SelectedIndex = 0; //set default
+            cmbCefSrcFolder.SelectedIndex = 1; //set default
         }
         private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
         {
