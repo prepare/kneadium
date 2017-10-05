@@ -1,0 +1,24 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//client_handler_osr.cc
+//###_START 10
+void ClientHandlerOsr::OnPaint(CefRefPtr<CefBrowser> browser,
+//###_FIND_NEXT_LANDMARK 10
+CEF_REQUIRE_UI_THREAD();
+//###_FIND_NEXT_LANDMARK 10
+if (!osr_delegate_)
+//###_FIND_NEXT_LANDMARK 10
+return;
+//###_APPEND_START 10
+//my extension ***
+if (this->mcallback_)
+{
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+args.SetArgAsNativeObject(0, buffer);
+args.SetArgAsInt32(1, width);
+args.SetArgAsInt32(2, height);
+mcallback_(CEF_MSG_OSR_Render, &args);
+if (args.ReadOutputAsInt32(0) != 0) {
+return;
+}
+}
+//###_APPEND_STOP
