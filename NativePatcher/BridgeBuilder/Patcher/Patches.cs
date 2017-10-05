@@ -1191,11 +1191,22 @@ namespace BridgeBuilder
     {
         public EnvName EnvName { get; set; }
         public string CefSrcFolder { get; set; }
+        /// <summary>
+        /// path to newly create patch
+        /// </summary>
         public string NewlyCreatedPatchSaveToFolder { get; set; }
+        /// <summary>
+        /// path to patch folder
+        /// </summary>
+        public string PatchFolder { get; set; }
         /// <summary>
         /// this is a project subfolder that will push newly created patch to github 
         /// </summary>
         public string Backup_NativePatcherFolder { get; set; }
+        /// <summary>
+        /// this project NativeBridge folder
+        /// </summary>
+        public string ProjectNativePatcher_BridgeFolder { get; set; }
         public override string ToString()
         {
             return CefSrcFolder;
