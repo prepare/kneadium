@@ -112,10 +112,10 @@ namespace BridgeBuilder
             }
             return input.GetLine(0).StartsWith(patchCode);
         }
-        public string PacthResultMsg { get; set; }
+        public string PatchingMsg { get; set; }
         public void PatchContent()
         {
-            PacthResultMsg = null;
+            PatchingMsg = null;
             //1. check if file is exist
             string originalFilename = this.OriginalFileName;
             if (!File.Exists(originalFilename))
@@ -133,7 +133,7 @@ namespace BridgeBuilder
             {
                 //can't patch
                 //throw new NotSupportedException("not patch again in this file");
-                PacthResultMsg = this.OriginalFileName + " => has be patched, so skip this file";
+                PatchingMsg = this.OriginalFileName + " => has be patched, so skip this file";
                 return;
             }
             else
