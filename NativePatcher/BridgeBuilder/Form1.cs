@@ -52,7 +52,7 @@ namespace BridgeBuilder
             //-----------
 
             //
-            SetCurrentPreset(_patcherPresets[0]);//default             
+            SetCurrentPreset(_patcherPresets[1]);//default             
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
