@@ -52,7 +52,7 @@ namespace BridgeBuilder
             //-----------
 
             //
-            SetCurrentPreset(_patcherPresets[1]);//default             
+           
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
@@ -74,15 +74,13 @@ namespace BridgeBuilder
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            cmbCefSrcFolder.Items.AddRange(_patcherPresets.ToArray());
-            cmbCefSrcFolder.SelectedIndex = 0; //set default
-
-            //
+            cmbCefSrcFolder.Items.AddRange(_patcherPresets.ToArray()); 
             cmbCefSrcFolder.SelectedIndexChanged += (s1, e1) =>
             {
                 SetCurrentPreset((PatcherPreset)cmbCefSrcFolder.SelectedItem);
 
             };
+            cmbCefSrcFolder.SelectedIndex = 0; //set default
         }
         private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
         {
