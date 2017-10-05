@@ -169,10 +169,6 @@
       <Project>{198d20b3-0dbd-4c8c-8f0d-0d0fd9c61d43}</Project>
       <Name>PixelFarm.NativeWindows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CefBridge\CefBridge.csproj">
-      <Project>{92688da6-2690-485b-96b6-c99b8c4490ec}</Project>
-      <Name>CefBridge</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
