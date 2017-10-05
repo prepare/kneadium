@@ -1191,11 +1191,69 @@ namespace BridgeBuilder
     {
         public EnvName EnvName { get; set; }
         public string CefSrcFolder { get; set; }
-
+        public string NewlyCreatedPatchSaveToFolder { get; set; }
+        /// <summary>
+        /// this is a project subfolder that will push newly created patch to github 
+        /// </summary>
+        public string NewlyCreatedPatchBackupFolder { get; set; }
         public override string ToString()
         {
             return CefSrcFolder;
         }
+    }
+
+    public static class FolderUtils
+    {
+        /// <summary>
+        /// copy a single file and place (overwrite) into destination target folder
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="destTargetFolder"></param>
+        public static void CopyFile(string filename, string destTargetFolder)
+        {
+            string onlyFileName = System.IO.Path.GetFileName(filename);
+            System.IO.File.Copy(filename, destTargetFolder + "//" + onlyFileName, true);
+        }
+        public static void CopyFolder(string srcFolder, string intoTargetFolder)
+        {
+            //force update
+            //copy files
+            string folderName = System.IO.Path.GetFileName(srcFolder);
+            string targetFolder = intoTargetFolder + "\\" + folderName;
+            if (System.IO.Directory.Exists(targetFolder))
+            {
+                //delete
+                System.IO.Directory.Delete(targetFolder, true);
+            }
+            System.IO.Directory.CreateDirectory(targetFolder);
+            //
+            //copy file
+            CopyFileInFolder(srcFolder, targetFolder);
+            //
+            string[] subDirs = System.IO.Directory.GetDirectories(srcFolder);
+
+            int j = subDirs.Length;
+            for (int i = 0; i < j; ++i)
+            {
+                CopyFolder(subDirs[i], targetFolder);
+            }
+        }
+
+        public static void CopyFileInFolder(string srcFolder, string targetFolder)
+        {
+            //not recursive
+            if (srcFolder == targetFolder)
+            {
+                throw new NotSupportedException();
+            }
+            string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
+            foreach (var f in srcFiles)
+            {
+                System.IO.File.Copy(f,
+                    targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
+            }
+        }
+
     }
 
 }
