@@ -254,8 +254,11 @@ namespace BridgeBuilder
                     }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
-                //string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
                 string replaceName = org_cefclient_test_folder + rightSide;
+                if (onlyFileName.Contains("performance_test.cc"))
+                {
+
+                }
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;
                 pfile.PatchContent();
             }
