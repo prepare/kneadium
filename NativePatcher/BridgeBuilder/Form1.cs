@@ -55,16 +55,14 @@ namespace BridgeBuilder
         }
         CodeCompilationUnit Parse(string srcFile)
         {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
-            //
+
             Cef3FileParser headerParser = new Cef3FileParser();
             headerParser.Parse(srcFile);
             return headerParser.Result;
         }
         CodeCompilationUnit Parse(string srcFile, IEnumerable<string> lines)
         {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
-            //
+
             Cef3FileParser headerParser = new Cef3FileParser();
             headerParser.Parse(srcFile, lines);
             return headerParser.Result;
@@ -324,7 +322,6 @@ namespace BridgeBuilder
         private void button2_Click(object sender, EventArgs e)
         {
             //cpp-to-c wrapper and c-to-cpp wrapper
-            //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
 
             string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
 
