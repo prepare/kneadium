@@ -22,6 +22,8 @@ We also provide the samples / tests on
   
   2)  .net >=20, Glfw3 without WinForms
   
+  more screenshots => see https://github.com/prepare/kneadium/issues/9
+  
 ---
  
 .netcore 2.0 on macOS screen snap is coming soon
