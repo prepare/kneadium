@@ -25,9 +25,13 @@ We also provide a sample / test on .net >=20 + WinForms
 _pic 2: test screen, x64 + netcore 2.0 + Glfw3_
 
  
-
+ 
+---
+ 
+.netcore 2.0 on macOS screen snap is coming soon
 
 :)
+
 
 ---
 
