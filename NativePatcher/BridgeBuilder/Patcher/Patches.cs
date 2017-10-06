@@ -73,6 +73,7 @@ namespace BridgeBuilder
     {
 
         List<PatchTask> patchTasks = new List<PatchTask>();
+        string _orgFileName;
         public PatchFile(string originalFilename)
         {
             this.PatchFileName = this.OriginalFileName = originalFilename;
@@ -85,8 +86,15 @@ namespace BridgeBuilder
         }
         public string OriginalFileName
         {
-            get;
-            set;
+            get { return _orgFileName; }
+            set
+            {
+                if (value.Contains("win32"))
+                {
+
+                }
+                _orgFileName = value;
+            }
         }
         public override string ToString()
         {
@@ -112,10 +120,10 @@ namespace BridgeBuilder
             }
             return input.GetLine(0).StartsWith(patchCode);
         }
-        public string PacthResultMsg { get; set; }
+        public string PatchingMsg { get; set; }
         public void PatchContent()
         {
-            PacthResultMsg = null;
+            PatchingMsg = null;
             //1. check if file is exist
             string originalFilename = this.OriginalFileName;
             if (!File.Exists(originalFilename))
@@ -133,7 +141,7 @@ namespace BridgeBuilder
             {
                 //can't patch
                 //throw new NotSupportedException("not patch again in this file");
-                PacthResultMsg = this.OriginalFileName + " => has be patched, so skip this file";
+                PatchingMsg = this.OriginalFileName + " => has be patched, so skip this file";
                 return;
             }
             else
@@ -1239,11 +1247,18 @@ namespace BridgeBuilder
                 return this.Backup_NativePatcher_Folder + "\\BridgeBuilder";
             }
         }
-        public string Backup_NativePatcher_DevSnapFolder
+        public string Backup_NativePatcher_BridgeBuilder_DevSnapFolder
         {
             get
             {
                 return this.Backup_NativePatcher_Folder + "\\BridgeBuilder\\dev_snap";
+            }
+        }
+        public string Backup_NativePatcher_BridgeBuilder_DevSnapFolder_TempPatches
+        {
+            get
+            {
+                return this.Backup_NativePatcher_Folder + "\\BridgeBuilder\\dev_snap\\temp_patches";
             }
         }
         public override string ToString()

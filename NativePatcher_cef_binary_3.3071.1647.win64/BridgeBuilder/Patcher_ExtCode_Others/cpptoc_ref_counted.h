@@ -11,12 +11,16 @@
 #include "include/capi/cef_base_capi.h"
 #include "include/cef_base.h"
 #include "libcef_dll/wrapper_types.h"
+#include "libcef_dll/myext/myext.h"
 
 // Wrap a C++ class with a C structure.  This is used when the class
 // implementation exists on this side of the DLL boundary but will have methods
 // called from the other side of the DLL boundary.
 template <class ClassName, class BaseName, class StructName>
 class CefCppToCRefCounted : public CefBaseRefCounted {
+
+
+
  public:
   // Create a new wrapper instance and associated structure reference for
   // passing an object instance the other side.
@@ -67,6 +71,7 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
     DCHECK_EQ(kWrapperType, wrapperStruct->type_);
     return wrapperStruct->object_;
   }
+   
 
   // If returning the structure across the DLL boundary you should call
   // AddRef() on this CefCppToCRefCounted object. On the other side of the DLL
@@ -88,6 +93,12 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
     return false;
   }
   bool HasOneRef() const { return UnderlyingHasOneRef(); }
+  //////////
+  //kneadium extension
+  managed_callback GetManagedCallBack(int callerCode) const {
+	  return UnderlyingGetManagedCallback(callerCode);
+  }
+  //////////   
 
 #if DCHECK_IS_ON()
   // Simple tracking of allocated objects.
@@ -117,17 +128,18 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
     base::AtomicRefCountDec(&DebugObjCt);
 #endif
   }
-
+   
+  //---------------
  private:
-  // Used to associate this wrapper object, the underlying object instance and
-  // the structure that will be passed to the other side.
+	 // Used to associate this wrapper object, the underlying object instance and
+	 // the structure that will be passed to the other side.
   struct WrapperStruct {
-    CefWrapperType type_;
-    BaseName* object_;
-    CefCppToCRefCounted<ClassName, BaseName, StructName>* wrapper_;
-    StructName struct_;
-  };
-
+		 CefWrapperType type_;
+		 BaseName* object_;
+		 CefCppToCRefCounted<ClassName, BaseName, StructName>* wrapper_;
+		 StructName struct_;
+	 };
+	 //---------------
   static WrapperStruct* GetWrapperStruct(StructName* s) {
     // Offset using the WrapperStruct size instead of individual member sizes
     // to avoid problems due to platform/compiler differences in structure
@@ -146,7 +158,12 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
   bool UnderlyingHasOneRef() const {
     return wrapper_struct_.object_->HasOneRef();
   }
-
+  //////////
+  //kneadium extension
+  managed_callback UnderlyingGetManagedCallback(int callerCode) const {
+	  return wrapper_struct_.object_->GetManagedCallBack(callerCode);
+  }
+  //////////
   static void CEF_CALLBACK struct_add_ref(cef_base_ref_counted_t* base) {
     DCHECK(base);
     if (!base)

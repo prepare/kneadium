@@ -34,7 +34,9 @@ class CefCToCppRefCounted : public BaseName {
   }
   bool Release() const;
   bool HasOneRef() const { return UnderlyingHasOneRef(); }
-
+  //###_BEGIN
+  managed_callback GetManagedCallBack(int callerCode) const { return UnderlyingGetManagedCallBack(callerCode); }
+  //###_END
 #if DCHECK_IS_ON()
   // Simple tracking of allocated objects.
   static base::AtomicRefCount DebugObjCt;
@@ -58,6 +60,7 @@ class CefCToCppRefCounted : public BaseName {
     WrapperStruct* wrapperStruct = GetWrapperStruct(this);
     // Verify that the wrapper offset was calculated correctly.
     DCHECK_EQ(kWrapperType, wrapperStruct->type_);
+	 
     return wrapperStruct->struct_;
   }
 
@@ -94,7 +97,11 @@ class CefCToCppRefCounted : public BaseName {
       return false;
     return base->has_one_ref(base) ? true : false;
   }
-
+  //###_BEGIN
+  managed_callback UnderlyingGetManagedCallBack(int callerCode) const {
+	  return NULL; // CefCToCpp dose not have managed_callback
+  }
+  //###_END
   CefRefCount ref_count_;
 
   static CefWrapperType kWrapperType;
@@ -154,6 +161,7 @@ bool CefCToCppRefCounted<ClassName, BaseName, StructName>::Release() const {
   UnderlyingRelease();
   if (ref_count_.Release()) {
     WrapperStruct* wrapperStruct = GetWrapperStruct(this);
+	
     // Verify that the wrapper offset was calculated correctly.
     DCHECK_EQ(kWrapperType, wrapperStruct->type_);
     delete wrapperStruct;

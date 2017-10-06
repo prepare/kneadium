@@ -34,6 +34,7 @@
 #include "include/base/cef_atomic_ref_count.h"
 #include "include/base/cef_build.h"
 #include "include/base/cef_macros.h"
+#include "libcef_dll/myext/myext.h"
 
 // Bring in common C++ type definitions used by CEF consumers.
 #include "include/internal/cef_ptr.h"
@@ -67,6 +68,7 @@ class CefBaseRefCounted {
   // Returns true if the reference count is 1.
   ///
   virtual bool HasOneRef() const = 0;
+  virtual managed_callback GetManagedCallBack(int callerCode) const = 0;
 
  protected:
   virtual ~CefBaseRefCounted() {}
@@ -112,6 +114,27 @@ class CefRefCount {
 // CefBase.
 ///
 #define IMPLEMENT_REFCOUNTING(ClassName)                             \
+ public:                                                             \
+  void AddRef() const OVERRIDE { ref_count_.AddRef(); }              \
+  bool Release() const OVERRIDE {                                    \
+    if (ref_count_.Release()) {                                      \
+      delete static_cast<const ClassName*>(this);                    \
+      return true;                                                   \
+    }                                                                \
+    return false;                                                    \
+  }                                                                  \
+  bool HasOneRef() const OVERRIDE { return ref_count_.HasOneRef(); } \
+  managed_callback GetManagedCallBack(int callerCode) const OVERRIDE { return myext_mcallback; } \
+                                                                     \
+ private:                                                            \
+  managed_callback myext_mcallback= NULL;\
+  CefRefCount ref_count_;
+ 
+///
+// Macro that provides a reference counting implementation for classes extending
+// CefBase.
+///
+#define IMPLEMENT_REFCOUNTING_NOCALLBACK(ClassName)                  \
  public:                                                             \
   void AddRef() const OVERRIDE { ref_count_.AddRef(); }              \
   bool Release() const OVERRIDE {                                    \

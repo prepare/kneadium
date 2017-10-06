@@ -19,10 +19,19 @@ We also provide a sample / test on .net >=20 + WinForms
 
 ---
 
-.net core screen snap  is coming soon.
 
+![kn_snap_glfw_netcore20_pic2](https://user-images.githubusercontent.com/7447159/31279204-6b00f5ba-aad2-11e7-8d8e-d62abf79f659.png)
+
+_pic 2: test screen, x64 + netcore 2.0 + Glfw3_
+
+ 
+ 
+---
+ 
+.netcore 2.0 on macOS screen snap is coming soon
 
 :)
+
 
 ---
 
