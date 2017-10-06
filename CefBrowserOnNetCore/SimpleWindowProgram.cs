@@ -86,7 +86,7 @@ namespace TestGlfw
                 {
                     if (cefBrowser.IsBrowserCreated)
                     {
-                        cefBrowser.NavigateTo("https://google.com");
+                        cefBrowser.NavigateTo("https://html5test.com");
                         isCreated = true;
                     }
                 }

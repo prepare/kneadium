@@ -19,10 +19,6 @@ namespace BridgeBuilder
             get;
             set;
         }
-        PatchFile CreatePathFile(string filename)
-        {
-            return new PatchFile(RootDir + "\\" + filename);
-        }
 
         public void Do_CefClient_CMake_txt()
         {
@@ -67,7 +63,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
         public void Do_LibCefDll_CMake_txt(string cmakeSrc)
         {
-            
+
             var patch = new PatchFile(cmakeSrc);
 
             patch.NewTask("set(CEF_TARGET libcef_dll_wrapper)")
@@ -84,7 +80,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
             //===================
             patch.NewTask("add_library(${CEF_TARGET}")
-                .FindNext("${LIBCEF_WRAPPER_SRCS}")                 
+                .FindNext("${LIBCEF_WRAPPER_SRCS}")
                 .Append("${LIBCEF_MYEXT_SRCS}");
             //===================
             patch.NewTask("# Mac OS X configuration.")
@@ -98,7 +94,7 @@ set(CEFCLIENT_MYCEF_SRCS
              .Append("${LIBCEF_MYEXT_SRCS}");
 
             patch.PatchContent();
-        } 
+        }
 
     }
 }

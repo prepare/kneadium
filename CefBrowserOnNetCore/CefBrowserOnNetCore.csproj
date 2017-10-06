@@ -7,14 +7,17 @@
   </PropertyGroup>
    
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Prefer32Bit>true</Prefer32Bit>
-    <DefineConstants>TRACE;DEBUG;NO_WINFORMS;;NETCOREAPP2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NO_WINFORMS</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;RELEASE,NETCOREAPP2_0,NO_WINFORMS,</DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\netcoreapp2.0\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

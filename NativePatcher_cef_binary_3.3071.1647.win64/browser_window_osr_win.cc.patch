@@ -1,0 +1,30 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//browser_window_osr_win.cc
+//###_BEGIN 0
+//###_PRE
+client_handler_ = new ClientHandlerOsr(this, osr_window_.get(), startup_url);
+//###_PRE
+}
+void BrowserWindowOsrWin::ClientClose() const {
+REQUIRE_MAIN_THREAD();
+if (osr_window_) {
+osr_window_->closing1_ = true;
+}
+}
+//###_POST
+void BrowserWindowOsrWin::CreateBrowser(
+//###_POST
+ClientWindowHandle parent_handle,
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+// Create the new browser and native window on the UI thread.
+//###_PRE
+RECT wnd_rect = {rect.x, rect.y, rect.x + rect.width, rect.y + rect.height};
+if (this->client_handler_->mcallback_) {
+osr_window_->border_visible_ = false;
+}
+//###_POST
+osr_window_->CreateBrowser(parent_handle, wnd_rect, client_handler_, settings,
+//###_POST
+request_context, client_handler_->startup_url());
+//###_END 0
