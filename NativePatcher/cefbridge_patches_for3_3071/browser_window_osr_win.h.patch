@@ -1,6 +1,0 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window_osr_win.h
-//###_START 1
-ClientWindowHandle GetWindowHandle() const OVERRIDE;
-//###_APPEND_START 1
-void ClientClose() const OVERRIDE;
-//###_APPEND_STOP
