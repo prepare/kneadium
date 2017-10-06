@@ -517,7 +517,7 @@ void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
 		arr[i].ptr = cefStr.c_str();
 		arr[i].type = JSVALUE_TYPE_STRING;
 	}
-	ret->i32 = sizeCount;
+	ret->i32 = (int32_t) sizeCount;
 	ret->ptr = arr;
 	ret->type = JSVALUE_TYPE_ARRAY;
 }
@@ -530,7 +530,7 @@ void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
 		arr[i].i64 = int64list[i];
 		arr[i].type = JSVALUE_TYPE_INTEGER64;
 	}
-	ret->i32 = sizeCount;
+	ret->i32 = (int32_t)sizeCount;
 	ret->ptr = arr;
 	ret->type = JSVALUE_TYPE_ARRAY;
 }
@@ -670,7 +670,7 @@ void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
 		CefString cefstr = ((std::vector<CefString>*)list)->at(index);
 		myCefStringHolder->value = cefstr;
 		jsvalue->ptr = myCefStringHolder;
-		jsvalue->i32 = cefstr.length();
+		jsvalue->i32 = (int32_t)cefstr.length();
 		break;
 	}
 	case 3:

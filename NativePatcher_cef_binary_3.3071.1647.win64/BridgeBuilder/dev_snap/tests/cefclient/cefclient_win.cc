@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient//cefclient_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient//cefclient_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -38,124 +38,147 @@
 #endif
 
 namespace client {
-namespace {
+	namespace {
 
-int RunMain(HINSTANCE hInstance, int nCmdShow) {
-  // Enable High-DPI support on Windows 7 or newer.
-  CefEnableHighDPISupport();
+		int RunMain(HINSTANCE hInstance, int nCmdShow) {
+			// Enable High-DPI support on Windows 7 or newer.
+			CefEnableHighDPISupport();
 
-  CefMainArgs main_args(hInstance);
+			CefMainArgs main_args(hInstance);
 
-  void* sandbox_info = NULL;
+			void* sandbox_info = NULL;
 
 #if defined(CEF_USE_SANDBOX)
-  // Manage the life span of the sandbox information object. This is necessary
-  // for sandbox support on Windows. See cef_sandbox_win.h for complete details.
-  CefScopedSandboxInfo scoped_sandbox;
-  sandbox_info = scoped_sandbox.sandbox_info();
+			// Manage the life span of the sandbox information object. This is necessary
+			// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+			CefScopedSandboxInfo scoped_sandbox;
+			sandbox_info = scoped_sandbox.sandbox_info();
 #endif
 
-  // Parse command-line arguments.
-  CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-  command_line->InitFromString(::GetCommandLineW());
+			// Parse command-line arguments.
+			CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+			command_line->InitFromString(::GetCommandLineW());
 
-  // Create a ClientApp of the correct type.
-  CefRefPtr<CefApp> app;
-  ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
-  if (process_type == ClientApp::BrowserProcess)
-    app = new ClientAppBrowser();
-  else if (process_type == ClientApp::RendererProcess)
-    app = new ClientAppRenderer();
-  else if (process_type == ClientApp::OtherProcess)
-    app = new ClientAppOther();
+			// Create a ClientApp of the correct type.
+			CefRefPtr<CefApp> app;
+			ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+			if (process_type == ClientApp::BrowserProcess)
+				app = new ClientAppBrowser();
+			else if (process_type == ClientApp::RendererProcess)
+				app = new ClientAppRenderer();
+			else if (process_type == ClientApp::OtherProcess)
+				app = new ClientAppOther();
 
-  // Execute the secondary process, if any.
-  int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
-  if (exit_code >= 0)
-    return exit_code;
+			// Execute the secondary process, if any.
+			int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+			if (exit_code >= 0)
+				return exit_code;
 
-  // Create the main context object.
-  scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+			// Create the main context object.
+			scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 
-  CefSettings settings;
+			CefSettings settings;
 
 #if !defined(CEF_USE_SANDBOX)
-  settings.no_sandbox = true;
+			settings.no_sandbox = true;
 #endif
 
-  // Populate the settings based on command line arguments.
-  context->PopulateSettings(&settings);
+			// Populate the settings based on command line arguments.
+			context->PopulateSettings(&settings);
 
-  // Create the main message loop object.
-  scoped_ptr<MainMessageLoop> message_loop;
-  if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
-  else if (settings.external_message_pump)
-    message_loop = MainMessageLoopExternalPump::Create();
-  else
-    message_loop.reset(new MainMessageLoopStd);
+			// Create the main message loop object.
+			scoped_ptr<MainMessageLoop> message_loop;
+			if (settings.multi_threaded_message_loop)
+				message_loop.reset(new MainMessageLoopMultithreadedWin);
+			/*	else if (settings.external_message_pump)
+					message_loop = MainMessageLoopExternalPump::Create();
+				else
+					message_loop.reset(new MainMessageLoopStd);*/
 
-  // Initialize CEF.
-  context->Initialize(main_args, settings, app, sandbox_info);
+					// Initialize CEF.
+			context->Initialize(main_args, settings, app, sandbox_info);
 
-  // Register scheme handlers.
-  test_runner::RegisterSchemeHandlers();
+			// Register scheme handlers.
+			test_runner::RegisterSchemeHandlers();
 
-  // Create the first window.
-  context->GetRootWindowManager()->CreateRootWindow(
-      !command_line->HasSwitch(switches::kHideControls),  // Show controls.
-      settings.windowless_rendering_enabled ? true : false,
-      CefRect(),       // Use default system size.
-      std::string());  // Use default URL.
+			// Create the first window.
+			context->GetRootWindowManager()->CreateRootWindow(
+				!command_line->HasSwitch(switches::kHideControls),  // Show controls.
+				settings.windowless_rendering_enabled ? true : false,
+				CefRect(),       // Use default system size.
+				std::string());  // Use default URL.
 
-  // Run the message loop. This will block until Quit() is called by the
-  // RootWindowManager after all windows have been destroyed.
-  int result = message_loop->Run();
+			// Run the message loop. This will block until Quit() is called by the
+			// RootWindowManager after all windows have been destroyed.
+			int result = message_loop->Run();
 
-  // Shut down CEF.
-  context->Shutdown();
+			// Shut down CEF.
+			context->Shutdown();
 
-  // Release objects in reverse order of creation.
-  message_loop.reset();
-  context.reset();
+			// Release objects in reverse order of creation.
+			message_loop.reset();
+			context.reset();
 
-  return result;
-}
+			return result;
+		}
 
-}  // namespace
+	}  // namespace
 }  // namespace client
 
 //###_BEGIN
 void MyCefStringGetRawPtr1(void* cefstring, char16** outputBuffer, int* actualLength) {
-CefString* cefStr = (CefString*)cefstring;
-*actualLength = (int)cefStr->length();
-*outputBuffer = (char16*)cefStr->c_str();;
+	CefString* cefStr = (CefString*)cefstring;
+	*actualLength = (int)cefStr->length();
+	*outputBuffer = (char16*)cefStr->c_str();;
 }
 void TestSetArgs(MyMetArgsN* metArgs) {
-jsvalue* a1 = &metArgs->vargs[1];
-char16* tmpArr = NULL;
-int actualLen = 0; 
-MyCefStringGetRawPtr1((void*)a1->ptr, &tmpArr, &actualLen);
+	jsvalue* a1 = &metArgs->vargs[1];
+	char16* tmpArr = NULL;
+	int actualLen = 0;
+	MyCefStringGetRawPtr1((void*)a1->ptr, &tmpArr, &actualLen);
+}
+
+inline void SetCefStringToJsValueX(void* metArgs, const CefString&cefstr) {
+
+	MyCefStringHolder* str = new MyCefStringHolder();
+	str->value = cefstr;
+
+	MyMetArgsN* metArgs2 = (MyMetArgsN*)metArgs;
+	metArgs2->vargs[0].i32 = 10;
+	//
+
+	int8_t* h = (int8_t*)metArgs;
+	void* jsarr_start = (void*)(h + 4);
+	jsvalue** addr_to_jsarr = (jsvalue**)jsarr_start;
+	jsvalue* arr = *(addr_to_jsarr);
+	arr->i32 = 10;
+
+};
+
+void TestSetArgs2(MyMetArgsN* metArgs) {
+
 }
 //###_END
 
 // Program entry point function.
 int APIENTRY wWinMain(HINSTANCE hInstance,
-                      HINSTANCE hPrevInstance,
-                      LPTSTR lpCmdLine,
-                      int nCmdShow) {
-  UNREFERENCED_PARAMETER(hPrevInstance);
-  UNREFERENCED_PARAMETER(lpCmdLine);
-//###_BEGIN
-//simple test args
-INIT_MY_MET_ARGS(args, 1);
-std::string tt = "hello!";
-CefString t2 = tt;
-SetCefStringToJsValue2(&vargs[1], t2);
-TestSetArgs(&args);
-//###_END
+	HINSTANCE hPrevInstance,
+	LPTSTR lpCmdLine,
+	int nCmdShow) {
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+	//###_BEGIN
+	//simple test args
+	INIT_MY_MET_ARGS(args, 1);
+	std::string tt = "hello!";
+	CefString t2 = tt;
+	SetCefStringToJsValueX(&args, t2);
 
-  return client::RunMain(hInstance, nCmdShow);
+	SetCefStringToJsValue2(&vargs[1], t2);
+	TestSetArgs(&args);
+	//###_END
+
+	return client::RunMain(hInstance, nCmdShow);
 }
 //###_BEGIN
 #endif //BUILD_TEST

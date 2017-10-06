@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//main_context_impl.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//main_context_impl.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -112,8 +112,8 @@ std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
 if (this->myMxCallback_) {
 
-INIT_MY_MET_ARGS(metArgs, 0)
-this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+	INIT_MY_MET_ARGS(metArgs, 2)
+	this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
 
 auto bufferHolder = GetBufferHolder(&vargs[0]);
 std::string str = std::string(bufferHolder->buffer);

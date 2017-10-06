@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\renderer//performance_test.cc
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -20,55 +20,56 @@
 namespace client {
 namespace performance_test {
 
-//###_BEGIN 
-	class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
-	public:
-		MyCefRenderDelegate() {}
+//###_BEGIN
+class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
+public:
+MyCefRenderDelegate() {}
 
-		virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-			CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			CefRefPtr<CefV8Context> context) OVERRIDE {
-			if (app->myMxCallback_) {
-				app.get();
-				browser.get();
-				frame.get();
-				context.get();
-				CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
-			}
+virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
+CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+CefRefPtr<CefV8Context> context) OVERRIDE {
+if (app->myMxCallback_) {
+app.get();
+browser.get();
+frame.get();
+context.get();
+CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
+}
 
-			//if (app->myMxCallback_) {
-			//	//expose all to managed side
-			//	//browser,frame and context ?  
-			//	INIT_MY_MET_ARGS(metArgs, 4)
-			//	MyCefSetVoidPtr2(&vargs[1], app.get());
-			//	MyCefSetVoidPtr2(&vargs[2], browser.get());
-			//	MyCefSetVoidPtr2(&vargs[3], frame.get());
-			//	MyCefSetVoidPtr2(&vargs[4], context.get());
-			//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, &metArgs);
-			//}
-		}
-		virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
-			if (app->myMxCallback_) {
-				CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
-			}
-		}
-		virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
-			CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			CefRefPtr<CefV8Context> context) {
-			if (app->myMxCallback_)
-			{
-				CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context);
+//if (app->myMxCallback_) {
+//	//expose all to managed side
+//	//browser,frame and context ?  
+//	INIT_MY_MET_ARGS(metArgs, 4)
+//	MyCefSetVoidPtr2(&vargs[1], app.get());
+//	MyCefSetVoidPtr2(&vargs[2], browser.get());
+//	MyCefSetVoidPtr2(&vargs[3], frame.get());
+//	MyCefSetVoidPtr2(&vargs[4], context.get());
+//	app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, &metArgs);
+//}
+}
+virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
+if (app->myMxCallback_) {
+CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
+}
+}
+virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+CefRefPtr<CefV8Context> context) {
+if (app->myMxCallback_)
+{
+CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context);
 
-			}
-		}
-	private:
-		IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
-	};
+}
+}
+private:
+IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
+};
 #if BUILD_TEST
-	
+
 //###_END
+
 // Use more interations for a Release build.
 #if DCHECK_IS_ON()
 const int kDefaultIterations = 100000;
@@ -214,12 +215,14 @@ class RenderDelegate : public ClientAppRenderer::Delegate {
 void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
   delegates.insert(new RenderDelegate);
 }
-//###_BEGIN 
+
+//###_BEGIN
 #else
 void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-  delegates.insert(new MyCefRenderDelegate);
+delegates.insert(new MyCefRenderDelegate);
 }
 #endif
 //###_END
+
 }  // namespace performance_test
 }  // namespace client
