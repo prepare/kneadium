@@ -21,31 +21,31 @@ namespace BridgeBuilder
         {
             InitializeComponent();
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
-            string bridgeBuilderRootFolder = @"d:\projects\kneadium";
+            string f_projects_kneadium = @"d:\projects\kneadium";
 
             //-----------
             {
-                string cef_ver = "cef_binary_3.3071.1647.win32";
+                string f_cef_bin = "cef_binary_3.3071.1647.win32";
                 _patcherPresets.Add(
                      new PatcherPreset()
                      {
                          EnvName = EnvName.Win32,
-                         CefSrcFolder = @"D:\projects\" + cef_ver,
-                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + cef_ver,
-                         Backup_NativePatcher_Folder = bridgeBuilderRootFolder + @"\NativePatcher_" + cef_ver,
+                         CefSrcFolder = @"D:\projects\" + f_cef_bin,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
+                         Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
                      }
                 );
             }
             //-----------
             {
-                string cef_ver = "cef_binary_3.3071.1647.win64";
+                string f_cef_bin = "cef_binary_3.3071.1647.win64";
                 _patcherPresets.Add(
                      new PatcherPreset()
                      {
                          EnvName = EnvName.Win64,
-                         CefSrcFolder = @"D:\projects\" + cef_ver,
-                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + cef_ver,
-                         Backup_NativePatcher_Folder = bridgeBuilderRootFolder + @"\NativePatcher_" + cef_ver,
+                         CefSrcFolder = @"D:\projects\" + f_cef_bin,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
+                         Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
                      }
                 );
             }
@@ -306,6 +306,7 @@ namespace BridgeBuilder
         //EXPERIMENT!
         private void cmdMacApplyPatches_Click(object sender, EventArgs e)
         {
+            throw new NotSupportedException();
 
             //EXPERIMENT!
             //cef_binary_3.3071.1647 
@@ -346,7 +347,7 @@ namespace BridgeBuilder
             }
 
 
-            throw new NotSupportedException();
+           
 
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";

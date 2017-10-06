@@ -73,6 +73,7 @@ namespace BridgeBuilder
     {
 
         List<PatchTask> patchTasks = new List<PatchTask>();
+        string _orgFileName;
         public PatchFile(string originalFilename)
         {
             this.PatchFileName = this.OriginalFileName = originalFilename;
@@ -85,8 +86,15 @@ namespace BridgeBuilder
         }
         public string OriginalFileName
         {
-            get;
-            set;
+            get { return _orgFileName; }
+            set
+            {
+                if (value.Contains("win32"))
+                {
+
+                }
+                _orgFileName = value;
+            }
         }
         public override string ToString()
         {
