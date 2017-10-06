@@ -23,9 +23,9 @@ namespace LayoutFarm.CefBridge
                 @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
 #endif
 
-            ReferencePaths.LIB_PATH = is64BitsApp ?
-                @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release" :
-                @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
+            //ReferencePaths.LIB_PATH = is64BitsApp ?
+            //    @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release" :
+            //    @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
 
             //ReferencePaths.LIB_PATH = @"D:\projects\kneadium\bin\Release"; //test
             ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
