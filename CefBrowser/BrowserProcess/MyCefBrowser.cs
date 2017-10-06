@@ -502,8 +502,8 @@ namespace LayoutFarm.CefBridge
         {
             Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New((id, ptr) =>
             {
-                NativeCallArgs args = new NativeCallArgs(ptr);
-                var text = args.GetArgAsString(1);
+                //NativeCallArgs args = new NativeCallArgs(ptr);
+                //var text = args.GetArgAsString(1);
             });
 
             using (var bw = _myCefBw.GetBrowser())
@@ -514,8 +514,8 @@ namespace LayoutFarm.CefBridge
 
                 Auto.CefStringVisitor visitor2 = Auto.CefStringVisitor.New((id, ptr) =>
                 {
-                    NativeCallArgs args = new NativeCallArgs(ptr);
-                    var text = args.GetArgAsString(1);
+                    //NativeCallArgs args = new NativeCallArgs(ptr);
+                    //var text = args.GetArgAsString(1);
                 });
 
                 myframe.GetSource(visitor2);
