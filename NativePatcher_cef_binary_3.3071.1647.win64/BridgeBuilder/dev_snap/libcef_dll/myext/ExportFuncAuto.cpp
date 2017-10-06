@@ -505,14 +505,14 @@ void MyCefMet_CefBrowserHost(cef_browser_host_t* me1, int metName, jsvalue* ret,
 
 		// gen! CefWindowHandle GetWindowHandle()
 		auto ret_result = me->GetWindowHandle();
-		MyCefSetInt32(ret, (int32_t)ret_result);
+		MyCefSetVoidPtr2(ret, (void*)ret_result); 
 	} break;
 	case CefBrowserHost_GetOpenerWindowHandle_6: {
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,33
 
 		// gen! CefWindowHandle GetOpenerWindowHandle()
 		auto ret_result = me->GetOpenerWindowHandle();
-		MyCefSetInt32(ret, (int32_t)ret_result);
+		MyCefSetVoidPtr2(ret, (void*)ret_result);
 	} break;
 	case CefBrowserHost_HasView_7: {
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,34
