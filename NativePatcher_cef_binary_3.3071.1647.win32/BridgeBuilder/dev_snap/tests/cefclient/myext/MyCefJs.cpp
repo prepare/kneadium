@@ -112,19 +112,7 @@ void* MyCefJs_New_V8Handler2(managed_callback callback) {
 				CefV8HandlerExt::Execute(this->callback,
 					name, object, arguments, retval, exception
 				); 
-			}
-			//if (callback) {
-
-			//	INIT_MY_MET_ARGS(metArgs, 3)
-			//		MyCefSetVoidPtr(&vargs[1], object);
-			//	MyCefSetVoidPtr2(&vargs[2], &arguments);
-			//	MyCefSetInt32(&vargs[3], (int32_t)arguments.size());
-			//	//-------------------------------------------
-			//	callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
-			//	//check result
-			//	retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value);
-			//	//retval = CefV8Value::CreateString("Hello, world!");
-			//}
+			} 
 			return true;
 		}
 	private:

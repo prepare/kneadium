@@ -90,7 +90,7 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 		app_global = app;
 	}
 	else if (process_type == client::ClientApp::RendererProcess)
-	{
+	{  
 		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
 		app = new client::ClientAppRenderer();
 		app->myMxCallback_ = myMxCallback_;
