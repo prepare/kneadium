@@ -5742,6 +5742,7 @@ public:
 			CefV8InterceptorExt::get_bynameArgs args1(&name, object, &temp1, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_1, &args1.arg);
 			CefV8ValueCToCpp::Wrap(temp1);
+			retval = CefV8Value::CreateString("123");
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5750,11 +5751,12 @@ public:
 	//gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			 
+
 			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
 			CefV8InterceptorExt::get_byindexArgs args1(index, object, &temp1, &exception);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_2, &args1.arg);
 			CefV8ValueCToCpp::Wrap(temp1);
+			retval = CefV8Value::CreateString("456");
 			return args1.arg.myext_ret_value;
 		}
 		return false;

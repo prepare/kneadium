@@ -28,20 +28,17 @@ namespace LayoutFarm.CefBridge
         }
 
         void Test002(int id, IntPtr argsPtr)
-        {
-#if DEBUG
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-            Auto.CefV8Handler.ExecuteArgs ex = new CefV8Handler.ExecuteArgs(argsPtr);
-            ex.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
+        { 
+
+            CefV8Handler.ExecuteArgs args = new CefV8Handler.ExecuteArgs(argsPtr);
+            args.retval((Auto.CefV8Value.CreateString("hello from managed side " + DateTime.Now)).nativePtr);
 
         }
 
         public void OnContextCreated(CefRenderProcessHandler.OnContextCreatedArgs args)
         {
+
+            //eg  "<html><head><script>function docload(){ console.log(test001());console.log(test_myobj[\"12345\"]); console.log(test_myobj.myprop);}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>"
 
             dbugRenderProcessLog.WriteLine("context_created");
             CefV8Context context = args.context();
@@ -50,6 +47,27 @@ namespace LayoutFarm.CefBridge
             Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler2(Test002));
             var func = Auto.CefV8Value.CreateFunction("test001", funcHandler);
             cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
+
+            //create object
+
+            CefV8Accessor accessor = CefV8Accessor.New((id, argPtr) =>
+            {
+                //similar to C# property
+                CefV8Accessor.GetArgs arg = new CefV8Accessor.GetArgs(argPtr);
+                arg.retval(CefV8Value.CreateString("hello! from accessor").nativePtr);
+            });
+            CefV8Interceptor intercepter = CefV8Interceptor.New((id, argPtr) =>
+            {
+                //similar to C# indexer 
+                // 
+                CefV8Interceptor.get_bynameArgs arg = new CefV8Interceptor.get_bynameArgs(argPtr);
+                arg.retval(CefV8Value.CreateString("hello! from intercepter").nativePtr);
+            });
+
+            CefV8Value cef_object = CefV8Value.CreateObject(accessor, intercepter);
+            //set to global object
+            cefV8Global.SetValue("test_myobj", cef_object, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
+            
 
             dbugRenderProcessLog.WriteLine("context_created-pass");
         }

@@ -17,6 +17,8 @@ namespace client {
 void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
   renderer::CreateDelegates(delegates);
 //###_BEGIN
+  performance_test::CreateDelegates(delegates);
+
 #if BUILD_TEST
 
 //###_END
