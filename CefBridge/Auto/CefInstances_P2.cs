@@ -16,7 +16,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefResponseFilter : IDisposable
     {
-        const int _typeNAME = 28;
+        public const int _typeNAME = 28;
         const int CefResponseFilter_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefResponseFilter(IntPtr nativePtr)
@@ -35,8 +35,8 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefResponseFilter(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,229
-        const int MyCefResponseFilter_InitFilter_1 = 1;
-        const int MyCefResponseFilter_Filter_2 = 2;
+        public const int MyCefResponseFilter_InitFilter_1 = 1;
+        public const int MyCefResponseFilter_Filter_2 = 2;
         //gen! bool InitFilter()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,230
         /// <summary>
@@ -399,7 +399,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefSchemeHandlerFactory : IDisposable
     {
-        const int _typeNAME = 29;
+        public const int _typeNAME = 29;
         const int CefSchemeHandlerFactory_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefSchemeHandlerFactory(IntPtr nativePtr)
@@ -418,7 +418,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefSchemeHandlerFactory(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,246
-        const int MyCefSchemeHandlerFactory_Create_1 = 1;
+        public const int MyCefSchemeHandlerFactory_Create_1 = 1;
         //gen! CefRefPtr<CefResourceHandler> Create(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& scheme_name,CefRefPtr<CefRequest> request)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,247
         /// <summary>
@@ -580,10 +580,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefSSLInfo : IDisposable
     {
-        const int _typeNAME = 30;
+        public const int _typeNAME = 30;
         const int CefSSLInfo_Release_0 = (_typeNAME << 16) | 0;
-        const int CefSSLInfo_GetCertStatus_1 = (_typeNAME << 16) | 1;
-        const int CefSSLInfo_GetX509Certificate_2 = (_typeNAME << 16) | 2;
+        public const int CefSSLInfo_GetCertStatus_1 = (_typeNAME << 16) | 1;
+        public const int CefSSLInfo_GetX509Certificate_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefSSLInfo(IntPtr nativePtr)
         {
@@ -636,13 +636,13 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefSSLStatus : IDisposable
     {
-        const int _typeNAME = 31;
+        public const int _typeNAME = 31;
         const int CefSSLStatus_Release_0 = (_typeNAME << 16) | 0;
-        const int CefSSLStatus_IsSecureConnection_1 = (_typeNAME << 16) | 1;
-        const int CefSSLStatus_GetCertStatus_2 = (_typeNAME << 16) | 2;
-        const int CefSSLStatus_GetSSLVersion_3 = (_typeNAME << 16) | 3;
-        const int CefSSLStatus_GetContentStatus_4 = (_typeNAME << 16) | 4;
-        const int CefSSLStatus_GetX509Certificate_5 = (_typeNAME << 16) | 5;
+        public const int CefSSLStatus_IsSecureConnection_1 = (_typeNAME << 16) | 1;
+        public const int CefSSLStatus_GetCertStatus_2 = (_typeNAME << 16) | 2;
+        public const int CefSSLStatus_GetSSLVersion_3 = (_typeNAME << 16) | 3;
+        public const int CefSSLStatus_GetContentStatus_4 = (_typeNAME << 16) | 4;
+        public const int CefSSLStatus_GetX509Certificate_5 = (_typeNAME << 16) | 5;
         internal IntPtr nativePtr;
         internal CefSSLStatus(IntPtr nativePtr)
         {
@@ -744,13 +744,13 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefStreamReader : IDisposable
     {
-        const int _typeNAME = 32;
+        public const int _typeNAME = 32;
         const int CefStreamReader_Release_0 = (_typeNAME << 16) | 0;
-        const int CefStreamReader_Read_1 = (_typeNAME << 16) | 1;
-        const int CefStreamReader_Seek_2 = (_typeNAME << 16) | 2;
-        const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
-        const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
-        const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
+        public const int CefStreamReader_Read_1 = (_typeNAME << 16) | 1;
+        public const int CefStreamReader_Seek_2 = (_typeNAME << 16) | 2;
+        public const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
+        public const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
+        public const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
         //
         const int CefStreamReader_S_CreateForFile_1 = (_typeNAME << 16) | 1;
         const int CefStreamReader_S_CreateForData_2 = (_typeNAME << 16) | 2;
@@ -925,13 +925,13 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefStreamWriter : IDisposable
     {
-        const int _typeNAME = 33;
+        public const int _typeNAME = 33;
         const int CefStreamWriter_Release_0 = (_typeNAME << 16) | 0;
-        const int CefStreamWriter_Write_1 = (_typeNAME << 16) | 1;
-        const int CefStreamWriter_Seek_2 = (_typeNAME << 16) | 2;
-        const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
-        const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
-        const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
+        public const int CefStreamWriter_Write_1 = (_typeNAME << 16) | 1;
+        public const int CefStreamWriter_Seek_2 = (_typeNAME << 16) | 2;
+        public const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
+        public const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
+        public const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
         //
         const int CefStreamWriter_S_CreateForFile_1 = (_typeNAME << 16) | 1;
         const int CefStreamWriter_S_CreateForHandler_2 = (_typeNAME << 16) | 2;
@@ -1084,7 +1084,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefStringVisitor : IDisposable
     {
-        const int _typeNAME = 34;
+        public const int _typeNAME = 34;
         const int CefStringVisitor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefStringVisitor(IntPtr nativePtr)
@@ -1103,7 +1103,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefStringVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,256
-        const int MyCefStringVisitor_Visit_1 = 1;
+        public const int MyCefStringVisitor_Visit_1 = 1;
         //gen! void Visit(const CefString& string)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,257
         /// <summary>
@@ -1220,7 +1220,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefTask : IDisposable
     {
-        const int _typeNAME = 35;
+        public const int _typeNAME = 35;
         const int CefTask_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefTask(IntPtr nativePtr)
@@ -1239,7 +1239,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTask(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,266
-        const int MyCefTask_Execute_1 = 1;
+        public const int MyCefTask_Execute_1 = 1;
         //gen! void Execute()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,267
         /// <summary>
@@ -1349,13 +1349,13 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefTaskRunner : IDisposable
     {
-        const int _typeNAME = 36;
+        public const int _typeNAME = 36;
         const int CefTaskRunner_Release_0 = (_typeNAME << 16) | 0;
-        const int CefTaskRunner_IsSame_1 = (_typeNAME << 16) | 1;
-        const int CefTaskRunner_BelongsToCurrentThread_2 = (_typeNAME << 16) | 2;
-        const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
-        const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
-        const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
+        public const int CefTaskRunner_IsSame_1 = (_typeNAME << 16) | 1;
+        public const int CefTaskRunner_BelongsToCurrentThread_2 = (_typeNAME << 16) | 2;
+        public const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
+        public const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
+        public const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
         //
         const int CefTaskRunner_S_GetForCurrentThread_1 = (_typeNAME << 16) | 1;
         const int CefTaskRunner_S_GetForThread_2 = (_typeNAME << 16) | 2;
@@ -1509,14 +1509,14 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefURLRequest : IDisposable
     {
-        const int _typeNAME = 37;
+        public const int _typeNAME = 37;
         const int CefURLRequest_Release_0 = (_typeNAME << 16) | 0;
-        const int CefURLRequest_GetRequest_1 = (_typeNAME << 16) | 1;
-        const int CefURLRequest_GetClient_2 = (_typeNAME << 16) | 2;
-        const int CefURLRequest_GetRequestStatus_3 = (_typeNAME << 16) | 3;
-        const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
-        const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
-        const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
+        public const int CefURLRequest_GetRequest_1 = (_typeNAME << 16) | 1;
+        public const int CefURLRequest_GetClient_2 = (_typeNAME << 16) | 2;
+        public const int CefURLRequest_GetRequestStatus_3 = (_typeNAME << 16) | 3;
+        public const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
+        public const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
+        public const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
         //
         const int CefURLRequest_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -1673,7 +1673,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefURLRequestClient : IDisposable
     {
-        const int _typeNAME = 38;
+        public const int _typeNAME = 38;
         const int CefURLRequestClient_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefURLRequestClient(IntPtr nativePtr)
@@ -1692,11 +1692,11 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefURLRequestClient(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,276
-        const int MyCefURLRequestClient_OnRequestComplete_1 = 1;
-        const int MyCefURLRequestClient_OnUploadProgress_2 = 2;
-        const int MyCefURLRequestClient_OnDownloadProgress_3 = 3;
-        const int MyCefURLRequestClient_OnDownloadData_4 = 4;
-        const int MyCefURLRequestClient_GetAuthCredentials_5 = 5;
+        public const int MyCefURLRequestClient_OnRequestComplete_1 = 1;
+        public const int MyCefURLRequestClient_OnUploadProgress_2 = 2;
+        public const int MyCefURLRequestClient_OnDownloadProgress_3 = 3;
+        public const int MyCefURLRequestClient_OnDownloadData_4 = 4;
+        public const int MyCefURLRequestClient_GetAuthCredentials_5 = 5;
         //gen! void OnRequestComplete(CefRefPtr<CefURLRequest> request)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,277
         /// <summary>
@@ -2269,17 +2269,17 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8Context : IDisposable
     {
-        const int _typeNAME = 39;
+        public const int _typeNAME = 39;
         const int CefV8Context_Release_0 = (_typeNAME << 16) | 0;
-        const int CefV8Context_GetTaskRunner_1 = (_typeNAME << 16) | 1;
-        const int CefV8Context_IsValid_2 = (_typeNAME << 16) | 2;
-        const int CefV8Context_GetBrowser_3 = (_typeNAME << 16) | 3;
-        const int CefV8Context_GetFrame_4 = (_typeNAME << 16) | 4;
-        const int CefV8Context_GetGlobal_5 = (_typeNAME << 16) | 5;
-        const int CefV8Context_Enter_6 = (_typeNAME << 16) | 6;
-        const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
-        const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
-        const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
+        public const int CefV8Context_GetTaskRunner_1 = (_typeNAME << 16) | 1;
+        public const int CefV8Context_IsValid_2 = (_typeNAME << 16) | 2;
+        public const int CefV8Context_GetBrowser_3 = (_typeNAME << 16) | 3;
+        public const int CefV8Context_GetFrame_4 = (_typeNAME << 16) | 4;
+        public const int CefV8Context_GetGlobal_5 = (_typeNAME << 16) | 5;
+        public const int CefV8Context_Enter_6 = (_typeNAME << 16) | 6;
+        public const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
+        public const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
+        public const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
         //
         const int CefV8Context_S_GetCurrentContext_1 = (_typeNAME << 16) | 1;
         const int CefV8Context_S_GetEnteredContext_2 = (_typeNAME << 16) | 2;
@@ -2524,7 +2524,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8Accessor : IDisposable
     {
-        const int _typeNAME = 40;
+        public const int _typeNAME = 40;
         const int CefV8Accessor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefV8Accessor(IntPtr nativePtr)
@@ -2543,8 +2543,8 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefV8Accessor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,314
-        const int MyCefV8Accessor_Get_1 = 1;
-        const int MyCefV8Accessor_Set_2 = 2;
+        public const int MyCefV8Accessor_Get_1 = 1;
+        public const int MyCefV8Accessor_Set_2 = 2;
         //gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,315
         /// <summary>
@@ -2861,7 +2861,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8Interceptor : IDisposable
     {
-        const int _typeNAME = 41;
+        public const int _typeNAME = 41;
         const int CefV8Interceptor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefV8Interceptor(IntPtr nativePtr)
@@ -2880,10 +2880,10 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefV8Interceptor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,331
-        const int MyCefV8Interceptor_Get_1 = 1;
-        const int MyCefV8Interceptor_Get_2 = 2;
-        const int MyCefV8Interceptor_Set_3 = 3;
-        const int MyCefV8Interceptor_Set_4 = 4;
+        public const int MyCefV8Interceptor_Get_1 = 1;
+        public const int MyCefV8Interceptor_Get_2 = 2;
+        public const int MyCefV8Interceptor_Set_3 = 3;
+        public const int MyCefV8Interceptor_Set_4 = 4;
         //gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,332
         /// <summary>
@@ -3485,16 +3485,16 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8Exception : IDisposable
     {
-        const int _typeNAME = 42;
+        public const int _typeNAME = 42;
         const int CefV8Exception_Release_0 = (_typeNAME << 16) | 0;
-        const int CefV8Exception_GetMessage_1 = (_typeNAME << 16) | 1;
-        const int CefV8Exception_GetSourceLine_2 = (_typeNAME << 16) | 2;
-        const int CefV8Exception_GetScriptResourceName_3 = (_typeNAME << 16) | 3;
-        const int CefV8Exception_GetLineNumber_4 = (_typeNAME << 16) | 4;
-        const int CefV8Exception_GetStartPosition_5 = (_typeNAME << 16) | 5;
-        const int CefV8Exception_GetEndPosition_6 = (_typeNAME << 16) | 6;
-        const int CefV8Exception_GetStartColumn_7 = (_typeNAME << 16) | 7;
-        const int CefV8Exception_GetEndColumn_8 = (_typeNAME << 16) | 8;
+        public const int CefV8Exception_GetMessage_1 = (_typeNAME << 16) | 1;
+        public const int CefV8Exception_GetSourceLine_2 = (_typeNAME << 16) | 2;
+        public const int CefV8Exception_GetScriptResourceName_3 = (_typeNAME << 16) | 3;
+        public const int CefV8Exception_GetLineNumber_4 = (_typeNAME << 16) | 4;
+        public const int CefV8Exception_GetStartPosition_5 = (_typeNAME << 16) | 5;
+        public const int CefV8Exception_GetEndPosition_6 = (_typeNAME << 16) | 6;
+        public const int CefV8Exception_GetStartColumn_7 = (_typeNAME << 16) | 7;
+        public const int CefV8Exception_GetEndColumn_8 = (_typeNAME << 16) | 8;
         internal IntPtr nativePtr;
         internal CefV8Exception(IntPtr nativePtr)
         {
@@ -3646,52 +3646,52 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8Value : IDisposable
     {
-        const int _typeNAME = 43;
+        public const int _typeNAME = 43;
         const int CefV8Value_Release_0 = (_typeNAME << 16) | 0;
-        const int CefV8Value_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefV8Value_IsUndefined_2 = (_typeNAME << 16) | 2;
-        const int CefV8Value_IsNull_3 = (_typeNAME << 16) | 3;
-        const int CefV8Value_IsBool_4 = (_typeNAME << 16) | 4;
-        const int CefV8Value_IsInt_5 = (_typeNAME << 16) | 5;
-        const int CefV8Value_IsUInt_6 = (_typeNAME << 16) | 6;
-        const int CefV8Value_IsDouble_7 = (_typeNAME << 16) | 7;
-        const int CefV8Value_IsDate_8 = (_typeNAME << 16) | 8;
-        const int CefV8Value_IsString_9 = (_typeNAME << 16) | 9;
-        const int CefV8Value_IsObject_10 = (_typeNAME << 16) | 10;
-        const int CefV8Value_IsArray_11 = (_typeNAME << 16) | 11;
-        const int CefV8Value_IsFunction_12 = (_typeNAME << 16) | 12;
-        const int CefV8Value_IsSame_13 = (_typeNAME << 16) | 13;
-        const int CefV8Value_GetBoolValue_14 = (_typeNAME << 16) | 14;
-        const int CefV8Value_GetIntValue_15 = (_typeNAME << 16) | 15;
-        const int CefV8Value_GetUIntValue_16 = (_typeNAME << 16) | 16;
-        const int CefV8Value_GetDoubleValue_17 = (_typeNAME << 16) | 17;
-        const int CefV8Value_GetDateValue_18 = (_typeNAME << 16) | 18;
-        const int CefV8Value_GetStringValue_19 = (_typeNAME << 16) | 19;
-        const int CefV8Value_IsUserCreated_20 = (_typeNAME << 16) | 20;
-        const int CefV8Value_HasException_21 = (_typeNAME << 16) | 21;
-        const int CefV8Value_GetException_22 = (_typeNAME << 16) | 22;
-        const int CefV8Value_ClearException_23 = (_typeNAME << 16) | 23;
-        const int CefV8Value_WillRethrowExceptions_24 = (_typeNAME << 16) | 24;
-        const int CefV8Value_SetRethrowExceptions_25 = (_typeNAME << 16) | 25;
-        const int CefV8Value_HasValue_26 = (_typeNAME << 16) | 26;
-        const int CefV8Value_HasValue_27 = (_typeNAME << 16) | 27;
-        const int CefV8Value_DeleteValue_28 = (_typeNAME << 16) | 28;
-        const int CefV8Value_DeleteValue_29 = (_typeNAME << 16) | 29;
-        const int CefV8Value_GetValue_30 = (_typeNAME << 16) | 30;
-        const int CefV8Value_GetValue_31 = (_typeNAME << 16) | 31;
-        const int CefV8Value_SetValue_32 = (_typeNAME << 16) | 32;
-        const int CefV8Value_SetValue_33 = (_typeNAME << 16) | 33;
-        const int CefV8Value_SetValue_34 = (_typeNAME << 16) | 34;
-        const int CefV8Value_GetKeys_35 = (_typeNAME << 16) | 35;
-        const int CefV8Value_SetUserData_36 = (_typeNAME << 16) | 36;
-        const int CefV8Value_GetUserData_37 = (_typeNAME << 16) | 37;
-        const int CefV8Value_GetExternallyAllocatedMemory_38 = (_typeNAME << 16) | 38;
-        const int CefV8Value_AdjustExternallyAllocatedMemory_39 = (_typeNAME << 16) | 39;
-        const int CefV8Value_GetArrayLength_40 = (_typeNAME << 16) | 40;
-        const int CefV8Value_GetFunctionName_41 = (_typeNAME << 16) | 41;
-        const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
-        const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
-        const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
+        public const int CefV8Value_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefV8Value_IsUndefined_2 = (_typeNAME << 16) | 2;
+        public const int CefV8Value_IsNull_3 = (_typeNAME << 16) | 3;
+        public const int CefV8Value_IsBool_4 = (_typeNAME << 16) | 4;
+        public const int CefV8Value_IsInt_5 = (_typeNAME << 16) | 5;
+        public const int CefV8Value_IsUInt_6 = (_typeNAME << 16) | 6;
+        public const int CefV8Value_IsDouble_7 = (_typeNAME << 16) | 7;
+        public const int CefV8Value_IsDate_8 = (_typeNAME << 16) | 8;
+        public const int CefV8Value_IsString_9 = (_typeNAME << 16) | 9;
+        public const int CefV8Value_IsObject_10 = (_typeNAME << 16) | 10;
+        public const int CefV8Value_IsArray_11 = (_typeNAME << 16) | 11;
+        public const int CefV8Value_IsFunction_12 = (_typeNAME << 16) | 12;
+        public const int CefV8Value_IsSame_13 = (_typeNAME << 16) | 13;
+        public const int CefV8Value_GetBoolValue_14 = (_typeNAME << 16) | 14;
+        public const int CefV8Value_GetIntValue_15 = (_typeNAME << 16) | 15;
+        public const int CefV8Value_GetUIntValue_16 = (_typeNAME << 16) | 16;
+        public const int CefV8Value_GetDoubleValue_17 = (_typeNAME << 16) | 17;
+        public const int CefV8Value_GetDateValue_18 = (_typeNAME << 16) | 18;
+        public const int CefV8Value_GetStringValue_19 = (_typeNAME << 16) | 19;
+        public const int CefV8Value_IsUserCreated_20 = (_typeNAME << 16) | 20;
+        public const int CefV8Value_HasException_21 = (_typeNAME << 16) | 21;
+        public const int CefV8Value_GetException_22 = (_typeNAME << 16) | 22;
+        public const int CefV8Value_ClearException_23 = (_typeNAME << 16) | 23;
+        public const int CefV8Value_WillRethrowExceptions_24 = (_typeNAME << 16) | 24;
+        public const int CefV8Value_SetRethrowExceptions_25 = (_typeNAME << 16) | 25;
+        public const int CefV8Value_HasValue_26 = (_typeNAME << 16) | 26;
+        public const int CefV8Value_HasValue_27 = (_typeNAME << 16) | 27;
+        public const int CefV8Value_DeleteValue_28 = (_typeNAME << 16) | 28;
+        public const int CefV8Value_DeleteValue_29 = (_typeNAME << 16) | 29;
+        public const int CefV8Value_GetValue_30 = (_typeNAME << 16) | 30;
+        public const int CefV8Value_GetValue_31 = (_typeNAME << 16) | 31;
+        public const int CefV8Value_SetValue_32 = (_typeNAME << 16) | 32;
+        public const int CefV8Value_SetValue_33 = (_typeNAME << 16) | 33;
+        public const int CefV8Value_SetValue_34 = (_typeNAME << 16) | 34;
+        public const int CefV8Value_GetKeys_35 = (_typeNAME << 16) | 35;
+        public const int CefV8Value_SetUserData_36 = (_typeNAME << 16) | 36;
+        public const int CefV8Value_GetUserData_37 = (_typeNAME << 16) | 37;
+        public const int CefV8Value_GetExternallyAllocatedMemory_38 = (_typeNAME << 16) | 38;
+        public const int CefV8Value_AdjustExternallyAllocatedMemory_39 = (_typeNAME << 16) | 39;
+        public const int CefV8Value_GetArrayLength_40 = (_typeNAME << 16) | 40;
+        public const int CefV8Value_GetFunctionName_41 = (_typeNAME << 16) | 41;
+        public const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
+        public const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
+        public const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
         //
         const int CefV8Value_S_CreateUndefined_1 = (_typeNAME << 16) | 1;
         const int CefV8Value_S_CreateNull_2 = (_typeNAME << 16) | 2;
@@ -4658,11 +4658,11 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8StackTrace : IDisposable
     {
-        const int _typeNAME = 44;
+        public const int _typeNAME = 44;
         const int CefV8StackTrace_Release_0 = (_typeNAME << 16) | 0;
-        const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
-        const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
+        public const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
+        public const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
         //
         const int CefV8StackTrace_S_GetCurrent_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -4756,16 +4756,16 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefV8StackFrame : IDisposable
     {
-        const int _typeNAME = 45;
+        public const int _typeNAME = 45;
         const int CefV8StackFrame_Release_0 = (_typeNAME << 16) | 0;
-        const int CefV8StackFrame_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefV8StackFrame_GetScriptName_2 = (_typeNAME << 16) | 2;
-        const int CefV8StackFrame_GetScriptNameOrSourceURL_3 = (_typeNAME << 16) | 3;
-        const int CefV8StackFrame_GetFunctionName_4 = (_typeNAME << 16) | 4;
-        const int CefV8StackFrame_GetLineNumber_5 = (_typeNAME << 16) | 5;
-        const int CefV8StackFrame_GetColumn_6 = (_typeNAME << 16) | 6;
-        const int CefV8StackFrame_IsEval_7 = (_typeNAME << 16) | 7;
-        const int CefV8StackFrame_IsConstructor_8 = (_typeNAME << 16) | 8;
+        public const int CefV8StackFrame_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefV8StackFrame_GetScriptName_2 = (_typeNAME << 16) | 2;
+        public const int CefV8StackFrame_GetScriptNameOrSourceURL_3 = (_typeNAME << 16) | 3;
+        public const int CefV8StackFrame_GetFunctionName_4 = (_typeNAME << 16) | 4;
+        public const int CefV8StackFrame_GetLineNumber_5 = (_typeNAME << 16) | 5;
+        public const int CefV8StackFrame_GetColumn_6 = (_typeNAME << 16) | 6;
+        public const int CefV8StackFrame_IsEval_7 = (_typeNAME << 16) | 7;
+        public const int CefV8StackFrame_IsConstructor_8 = (_typeNAME << 16) | 8;
         internal IntPtr nativePtr;
         internal CefV8StackFrame(IntPtr nativePtr)
         {
@@ -4912,30 +4912,30 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefValue : IDisposable
     {
-        const int _typeNAME = 46;
+        public const int _typeNAME = 46;
         const int CefValue_Release_0 = (_typeNAME << 16) | 0;
-        const int CefValue_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        const int CefValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        const int CefValue_IsSame_4 = (_typeNAME << 16) | 4;
-        const int CefValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        const int CefValue_Copy_6 = (_typeNAME << 16) | 6;
-        const int CefValue_GetType_7 = (_typeNAME << 16) | 7;
-        const int CefValue_GetBool_8 = (_typeNAME << 16) | 8;
-        const int CefValue_GetInt_9 = (_typeNAME << 16) | 9;
-        const int CefValue_GetDouble_10 = (_typeNAME << 16) | 10;
-        const int CefValue_GetString_11 = (_typeNAME << 16) | 11;
-        const int CefValue_GetBinary_12 = (_typeNAME << 16) | 12;
-        const int CefValue_GetDictionary_13 = (_typeNAME << 16) | 13;
-        const int CefValue_GetList_14 = (_typeNAME << 16) | 14;
-        const int CefValue_SetNull_15 = (_typeNAME << 16) | 15;
-        const int CefValue_SetBool_16 = (_typeNAME << 16) | 16;
-        const int CefValue_SetInt_17 = (_typeNAME << 16) | 17;
-        const int CefValue_SetDouble_18 = (_typeNAME << 16) | 18;
-        const int CefValue_SetString_19 = (_typeNAME << 16) | 19;
-        const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
-        const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
-        const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
+        public const int CefValue_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefValue_IsOwned_2 = (_typeNAME << 16) | 2;
+        public const int CefValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
+        public const int CefValue_IsSame_4 = (_typeNAME << 16) | 4;
+        public const int CefValue_IsEqual_5 = (_typeNAME << 16) | 5;
+        public const int CefValue_Copy_6 = (_typeNAME << 16) | 6;
+        public const int CefValue_GetType_7 = (_typeNAME << 16) | 7;
+        public const int CefValue_GetBool_8 = (_typeNAME << 16) | 8;
+        public const int CefValue_GetInt_9 = (_typeNAME << 16) | 9;
+        public const int CefValue_GetDouble_10 = (_typeNAME << 16) | 10;
+        public const int CefValue_GetString_11 = (_typeNAME << 16) | 11;
+        public const int CefValue_GetBinary_12 = (_typeNAME << 16) | 12;
+        public const int CefValue_GetDictionary_13 = (_typeNAME << 16) | 13;
+        public const int CefValue_GetList_14 = (_typeNAME << 16) | 14;
+        public const int CefValue_SetNull_15 = (_typeNAME << 16) | 15;
+        public const int CefValue_SetBool_16 = (_typeNAME << 16) | 16;
+        public const int CefValue_SetInt_17 = (_typeNAME << 16) | 17;
+        public const int CefValue_SetDouble_18 = (_typeNAME << 16) | 18;
+        public const int CefValue_SetString_19 = (_typeNAME << 16) | 19;
+        public const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
+        public const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
+        public const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
         //
         const int CefValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -5355,15 +5355,15 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefBinaryValue : IDisposable
     {
-        const int _typeNAME = 47;
+        public const int _typeNAME = 47;
         const int CefBinaryValue_Release_0 = (_typeNAME << 16) | 0;
-        const int CefBinaryValue_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefBinaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        const int CefBinaryValue_IsSame_3 = (_typeNAME << 16) | 3;
-        const int CefBinaryValue_IsEqual_4 = (_typeNAME << 16) | 4;
-        const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
-        const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
-        const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
+        public const int CefBinaryValue_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefBinaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
+        public const int CefBinaryValue_IsSame_3 = (_typeNAME << 16) | 3;
+        public const int CefBinaryValue_IsEqual_4 = (_typeNAME << 16) | 4;
+        public const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
+        public const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
+        public const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
         //
         const int CefBinaryValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -5529,37 +5529,37 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDictionaryValue : IDisposable
     {
-        const int _typeNAME = 48;
+        public const int _typeNAME = 48;
         const int CefDictionaryValue_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDictionaryValue_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefDictionaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        const int CefDictionaryValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        const int CefDictionaryValue_IsSame_4 = (_typeNAME << 16) | 4;
-        const int CefDictionaryValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        const int CefDictionaryValue_Copy_6 = (_typeNAME << 16) | 6;
-        const int CefDictionaryValue_GetSize_7 = (_typeNAME << 16) | 7;
-        const int CefDictionaryValue_Clear_8 = (_typeNAME << 16) | 8;
-        const int CefDictionaryValue_HasKey_9 = (_typeNAME << 16) | 9;
-        const int CefDictionaryValue_GetKeys_10 = (_typeNAME << 16) | 10;
-        const int CefDictionaryValue_Remove_11 = (_typeNAME << 16) | 11;
-        const int CefDictionaryValue_GetType_12 = (_typeNAME << 16) | 12;
-        const int CefDictionaryValue_GetValue_13 = (_typeNAME << 16) | 13;
-        const int CefDictionaryValue_GetBool_14 = (_typeNAME << 16) | 14;
-        const int CefDictionaryValue_GetInt_15 = (_typeNAME << 16) | 15;
-        const int CefDictionaryValue_GetDouble_16 = (_typeNAME << 16) | 16;
-        const int CefDictionaryValue_GetString_17 = (_typeNAME << 16) | 17;
-        const int CefDictionaryValue_GetBinary_18 = (_typeNAME << 16) | 18;
-        const int CefDictionaryValue_GetDictionary_19 = (_typeNAME << 16) | 19;
-        const int CefDictionaryValue_GetList_20 = (_typeNAME << 16) | 20;
-        const int CefDictionaryValue_SetValue_21 = (_typeNAME << 16) | 21;
-        const int CefDictionaryValue_SetNull_22 = (_typeNAME << 16) | 22;
-        const int CefDictionaryValue_SetBool_23 = (_typeNAME << 16) | 23;
-        const int CefDictionaryValue_SetInt_24 = (_typeNAME << 16) | 24;
-        const int CefDictionaryValue_SetDouble_25 = (_typeNAME << 16) | 25;
-        const int CefDictionaryValue_SetString_26 = (_typeNAME << 16) | 26;
-        const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
-        const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
-        const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
+        public const int CefDictionaryValue_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefDictionaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
+        public const int CefDictionaryValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
+        public const int CefDictionaryValue_IsSame_4 = (_typeNAME << 16) | 4;
+        public const int CefDictionaryValue_IsEqual_5 = (_typeNAME << 16) | 5;
+        public const int CefDictionaryValue_Copy_6 = (_typeNAME << 16) | 6;
+        public const int CefDictionaryValue_GetSize_7 = (_typeNAME << 16) | 7;
+        public const int CefDictionaryValue_Clear_8 = (_typeNAME << 16) | 8;
+        public const int CefDictionaryValue_HasKey_9 = (_typeNAME << 16) | 9;
+        public const int CefDictionaryValue_GetKeys_10 = (_typeNAME << 16) | 10;
+        public const int CefDictionaryValue_Remove_11 = (_typeNAME << 16) | 11;
+        public const int CefDictionaryValue_GetType_12 = (_typeNAME << 16) | 12;
+        public const int CefDictionaryValue_GetValue_13 = (_typeNAME << 16) | 13;
+        public const int CefDictionaryValue_GetBool_14 = (_typeNAME << 16) | 14;
+        public const int CefDictionaryValue_GetInt_15 = (_typeNAME << 16) | 15;
+        public const int CefDictionaryValue_GetDouble_16 = (_typeNAME << 16) | 16;
+        public const int CefDictionaryValue_GetString_17 = (_typeNAME << 16) | 17;
+        public const int CefDictionaryValue_GetBinary_18 = (_typeNAME << 16) | 18;
+        public const int CefDictionaryValue_GetDictionary_19 = (_typeNAME << 16) | 19;
+        public const int CefDictionaryValue_GetList_20 = (_typeNAME << 16) | 20;
+        public const int CefDictionaryValue_SetValue_21 = (_typeNAME << 16) | 21;
+        public const int CefDictionaryValue_SetNull_22 = (_typeNAME << 16) | 22;
+        public const int CefDictionaryValue_SetBool_23 = (_typeNAME << 16) | 23;
+        public const int CefDictionaryValue_SetInt_24 = (_typeNAME << 16) | 24;
+        public const int CefDictionaryValue_SetDouble_25 = (_typeNAME << 16) | 25;
+        public const int CefDictionaryValue_SetString_26 = (_typeNAME << 16) | 26;
+        public const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
+        public const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
+        public const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
         //
         const int CefDictionaryValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -6165,36 +6165,36 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefListValue : IDisposable
     {
-        const int _typeNAME = 49;
+        public const int _typeNAME = 49;
         const int CefListValue_Release_0 = (_typeNAME << 16) | 0;
-        const int CefListValue_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefListValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        const int CefListValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        const int CefListValue_IsSame_4 = (_typeNAME << 16) | 4;
-        const int CefListValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        const int CefListValue_Copy_6 = (_typeNAME << 16) | 6;
-        const int CefListValue_SetSize_7 = (_typeNAME << 16) | 7;
-        const int CefListValue_GetSize_8 = (_typeNAME << 16) | 8;
-        const int CefListValue_Clear_9 = (_typeNAME << 16) | 9;
-        const int CefListValue_Remove_10 = (_typeNAME << 16) | 10;
-        const int CefListValue_GetType_11 = (_typeNAME << 16) | 11;
-        const int CefListValue_GetValue_12 = (_typeNAME << 16) | 12;
-        const int CefListValue_GetBool_13 = (_typeNAME << 16) | 13;
-        const int CefListValue_GetInt_14 = (_typeNAME << 16) | 14;
-        const int CefListValue_GetDouble_15 = (_typeNAME << 16) | 15;
-        const int CefListValue_GetString_16 = (_typeNAME << 16) | 16;
-        const int CefListValue_GetBinary_17 = (_typeNAME << 16) | 17;
-        const int CefListValue_GetDictionary_18 = (_typeNAME << 16) | 18;
-        const int CefListValue_GetList_19 = (_typeNAME << 16) | 19;
-        const int CefListValue_SetValue_20 = (_typeNAME << 16) | 20;
-        const int CefListValue_SetNull_21 = (_typeNAME << 16) | 21;
-        const int CefListValue_SetBool_22 = (_typeNAME << 16) | 22;
-        const int CefListValue_SetInt_23 = (_typeNAME << 16) | 23;
-        const int CefListValue_SetDouble_24 = (_typeNAME << 16) | 24;
-        const int CefListValue_SetString_25 = (_typeNAME << 16) | 25;
-        const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
-        const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
-        const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
+        public const int CefListValue_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefListValue_IsOwned_2 = (_typeNAME << 16) | 2;
+        public const int CefListValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
+        public const int CefListValue_IsSame_4 = (_typeNAME << 16) | 4;
+        public const int CefListValue_IsEqual_5 = (_typeNAME << 16) | 5;
+        public const int CefListValue_Copy_6 = (_typeNAME << 16) | 6;
+        public const int CefListValue_SetSize_7 = (_typeNAME << 16) | 7;
+        public const int CefListValue_GetSize_8 = (_typeNAME << 16) | 8;
+        public const int CefListValue_Clear_9 = (_typeNAME << 16) | 9;
+        public const int CefListValue_Remove_10 = (_typeNAME << 16) | 10;
+        public const int CefListValue_GetType_11 = (_typeNAME << 16) | 11;
+        public const int CefListValue_GetValue_12 = (_typeNAME << 16) | 12;
+        public const int CefListValue_GetBool_13 = (_typeNAME << 16) | 13;
+        public const int CefListValue_GetInt_14 = (_typeNAME << 16) | 14;
+        public const int CefListValue_GetDouble_15 = (_typeNAME << 16) | 15;
+        public const int CefListValue_GetString_16 = (_typeNAME << 16) | 16;
+        public const int CefListValue_GetBinary_17 = (_typeNAME << 16) | 17;
+        public const int CefListValue_GetDictionary_18 = (_typeNAME << 16) | 18;
+        public const int CefListValue_GetList_19 = (_typeNAME << 16) | 19;
+        public const int CefListValue_SetValue_20 = (_typeNAME << 16) | 20;
+        public const int CefListValue_SetNull_21 = (_typeNAME << 16) | 21;
+        public const int CefListValue_SetBool_22 = (_typeNAME << 16) | 22;
+        public const int CefListValue_SetInt_23 = (_typeNAME << 16) | 23;
+        public const int CefListValue_SetDouble_24 = (_typeNAME << 16) | 24;
+        public const int CefListValue_SetString_25 = (_typeNAME << 16) | 25;
+        public const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
+        public const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
+        public const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
         //
         const int CefListValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -6760,12 +6760,12 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefWebPluginInfo : IDisposable
     {
-        const int _typeNAME = 50;
+        public const int _typeNAME = 50;
         const int CefWebPluginInfo_Release_0 = (_typeNAME << 16) | 0;
-        const int CefWebPluginInfo_GetName_1 = (_typeNAME << 16) | 1;
-        const int CefWebPluginInfo_GetPath_2 = (_typeNAME << 16) | 2;
-        const int CefWebPluginInfo_GetVersion_3 = (_typeNAME << 16) | 3;
-        const int CefWebPluginInfo_GetDescription_4 = (_typeNAME << 16) | 4;
+        public const int CefWebPluginInfo_GetName_1 = (_typeNAME << 16) | 1;
+        public const int CefWebPluginInfo_GetPath_2 = (_typeNAME << 16) | 2;
+        public const int CefWebPluginInfo_GetVersion_3 = (_typeNAME << 16) | 3;
+        public const int CefWebPluginInfo_GetDescription_4 = (_typeNAME << 16) | 4;
         internal IntPtr nativePtr;
         internal CefWebPluginInfo(IntPtr nativePtr)
         {
@@ -6848,7 +6848,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefWebPluginInfoVisitor : IDisposable
     {
-        const int _typeNAME = 51;
+        public const int _typeNAME = 51;
         const int CefWebPluginInfoVisitor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefWebPluginInfoVisitor(IntPtr nativePtr)
@@ -6867,7 +6867,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefWebPluginInfoVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,362
-        const int MyCefWebPluginInfoVisitor_Visit_1 = 1;
+        public const int MyCefWebPluginInfoVisitor_Visit_1 = 1;
         //gen! bool Visit(CefRefPtr<CefWebPluginInfo> info,int count,int total)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,363
         /// <summary>
@@ -7014,17 +7014,17 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefX509CertPrincipal : IDisposable
     {
-        const int _typeNAME = 52;
+        public const int _typeNAME = 52;
         const int CefX509CertPrincipal_Release_0 = (_typeNAME << 16) | 0;
-        const int CefX509CertPrincipal_GetDisplayName_1 = (_typeNAME << 16) | 1;
-        const int CefX509CertPrincipal_GetCommonName_2 = (_typeNAME << 16) | 2;
-        const int CefX509CertPrincipal_GetLocalityName_3 = (_typeNAME << 16) | 3;
-        const int CefX509CertPrincipal_GetStateOrProvinceName_4 = (_typeNAME << 16) | 4;
-        const int CefX509CertPrincipal_GetCountryName_5 = (_typeNAME << 16) | 5;
-        const int CefX509CertPrincipal_GetStreetAddresses_6 = (_typeNAME << 16) | 6;
-        const int CefX509CertPrincipal_GetOrganizationNames_7 = (_typeNAME << 16) | 7;
-        const int CefX509CertPrincipal_GetOrganizationUnitNames_8 = (_typeNAME << 16) | 8;
-        const int CefX509CertPrincipal_GetDomainComponents_9 = (_typeNAME << 16) | 9;
+        public const int CefX509CertPrincipal_GetDisplayName_1 = (_typeNAME << 16) | 1;
+        public const int CefX509CertPrincipal_GetCommonName_2 = (_typeNAME << 16) | 2;
+        public const int CefX509CertPrincipal_GetLocalityName_3 = (_typeNAME << 16) | 3;
+        public const int CefX509CertPrincipal_GetStateOrProvinceName_4 = (_typeNAME << 16) | 4;
+        public const int CefX509CertPrincipal_GetCountryName_5 = (_typeNAME << 16) | 5;
+        public const int CefX509CertPrincipal_GetStreetAddresses_6 = (_typeNAME << 16) | 6;
+        public const int CefX509CertPrincipal_GetOrganizationNames_7 = (_typeNAME << 16) | 7;
+        public const int CefX509CertPrincipal_GetOrganizationUnitNames_8 = (_typeNAME << 16) | 8;
+        public const int CefX509CertPrincipal_GetDomainComponents_9 = (_typeNAME << 16) | 9;
         internal IntPtr nativePtr;
         internal CefX509CertPrincipal(IntPtr nativePtr)
         {
@@ -7193,18 +7193,18 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefX509Certificate : IDisposable
     {
-        const int _typeNAME = 53;
+        public const int _typeNAME = 53;
         const int CefX509Certificate_Release_0 = (_typeNAME << 16) | 0;
-        const int CefX509Certificate_GetSubject_1 = (_typeNAME << 16) | 1;
-        const int CefX509Certificate_GetIssuer_2 = (_typeNAME << 16) | 2;
-        const int CefX509Certificate_GetSerialNumber_3 = (_typeNAME << 16) | 3;
-        const int CefX509Certificate_GetValidStart_4 = (_typeNAME << 16) | 4;
-        const int CefX509Certificate_GetValidExpiry_5 = (_typeNAME << 16) | 5;
-        const int CefX509Certificate_GetDEREncoded_6 = (_typeNAME << 16) | 6;
-        const int CefX509Certificate_GetPEMEncoded_7 = (_typeNAME << 16) | 7;
-        const int CefX509Certificate_GetIssuerChainSize_8 = (_typeNAME << 16) | 8;
-        const int CefX509Certificate_GetDEREncodedIssuerChain_9 = (_typeNAME << 16) | 9;
-        const int CefX509Certificate_GetPEMEncodedIssuerChain_10 = (_typeNAME << 16) | 10;
+        public const int CefX509Certificate_GetSubject_1 = (_typeNAME << 16) | 1;
+        public const int CefX509Certificate_GetIssuer_2 = (_typeNAME << 16) | 2;
+        public const int CefX509Certificate_GetSerialNumber_3 = (_typeNAME << 16) | 3;
+        public const int CefX509Certificate_GetValidStart_4 = (_typeNAME << 16) | 4;
+        public const int CefX509Certificate_GetValidExpiry_5 = (_typeNAME << 16) | 5;
+        public const int CefX509Certificate_GetDEREncoded_6 = (_typeNAME << 16) | 6;
+        public const int CefX509Certificate_GetPEMEncoded_7 = (_typeNAME << 16) | 7;
+        public const int CefX509Certificate_GetIssuerChainSize_8 = (_typeNAME << 16) | 8;
+        public const int CefX509Certificate_GetDEREncodedIssuerChain_9 = (_typeNAME << 16) | 9;
+        public const int CefX509Certificate_GetPEMEncodedIssuerChain_10 = (_typeNAME << 16) | 10;
         internal IntPtr nativePtr;
         internal CefX509Certificate(IntPtr nativePtr)
         {
@@ -7392,37 +7392,37 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefXmlReader : IDisposable
     {
-        const int _typeNAME = 54;
+        public const int _typeNAME = 54;
         const int CefXmlReader_Release_0 = (_typeNAME << 16) | 0;
-        const int CefXmlReader_MoveToNextNode_1 = (_typeNAME << 16) | 1;
-        const int CefXmlReader_Close_2 = (_typeNAME << 16) | 2;
-        const int CefXmlReader_HasError_3 = (_typeNAME << 16) | 3;
-        const int CefXmlReader_GetError_4 = (_typeNAME << 16) | 4;
-        const int CefXmlReader_GetType_5 = (_typeNAME << 16) | 5;
-        const int CefXmlReader_GetDepth_6 = (_typeNAME << 16) | 6;
-        const int CefXmlReader_GetLocalName_7 = (_typeNAME << 16) | 7;
-        const int CefXmlReader_GetPrefix_8 = (_typeNAME << 16) | 8;
-        const int CefXmlReader_GetQualifiedName_9 = (_typeNAME << 16) | 9;
-        const int CefXmlReader_GetNamespaceURI_10 = (_typeNAME << 16) | 10;
-        const int CefXmlReader_GetBaseURI_11 = (_typeNAME << 16) | 11;
-        const int CefXmlReader_GetXmlLang_12 = (_typeNAME << 16) | 12;
-        const int CefXmlReader_IsEmptyElement_13 = (_typeNAME << 16) | 13;
-        const int CefXmlReader_HasValue_14 = (_typeNAME << 16) | 14;
-        const int CefXmlReader_GetValue_15 = (_typeNAME << 16) | 15;
-        const int CefXmlReader_HasAttributes_16 = (_typeNAME << 16) | 16;
-        const int CefXmlReader_GetAttributeCount_17 = (_typeNAME << 16) | 17;
-        const int CefXmlReader_GetAttribute_18 = (_typeNAME << 16) | 18;
-        const int CefXmlReader_GetAttribute_19 = (_typeNAME << 16) | 19;
-        const int CefXmlReader_GetAttribute_20 = (_typeNAME << 16) | 20;
-        const int CefXmlReader_GetInnerXml_21 = (_typeNAME << 16) | 21;
-        const int CefXmlReader_GetOuterXml_22 = (_typeNAME << 16) | 22;
-        const int CefXmlReader_GetLineNumber_23 = (_typeNAME << 16) | 23;
-        const int CefXmlReader_MoveToAttribute_24 = (_typeNAME << 16) | 24;
-        const int CefXmlReader_MoveToAttribute_25 = (_typeNAME << 16) | 25;
-        const int CefXmlReader_MoveToAttribute_26 = (_typeNAME << 16) | 26;
-        const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
-        const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
-        const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
+        public const int CefXmlReader_MoveToNextNode_1 = (_typeNAME << 16) | 1;
+        public const int CefXmlReader_Close_2 = (_typeNAME << 16) | 2;
+        public const int CefXmlReader_HasError_3 = (_typeNAME << 16) | 3;
+        public const int CefXmlReader_GetError_4 = (_typeNAME << 16) | 4;
+        public const int CefXmlReader_GetType_5 = (_typeNAME << 16) | 5;
+        public const int CefXmlReader_GetDepth_6 = (_typeNAME << 16) | 6;
+        public const int CefXmlReader_GetLocalName_7 = (_typeNAME << 16) | 7;
+        public const int CefXmlReader_GetPrefix_8 = (_typeNAME << 16) | 8;
+        public const int CefXmlReader_GetQualifiedName_9 = (_typeNAME << 16) | 9;
+        public const int CefXmlReader_GetNamespaceURI_10 = (_typeNAME << 16) | 10;
+        public const int CefXmlReader_GetBaseURI_11 = (_typeNAME << 16) | 11;
+        public const int CefXmlReader_GetXmlLang_12 = (_typeNAME << 16) | 12;
+        public const int CefXmlReader_IsEmptyElement_13 = (_typeNAME << 16) | 13;
+        public const int CefXmlReader_HasValue_14 = (_typeNAME << 16) | 14;
+        public const int CefXmlReader_GetValue_15 = (_typeNAME << 16) | 15;
+        public const int CefXmlReader_HasAttributes_16 = (_typeNAME << 16) | 16;
+        public const int CefXmlReader_GetAttributeCount_17 = (_typeNAME << 16) | 17;
+        public const int CefXmlReader_GetAttribute_18 = (_typeNAME << 16) | 18;
+        public const int CefXmlReader_GetAttribute_19 = (_typeNAME << 16) | 19;
+        public const int CefXmlReader_GetAttribute_20 = (_typeNAME << 16) | 20;
+        public const int CefXmlReader_GetInnerXml_21 = (_typeNAME << 16) | 21;
+        public const int CefXmlReader_GetOuterXml_22 = (_typeNAME << 16) | 22;
+        public const int CefXmlReader_GetLineNumber_23 = (_typeNAME << 16) | 23;
+        public const int CefXmlReader_MoveToAttribute_24 = (_typeNAME << 16) | 24;
+        public const int CefXmlReader_MoveToAttribute_25 = (_typeNAME << 16) | 25;
+        public const int CefXmlReader_MoveToAttribute_26 = (_typeNAME << 16) | 26;
+        public const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
+        public const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
+        public const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
         //
         const int CefXmlReader_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -7923,20 +7923,20 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefZipReader : IDisposable
     {
-        const int _typeNAME = 55;
+        public const int _typeNAME = 55;
         const int CefZipReader_Release_0 = (_typeNAME << 16) | 0;
-        const int CefZipReader_MoveToFirstFile_1 = (_typeNAME << 16) | 1;
-        const int CefZipReader_MoveToNextFile_2 = (_typeNAME << 16) | 2;
-        const int CefZipReader_MoveToFile_3 = (_typeNAME << 16) | 3;
-        const int CefZipReader_Close_4 = (_typeNAME << 16) | 4;
-        const int CefZipReader_GetFileName_5 = (_typeNAME << 16) | 5;
-        const int CefZipReader_GetFileSize_6 = (_typeNAME << 16) | 6;
-        const int CefZipReader_GetFileLastModified_7 = (_typeNAME << 16) | 7;
-        const int CefZipReader_OpenFile_8 = (_typeNAME << 16) | 8;
-        const int CefZipReader_CloseFile_9 = (_typeNAME << 16) | 9;
-        const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
-        const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
-        const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
+        public const int CefZipReader_MoveToFirstFile_1 = (_typeNAME << 16) | 1;
+        public const int CefZipReader_MoveToNextFile_2 = (_typeNAME << 16) | 2;
+        public const int CefZipReader_MoveToFile_3 = (_typeNAME << 16) | 3;
+        public const int CefZipReader_Close_4 = (_typeNAME << 16) | 4;
+        public const int CefZipReader_GetFileName_5 = (_typeNAME << 16) | 5;
+        public const int CefZipReader_GetFileSize_6 = (_typeNAME << 16) | 6;
+        public const int CefZipReader_GetFileLastModified_7 = (_typeNAME << 16) | 7;
+        public const int CefZipReader_OpenFile_8 = (_typeNAME << 16) | 8;
+        public const int CefZipReader_CloseFile_9 = (_typeNAME << 16) | 9;
+        public const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
+        public const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
+        public const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
         //
         const int CefZipReader_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;

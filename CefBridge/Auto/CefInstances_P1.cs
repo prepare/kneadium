@@ -16,7 +16,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefApp : IDisposable
     {
-        const int _typeNAME = 1;
+        public const int _typeNAME = 1;
         const int CefApp_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefApp(IntPtr nativePtr)
@@ -35,11 +35,11 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefApp(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,1
-        const int MyCefApp_OnBeforeCommandLineProcessing_1 = 1;
-        const int MyCefApp_OnRegisterCustomSchemes_2 = 2;
-        const int MyCefApp_GetResourceBundleHandler_3 = 3;
-        const int MyCefApp_GetBrowserProcessHandler_4 = 4;
-        const int MyCefApp_GetRenderProcessHandler_5 = 5;
+        public const int MyCefApp_OnBeforeCommandLineProcessing_1 = 1;
+        public const int MyCefApp_OnRegisterCustomSchemes_2 = 2;
+        public const int MyCefApp_GetResourceBundleHandler_3 = 3;
+        public const int MyCefApp_GetBrowserProcessHandler_4 = 4;
+        public const int MyCefApp_GetRenderProcessHandler_5 = 5;
         //gen! void OnBeforeCommandLineProcessing(const CefString& process_type,CefRefPtr<CefCommandLine> command_line)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,2
         /// <summary>
@@ -519,29 +519,29 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefBrowser : IDisposable
     {
-        const int _typeNAME = 2;
+        public const int _typeNAME = 2;
         const int CefBrowser_Release_0 = (_typeNAME << 16) | 0;
-        const int CefBrowser_GetHost_1 = (_typeNAME << 16) | 1;
-        const int CefBrowser_CanGoBack_2 = (_typeNAME << 16) | 2;
-        const int CefBrowser_GoBack_3 = (_typeNAME << 16) | 3;
-        const int CefBrowser_CanGoForward_4 = (_typeNAME << 16) | 4;
-        const int CefBrowser_GoForward_5 = (_typeNAME << 16) | 5;
-        const int CefBrowser_IsLoading_6 = (_typeNAME << 16) | 6;
-        const int CefBrowser_Reload_7 = (_typeNAME << 16) | 7;
-        const int CefBrowser_ReloadIgnoreCache_8 = (_typeNAME << 16) | 8;
-        const int CefBrowser_StopLoad_9 = (_typeNAME << 16) | 9;
-        const int CefBrowser_GetIdentifier_10 = (_typeNAME << 16) | 10;
-        const int CefBrowser_IsSame_11 = (_typeNAME << 16) | 11;
-        const int CefBrowser_IsPopup_12 = (_typeNAME << 16) | 12;
-        const int CefBrowser_HasDocument_13 = (_typeNAME << 16) | 13;
-        const int CefBrowser_GetMainFrame_14 = (_typeNAME << 16) | 14;
-        const int CefBrowser_GetFocusedFrame_15 = (_typeNAME << 16) | 15;
-        const int CefBrowser_GetFrame_16 = (_typeNAME << 16) | 16;
-        const int CefBrowser_GetFrame_17 = (_typeNAME << 16) | 17;
-        const int CefBrowser_GetFrameCount_18 = (_typeNAME << 16) | 18;
-        const int CefBrowser_GetFrameIdentifiers_19 = (_typeNAME << 16) | 19;
-        const int CefBrowser_GetFrameNames_20 = (_typeNAME << 16) | 20;
-        const int CefBrowser_SendProcessMessage_21 = (_typeNAME << 16) | 21;
+        public const int CefBrowser_GetHost_1 = (_typeNAME << 16) | 1;
+        public const int CefBrowser_CanGoBack_2 = (_typeNAME << 16) | 2;
+        public const int CefBrowser_GoBack_3 = (_typeNAME << 16) | 3;
+        public const int CefBrowser_CanGoForward_4 = (_typeNAME << 16) | 4;
+        public const int CefBrowser_GoForward_5 = (_typeNAME << 16) | 5;
+        public const int CefBrowser_IsLoading_6 = (_typeNAME << 16) | 6;
+        public const int CefBrowser_Reload_7 = (_typeNAME << 16) | 7;
+        public const int CefBrowser_ReloadIgnoreCache_8 = (_typeNAME << 16) | 8;
+        public const int CefBrowser_StopLoad_9 = (_typeNAME << 16) | 9;
+        public const int CefBrowser_GetIdentifier_10 = (_typeNAME << 16) | 10;
+        public const int CefBrowser_IsSame_11 = (_typeNAME << 16) | 11;
+        public const int CefBrowser_IsPopup_12 = (_typeNAME << 16) | 12;
+        public const int CefBrowser_HasDocument_13 = (_typeNAME << 16) | 13;
+        public const int CefBrowser_GetMainFrame_14 = (_typeNAME << 16) | 14;
+        public const int CefBrowser_GetFocusedFrame_15 = (_typeNAME << 16) | 15;
+        public const int CefBrowser_GetFrame_16 = (_typeNAME << 16) | 16;
+        public const int CefBrowser_GetFrame_17 = (_typeNAME << 16) | 17;
+        public const int CefBrowser_GetFrameCount_18 = (_typeNAME << 16) | 18;
+        public const int CefBrowser_GetFrameIdentifiers_19 = (_typeNAME << 16) | 19;
+        public const int CefBrowser_GetFrameNames_20 = (_typeNAME << 16) | 20;
+        public const int CefBrowser_SendProcessMessage_21 = (_typeNAME << 16) | 21;
         internal IntPtr nativePtr;
         internal CefBrowser(IntPtr nativePtr)
         {
@@ -891,7 +891,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefNavigationEntryVisitor : IDisposable
     {
-        const int _typeNAME = 3;
+        public const int _typeNAME = 3;
         const int CefNavigationEntryVisitor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefNavigationEntryVisitor(IntPtr nativePtr)
@@ -910,7 +910,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefNavigationEntryVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,39
-        const int MyCefNavigationEntryVisitor_Visit_1 = 1;
+        public const int MyCefNavigationEntryVisitor_Visit_1 = 1;
         //gen! bool Visit(CefRefPtr<CefNavigationEntry> entry,bool current,int index,int total)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,40
         /// <summary>
@@ -1072,60 +1072,60 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefBrowserHost : IDisposable
     {
-        const int _typeNAME = 4;
+        public const int _typeNAME = 4;
         const int CefBrowserHost_Release_0 = (_typeNAME << 16) | 0;
-        const int CefBrowserHost_GetBrowser_1 = (_typeNAME << 16) | 1;
-        const int CefBrowserHost_CloseBrowser_2 = (_typeNAME << 16) | 2;
-        const int CefBrowserHost_TryCloseBrowser_3 = (_typeNAME << 16) | 3;
-        const int CefBrowserHost_SetFocus_4 = (_typeNAME << 16) | 4;
-        const int CefBrowserHost_GetWindowHandle_5 = (_typeNAME << 16) | 5;
-        const int CefBrowserHost_GetOpenerWindowHandle_6 = (_typeNAME << 16) | 6;
-        const int CefBrowserHost_HasView_7 = (_typeNAME << 16) | 7;
-        const int CefBrowserHost_GetClient_8 = (_typeNAME << 16) | 8;
-        const int CefBrowserHost_GetRequestContext_9 = (_typeNAME << 16) | 9;
-        const int CefBrowserHost_GetZoomLevel_10 = (_typeNAME << 16) | 10;
-        const int CefBrowserHost_SetZoomLevel_11 = (_typeNAME << 16) | 11;
-        const int CefBrowserHost_RunFileDialog_12 = (_typeNAME << 16) | 12;
-        const int CefBrowserHost_StartDownload_13 = (_typeNAME << 16) | 13;
-        const int CefBrowserHost_DownloadImage_14 = (_typeNAME << 16) | 14;
-        const int CefBrowserHost_Print_15 = (_typeNAME << 16) | 15;
-        const int CefBrowserHost_PrintToPDF_16 = (_typeNAME << 16) | 16;
-        const int CefBrowserHost_Find_17 = (_typeNAME << 16) | 17;
-        const int CefBrowserHost_StopFinding_18 = (_typeNAME << 16) | 18;
-        const int CefBrowserHost_ShowDevTools_19 = (_typeNAME << 16) | 19;
-        const int CefBrowserHost_CloseDevTools_20 = (_typeNAME << 16) | 20;
-        const int CefBrowserHost_HasDevTools_21 = (_typeNAME << 16) | 21;
-        const int CefBrowserHost_GetNavigationEntries_22 = (_typeNAME << 16) | 22;
-        const int CefBrowserHost_SetMouseCursorChangeDisabled_23 = (_typeNAME << 16) | 23;
-        const int CefBrowserHost_IsMouseCursorChangeDisabled_24 = (_typeNAME << 16) | 24;
-        const int CefBrowserHost_ReplaceMisspelling_25 = (_typeNAME << 16) | 25;
-        const int CefBrowserHost_AddWordToDictionary_26 = (_typeNAME << 16) | 26;
-        const int CefBrowserHost_IsWindowRenderingDisabled_27 = (_typeNAME << 16) | 27;
-        const int CefBrowserHost_WasResized_28 = (_typeNAME << 16) | 28;
-        const int CefBrowserHost_WasHidden_29 = (_typeNAME << 16) | 29;
-        const int CefBrowserHost_NotifyScreenInfoChanged_30 = (_typeNAME << 16) | 30;
-        const int CefBrowserHost_Invalidate_31 = (_typeNAME << 16) | 31;
-        const int CefBrowserHost_SendKeyEvent_32 = (_typeNAME << 16) | 32;
-        const int CefBrowserHost_SendMouseClickEvent_33 = (_typeNAME << 16) | 33;
-        const int CefBrowserHost_SendMouseMoveEvent_34 = (_typeNAME << 16) | 34;
-        const int CefBrowserHost_SendMouseWheelEvent_35 = (_typeNAME << 16) | 35;
-        const int CefBrowserHost_SendFocusEvent_36 = (_typeNAME << 16) | 36;
-        const int CefBrowserHost_SendCaptureLostEvent_37 = (_typeNAME << 16) | 37;
-        const int CefBrowserHost_NotifyMoveOrResizeStarted_38 = (_typeNAME << 16) | 38;
-        const int CefBrowserHost_GetWindowlessFrameRate_39 = (_typeNAME << 16) | 39;
-        const int CefBrowserHost_SetWindowlessFrameRate_40 = (_typeNAME << 16) | 40;
-        const int CefBrowserHost_ImeSetComposition_41 = (_typeNAME << 16) | 41;
-        const int CefBrowserHost_ImeCommitText_42 = (_typeNAME << 16) | 42;
-        const int CefBrowserHost_ImeFinishComposingText_43 = (_typeNAME << 16) | 43;
-        const int CefBrowserHost_ImeCancelComposition_44 = (_typeNAME << 16) | 44;
-        const int CefBrowserHost_DragTargetDragEnter_45 = (_typeNAME << 16) | 45;
-        const int CefBrowserHost_DragTargetDragOver_46 = (_typeNAME << 16) | 46;
-        const int CefBrowserHost_DragTargetDragLeave_47 = (_typeNAME << 16) | 47;
-        const int CefBrowserHost_DragTargetDrop_48 = (_typeNAME << 16) | 48;
-        const int CefBrowserHost_DragSourceEndedAt_49 = (_typeNAME << 16) | 49;
-        const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
-        const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
-        const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
+        public const int CefBrowserHost_GetBrowser_1 = (_typeNAME << 16) | 1;
+        public const int CefBrowserHost_CloseBrowser_2 = (_typeNAME << 16) | 2;
+        public const int CefBrowserHost_TryCloseBrowser_3 = (_typeNAME << 16) | 3;
+        public const int CefBrowserHost_SetFocus_4 = (_typeNAME << 16) | 4;
+        public const int CefBrowserHost_GetWindowHandle_5 = (_typeNAME << 16) | 5;
+        public const int CefBrowserHost_GetOpenerWindowHandle_6 = (_typeNAME << 16) | 6;
+        public const int CefBrowserHost_HasView_7 = (_typeNAME << 16) | 7;
+        public const int CefBrowserHost_GetClient_8 = (_typeNAME << 16) | 8;
+        public const int CefBrowserHost_GetRequestContext_9 = (_typeNAME << 16) | 9;
+        public const int CefBrowserHost_GetZoomLevel_10 = (_typeNAME << 16) | 10;
+        public const int CefBrowserHost_SetZoomLevel_11 = (_typeNAME << 16) | 11;
+        public const int CefBrowserHost_RunFileDialog_12 = (_typeNAME << 16) | 12;
+        public const int CefBrowserHost_StartDownload_13 = (_typeNAME << 16) | 13;
+        public const int CefBrowserHost_DownloadImage_14 = (_typeNAME << 16) | 14;
+        public const int CefBrowserHost_Print_15 = (_typeNAME << 16) | 15;
+        public const int CefBrowserHost_PrintToPDF_16 = (_typeNAME << 16) | 16;
+        public const int CefBrowserHost_Find_17 = (_typeNAME << 16) | 17;
+        public const int CefBrowserHost_StopFinding_18 = (_typeNAME << 16) | 18;
+        public const int CefBrowserHost_ShowDevTools_19 = (_typeNAME << 16) | 19;
+        public const int CefBrowserHost_CloseDevTools_20 = (_typeNAME << 16) | 20;
+        public const int CefBrowserHost_HasDevTools_21 = (_typeNAME << 16) | 21;
+        public const int CefBrowserHost_GetNavigationEntries_22 = (_typeNAME << 16) | 22;
+        public const int CefBrowserHost_SetMouseCursorChangeDisabled_23 = (_typeNAME << 16) | 23;
+        public const int CefBrowserHost_IsMouseCursorChangeDisabled_24 = (_typeNAME << 16) | 24;
+        public const int CefBrowserHost_ReplaceMisspelling_25 = (_typeNAME << 16) | 25;
+        public const int CefBrowserHost_AddWordToDictionary_26 = (_typeNAME << 16) | 26;
+        public const int CefBrowserHost_IsWindowRenderingDisabled_27 = (_typeNAME << 16) | 27;
+        public const int CefBrowserHost_WasResized_28 = (_typeNAME << 16) | 28;
+        public const int CefBrowserHost_WasHidden_29 = (_typeNAME << 16) | 29;
+        public const int CefBrowserHost_NotifyScreenInfoChanged_30 = (_typeNAME << 16) | 30;
+        public const int CefBrowserHost_Invalidate_31 = (_typeNAME << 16) | 31;
+        public const int CefBrowserHost_SendKeyEvent_32 = (_typeNAME << 16) | 32;
+        public const int CefBrowserHost_SendMouseClickEvent_33 = (_typeNAME << 16) | 33;
+        public const int CefBrowserHost_SendMouseMoveEvent_34 = (_typeNAME << 16) | 34;
+        public const int CefBrowserHost_SendMouseWheelEvent_35 = (_typeNAME << 16) | 35;
+        public const int CefBrowserHost_SendFocusEvent_36 = (_typeNAME << 16) | 36;
+        public const int CefBrowserHost_SendCaptureLostEvent_37 = (_typeNAME << 16) | 37;
+        public const int CefBrowserHost_NotifyMoveOrResizeStarted_38 = (_typeNAME << 16) | 38;
+        public const int CefBrowserHost_GetWindowlessFrameRate_39 = (_typeNAME << 16) | 39;
+        public const int CefBrowserHost_SetWindowlessFrameRate_40 = (_typeNAME << 16) | 40;
+        public const int CefBrowserHost_ImeSetComposition_41 = (_typeNAME << 16) | 41;
+        public const int CefBrowserHost_ImeCommitText_42 = (_typeNAME << 16) | 42;
+        public const int CefBrowserHost_ImeFinishComposingText_43 = (_typeNAME << 16) | 43;
+        public const int CefBrowserHost_ImeCancelComposition_44 = (_typeNAME << 16) | 44;
+        public const int CefBrowserHost_DragTargetDragEnter_45 = (_typeNAME << 16) | 45;
+        public const int CefBrowserHost_DragTargetDragOver_46 = (_typeNAME << 16) | 46;
+        public const int CefBrowserHost_DragTargetDragLeave_47 = (_typeNAME << 16) | 47;
+        public const int CefBrowserHost_DragTargetDrop_48 = (_typeNAME << 16) | 48;
+        public const int CefBrowserHost_DragSourceEndedAt_49 = (_typeNAME << 16) | 49;
+        public const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
+        public const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
+        public const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
         //
         const int CefBrowserHost_S_CreateBrowser_1 = (_typeNAME << 16) | 1;
         const int CefBrowserHost_S_CreateBrowserSync_2 = (_typeNAME << 16) | 2;
@@ -2348,7 +2348,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefClient : IDisposable
     {
-        const int _typeNAME = 5;
+        public const int _typeNAME = 5;
         const int CefClient_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefClient(IntPtr nativePtr)
@@ -2367,21 +2367,21 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefClient(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,49
-        const int MyCefClient_GetContextMenuHandler_1 = 1;
-        const int MyCefClient_GetDialogHandler_2 = 2;
-        const int MyCefClient_GetDisplayHandler_3 = 3;
-        const int MyCefClient_GetDownloadHandler_4 = 4;
-        const int MyCefClient_GetDragHandler_5 = 5;
-        const int MyCefClient_GetFindHandler_6 = 6;
-        const int MyCefClient_GetFocusHandler_7 = 7;
-        const int MyCefClient_GetGeolocationHandler_8 = 8;
-        const int MyCefClient_GetJSDialogHandler_9 = 9;
-        const int MyCefClient_GetKeyboardHandler_10 = 10;
-        const int MyCefClient_GetLifeSpanHandler_11 = 11;
-        const int MyCefClient_GetLoadHandler_12 = 12;
-        const int MyCefClient_GetRenderHandler_13 = 13;
-        const int MyCefClient_GetRequestHandler_14 = 14;
-        const int MyCefClient_OnProcessMessageReceived_15 = 15;
+        public const int MyCefClient_GetContextMenuHandler_1 = 1;
+        public const int MyCefClient_GetDialogHandler_2 = 2;
+        public const int MyCefClient_GetDisplayHandler_3 = 3;
+        public const int MyCefClient_GetDownloadHandler_4 = 4;
+        public const int MyCefClient_GetDragHandler_5 = 5;
+        public const int MyCefClient_GetFindHandler_6 = 6;
+        public const int MyCefClient_GetFocusHandler_7 = 7;
+        public const int MyCefClient_GetGeolocationHandler_8 = 8;
+        public const int MyCefClient_GetJSDialogHandler_9 = 9;
+        public const int MyCefClient_GetKeyboardHandler_10 = 10;
+        public const int MyCefClient_GetLifeSpanHandler_11 = 11;
+        public const int MyCefClient_GetLoadHandler_12 = 12;
+        public const int MyCefClient_GetRenderHandler_13 = 13;
+        public const int MyCefClient_GetRequestHandler_14 = 14;
+        public const int MyCefClient_OnProcessMessageReceived_15 = 15;
         //gen! CefRefPtr<CefContextMenuHandler> GetContextMenuHandler()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,50
         /// <summary>
@@ -3625,28 +3625,28 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefCommandLine : IDisposable
     {
-        const int _typeNAME = 6;
+        public const int _typeNAME = 6;
         const int CefCommandLine_Release_0 = (_typeNAME << 16) | 0;
-        const int CefCommandLine_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefCommandLine_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        const int CefCommandLine_Copy_3 = (_typeNAME << 16) | 3;
-        const int CefCommandLine_InitFromArgv_4 = (_typeNAME << 16) | 4;
-        const int CefCommandLine_InitFromString_5 = (_typeNAME << 16) | 5;
-        const int CefCommandLine_Reset_6 = (_typeNAME << 16) | 6;
-        const int CefCommandLine_GetArgv_7 = (_typeNAME << 16) | 7;
-        const int CefCommandLine_GetCommandLineString_8 = (_typeNAME << 16) | 8;
-        const int CefCommandLine_GetProgram_9 = (_typeNAME << 16) | 9;
-        const int CefCommandLine_SetProgram_10 = (_typeNAME << 16) | 10;
-        const int CefCommandLine_HasSwitches_11 = (_typeNAME << 16) | 11;
-        const int CefCommandLine_HasSwitch_12 = (_typeNAME << 16) | 12;
-        const int CefCommandLine_GetSwitchValue_13 = (_typeNAME << 16) | 13;
-        const int CefCommandLine_GetSwitches_14 = (_typeNAME << 16) | 14;
-        const int CefCommandLine_AppendSwitch_15 = (_typeNAME << 16) | 15;
-        const int CefCommandLine_AppendSwitchWithValue_16 = (_typeNAME << 16) | 16;
-        const int CefCommandLine_HasArguments_17 = (_typeNAME << 16) | 17;
-        const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
-        const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
-        const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
+        public const int CefCommandLine_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefCommandLine_IsReadOnly_2 = (_typeNAME << 16) | 2;
+        public const int CefCommandLine_Copy_3 = (_typeNAME << 16) | 3;
+        public const int CefCommandLine_InitFromArgv_4 = (_typeNAME << 16) | 4;
+        public const int CefCommandLine_InitFromString_5 = (_typeNAME << 16) | 5;
+        public const int CefCommandLine_Reset_6 = (_typeNAME << 16) | 6;
+        public const int CefCommandLine_GetArgv_7 = (_typeNAME << 16) | 7;
+        public const int CefCommandLine_GetCommandLineString_8 = (_typeNAME << 16) | 8;
+        public const int CefCommandLine_GetProgram_9 = (_typeNAME << 16) | 9;
+        public const int CefCommandLine_SetProgram_10 = (_typeNAME << 16) | 10;
+        public const int CefCommandLine_HasSwitches_11 = (_typeNAME << 16) | 11;
+        public const int CefCommandLine_HasSwitch_12 = (_typeNAME << 16) | 12;
+        public const int CefCommandLine_GetSwitchValue_13 = (_typeNAME << 16) | 13;
+        public const int CefCommandLine_GetSwitches_14 = (_typeNAME << 16) | 14;
+        public const int CefCommandLine_AppendSwitch_15 = (_typeNAME << 16) | 15;
+        public const int CefCommandLine_AppendSwitchWithValue_16 = (_typeNAME << 16) | 16;
+        public const int CefCommandLine_HasArguments_17 = (_typeNAME << 16) | 17;
+        public const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
+        public const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
+        public const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
         //
         const int CefCommandLine_S_CreateCommandLine_1 = (_typeNAME << 16) | 1;
         const int CefCommandLine_S_GetGlobalCommandLine_2 = (_typeNAME << 16) | 2;
@@ -4055,29 +4055,29 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefContextMenuParams : IDisposable
     {
-        const int _typeNAME = 7;
+        public const int _typeNAME = 7;
         const int CefContextMenuParams_Release_0 = (_typeNAME << 16) | 0;
-        const int CefContextMenuParams_GetXCoord_1 = (_typeNAME << 16) | 1;
-        const int CefContextMenuParams_GetYCoord_2 = (_typeNAME << 16) | 2;
-        const int CefContextMenuParams_GetTypeFlags_3 = (_typeNAME << 16) | 3;
-        const int CefContextMenuParams_GetLinkUrl_4 = (_typeNAME << 16) | 4;
-        const int CefContextMenuParams_GetUnfilteredLinkUrl_5 = (_typeNAME << 16) | 5;
-        const int CefContextMenuParams_GetSourceUrl_6 = (_typeNAME << 16) | 6;
-        const int CefContextMenuParams_HasImageContents_7 = (_typeNAME << 16) | 7;
-        const int CefContextMenuParams_GetTitleText_8 = (_typeNAME << 16) | 8;
-        const int CefContextMenuParams_GetPageUrl_9 = (_typeNAME << 16) | 9;
-        const int CefContextMenuParams_GetFrameUrl_10 = (_typeNAME << 16) | 10;
-        const int CefContextMenuParams_GetFrameCharset_11 = (_typeNAME << 16) | 11;
-        const int CefContextMenuParams_GetMediaType_12 = (_typeNAME << 16) | 12;
-        const int CefContextMenuParams_GetMediaStateFlags_13 = (_typeNAME << 16) | 13;
-        const int CefContextMenuParams_GetSelectionText_14 = (_typeNAME << 16) | 14;
-        const int CefContextMenuParams_GetMisspelledWord_15 = (_typeNAME << 16) | 15;
-        const int CefContextMenuParams_GetDictionarySuggestions_16 = (_typeNAME << 16) | 16;
-        const int CefContextMenuParams_IsEditable_17 = (_typeNAME << 16) | 17;
-        const int CefContextMenuParams_IsSpellCheckEnabled_18 = (_typeNAME << 16) | 18;
-        const int CefContextMenuParams_GetEditStateFlags_19 = (_typeNAME << 16) | 19;
-        const int CefContextMenuParams_IsCustomMenu_20 = (_typeNAME << 16) | 20;
-        const int CefContextMenuParams_IsPepperMenu_21 = (_typeNAME << 16) | 21;
+        public const int CefContextMenuParams_GetXCoord_1 = (_typeNAME << 16) | 1;
+        public const int CefContextMenuParams_GetYCoord_2 = (_typeNAME << 16) | 2;
+        public const int CefContextMenuParams_GetTypeFlags_3 = (_typeNAME << 16) | 3;
+        public const int CefContextMenuParams_GetLinkUrl_4 = (_typeNAME << 16) | 4;
+        public const int CefContextMenuParams_GetUnfilteredLinkUrl_5 = (_typeNAME << 16) | 5;
+        public const int CefContextMenuParams_GetSourceUrl_6 = (_typeNAME << 16) | 6;
+        public const int CefContextMenuParams_HasImageContents_7 = (_typeNAME << 16) | 7;
+        public const int CefContextMenuParams_GetTitleText_8 = (_typeNAME << 16) | 8;
+        public const int CefContextMenuParams_GetPageUrl_9 = (_typeNAME << 16) | 9;
+        public const int CefContextMenuParams_GetFrameUrl_10 = (_typeNAME << 16) | 10;
+        public const int CefContextMenuParams_GetFrameCharset_11 = (_typeNAME << 16) | 11;
+        public const int CefContextMenuParams_GetMediaType_12 = (_typeNAME << 16) | 12;
+        public const int CefContextMenuParams_GetMediaStateFlags_13 = (_typeNAME << 16) | 13;
+        public const int CefContextMenuParams_GetSelectionText_14 = (_typeNAME << 16) | 14;
+        public const int CefContextMenuParams_GetMisspelledWord_15 = (_typeNAME << 16) | 15;
+        public const int CefContextMenuParams_GetDictionarySuggestions_16 = (_typeNAME << 16) | 16;
+        public const int CefContextMenuParams_IsEditable_17 = (_typeNAME << 16) | 17;
+        public const int CefContextMenuParams_IsSpellCheckEnabled_18 = (_typeNAME << 16) | 18;
+        public const int CefContextMenuParams_GetEditStateFlags_19 = (_typeNAME << 16) | 19;
+        public const int CefContextMenuParams_IsCustomMenu_20 = (_typeNAME << 16) | 20;
+        public const int CefContextMenuParams_IsPepperMenu_21 = (_typeNAME << 16) | 21;
         internal IntPtr nativePtr;
         internal CefContextMenuParams(IntPtr nativePtr)
         {
@@ -4437,15 +4437,15 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefCookieManager : IDisposable
     {
-        const int _typeNAME = 8;
+        public const int _typeNAME = 8;
         const int CefCookieManager_Release_0 = (_typeNAME << 16) | 0;
-        const int CefCookieManager_SetSupportedSchemes_1 = (_typeNAME << 16) | 1;
-        const int CefCookieManager_VisitAllCookies_2 = (_typeNAME << 16) | 2;
-        const int CefCookieManager_VisitUrlCookies_3 = (_typeNAME << 16) | 3;
-        const int CefCookieManager_SetCookie_4 = (_typeNAME << 16) | 4;
-        const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
-        const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
-        const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
+        public const int CefCookieManager_SetSupportedSchemes_1 = (_typeNAME << 16) | 1;
+        public const int CefCookieManager_VisitAllCookies_2 = (_typeNAME << 16) | 2;
+        public const int CefCookieManager_VisitUrlCookies_3 = (_typeNAME << 16) | 3;
+        public const int CefCookieManager_SetCookie_4 = (_typeNAME << 16) | 4;
+        public const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
+        public const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
+        public const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
         //
         const int CefCookieManager_S_GetGlobalManager_1 = (_typeNAME << 16) | 1;
         const int CefCookieManager_S_CreateManager_2 = (_typeNAME << 16) | 2;
@@ -4704,7 +4704,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefCookieVisitor : IDisposable
     {
-        const int _typeNAME = 9;
+        public const int _typeNAME = 9;
         const int CefCookieVisitor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefCookieVisitor(IntPtr nativePtr)
@@ -4723,7 +4723,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefCookieVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,157
-        const int MyCefCookieVisitor_Visit_1 = 1;
+        public const int MyCefCookieVisitor_Visit_1 = 1;
         //gen! bool Visit(const CefCookie& cookie,int count,int total,bool& deleteCookie)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,158
         /// <summary>
@@ -4892,7 +4892,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDOMVisitor : IDisposable
     {
-        const int _typeNAME = 10;
+        public const int _typeNAME = 10;
         const int CefDOMVisitor_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefDOMVisitor(IntPtr nativePtr)
@@ -4911,7 +4911,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefDOMVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,167
-        const int MyCefDOMVisitor_Visit_1 = 1;
+        public const int MyCefDOMVisitor_Visit_1 = 1;
         //gen! void Visit(CefRefPtr<CefDOMDocument> document)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,168
         /// <summary>
@@ -5036,22 +5036,22 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDOMDocument : IDisposable
     {
-        const int _typeNAME = 11;
+        public const int _typeNAME = 11;
         const int CefDOMDocument_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDOMDocument_GetType_1 = (_typeNAME << 16) | 1;
-        const int CefDOMDocument_GetDocument_2 = (_typeNAME << 16) | 2;
-        const int CefDOMDocument_GetBody_3 = (_typeNAME << 16) | 3;
-        const int CefDOMDocument_GetHead_4 = (_typeNAME << 16) | 4;
-        const int CefDOMDocument_GetTitle_5 = (_typeNAME << 16) | 5;
-        const int CefDOMDocument_GetElementById_6 = (_typeNAME << 16) | 6;
-        const int CefDOMDocument_GetFocusedNode_7 = (_typeNAME << 16) | 7;
-        const int CefDOMDocument_HasSelection_8 = (_typeNAME << 16) | 8;
-        const int CefDOMDocument_GetSelectionStartOffset_9 = (_typeNAME << 16) | 9;
-        const int CefDOMDocument_GetSelectionEndOffset_10 = (_typeNAME << 16) | 10;
-        const int CefDOMDocument_GetSelectionAsMarkup_11 = (_typeNAME << 16) | 11;
-        const int CefDOMDocument_GetSelectionAsText_12 = (_typeNAME << 16) | 12;
-        const int CefDOMDocument_GetBaseURL_13 = (_typeNAME << 16) | 13;
-        const int CefDOMDocument_GetCompleteURL_14 = (_typeNAME << 16) | 14;
+        public const int CefDOMDocument_GetType_1 = (_typeNAME << 16) | 1;
+        public const int CefDOMDocument_GetDocument_2 = (_typeNAME << 16) | 2;
+        public const int CefDOMDocument_GetBody_3 = (_typeNAME << 16) | 3;
+        public const int CefDOMDocument_GetHead_4 = (_typeNAME << 16) | 4;
+        public const int CefDOMDocument_GetTitle_5 = (_typeNAME << 16) | 5;
+        public const int CefDOMDocument_GetElementById_6 = (_typeNAME << 16) | 6;
+        public const int CefDOMDocument_GetFocusedNode_7 = (_typeNAME << 16) | 7;
+        public const int CefDOMDocument_HasSelection_8 = (_typeNAME << 16) | 8;
+        public const int CefDOMDocument_GetSelectionStartOffset_9 = (_typeNAME << 16) | 9;
+        public const int CefDOMDocument_GetSelectionEndOffset_10 = (_typeNAME << 16) | 10;
+        public const int CefDOMDocument_GetSelectionAsMarkup_11 = (_typeNAME << 16) | 11;
+        public const int CefDOMDocument_GetSelectionAsText_12 = (_typeNAME << 16) | 12;
+        public const int CefDOMDocument_GetBaseURL_13 = (_typeNAME << 16) | 13;
+        public const int CefDOMDocument_GetCompleteURL_14 = (_typeNAME << 16) | 14;
         internal IntPtr nativePtr;
         internal CefDOMDocument(IntPtr nativePtr)
         {
@@ -5292,34 +5292,34 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDOMNode : IDisposable
     {
-        const int _typeNAME = 12;
+        public const int _typeNAME = 12;
         const int CefDOMNode_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDOMNode_GetType_1 = (_typeNAME << 16) | 1;
-        const int CefDOMNode_IsText_2 = (_typeNAME << 16) | 2;
-        const int CefDOMNode_IsElement_3 = (_typeNAME << 16) | 3;
-        const int CefDOMNode_IsEditable_4 = (_typeNAME << 16) | 4;
-        const int CefDOMNode_IsFormControlElement_5 = (_typeNAME << 16) | 5;
-        const int CefDOMNode_GetFormControlElementType_6 = (_typeNAME << 16) | 6;
-        const int CefDOMNode_IsSame_7 = (_typeNAME << 16) | 7;
-        const int CefDOMNode_GetName_8 = (_typeNAME << 16) | 8;
-        const int CefDOMNode_GetValue_9 = (_typeNAME << 16) | 9;
-        const int CefDOMNode_SetValue_10 = (_typeNAME << 16) | 10;
-        const int CefDOMNode_GetAsMarkup_11 = (_typeNAME << 16) | 11;
-        const int CefDOMNode_GetDocument_12 = (_typeNAME << 16) | 12;
-        const int CefDOMNode_GetParent_13 = (_typeNAME << 16) | 13;
-        const int CefDOMNode_GetPreviousSibling_14 = (_typeNAME << 16) | 14;
-        const int CefDOMNode_GetNextSibling_15 = (_typeNAME << 16) | 15;
-        const int CefDOMNode_HasChildren_16 = (_typeNAME << 16) | 16;
-        const int CefDOMNode_GetFirstChild_17 = (_typeNAME << 16) | 17;
-        const int CefDOMNode_GetLastChild_18 = (_typeNAME << 16) | 18;
-        const int CefDOMNode_GetElementTagName_19 = (_typeNAME << 16) | 19;
-        const int CefDOMNode_HasElementAttributes_20 = (_typeNAME << 16) | 20;
-        const int CefDOMNode_HasElementAttribute_21 = (_typeNAME << 16) | 21;
-        const int CefDOMNode_GetElementAttribute_22 = (_typeNAME << 16) | 22;
-        const int CefDOMNode_GetElementAttributes_23 = (_typeNAME << 16) | 23;
-        const int CefDOMNode_SetElementAttribute_24 = (_typeNAME << 16) | 24;
-        const int CefDOMNode_GetElementInnerText_25 = (_typeNAME << 16) | 25;
-        const int CefDOMNode_GetElementBounds_26 = (_typeNAME << 16) | 26;
+        public const int CefDOMNode_GetType_1 = (_typeNAME << 16) | 1;
+        public const int CefDOMNode_IsText_2 = (_typeNAME << 16) | 2;
+        public const int CefDOMNode_IsElement_3 = (_typeNAME << 16) | 3;
+        public const int CefDOMNode_IsEditable_4 = (_typeNAME << 16) | 4;
+        public const int CefDOMNode_IsFormControlElement_5 = (_typeNAME << 16) | 5;
+        public const int CefDOMNode_GetFormControlElementType_6 = (_typeNAME << 16) | 6;
+        public const int CefDOMNode_IsSame_7 = (_typeNAME << 16) | 7;
+        public const int CefDOMNode_GetName_8 = (_typeNAME << 16) | 8;
+        public const int CefDOMNode_GetValue_9 = (_typeNAME << 16) | 9;
+        public const int CefDOMNode_SetValue_10 = (_typeNAME << 16) | 10;
+        public const int CefDOMNode_GetAsMarkup_11 = (_typeNAME << 16) | 11;
+        public const int CefDOMNode_GetDocument_12 = (_typeNAME << 16) | 12;
+        public const int CefDOMNode_GetParent_13 = (_typeNAME << 16) | 13;
+        public const int CefDOMNode_GetPreviousSibling_14 = (_typeNAME << 16) | 14;
+        public const int CefDOMNode_GetNextSibling_15 = (_typeNAME << 16) | 15;
+        public const int CefDOMNode_HasChildren_16 = (_typeNAME << 16) | 16;
+        public const int CefDOMNode_GetFirstChild_17 = (_typeNAME << 16) | 17;
+        public const int CefDOMNode_GetLastChild_18 = (_typeNAME << 16) | 18;
+        public const int CefDOMNode_GetElementTagName_19 = (_typeNAME << 16) | 19;
+        public const int CefDOMNode_HasElementAttributes_20 = (_typeNAME << 16) | 20;
+        public const int CefDOMNode_HasElementAttribute_21 = (_typeNAME << 16) | 21;
+        public const int CefDOMNode_GetElementAttribute_22 = (_typeNAME << 16) | 22;
+        public const int CefDOMNode_GetElementAttributes_23 = (_typeNAME << 16) | 23;
+        public const int CefDOMNode_SetElementAttribute_24 = (_typeNAME << 16) | 24;
+        public const int CefDOMNode_GetElementInnerText_25 = (_typeNAME << 16) | 25;
+        public const int CefDOMNode_GetElementBounds_26 = (_typeNAME << 16) | 26;
         internal IntPtr nativePtr;
         internal CefDOMNode(IntPtr nativePtr)
         {
@@ -5756,25 +5756,25 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDownloadItem : IDisposable
     {
-        const int _typeNAME = 13;
+        public const int _typeNAME = 13;
         const int CefDownloadItem_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDownloadItem_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefDownloadItem_IsInProgress_2 = (_typeNAME << 16) | 2;
-        const int CefDownloadItem_IsComplete_3 = (_typeNAME << 16) | 3;
-        const int CefDownloadItem_IsCanceled_4 = (_typeNAME << 16) | 4;
-        const int CefDownloadItem_GetCurrentSpeed_5 = (_typeNAME << 16) | 5;
-        const int CefDownloadItem_GetPercentComplete_6 = (_typeNAME << 16) | 6;
-        const int CefDownloadItem_GetTotalBytes_7 = (_typeNAME << 16) | 7;
-        const int CefDownloadItem_GetReceivedBytes_8 = (_typeNAME << 16) | 8;
-        const int CefDownloadItem_GetStartTime_9 = (_typeNAME << 16) | 9;
-        const int CefDownloadItem_GetEndTime_10 = (_typeNAME << 16) | 10;
-        const int CefDownloadItem_GetFullPath_11 = (_typeNAME << 16) | 11;
-        const int CefDownloadItem_GetId_12 = (_typeNAME << 16) | 12;
-        const int CefDownloadItem_GetURL_13 = (_typeNAME << 16) | 13;
-        const int CefDownloadItem_GetOriginalUrl_14 = (_typeNAME << 16) | 14;
-        const int CefDownloadItem_GetSuggestedFileName_15 = (_typeNAME << 16) | 15;
-        const int CefDownloadItem_GetContentDisposition_16 = (_typeNAME << 16) | 16;
-        const int CefDownloadItem_GetMimeType_17 = (_typeNAME << 16) | 17;
+        public const int CefDownloadItem_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefDownloadItem_IsInProgress_2 = (_typeNAME << 16) | 2;
+        public const int CefDownloadItem_IsComplete_3 = (_typeNAME << 16) | 3;
+        public const int CefDownloadItem_IsCanceled_4 = (_typeNAME << 16) | 4;
+        public const int CefDownloadItem_GetCurrentSpeed_5 = (_typeNAME << 16) | 5;
+        public const int CefDownloadItem_GetPercentComplete_6 = (_typeNAME << 16) | 6;
+        public const int CefDownloadItem_GetTotalBytes_7 = (_typeNAME << 16) | 7;
+        public const int CefDownloadItem_GetReceivedBytes_8 = (_typeNAME << 16) | 8;
+        public const int CefDownloadItem_GetStartTime_9 = (_typeNAME << 16) | 9;
+        public const int CefDownloadItem_GetEndTime_10 = (_typeNAME << 16) | 10;
+        public const int CefDownloadItem_GetFullPath_11 = (_typeNAME << 16) | 11;
+        public const int CefDownloadItem_GetId_12 = (_typeNAME << 16) | 12;
+        public const int CefDownloadItem_GetURL_13 = (_typeNAME << 16) | 13;
+        public const int CefDownloadItem_GetOriginalUrl_14 = (_typeNAME << 16) | 14;
+        public const int CefDownloadItem_GetSuggestedFileName_15 = (_typeNAME << 16) | 15;
+        public const int CefDownloadItem_GetContentDisposition_16 = (_typeNAME << 16) | 16;
+        public const int CefDownloadItem_GetMimeType_17 = (_typeNAME << 16) | 17;
         internal IntPtr nativePtr;
         internal CefDownloadItem(IntPtr nativePtr)
         {
@@ -6055,33 +6055,33 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDragData : IDisposable
     {
-        const int _typeNAME = 14;
+        public const int _typeNAME = 14;
         const int CefDragData_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDragData_Clone_1 = (_typeNAME << 16) | 1;
-        const int CefDragData_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        const int CefDragData_IsLink_3 = (_typeNAME << 16) | 3;
-        const int CefDragData_IsFragment_4 = (_typeNAME << 16) | 4;
-        const int CefDragData_IsFile_5 = (_typeNAME << 16) | 5;
-        const int CefDragData_GetLinkURL_6 = (_typeNAME << 16) | 6;
-        const int CefDragData_GetLinkTitle_7 = (_typeNAME << 16) | 7;
-        const int CefDragData_GetLinkMetadata_8 = (_typeNAME << 16) | 8;
-        const int CefDragData_GetFragmentText_9 = (_typeNAME << 16) | 9;
-        const int CefDragData_GetFragmentHtml_10 = (_typeNAME << 16) | 10;
-        const int CefDragData_GetFragmentBaseURL_11 = (_typeNAME << 16) | 11;
-        const int CefDragData_GetFileName_12 = (_typeNAME << 16) | 12;
-        const int CefDragData_GetFileContents_13 = (_typeNAME << 16) | 13;
-        const int CefDragData_GetFileNames_14 = (_typeNAME << 16) | 14;
-        const int CefDragData_SetLinkURL_15 = (_typeNAME << 16) | 15;
-        const int CefDragData_SetLinkTitle_16 = (_typeNAME << 16) | 16;
-        const int CefDragData_SetLinkMetadata_17 = (_typeNAME << 16) | 17;
-        const int CefDragData_SetFragmentText_18 = (_typeNAME << 16) | 18;
-        const int CefDragData_SetFragmentHtml_19 = (_typeNAME << 16) | 19;
-        const int CefDragData_SetFragmentBaseURL_20 = (_typeNAME << 16) | 20;
-        const int CefDragData_ResetFileContents_21 = (_typeNAME << 16) | 21;
-        const int CefDragData_AddFile_22 = (_typeNAME << 16) | 22;
-        const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
-        const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
-        const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
+        public const int CefDragData_Clone_1 = (_typeNAME << 16) | 1;
+        public const int CefDragData_IsReadOnly_2 = (_typeNAME << 16) | 2;
+        public const int CefDragData_IsLink_3 = (_typeNAME << 16) | 3;
+        public const int CefDragData_IsFragment_4 = (_typeNAME << 16) | 4;
+        public const int CefDragData_IsFile_5 = (_typeNAME << 16) | 5;
+        public const int CefDragData_GetLinkURL_6 = (_typeNAME << 16) | 6;
+        public const int CefDragData_GetLinkTitle_7 = (_typeNAME << 16) | 7;
+        public const int CefDragData_GetLinkMetadata_8 = (_typeNAME << 16) | 8;
+        public const int CefDragData_GetFragmentText_9 = (_typeNAME << 16) | 9;
+        public const int CefDragData_GetFragmentHtml_10 = (_typeNAME << 16) | 10;
+        public const int CefDragData_GetFragmentBaseURL_11 = (_typeNAME << 16) | 11;
+        public const int CefDragData_GetFileName_12 = (_typeNAME << 16) | 12;
+        public const int CefDragData_GetFileContents_13 = (_typeNAME << 16) | 13;
+        public const int CefDragData_GetFileNames_14 = (_typeNAME << 16) | 14;
+        public const int CefDragData_SetLinkURL_15 = (_typeNAME << 16) | 15;
+        public const int CefDragData_SetLinkTitle_16 = (_typeNAME << 16) | 16;
+        public const int CefDragData_SetLinkMetadata_17 = (_typeNAME << 16) | 17;
+        public const int CefDragData_SetFragmentText_18 = (_typeNAME << 16) | 18;
+        public const int CefDragData_SetFragmentHtml_19 = (_typeNAME << 16) | 19;
+        public const int CefDragData_SetFragmentBaseURL_20 = (_typeNAME << 16) | 20;
+        public const int CefDragData_ResetFileContents_21 = (_typeNAME << 16) | 21;
+        public const int CefDragData_AddFile_22 = (_typeNAME << 16) | 22;
+        public const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
+        public const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
+        public const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
         //
         const int CefDragData_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -6538,32 +6538,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefFrame : IDisposable
     {
-        const int _typeNAME = 15;
+        public const int _typeNAME = 15;
         const int CefFrame_Release_0 = (_typeNAME << 16) | 0;
-        const int CefFrame_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefFrame_Undo_2 = (_typeNAME << 16) | 2;
-        const int CefFrame_Redo_3 = (_typeNAME << 16) | 3;
-        const int CefFrame_Cut_4 = (_typeNAME << 16) | 4;
-        const int CefFrame_Copy_5 = (_typeNAME << 16) | 5;
-        const int CefFrame_Paste_6 = (_typeNAME << 16) | 6;
-        const int CefFrame_Delete_7 = (_typeNAME << 16) | 7;
-        const int CefFrame_SelectAll_8 = (_typeNAME << 16) | 8;
-        const int CefFrame_ViewSource_9 = (_typeNAME << 16) | 9;
-        const int CefFrame_GetSource_10 = (_typeNAME << 16) | 10;
-        const int CefFrame_GetText_11 = (_typeNAME << 16) | 11;
-        const int CefFrame_LoadRequest_12 = (_typeNAME << 16) | 12;
-        const int CefFrame_LoadURL_13 = (_typeNAME << 16) | 13;
-        const int CefFrame_LoadString_14 = (_typeNAME << 16) | 14;
-        const int CefFrame_ExecuteJavaScript_15 = (_typeNAME << 16) | 15;
-        const int CefFrame_IsMain_16 = (_typeNAME << 16) | 16;
-        const int CefFrame_IsFocused_17 = (_typeNAME << 16) | 17;
-        const int CefFrame_GetName_18 = (_typeNAME << 16) | 18;
-        const int CefFrame_GetIdentifier_19 = (_typeNAME << 16) | 19;
-        const int CefFrame_GetParent_20 = (_typeNAME << 16) | 20;
-        const int CefFrame_GetURL_21 = (_typeNAME << 16) | 21;
-        const int CefFrame_GetBrowser_22 = (_typeNAME << 16) | 22;
-        const int CefFrame_GetV8Context_23 = (_typeNAME << 16) | 23;
-        const int CefFrame_VisitDOM_24 = (_typeNAME << 16) | 24;
+        public const int CefFrame_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefFrame_Undo_2 = (_typeNAME << 16) | 2;
+        public const int CefFrame_Redo_3 = (_typeNAME << 16) | 3;
+        public const int CefFrame_Cut_4 = (_typeNAME << 16) | 4;
+        public const int CefFrame_Copy_5 = (_typeNAME << 16) | 5;
+        public const int CefFrame_Paste_6 = (_typeNAME << 16) | 6;
+        public const int CefFrame_Delete_7 = (_typeNAME << 16) | 7;
+        public const int CefFrame_SelectAll_8 = (_typeNAME << 16) | 8;
+        public const int CefFrame_ViewSource_9 = (_typeNAME << 16) | 9;
+        public const int CefFrame_GetSource_10 = (_typeNAME << 16) | 10;
+        public const int CefFrame_GetText_11 = (_typeNAME << 16) | 11;
+        public const int CefFrame_LoadRequest_12 = (_typeNAME << 16) | 12;
+        public const int CefFrame_LoadURL_13 = (_typeNAME << 16) | 13;
+        public const int CefFrame_LoadString_14 = (_typeNAME << 16) | 14;
+        public const int CefFrame_ExecuteJavaScript_15 = (_typeNAME << 16) | 15;
+        public const int CefFrame_IsMain_16 = (_typeNAME << 16) | 16;
+        public const int CefFrame_IsFocused_17 = (_typeNAME << 16) | 17;
+        public const int CefFrame_GetName_18 = (_typeNAME << 16) | 18;
+        public const int CefFrame_GetIdentifier_19 = (_typeNAME << 16) | 19;
+        public const int CefFrame_GetParent_20 = (_typeNAME << 16) | 20;
+        public const int CefFrame_GetURL_21 = (_typeNAME << 16) | 21;
+        public const int CefFrame_GetBrowser_22 = (_typeNAME << 16) | 22;
+        public const int CefFrame_GetV8Context_23 = (_typeNAME << 16) | 23;
+        public const int CefFrame_VisitDOM_24 = (_typeNAME << 16) | 24;
         internal IntPtr nativePtr;
         internal CefFrame(IntPtr nativePtr)
         {
@@ -6996,21 +6996,21 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefImage : IDisposable
     {
-        const int _typeNAME = 16;
+        public const int _typeNAME = 16;
         const int CefImage_Release_0 = (_typeNAME << 16) | 0;
-        const int CefImage_IsEmpty_1 = (_typeNAME << 16) | 1;
-        const int CefImage_IsSame_2 = (_typeNAME << 16) | 2;
-        const int CefImage_AddBitmap_3 = (_typeNAME << 16) | 3;
-        const int CefImage_AddPNG_4 = (_typeNAME << 16) | 4;
-        const int CefImage_AddJPEG_5 = (_typeNAME << 16) | 5;
-        const int CefImage_GetWidth_6 = (_typeNAME << 16) | 6;
-        const int CefImage_GetHeight_7 = (_typeNAME << 16) | 7;
-        const int CefImage_HasRepresentation_8 = (_typeNAME << 16) | 8;
-        const int CefImage_RemoveRepresentation_9 = (_typeNAME << 16) | 9;
-        const int CefImage_GetRepresentationInfo_10 = (_typeNAME << 16) | 10;
-        const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
-        const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
-        const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
+        public const int CefImage_IsEmpty_1 = (_typeNAME << 16) | 1;
+        public const int CefImage_IsSame_2 = (_typeNAME << 16) | 2;
+        public const int CefImage_AddBitmap_3 = (_typeNAME << 16) | 3;
+        public const int CefImage_AddPNG_4 = (_typeNAME << 16) | 4;
+        public const int CefImage_AddJPEG_5 = (_typeNAME << 16) | 5;
+        public const int CefImage_GetWidth_6 = (_typeNAME << 16) | 6;
+        public const int CefImage_GetHeight_7 = (_typeNAME << 16) | 7;
+        public const int CefImage_HasRepresentation_8 = (_typeNAME << 16) | 8;
+        public const int CefImage_RemoveRepresentation_9 = (_typeNAME << 16) | 9;
+        public const int CefImage_GetRepresentationInfo_10 = (_typeNAME << 16) | 10;
+        public const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
+        public const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
+        public const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
         //
         const int CefImage_S_CreateImage_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -7374,64 +7374,64 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefMenuModel : IDisposable
     {
-        const int _typeNAME = 17;
+        public const int _typeNAME = 17;
         const int CefMenuModel_Release_0 = (_typeNAME << 16) | 0;
-        const int CefMenuModel_IsSubMenu_1 = (_typeNAME << 16) | 1;
-        const int CefMenuModel_Clear_2 = (_typeNAME << 16) | 2;
-        const int CefMenuModel_GetCount_3 = (_typeNAME << 16) | 3;
-        const int CefMenuModel_AddSeparator_4 = (_typeNAME << 16) | 4;
-        const int CefMenuModel_AddItem_5 = (_typeNAME << 16) | 5;
-        const int CefMenuModel_AddCheckItem_6 = (_typeNAME << 16) | 6;
-        const int CefMenuModel_AddRadioItem_7 = (_typeNAME << 16) | 7;
-        const int CefMenuModel_AddSubMenu_8 = (_typeNAME << 16) | 8;
-        const int CefMenuModel_InsertSeparatorAt_9 = (_typeNAME << 16) | 9;
-        const int CefMenuModel_InsertItemAt_10 = (_typeNAME << 16) | 10;
-        const int CefMenuModel_InsertCheckItemAt_11 = (_typeNAME << 16) | 11;
-        const int CefMenuModel_InsertRadioItemAt_12 = (_typeNAME << 16) | 12;
-        const int CefMenuModel_InsertSubMenuAt_13 = (_typeNAME << 16) | 13;
-        const int CefMenuModel_Remove_14 = (_typeNAME << 16) | 14;
-        const int CefMenuModel_RemoveAt_15 = (_typeNAME << 16) | 15;
-        const int CefMenuModel_GetIndexOf_16 = (_typeNAME << 16) | 16;
-        const int CefMenuModel_GetCommandIdAt_17 = (_typeNAME << 16) | 17;
-        const int CefMenuModel_SetCommandIdAt_18 = (_typeNAME << 16) | 18;
-        const int CefMenuModel_GetLabel_19 = (_typeNAME << 16) | 19;
-        const int CefMenuModel_GetLabelAt_20 = (_typeNAME << 16) | 20;
-        const int CefMenuModel_SetLabel_21 = (_typeNAME << 16) | 21;
-        const int CefMenuModel_SetLabelAt_22 = (_typeNAME << 16) | 22;
-        const int CefMenuModel_GetType_23 = (_typeNAME << 16) | 23;
-        const int CefMenuModel_GetTypeAt_24 = (_typeNAME << 16) | 24;
-        const int CefMenuModel_GetGroupId_25 = (_typeNAME << 16) | 25;
-        const int CefMenuModel_GetGroupIdAt_26 = (_typeNAME << 16) | 26;
-        const int CefMenuModel_SetGroupId_27 = (_typeNAME << 16) | 27;
-        const int CefMenuModel_SetGroupIdAt_28 = (_typeNAME << 16) | 28;
-        const int CefMenuModel_GetSubMenu_29 = (_typeNAME << 16) | 29;
-        const int CefMenuModel_GetSubMenuAt_30 = (_typeNAME << 16) | 30;
-        const int CefMenuModel_IsVisible_31 = (_typeNAME << 16) | 31;
-        const int CefMenuModel_IsVisibleAt_32 = (_typeNAME << 16) | 32;
-        const int CefMenuModel_SetVisible_33 = (_typeNAME << 16) | 33;
-        const int CefMenuModel_SetVisibleAt_34 = (_typeNAME << 16) | 34;
-        const int CefMenuModel_IsEnabled_35 = (_typeNAME << 16) | 35;
-        const int CefMenuModel_IsEnabledAt_36 = (_typeNAME << 16) | 36;
-        const int CefMenuModel_SetEnabled_37 = (_typeNAME << 16) | 37;
-        const int CefMenuModel_SetEnabledAt_38 = (_typeNAME << 16) | 38;
-        const int CefMenuModel_IsChecked_39 = (_typeNAME << 16) | 39;
-        const int CefMenuModel_IsCheckedAt_40 = (_typeNAME << 16) | 40;
-        const int CefMenuModel_SetChecked_41 = (_typeNAME << 16) | 41;
-        const int CefMenuModel_SetCheckedAt_42 = (_typeNAME << 16) | 42;
-        const int CefMenuModel_HasAccelerator_43 = (_typeNAME << 16) | 43;
-        const int CefMenuModel_HasAcceleratorAt_44 = (_typeNAME << 16) | 44;
-        const int CefMenuModel_SetAccelerator_45 = (_typeNAME << 16) | 45;
-        const int CefMenuModel_SetAcceleratorAt_46 = (_typeNAME << 16) | 46;
-        const int CefMenuModel_RemoveAccelerator_47 = (_typeNAME << 16) | 47;
-        const int CefMenuModel_RemoveAcceleratorAt_48 = (_typeNAME << 16) | 48;
-        const int CefMenuModel_GetAccelerator_49 = (_typeNAME << 16) | 49;
-        const int CefMenuModel_GetAcceleratorAt_50 = (_typeNAME << 16) | 50;
-        const int CefMenuModel_SetColor_51 = (_typeNAME << 16) | 51;
-        const int CefMenuModel_SetColorAt_52 = (_typeNAME << 16) | 52;
-        const int CefMenuModel_GetColor_53 = (_typeNAME << 16) | 53;
-        const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
-        const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
-        const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
+        public const int CefMenuModel_IsSubMenu_1 = (_typeNAME << 16) | 1;
+        public const int CefMenuModel_Clear_2 = (_typeNAME << 16) | 2;
+        public const int CefMenuModel_GetCount_3 = (_typeNAME << 16) | 3;
+        public const int CefMenuModel_AddSeparator_4 = (_typeNAME << 16) | 4;
+        public const int CefMenuModel_AddItem_5 = (_typeNAME << 16) | 5;
+        public const int CefMenuModel_AddCheckItem_6 = (_typeNAME << 16) | 6;
+        public const int CefMenuModel_AddRadioItem_7 = (_typeNAME << 16) | 7;
+        public const int CefMenuModel_AddSubMenu_8 = (_typeNAME << 16) | 8;
+        public const int CefMenuModel_InsertSeparatorAt_9 = (_typeNAME << 16) | 9;
+        public const int CefMenuModel_InsertItemAt_10 = (_typeNAME << 16) | 10;
+        public const int CefMenuModel_InsertCheckItemAt_11 = (_typeNAME << 16) | 11;
+        public const int CefMenuModel_InsertRadioItemAt_12 = (_typeNAME << 16) | 12;
+        public const int CefMenuModel_InsertSubMenuAt_13 = (_typeNAME << 16) | 13;
+        public const int CefMenuModel_Remove_14 = (_typeNAME << 16) | 14;
+        public const int CefMenuModel_RemoveAt_15 = (_typeNAME << 16) | 15;
+        public const int CefMenuModel_GetIndexOf_16 = (_typeNAME << 16) | 16;
+        public const int CefMenuModel_GetCommandIdAt_17 = (_typeNAME << 16) | 17;
+        public const int CefMenuModel_SetCommandIdAt_18 = (_typeNAME << 16) | 18;
+        public const int CefMenuModel_GetLabel_19 = (_typeNAME << 16) | 19;
+        public const int CefMenuModel_GetLabelAt_20 = (_typeNAME << 16) | 20;
+        public const int CefMenuModel_SetLabel_21 = (_typeNAME << 16) | 21;
+        public const int CefMenuModel_SetLabelAt_22 = (_typeNAME << 16) | 22;
+        public const int CefMenuModel_GetType_23 = (_typeNAME << 16) | 23;
+        public const int CefMenuModel_GetTypeAt_24 = (_typeNAME << 16) | 24;
+        public const int CefMenuModel_GetGroupId_25 = (_typeNAME << 16) | 25;
+        public const int CefMenuModel_GetGroupIdAt_26 = (_typeNAME << 16) | 26;
+        public const int CefMenuModel_SetGroupId_27 = (_typeNAME << 16) | 27;
+        public const int CefMenuModel_SetGroupIdAt_28 = (_typeNAME << 16) | 28;
+        public const int CefMenuModel_GetSubMenu_29 = (_typeNAME << 16) | 29;
+        public const int CefMenuModel_GetSubMenuAt_30 = (_typeNAME << 16) | 30;
+        public const int CefMenuModel_IsVisible_31 = (_typeNAME << 16) | 31;
+        public const int CefMenuModel_IsVisibleAt_32 = (_typeNAME << 16) | 32;
+        public const int CefMenuModel_SetVisible_33 = (_typeNAME << 16) | 33;
+        public const int CefMenuModel_SetVisibleAt_34 = (_typeNAME << 16) | 34;
+        public const int CefMenuModel_IsEnabled_35 = (_typeNAME << 16) | 35;
+        public const int CefMenuModel_IsEnabledAt_36 = (_typeNAME << 16) | 36;
+        public const int CefMenuModel_SetEnabled_37 = (_typeNAME << 16) | 37;
+        public const int CefMenuModel_SetEnabledAt_38 = (_typeNAME << 16) | 38;
+        public const int CefMenuModel_IsChecked_39 = (_typeNAME << 16) | 39;
+        public const int CefMenuModel_IsCheckedAt_40 = (_typeNAME << 16) | 40;
+        public const int CefMenuModel_SetChecked_41 = (_typeNAME << 16) | 41;
+        public const int CefMenuModel_SetCheckedAt_42 = (_typeNAME << 16) | 42;
+        public const int CefMenuModel_HasAccelerator_43 = (_typeNAME << 16) | 43;
+        public const int CefMenuModel_HasAcceleratorAt_44 = (_typeNAME << 16) | 44;
+        public const int CefMenuModel_SetAccelerator_45 = (_typeNAME << 16) | 45;
+        public const int CefMenuModel_SetAcceleratorAt_46 = (_typeNAME << 16) | 46;
+        public const int CefMenuModel_RemoveAccelerator_47 = (_typeNAME << 16) | 47;
+        public const int CefMenuModel_RemoveAcceleratorAt_48 = (_typeNAME << 16) | 48;
+        public const int CefMenuModel_GetAccelerator_49 = (_typeNAME << 16) | 49;
+        public const int CefMenuModel_GetAcceleratorAt_50 = (_typeNAME << 16) | 50;
+        public const int CefMenuModel_SetColor_51 = (_typeNAME << 16) | 51;
+        public const int CefMenuModel_SetColorAt_52 = (_typeNAME << 16) | 52;
+        public const int CefMenuModel_GetColor_53 = (_typeNAME << 16) | 53;
+        public const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
+        public const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
+        public const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
         //
         const int CefMenuModel_S_CreateMenuModel_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -8651,7 +8651,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefMenuModelDelegate : IDisposable
     {
-        const int _typeNAME = 18;
+        public const int _typeNAME = 18;
         const int CefMenuModelDelegate_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefMenuModelDelegate(IntPtr nativePtr)
@@ -8670,13 +8670,13 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefMenuModelDelegate(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
         //CsStructModuleCodeGen:: GenerateCsStructClass ,177
-        const int MyCefMenuModelDelegate_ExecuteCommand_1 = 1;
-        const int MyCefMenuModelDelegate_MouseOutsideMenu_2 = 2;
-        const int MyCefMenuModelDelegate_UnhandledOpenSubmenu_3 = 3;
-        const int MyCefMenuModelDelegate_UnhandledCloseSubmenu_4 = 4;
-        const int MyCefMenuModelDelegate_MenuWillShow_5 = 5;
-        const int MyCefMenuModelDelegate_MenuClosed_6 = 6;
-        const int MyCefMenuModelDelegate_FormatLabel_7 = 7;
+        public const int MyCefMenuModelDelegate_ExecuteCommand_1 = 1;
+        public const int MyCefMenuModelDelegate_MouseOutsideMenu_2 = 2;
+        public const int MyCefMenuModelDelegate_UnhandledOpenSubmenu_3 = 3;
+        public const int MyCefMenuModelDelegate_UnhandledCloseSubmenu_4 = 4;
+        public const int MyCefMenuModelDelegate_MenuWillShow_5 = 5;
+        public const int MyCefMenuModelDelegate_MenuClosed_6 = 6;
+        public const int MyCefMenuModelDelegate_FormatLabel_7 = 7;
         //gen! void ExecuteCommand(CefRefPtr<CefMenuModel> menu_model,int command_id,cef_event_flags_t event_flags)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,178
         /// <summary>
@@ -9334,18 +9334,18 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefNavigationEntry : IDisposable
     {
-        const int _typeNAME = 19;
+        public const int _typeNAME = 19;
         const int CefNavigationEntry_Release_0 = (_typeNAME << 16) | 0;
-        const int CefNavigationEntry_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefNavigationEntry_GetURL_2 = (_typeNAME << 16) | 2;
-        const int CefNavigationEntry_GetDisplayURL_3 = (_typeNAME << 16) | 3;
-        const int CefNavigationEntry_GetOriginalURL_4 = (_typeNAME << 16) | 4;
-        const int CefNavigationEntry_GetTitle_5 = (_typeNAME << 16) | 5;
-        const int CefNavigationEntry_GetTransitionType_6 = (_typeNAME << 16) | 6;
-        const int CefNavigationEntry_HasPostData_7 = (_typeNAME << 16) | 7;
-        const int CefNavigationEntry_GetCompletionTime_8 = (_typeNAME << 16) | 8;
-        const int CefNavigationEntry_GetHttpStatusCode_9 = (_typeNAME << 16) | 9;
-        const int CefNavigationEntry_GetSSLStatus_10 = (_typeNAME << 16) | 10;
+        public const int CefNavigationEntry_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefNavigationEntry_GetURL_2 = (_typeNAME << 16) | 2;
+        public const int CefNavigationEntry_GetDisplayURL_3 = (_typeNAME << 16) | 3;
+        public const int CefNavigationEntry_GetOriginalURL_4 = (_typeNAME << 16) | 4;
+        public const int CefNavigationEntry_GetTitle_5 = (_typeNAME << 16) | 5;
+        public const int CefNavigationEntry_GetTransitionType_6 = (_typeNAME << 16) | 6;
+        public const int CefNavigationEntry_HasPostData_7 = (_typeNAME << 16) | 7;
+        public const int CefNavigationEntry_GetCompletionTime_8 = (_typeNAME << 16) | 8;
+        public const int CefNavigationEntry_GetHttpStatusCode_9 = (_typeNAME << 16) | 9;
+        public const int CefNavigationEntry_GetSSLStatus_10 = (_typeNAME << 16) | 10;
         internal IntPtr nativePtr;
         internal CefNavigationEntry(IntPtr nativePtr)
         {
@@ -9525,31 +9525,31 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPrintSettings : IDisposable
     {
-        const int _typeNAME = 20;
+        public const int _typeNAME = 20;
         const int CefPrintSettings_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPrintSettings_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefPrintSettings_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        const int CefPrintSettings_Copy_3 = (_typeNAME << 16) | 3;
-        const int CefPrintSettings_SetOrientation_4 = (_typeNAME << 16) | 4;
-        const int CefPrintSettings_IsLandscape_5 = (_typeNAME << 16) | 5;
-        const int CefPrintSettings_SetPrinterPrintableArea_6 = (_typeNAME << 16) | 6;
-        const int CefPrintSettings_SetDeviceName_7 = (_typeNAME << 16) | 7;
-        const int CefPrintSettings_GetDeviceName_8 = (_typeNAME << 16) | 8;
-        const int CefPrintSettings_SetDPI_9 = (_typeNAME << 16) | 9;
-        const int CefPrintSettings_GetDPI_10 = (_typeNAME << 16) | 10;
-        const int CefPrintSettings_SetPageRanges_11 = (_typeNAME << 16) | 11;
-        const int CefPrintSettings_GetPageRangesCount_12 = (_typeNAME << 16) | 12;
-        const int CefPrintSettings_GetPageRanges_13 = (_typeNAME << 16) | 13;
-        const int CefPrintSettings_SetSelectionOnly_14 = (_typeNAME << 16) | 14;
-        const int CefPrintSettings_IsSelectionOnly_15 = (_typeNAME << 16) | 15;
-        const int CefPrintSettings_SetCollate_16 = (_typeNAME << 16) | 16;
-        const int CefPrintSettings_WillCollate_17 = (_typeNAME << 16) | 17;
-        const int CefPrintSettings_SetColorModel_18 = (_typeNAME << 16) | 18;
-        const int CefPrintSettings_GetColorModel_19 = (_typeNAME << 16) | 19;
-        const int CefPrintSettings_SetCopies_20 = (_typeNAME << 16) | 20;
-        const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
-        const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
-        const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
+        public const int CefPrintSettings_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefPrintSettings_IsReadOnly_2 = (_typeNAME << 16) | 2;
+        public const int CefPrintSettings_Copy_3 = (_typeNAME << 16) | 3;
+        public const int CefPrintSettings_SetOrientation_4 = (_typeNAME << 16) | 4;
+        public const int CefPrintSettings_IsLandscape_5 = (_typeNAME << 16) | 5;
+        public const int CefPrintSettings_SetPrinterPrintableArea_6 = (_typeNAME << 16) | 6;
+        public const int CefPrintSettings_SetDeviceName_7 = (_typeNAME << 16) | 7;
+        public const int CefPrintSettings_GetDeviceName_8 = (_typeNAME << 16) | 8;
+        public const int CefPrintSettings_SetDPI_9 = (_typeNAME << 16) | 9;
+        public const int CefPrintSettings_GetDPI_10 = (_typeNAME << 16) | 10;
+        public const int CefPrintSettings_SetPageRanges_11 = (_typeNAME << 16) | 11;
+        public const int CefPrintSettings_GetPageRangesCount_12 = (_typeNAME << 16) | 12;
+        public const int CefPrintSettings_GetPageRanges_13 = (_typeNAME << 16) | 13;
+        public const int CefPrintSettings_SetSelectionOnly_14 = (_typeNAME << 16) | 14;
+        public const int CefPrintSettings_IsSelectionOnly_15 = (_typeNAME << 16) | 15;
+        public const int CefPrintSettings_SetCollate_16 = (_typeNAME << 16) | 16;
+        public const int CefPrintSettings_WillCollate_17 = (_typeNAME << 16) | 17;
+        public const int CefPrintSettings_SetColorModel_18 = (_typeNAME << 16) | 18;
+        public const int CefPrintSettings_GetColorModel_19 = (_typeNAME << 16) | 19;
+        public const int CefPrintSettings_SetCopies_20 = (_typeNAME << 16) | 20;
+        public const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
+        public const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
+        public const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
         //
         const int CefPrintSettings_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -9968,13 +9968,13 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefProcessMessage : IDisposable
     {
-        const int _typeNAME = 21;
+        public const int _typeNAME = 21;
         const int CefProcessMessage_Release_0 = (_typeNAME << 16) | 0;
-        const int CefProcessMessage_IsValid_1 = (_typeNAME << 16) | 1;
-        const int CefProcessMessage_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
-        const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
-        const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
+        public const int CefProcessMessage_IsValid_1 = (_typeNAME << 16) | 1;
+        public const int CefProcessMessage_IsReadOnly_2 = (_typeNAME << 16) | 2;
+        public const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
+        public const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
+        public const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
         //
         const int CefProcessMessage_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -10094,28 +10094,28 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRequest : IDisposable
     {
-        const int _typeNAME = 22;
+        public const int _typeNAME = 22;
         const int CefRequest_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRequest_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        const int CefRequest_GetURL_2 = (_typeNAME << 16) | 2;
-        const int CefRequest_SetURL_3 = (_typeNAME << 16) | 3;
-        const int CefRequest_GetMethod_4 = (_typeNAME << 16) | 4;
-        const int CefRequest_SetMethod_5 = (_typeNAME << 16) | 5;
-        const int CefRequest_SetReferrer_6 = (_typeNAME << 16) | 6;
-        const int CefRequest_GetReferrerURL_7 = (_typeNAME << 16) | 7;
-        const int CefRequest_GetReferrerPolicy_8 = (_typeNAME << 16) | 8;
-        const int CefRequest_GetPostData_9 = (_typeNAME << 16) | 9;
-        const int CefRequest_SetPostData_10 = (_typeNAME << 16) | 10;
-        const int CefRequest_GetHeaderMap_11 = (_typeNAME << 16) | 11;
-        const int CefRequest_SetHeaderMap_12 = (_typeNAME << 16) | 12;
-        const int CefRequest_Set_13 = (_typeNAME << 16) | 13;
-        const int CefRequest_GetFlags_14 = (_typeNAME << 16) | 14;
-        const int CefRequest_SetFlags_15 = (_typeNAME << 16) | 15;
-        const int CefRequest_GetFirstPartyForCookies_16 = (_typeNAME << 16) | 16;
-        const int CefRequest_SetFirstPartyForCookies_17 = (_typeNAME << 16) | 17;
-        const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
-        const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
-        const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
+        public const int CefRequest_IsReadOnly_1 = (_typeNAME << 16) | 1;
+        public const int CefRequest_GetURL_2 = (_typeNAME << 16) | 2;
+        public const int CefRequest_SetURL_3 = (_typeNAME << 16) | 3;
+        public const int CefRequest_GetMethod_4 = (_typeNAME << 16) | 4;
+        public const int CefRequest_SetMethod_5 = (_typeNAME << 16) | 5;
+        public const int CefRequest_SetReferrer_6 = (_typeNAME << 16) | 6;
+        public const int CefRequest_GetReferrerURL_7 = (_typeNAME << 16) | 7;
+        public const int CefRequest_GetReferrerPolicy_8 = (_typeNAME << 16) | 8;
+        public const int CefRequest_GetPostData_9 = (_typeNAME << 16) | 9;
+        public const int CefRequest_SetPostData_10 = (_typeNAME << 16) | 10;
+        public const int CefRequest_GetHeaderMap_11 = (_typeNAME << 16) | 11;
+        public const int CefRequest_SetHeaderMap_12 = (_typeNAME << 16) | 12;
+        public const int CefRequest_Set_13 = (_typeNAME << 16) | 13;
+        public const int CefRequest_GetFlags_14 = (_typeNAME << 16) | 14;
+        public const int CefRequest_SetFlags_15 = (_typeNAME << 16) | 15;
+        public const int CefRequest_GetFirstPartyForCookies_16 = (_typeNAME << 16) | 16;
+        public const int CefRequest_SetFirstPartyForCookies_17 = (_typeNAME << 16) | 17;
+        public const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
+        public const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
+        public const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
         //
         const int CefRequest_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -10508,15 +10508,15 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPostData : IDisposable
     {
-        const int _typeNAME = 23;
+        public const int _typeNAME = 23;
         const int CefPostData_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPostData_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        const int CefPostData_HasExcludedElements_2 = (_typeNAME << 16) | 2;
-        const int CefPostData_GetElementCount_3 = (_typeNAME << 16) | 3;
-        const int CefPostData_GetElements_4 = (_typeNAME << 16) | 4;
-        const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
-        const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
-        const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
+        public const int CefPostData_IsReadOnly_1 = (_typeNAME << 16) | 1;
+        public const int CefPostData_HasExcludedElements_2 = (_typeNAME << 16) | 2;
+        public const int CefPostData_GetElementCount_3 = (_typeNAME << 16) | 3;
+        public const int CefPostData_GetElements_4 = (_typeNAME << 16) | 4;
+        public const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
+        public const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
+        public const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
         //
         const int CefPostData_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -10672,16 +10672,16 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPostDataElement : IDisposable
     {
-        const int _typeNAME = 24;
+        public const int _typeNAME = 24;
         const int CefPostDataElement_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPostDataElement_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        const int CefPostDataElement_SetToEmpty_2 = (_typeNAME << 16) | 2;
-        const int CefPostDataElement_SetToFile_3 = (_typeNAME << 16) | 3;
-        const int CefPostDataElement_SetToBytes_4 = (_typeNAME << 16) | 4;
-        const int CefPostDataElement_GetType_5 = (_typeNAME << 16) | 5;
-        const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
-        const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
-        const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
+        public const int CefPostDataElement_IsReadOnly_1 = (_typeNAME << 16) | 1;
+        public const int CefPostDataElement_SetToEmpty_2 = (_typeNAME << 16) | 2;
+        public const int CefPostDataElement_SetToFile_3 = (_typeNAME << 16) | 3;
+        public const int CefPostDataElement_SetToBytes_4 = (_typeNAME << 16) | 4;
+        public const int CefPostDataElement_GetType_5 = (_typeNAME << 16) | 5;
+        public const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
+        public const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
+        public const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
         //
         const int CefPostDataElement_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -10870,26 +10870,26 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRequestContext : IDisposable
     {
-        const int _typeNAME = 25;
+        public const int _typeNAME = 25;
         const int CefRequestContext_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRequestContext_IsSame_1 = (_typeNAME << 16) | 1;
-        const int CefRequestContext_IsSharingWith_2 = (_typeNAME << 16) | 2;
-        const int CefRequestContext_IsGlobal_3 = (_typeNAME << 16) | 3;
-        const int CefRequestContext_GetHandler_4 = (_typeNAME << 16) | 4;
-        const int CefRequestContext_GetCachePath_5 = (_typeNAME << 16) | 5;
-        const int CefRequestContext_GetDefaultCookieManager_6 = (_typeNAME << 16) | 6;
-        const int CefRequestContext_RegisterSchemeHandlerFactory_7 = (_typeNAME << 16) | 7;
-        const int CefRequestContext_ClearSchemeHandlerFactories_8 = (_typeNAME << 16) | 8;
-        const int CefRequestContext_PurgePluginListCache_9 = (_typeNAME << 16) | 9;
-        const int CefRequestContext_HasPreference_10 = (_typeNAME << 16) | 10;
-        const int CefRequestContext_GetPreference_11 = (_typeNAME << 16) | 11;
-        const int CefRequestContext_GetAllPreferences_12 = (_typeNAME << 16) | 12;
-        const int CefRequestContext_CanSetPreference_13 = (_typeNAME << 16) | 13;
-        const int CefRequestContext_SetPreference_14 = (_typeNAME << 16) | 14;
-        const int CefRequestContext_ClearCertificateExceptions_15 = (_typeNAME << 16) | 15;
-        const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
-        const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
-        const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
+        public const int CefRequestContext_IsSame_1 = (_typeNAME << 16) | 1;
+        public const int CefRequestContext_IsSharingWith_2 = (_typeNAME << 16) | 2;
+        public const int CefRequestContext_IsGlobal_3 = (_typeNAME << 16) | 3;
+        public const int CefRequestContext_GetHandler_4 = (_typeNAME << 16) | 4;
+        public const int CefRequestContext_GetCachePath_5 = (_typeNAME << 16) | 5;
+        public const int CefRequestContext_GetDefaultCookieManager_6 = (_typeNAME << 16) | 6;
+        public const int CefRequestContext_RegisterSchemeHandlerFactory_7 = (_typeNAME << 16) | 7;
+        public const int CefRequestContext_ClearSchemeHandlerFactories_8 = (_typeNAME << 16) | 8;
+        public const int CefRequestContext_PurgePluginListCache_9 = (_typeNAME << 16) | 9;
+        public const int CefRequestContext_HasPreference_10 = (_typeNAME << 16) | 10;
+        public const int CefRequestContext_GetPreference_11 = (_typeNAME << 16) | 11;
+        public const int CefRequestContext_GetAllPreferences_12 = (_typeNAME << 16) | 12;
+        public const int CefRequestContext_CanSetPreference_13 = (_typeNAME << 16) | 13;
+        public const int CefRequestContext_SetPreference_14 = (_typeNAME << 16) | 14;
+        public const int CefRequestContext_ClearCertificateExceptions_15 = (_typeNAME << 16) | 15;
+        public const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
+        public const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
+        public const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
         //
         const int CefRequestContext_S_GetGlobalContext_1 = (_typeNAME << 16) | 1;
         const int CefRequestContext_S_CreateContext_2 = (_typeNAME << 16) | 2;
@@ -11355,11 +11355,11 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefResourceBundle : IDisposable
     {
-        const int _typeNAME = 26;
+        public const int _typeNAME = 26;
         const int CefResourceBundle_Release_0 = (_typeNAME << 16) | 0;
-        const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
-        const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
-        const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
+        public const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
+        public const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
+        public const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
         //
         const int CefResourceBundle_S_GetGlobal_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
@@ -11482,20 +11482,20 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefResponse : IDisposable
     {
-        const int _typeNAME = 27;
+        public const int _typeNAME = 27;
         const int CefResponse_Release_0 = (_typeNAME << 16) | 0;
-        const int CefResponse_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        const int CefResponse_GetError_2 = (_typeNAME << 16) | 2;
-        const int CefResponse_SetError_3 = (_typeNAME << 16) | 3;
-        const int CefResponse_GetStatus_4 = (_typeNAME << 16) | 4;
-        const int CefResponse_SetStatus_5 = (_typeNAME << 16) | 5;
-        const int CefResponse_GetStatusText_6 = (_typeNAME << 16) | 6;
-        const int CefResponse_SetStatusText_7 = (_typeNAME << 16) | 7;
-        const int CefResponse_GetMimeType_8 = (_typeNAME << 16) | 8;
-        const int CefResponse_SetMimeType_9 = (_typeNAME << 16) | 9;
-        const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
-        const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
-        const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
+        public const int CefResponse_IsReadOnly_1 = (_typeNAME << 16) | 1;
+        public const int CefResponse_GetError_2 = (_typeNAME << 16) | 2;
+        public const int CefResponse_SetError_3 = (_typeNAME << 16) | 3;
+        public const int CefResponse_GetStatus_4 = (_typeNAME << 16) | 4;
+        public const int CefResponse_SetStatus_5 = (_typeNAME << 16) | 5;
+        public const int CefResponse_GetStatusText_6 = (_typeNAME << 16) | 6;
+        public const int CefResponse_SetStatusText_7 = (_typeNAME << 16) | 7;
+        public const int CefResponse_GetMimeType_8 = (_typeNAME << 16) | 8;
+        public const int CefResponse_SetMimeType_9 = (_typeNAME << 16) | 9;
+        public const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
+        public const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
+        public const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
         //
         const int CefResponse_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
