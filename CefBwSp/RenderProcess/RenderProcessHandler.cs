@@ -44,7 +44,7 @@ namespace LayoutFarm.CefBridge
             CefV8Context context = args.context();
             Auto.CefV8Value cefV8Global = context.GetGlobal();
 
-            Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler2(Test002));
+            Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler(Test002));
             var func = Auto.CefV8Value.CreateFunction("test001", funcHandler);
             cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
 
@@ -161,7 +161,7 @@ namespace LayoutFarm.CefBridge
                        "  };" +
                        "})();";
             //test regsiter extension
-            CefBinder2.RegisterCefExtension("v8/test", extensionCode);
+            CefBinder2.RegisterCefExtension("v8/test", extensionCode, IntPtr.Zero);
             dbugRenderProcessLog.WriteLine("register pass!");
         }
     }

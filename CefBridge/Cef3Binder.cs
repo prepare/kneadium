@@ -37,7 +37,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_MainContext_GetConsoleLogPath = 151,
         CEF_MSG_OSR_Render = 155,
         CEF_MSG_OnQuery = 205,
-        CEF_MSG_MyV8ManagedHandler_Execute = 301,
+         
         CEF_MSG_HereOnRenderer = 303,
 
         CEF_MSG_ClientHandler_NotifyTitle = 502,
@@ -309,7 +309,7 @@ namespace LayoutFarm.CefBridge
         internal static extern void MyCefJsNotifyRenderer(MyCefCallback handler, IntPtr pars);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJs_New_V8Handler2(MyCefCallback managedCallback);
+        internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
 
         //--------------------------------------------------- 
         /// <summary>
@@ -333,7 +333,7 @@ namespace LayoutFarm.CefBridge
         internal static extern unsafe IntPtr MyCefCreateBufferHolderWithInitData(int len, byte* initData);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
+        internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode, IntPtr v8Handler);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, out int actualLength);
@@ -425,9 +425,9 @@ namespace LayoutFarm.CefBridge
 
     public static class CefBinder2
     {
-        public static bool RegisterCefExtension(string extensionName, string extensionCode)
+        public static bool RegisterCefExtension(string extensionName, string extensionCode, IntPtr handlerPtr)
         {
-            return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
+            return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode, handlerPtr);
         }
         public static void NotifyRendererAsync(MyCefCallback callback)
         {
