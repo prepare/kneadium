@@ -84,19 +84,19 @@ namespace LayoutFarm.CefBridge
                 //--------------------------
 
 
-                if ((id >> 16) != 41) return;
+                if ((id >> 16) != CefV8Interceptor._typeNAME) return;
                 //--------------------------
                 int met_id = id & 0xffff;
                 switch (met_id)
                 {
-                    case 1:
+                    case CefV8Interceptor.MyCefV8Interceptor_Get_1:
                         {
                             //by name
                             CefV8Interceptor.get_bynameArgs arg = new CefV8Interceptor.get_bynameArgs(argPtr);
                             arg.retval(CefV8Value.CreateString("hello! from intercepter" + arg.name()).nativePtr);
                         }
                         break;
-                    case 2:
+                    case CefV8Interceptor.MyCefV8Interceptor_Get_2:
                         {
                             //by indexed property
                         }
