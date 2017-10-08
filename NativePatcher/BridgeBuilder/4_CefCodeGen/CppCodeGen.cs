@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 namespace BridgeBuilder
 {
+    class CppTempParameterSlot
+    {
+        public CodeMethodParameter par;
+        public string newVarName;
+        public string postStmt;
+        public string preStmt;
+        public bool isCppOutVar;
+    }
     class CppInstanceImplCodeGen : CppCodeGen
     {
         //this create a impl in cpp side
@@ -67,10 +75,9 @@ namespace BridgeBuilder
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
-
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
-
+            
             //temp
             if (metDecl.ReturnType.ToString() == "FilterStatus")
             {
@@ -81,9 +88,48 @@ namespace BridgeBuilder
                 stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
             }
 
-
+            //-----------
+            //temp fix
+            //find some 'out' parameter
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
+
+            CppTempParameterSlot[] dataTransferSlots = new CppTempParameterSlot[j];
+            bool hasSomeOutVars = false;
+            for (int i = 0; i < j; ++i)
+            {
+                CppTempParameterSlot transferSlot = new CppTempParameterSlot();
+                CodeMethodParameter par = pars[i];
+                transferSlot.par = pars[i];
+                dataTransferSlots[i] = transferSlot;
+                //
+                //
+                string parTypeName = par.ParameterType.ToString();
+                if (parTypeName == "CefRefPtr<CefV8Value>&")
+                {
+                    if (!par.IsConstPar)
+                    {
+                        transferSlot.newVarName = "temp_" + i;
+                        transferSlot.preStmt = "auto " + transferSlot.newVarName + "=" + "CefV8ValueCToCpp::Unwrap(" + transferSlot.par.ParameterName + ");";
+                        transferSlot.postStmt = transferSlot.par.ParameterName + "= CefV8ValueCToCpp::Wrap(" + transferSlot.newVarName + ");";
+                        transferSlot.isCppOutVar = true;
+                        hasSomeOutVars = true;
+                    }
+                }
+                else if (parTypeName == "CefString&")
+                {
+                    if (!par.IsConstPar)
+                    {
+                        transferSlot.newVarName = "temp_" + i;
+                        transferSlot.preStmt = "auto " + transferSlot.newVarName + "=" + transferSlot.par.ParameterName + ";";
+                        transferSlot.postStmt = transferSlot.par.ParameterName + "=" + transferSlot.newVarName + ";";
+                        transferSlot.isCppOutVar = true;
+                        hasSomeOutVars = true;
+                    }
+                }
+            }
+
+            //----------- 
             for (int i = 0; i < j; ++i)
             {
                 if (i > 0)
@@ -98,6 +144,11 @@ namespace BridgeBuilder
                     if (par.IsConstPar)
                     {
                         stbuilder.Append("const ");
+                    }
+                    else
+                    {
+                        //CefRefPtr<CefV8Value>& retval
+
                     }
                 }
                 else if (parTypeName.StartsWith("CefRefPtr"))
@@ -122,6 +173,21 @@ namespace BridgeBuilder
 
             //use explicit C-Native data slot 
             stbuilder.AppendLine("if(mcallback){");
+
+            //'out' vars
+            if (hasSomeOutVars)
+            {
+                //temp, 
+                for (int i = 0; i < j; ++i)
+                {
+                    CppTempParameterSlot transferSlot = dataTransferSlots[i];
+                    if (transferSlot.isCppOutVar)
+                    {
+                        stbuilder.AppendLine(transferSlot.preStmt);
+                    }
+                }
+            }
+
             //use qualify name
             string argNamespace = metDecl.OwnerTypeDecl.Name + "Ext";
             string metArgsClassName = metDecl.Name + "Args";
@@ -130,8 +196,6 @@ namespace BridgeBuilder
                 metArgsClassName = met.NewOverloadName + "Args";
             }
             stbuilder.Append(argNamespace + "::" + metArgsClassName + " args1");
-
-
             //with ctors
             if (j == 0)
             {
@@ -142,19 +206,45 @@ namespace BridgeBuilder
                 stbuilder.Append("(");
                 for (int i = 0; i < j; ++i)
                 {
+                    CppTempParameterSlot transferSlot = dataTransferSlots[i];
                     MethodParameter par = met.pars[i];
                     if (i > 0) { stbuilder.Append(","); }
-                    //temp
-                    string parType = par.TypeSymbol.ToString();
-                    if (parType.EndsWith("&"))
+
+                    if (transferSlot.isCppOutVar)
                     {
-                        stbuilder.Append("&");
+                        stbuilder.Append("&" + transferSlot.newVarName);
                     }
-                    stbuilder.Append(par.Name);
+                    else
+                    {
+                        //temp
+                        string parType = par.TypeSymbol.ToString();
+                        if (parType.EndsWith("&"))
+                        {
+                            stbuilder.Append("&");
+                        }
+                        stbuilder.Append(par.Name);
+                    }
+
                 }
                 stbuilder.AppendLine(");");
             }
             stbuilder.AppendLine("mcallback( (" + argNamespace + "::_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
+            //------
+            //'out' vars
+            if (hasSomeOutVars)
+            {
+                //temp,  
+                for (int i = 0; i < j; ++i)
+                {
+                    CppTempParameterSlot transferSlot = dataTransferSlots[i];
+                    if (transferSlot.isCppOutVar)
+                    {
+                        stbuilder.AppendLine(transferSlot.postStmt);
+                    }
+                }
+            }
+
+            //------
             //temp fix, arg extract code 
             if (!met.ReturnPlan.IsVoid)
             {
@@ -794,7 +884,7 @@ namespace BridgeBuilder
                             //temp fix
                             fieldType = "cef_v8value_t**";
                         }
-                        else if(fieldType== "CefRefPtr<CefV8Exception>*")
+                        else if (fieldType == "CefRefPtr<CefV8Exception>*")
                         {
 
                         }
@@ -814,7 +904,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
- 
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;

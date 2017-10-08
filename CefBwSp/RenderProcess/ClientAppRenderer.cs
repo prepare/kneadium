@@ -57,11 +57,6 @@ namespace LayoutFarm.CefBridge
                 default:
 
                     break;
-                //case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
-                //    {
-
-                //    }
-                //    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));
@@ -76,8 +71,7 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_OSR_Render:
                     {
-                        //not visit here?
-
+                         
                     }
                     break;
             }

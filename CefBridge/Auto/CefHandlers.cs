@@ -15,8 +15,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1 = 1;
-        const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
+        public const int CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1 = 1;
+        public const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,373
         /// <summary>
@@ -210,11 +210,11 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefBrowserProcessHandlerExt_OnContextInitialized_1 = 1;
-        const int CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2 = 2;
-        const int CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3 = 3;
-        const int CefBrowserProcessHandlerExt_GetPrintHandler_4 = 4;
-        const int CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5 = 5;
+        public const int CefBrowserProcessHandlerExt_OnContextInitialized_1 = 1;
+        public const int CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2 = 2;
+        public const int CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3 = 3;
+        public const int CefBrowserProcessHandlerExt_GetPrintHandler_4 = 4;
+        public const int CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5 = 5;
         //gen! void OnContextInitialized()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,390
         /// <summary>
@@ -685,10 +685,10 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefContextMenuHandlerExt_OnBeforeContextMenu_1 = 1;
-        const int CefContextMenuHandlerExt_RunContextMenu_2 = 2;
-        const int CefContextMenuHandlerExt_OnContextMenuCommand_3 = 3;
-        const int CefContextMenuHandlerExt_OnContextMenuDismissed_4 = 4;
+        public const int CefContextMenuHandlerExt_OnBeforeContextMenu_1 = 1;
+        public const int CefContextMenuHandlerExt_RunContextMenu_2 = 2;
+        public const int CefContextMenuHandlerExt_OnContextMenuCommand_3 = 3;
+        public const int CefContextMenuHandlerExt_OnContextMenuDismissed_4 = 4;
         //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,428
         /// <summary>
@@ -1202,7 +1202,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefDialogHandlerExt_OnFileDialog_1 = 1;
+        public const int CefDialogHandlerExt_OnFileDialog_1 = 1;
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,459
         /// <summary>
@@ -1413,13 +1413,13 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefDisplayHandlerExt_OnAddressChange_1 = 1;
-        const int CefDisplayHandlerExt_OnTitleChange_2 = 2;
-        const int CefDisplayHandlerExt_OnFaviconURLChange_3 = 3;
-        const int CefDisplayHandlerExt_OnFullscreenModeChange_4 = 4;
-        const int CefDisplayHandlerExt_OnTooltip_5 = 5;
-        const int CefDisplayHandlerExt_OnStatusMessage_6 = 6;
-        const int CefDisplayHandlerExt_OnConsoleMessage_7 = 7;
+        public const int CefDisplayHandlerExt_OnAddressChange_1 = 1;
+        public const int CefDisplayHandlerExt_OnTitleChange_2 = 2;
+        public const int CefDisplayHandlerExt_OnFaviconURLChange_3 = 3;
+        public const int CefDisplayHandlerExt_OnFullscreenModeChange_4 = 4;
+        public const int CefDisplayHandlerExt_OnTooltip_5 = 5;
+        public const int CefDisplayHandlerExt_OnStatusMessage_6 = 6;
+        public const int CefDisplayHandlerExt_OnConsoleMessage_7 = 7;
         //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,469
         /// <summary>
@@ -2143,8 +2143,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefDownloadHandlerExt_OnBeforeDownload_1 = 1;
-        const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
+        public const int CefDownloadHandlerExt_OnBeforeDownload_1 = 1;
+        public const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,521
         /// <summary>
@@ -2401,8 +2401,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefDragHandlerExt_OnDragEnter_1 = 1;
-        const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
+        public const int CefDragHandlerExt_OnDragEnter_1 = 1;
+        public const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,538
         /// <summary>
@@ -2646,7 +2646,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefFindHandlerExt_OnFindResult_1 = 1;
+        public const int CefFindHandlerExt_OnFindResult_1 = 1;
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,555
         /// <summary>
@@ -2817,9 +2817,9 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefFocusHandlerExt_OnTakeFocus_1 = 1;
-        const int CefFocusHandlerExt_OnSetFocus_2 = 2;
-        const int CefFocusHandlerExt_OnGotFocus_3 = 3;
+        public const int CefFocusHandlerExt_OnTakeFocus_1 = 1;
+        public const int CefFocusHandlerExt_OnSetFocus_2 = 2;
+        public const int CefFocusHandlerExt_OnGotFocus_3 = 3;
         //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,565
         /// <summary>
@@ -3125,8 +3125,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefGeolocationHandlerExt_OnRequestGeolocationPermission_1 = 1;
-        const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
+        public const int CefGeolocationHandlerExt_OnRequestGeolocationPermission_1 = 1;
+        public const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,589
         /// <summary>
@@ -3376,10 +3376,10 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefJSDialogHandlerExt_OnJSDialog_1 = 1;
-        const int CefJSDialogHandlerExt_OnBeforeUnloadDialog_2 = 2;
-        const int CefJSDialogHandlerExt_OnResetDialogState_3 = 3;
-        const int CefJSDialogHandlerExt_OnDialogClosed_4 = 4;
+        public const int CefJSDialogHandlerExt_OnJSDialog_1 = 1;
+        public const int CefJSDialogHandlerExt_OnBeforeUnloadDialog_2 = 2;
+        public const int CefJSDialogHandlerExt_OnResetDialogState_3 = 3;
+        public const int CefJSDialogHandlerExt_OnDialogClosed_4 = 4;
         //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,606
         /// <summary>
@@ -3887,8 +3887,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefKeyboardHandlerExt_OnPreKeyEvent_1 = 1;
-        const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
+        public const int CefKeyboardHandlerExt_OnPreKeyEvent_1 = 1;
+        public const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,637
         /// <summary>
@@ -4167,10 +4167,10 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefLifeSpanHandlerExt_OnBeforePopup_1 = 1;
-        const int CefLifeSpanHandlerExt_OnAfterCreated_2 = 2;
-        const int CefLifeSpanHandlerExt_DoClose_3 = 3;
-        const int CefLifeSpanHandlerExt_OnBeforeClose_4 = 4;
+        public const int CefLifeSpanHandlerExt_OnBeforePopup_1 = 1;
+        public const int CefLifeSpanHandlerExt_OnAfterCreated_2 = 2;
+        public const int CefLifeSpanHandlerExt_DoClose_3 = 3;
+        public const int CefLifeSpanHandlerExt_OnBeforeClose_4 = 4;
         //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,654
         /// <summary>
@@ -4954,10 +4954,10 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefLoadHandlerExt_OnLoadingStateChange_1 = 1;
-        const int CefLoadHandlerExt_OnLoadStart_2 = 2;
-        const int CefLoadHandlerExt_OnLoadEnd_3 = 3;
-        const int CefLoadHandlerExt_OnLoadError_4 = 4;
+        public const int CefLoadHandlerExt_OnLoadingStateChange_1 = 1;
+        public const int CefLoadHandlerExt_OnLoadStart_2 = 2;
+        public const int CefLoadHandlerExt_OnLoadEnd_3 = 3;
+        public const int CefLoadHandlerExt_OnLoadError_4 = 4;
         //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,685
         /// <summary>
@@ -5470,12 +5470,12 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefPrintHandlerExt_OnPrintStart_1 = 1;
-        const int CefPrintHandlerExt_OnPrintSettings_2 = 2;
-        const int CefPrintHandlerExt_OnPrintDialog_3 = 3;
-        const int CefPrintHandlerExt_OnPrintJob_4 = 4;
-        const int CefPrintHandlerExt_OnPrintReset_5 = 5;
-        const int CefPrintHandlerExt_GetPdfPaperSize_6 = 6;
+        public const int CefPrintHandlerExt_OnPrintStart_1 = 1;
+        public const int CefPrintHandlerExt_OnPrintSettings_2 = 2;
+        public const int CefPrintHandlerExt_OnPrintDialog_3 = 3;
+        public const int CefPrintHandlerExt_OnPrintJob_4 = 4;
+        public const int CefPrintHandlerExt_OnPrintReset_5 = 5;
+        public const int CefPrintHandlerExt_GetPdfPaperSize_6 = 6;
         //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,716
         /// <summary>
@@ -6091,19 +6091,19 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefRenderHandlerExt_GetAccessibilityHandler_1 = 1;
-        const int CefRenderHandlerExt_GetRootScreenRect_2 = 2;
-        const int CefRenderHandlerExt_GetViewRect_3 = 3;
-        const int CefRenderHandlerExt_GetScreenPoint_4 = 4;
-        const int CefRenderHandlerExt_GetScreenInfo_5 = 5;
-        const int CefRenderHandlerExt_OnPopupShow_6 = 6;
-        const int CefRenderHandlerExt_OnPopupSize_7 = 7;
-        const int CefRenderHandlerExt_OnPaint_8 = 8;
-        const int CefRenderHandlerExt_OnCursorChange_9 = 9;
-        const int CefRenderHandlerExt_StartDragging_10 = 10;
-        const int CefRenderHandlerExt_UpdateDragCursor_11 = 11;
-        const int CefRenderHandlerExt_OnScrollOffsetChanged_12 = 12;
-        const int CefRenderHandlerExt_OnImeCompositionRangeChanged_13 = 13;
+        public const int CefRenderHandlerExt_GetAccessibilityHandler_1 = 1;
+        public const int CefRenderHandlerExt_GetRootScreenRect_2 = 2;
+        public const int CefRenderHandlerExt_GetViewRect_3 = 3;
+        public const int CefRenderHandlerExt_GetScreenPoint_4 = 4;
+        public const int CefRenderHandlerExt_GetScreenInfo_5 = 5;
+        public const int CefRenderHandlerExt_OnPopupShow_6 = 6;
+        public const int CefRenderHandlerExt_OnPopupSize_7 = 7;
+        public const int CefRenderHandlerExt_OnPaint_8 = 8;
+        public const int CefRenderHandlerExt_OnCursorChange_9 = 9;
+        public const int CefRenderHandlerExt_StartDragging_10 = 10;
+        public const int CefRenderHandlerExt_UpdateDragCursor_11 = 11;
+        public const int CefRenderHandlerExt_OnScrollOffsetChanged_12 = 12;
+        public const int CefRenderHandlerExt_OnImeCompositionRangeChanged_13 = 13;
         //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,761
         /// <summary>
@@ -7538,17 +7538,17 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefRenderProcessHandlerExt_OnRenderThreadCreated_1 = 1;
-        const int CefRenderProcessHandlerExt_OnWebKitInitialized_2 = 2;
-        const int CefRenderProcessHandlerExt_OnBrowserCreated_3 = 3;
-        const int CefRenderProcessHandlerExt_OnBrowserDestroyed_4 = 4;
-        const int CefRenderProcessHandlerExt_GetLoadHandler_5 = 5;
-        const int CefRenderProcessHandlerExt_OnBeforeNavigation_6 = 6;
-        const int CefRenderProcessHandlerExt_OnContextCreated_7 = 7;
-        const int CefRenderProcessHandlerExt_OnContextReleased_8 = 8;
-        const int CefRenderProcessHandlerExt_OnUncaughtException_9 = 9;
-        const int CefRenderProcessHandlerExt_OnFocusedNodeChanged_10 = 10;
-        const int CefRenderProcessHandlerExt_OnProcessMessageReceived_11 = 11;
+        public const int CefRenderProcessHandlerExt_OnRenderThreadCreated_1 = 1;
+        public const int CefRenderProcessHandlerExt_OnWebKitInitialized_2 = 2;
+        public const int CefRenderProcessHandlerExt_OnBrowserCreated_3 = 3;
+        public const int CefRenderProcessHandlerExt_OnBrowserDestroyed_4 = 4;
+        public const int CefRenderProcessHandlerExt_GetLoadHandler_5 = 5;
+        public const int CefRenderProcessHandlerExt_OnBeforeNavigation_6 = 6;
+        public const int CefRenderProcessHandlerExt_OnContextCreated_7 = 7;
+        public const int CefRenderProcessHandlerExt_OnContextReleased_8 = 8;
+        public const int CefRenderProcessHandlerExt_OnUncaughtException_9 = 9;
+        public const int CefRenderProcessHandlerExt_OnFocusedNodeChanged_10 = 10;
+        public const int CefRenderProcessHandlerExt_OnProcessMessageReceived_11 = 11;
         //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,855
         /// <summary>
@@ -8644,8 +8644,8 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefRequestContextHandlerExt_GetCookieManager_1 = 1;
-        const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
+        public const int CefRequestContextHandlerExt_GetCookieManager_1 = 1;
+        public const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,935
         /// <summary>
@@ -8937,22 +8937,22 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefRequestHandlerExt_OnBeforeBrowse_1 = 1;
-        const int CefRequestHandlerExt_OnOpenURLFromTab_2 = 2;
-        const int CefRequestHandlerExt_OnBeforeResourceLoad_3 = 3;
-        const int CefRequestHandlerExt_GetResourceHandler_4 = 4;
-        const int CefRequestHandlerExt_OnResourceRedirect_5 = 5;
-        const int CefRequestHandlerExt_OnResourceResponse_6 = 6;
-        const int CefRequestHandlerExt_GetResourceResponseFilter_7 = 7;
-        const int CefRequestHandlerExt_OnResourceLoadComplete_8 = 8;
-        const int CefRequestHandlerExt_GetAuthCredentials_9 = 9;
-        const int CefRequestHandlerExt_OnQuotaRequest_10 = 10;
-        const int CefRequestHandlerExt_OnProtocolExecution_11 = 11;
-        const int CefRequestHandlerExt_OnCertificateError_12 = 12;
-        const int CefRequestHandlerExt_OnSelectClientCertificate_13 = 13;
-        const int CefRequestHandlerExt_OnPluginCrashed_14 = 14;
-        const int CefRequestHandlerExt_OnRenderViewReady_15 = 15;
-        const int CefRequestHandlerExt_OnRenderProcessTerminated_16 = 16;
+        public const int CefRequestHandlerExt_OnBeforeBrowse_1 = 1;
+        public const int CefRequestHandlerExt_OnOpenURLFromTab_2 = 2;
+        public const int CefRequestHandlerExt_OnBeforeResourceLoad_3 = 3;
+        public const int CefRequestHandlerExt_GetResourceHandler_4 = 4;
+        public const int CefRequestHandlerExt_OnResourceRedirect_5 = 5;
+        public const int CefRequestHandlerExt_OnResourceResponse_6 = 6;
+        public const int CefRequestHandlerExt_GetResourceResponseFilter_7 = 7;
+        public const int CefRequestHandlerExt_OnResourceLoadComplete_8 = 8;
+        public const int CefRequestHandlerExt_GetAuthCredentials_9 = 9;
+        public const int CefRequestHandlerExt_OnQuotaRequest_10 = 10;
+        public const int CefRequestHandlerExt_OnProtocolExecution_11 = 11;
+        public const int CefRequestHandlerExt_OnCertificateError_12 = 12;
+        public const int CefRequestHandlerExt_OnSelectClientCertificate_13 = 13;
+        public const int CefRequestHandlerExt_OnPluginCrashed_14 = 14;
+        public const int CefRequestHandlerExt_OnRenderViewReady_15 = 15;
+        public const int CefRequestHandlerExt_OnRenderProcessTerminated_16 = 16;
         //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,952
         /// <summary>
@@ -10998,9 +10998,9 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefResourceBundleHandlerExt_GetLocalizedString_1 = 1;
-        const int CefResourceBundleHandlerExt_GetDataResource_2 = 2;
-        const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
+        public const int CefResourceBundleHandlerExt_GetLocalizedString_1 = 1;
+        public const int CefResourceBundleHandlerExt_GetDataResource_2 = 2;
+        public const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
         //gen! bool GetLocalizedString(int string_id,CefString& string)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1067
         /// <summary>
@@ -11410,12 +11410,12 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefResourceHandlerExt_ProcessRequest_1 = 1;
-        const int CefResourceHandlerExt_GetResponseHeaders_2 = 2;
-        const int CefResourceHandlerExt_ReadResponse_3 = 3;
-        const int CefResourceHandlerExt_CanGetCookie_4 = 4;
-        const int CefResourceHandlerExt_CanSetCookie_5 = 5;
-        const int CefResourceHandlerExt_Cancel_6 = 6;
+        public const int CefResourceHandlerExt_ProcessRequest_1 = 1;
+        public const int CefResourceHandlerExt_GetResponseHeaders_2 = 2;
+        public const int CefResourceHandlerExt_ReadResponse_3 = 3;
+        public const int CefResourceHandlerExt_CanGetCookie_4 = 4;
+        public const int CefResourceHandlerExt_CanSetCookie_5 = 5;
+        public const int CefResourceHandlerExt_Cancel_6 = 6;
         //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1091
         /// <summary>
@@ -12083,11 +12083,11 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefReadHandlerExt_Read_1 = 1;
-        const int CefReadHandlerExt_Seek_2 = 2;
-        const int CefReadHandlerExt_Tell_3 = 3;
-        const int CefReadHandlerExt_Eof_4 = 4;
-        const int CefReadHandlerExt_MayBlock_5 = 5;
+        public const int CefReadHandlerExt_Read_1 = 1;
+        public const int CefReadHandlerExt_Seek_2 = 2;
+        public const int CefReadHandlerExt_Tell_3 = 3;
+        public const int CefReadHandlerExt_Eof_4 = 4;
+        public const int CefReadHandlerExt_MayBlock_5 = 5;
         //gen! size_t Read(void* ptr,size_t size,size_t n)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1136
         /// <summary>
@@ -12570,11 +12570,11 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefWriteHandlerExt_Write_1 = 1;
-        const int CefWriteHandlerExt_Seek_2 = 2;
-        const int CefWriteHandlerExt_Tell_3 = 3;
-        const int CefWriteHandlerExt_Flush_4 = 4;
-        const int CefWriteHandlerExt_MayBlock_5 = 5;
+        public const int CefWriteHandlerExt_Write_1 = 1;
+        public const int CefWriteHandlerExt_Seek_2 = 2;
+        public const int CefWriteHandlerExt_Tell_3 = 3;
+        public const int CefWriteHandlerExt_Flush_4 = 4;
+        public const int CefWriteHandlerExt_MayBlock_5 = 5;
         //gen! size_t Write(const void* ptr,size_t size,size_t n)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1174
         /// <summary>
@@ -13048,7 +13048,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-        const int CefV8HandlerExt_Execute_1 = 1;
+        public const int CefV8HandlerExt_Execute_1 = 1;
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1212
         /// <summary>

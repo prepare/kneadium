@@ -40,6 +40,11 @@ void CreateBrowserDelegates(ClientAppBrowser::DelegateSet& delegates) {
 }
 
 void CreateRenderDelegates(ClientAppRenderer::DelegateSet& delegates) {
+	
+  // Bring in the V8 tests.
+  extern void CreateV8RendererTests(ClientAppRenderer::DelegateSet & delegates);
+  CreateV8RendererTests(delegates);
+
   // Bring in the Frame tests.
   extern void CreateFrameRendererTests(ClientAppRenderer::DelegateSet &
                                        delegates);
@@ -90,9 +95,7 @@ void CreateRenderDelegates(ClientAppRenderer::DelegateSet& delegates) {
                                             delegates);
   CreateURLRequestRendererTests(delegates);
 
-  // Bring in the V8 tests.
-  extern void CreateV8RendererTests(ClientAppRenderer::DelegateSet & delegates);
-  CreateV8RendererTests(delegates);
+ 
 }
 
 void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
