@@ -955,10 +955,7 @@ namespace BridgeBuilder
             //create a cpp class            
 
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
-            if (codeGenNum == 1)
-            {
 
-            }
             if (!skipCtorPart)
             {
                 stbuilder.Append("public struct " + className);
