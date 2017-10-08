@@ -11,53 +11,12 @@
 #include "include/base/cef_logging.h"
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "tests/cefclient/renderer/performance_test_setup.h"
-
-//###_BEGIN
-#include "tests/cefclient/myext/mycef_buildconfig.h"
-#include "libcef_dll/myext/ExportFuncAuto.h"
-//###_END
-
+ 
 namespace client {
 namespace performance_test {
 
-//###_BEGIN 
-	class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
-	public:
-		MyCefRenderDelegate() {}
-
-		virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-			CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			CefRefPtr<CefV8Context> context) OVERRIDE { 
-
-			 if (app->myMxCallback_) {
-				/*app.get();
-				browser.get();
-				frame.get();
-				context.get();*/
-				CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
-			} 
-		}
-		virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
-			if (app->myMxCallback_) {
-				CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
-			}
-		}
-		virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
-			CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			CefRefPtr<CefV8Context> context) {
-			if (app->myMxCallback_)
-			{
-				CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context);
-
-			}
-		}
-	private:
-		IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
-	};
-#if BUILD_TEST
-	
+//###_BEGIN  
+#if BUILD_TEST 
 //###_END
 // Use more interations for a Release build.
 #if DCHECK_IS_ON()
@@ -207,7 +166,7 @@ void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
 //###_BEGIN 
 #else
 void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-  delegates.insert(new MyCefRenderDelegate);
+  
 }
 #endif
 //###_END
