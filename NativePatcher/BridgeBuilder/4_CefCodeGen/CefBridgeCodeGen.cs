@@ -16,7 +16,8 @@ namespace BridgeBuilder
             //-----------------------------
             {
                 //cpptoc folder
-                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
+                string libcef_dll_folder = cefDir + @"\libcef_dll";
+                string[] onlyCppFiles = System.IO.Directory.GetFiles(libcef_dll_folder + @"\cpptoc", "*.cc");
                 //we skip some files
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
                     "base_ref_counted_cpptoc.cc" ,
@@ -42,7 +43,7 @@ namespace BridgeBuilder
 
 
                     //cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
-                    cppToCsImplCodeGen.PatchCppMethod(cu, null, cefDir + @"\cpptoc");
+                    cppToCsImplCodeGen.PatchCppMethod(cu, null, libcef_dll_folder + @"\cpptoc");
                 }
 
             }
