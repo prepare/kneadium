@@ -38,7 +38,7 @@ References:
 
    BSD, 2008-2017, Marshall A. Greenblatt,  **Chromium Embedded Framework**, https://bitbucket.org/chromiumembedded/
 
-
+   BSD,	2010-2014, The CefSharp Authors, **CefSharp**, https://github.com/cefsharp/CefSharp
 
 	
 
