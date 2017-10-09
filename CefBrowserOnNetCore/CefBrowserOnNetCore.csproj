@@ -49,19 +49,21 @@
     <Compile Include="..\CefBrowserOnGlfw\NoWinForms\CefWebBrowser.cs" Link="NoWinForms\CefWebBrowser.cs" />
     <Compile Include="..\CefBrowserOnGlfw\NoWinForms\MyFormWrapper.cs" Link="NoWinForms\MyFormWrapper.cs" />
     <Compile Include="..\CefBrowserOnGlfw\NoWinForms\WindowControlImpl.cs" Link="NoWinForms\WindowControlImpl.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\Cef3WinForms.cs" Link="BrowserProcess2\Cef3WinForms.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\ClientAppBrowser.cs" Link="BrowserProcess2\ClientAppBrowser.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\MyCef3InitEssential.cs" Link="BrowserProcess2\MyCef3InitEssential.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\MyCefBrowser.cs" Link="BrowserProcess2\MyCefBrowser.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\MyCefDevWindow.cs" Link="BrowserProcess2\MyCefDevWindow.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\MyCefUIListener.cs" Link="BrowserProcess2\MyCefUIListener.cs" />
-    <Compile Include="..\CefBrowser\BrowserProcess\WindowWrapper.cs" Link="BrowserProcess2\WindowWrapper.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\Program.cs" Link="Program.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\SimpleWindowProgram.cs" Link="SimpleWindowProgram.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\Cef3WinForms.cs" Link="BrowserProcess\Cef3WinForms.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\ClientAppBrowser.cs" Link="BrowserProcess\ClientAppBrowser.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCef3InitEssential.cs" Link="BrowserProcess\MyCef3InitEssential.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefBrowser.cs" Link="BrowserProcess\MyCefBrowser.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefDevWindow.cs" Link="BrowserProcess\MyCefDevWindow.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\MyCefUIListener.cs" Link="BrowserProcess\MyCefUIListener.cs" />
+    <Compile Include="..\CefBrowser\BrowserProcess\WindowWrapper.cs" Link="BrowserProcess\WindowWrapper.cs" />
     <Compile Include="..\CefBrowser\LibFolderManager.cs" Link="LibFolderManager.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CefBridge\Auto\" />
-    <Folder Include="BrowserProcess2\" />
+    <Folder Include="BrowserProcess\" />
     <Folder Include="NoWinForms\" />
   </ItemGroup>
 

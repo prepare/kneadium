@@ -84,8 +84,8 @@ namespace TestGlfw
 
             bool isCreated = false;
             while (!GlfwApp.ShouldClose())
-            {
-
+            {   
+                //gl
                 if (!isCreated)
                 {
                     if (cefBrowser.IsBrowserCreated)
