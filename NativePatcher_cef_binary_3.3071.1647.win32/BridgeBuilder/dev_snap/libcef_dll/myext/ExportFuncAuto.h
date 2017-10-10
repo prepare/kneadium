@@ -1154,7 +1154,7 @@ namespace CefV8AccessorExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
-		GetArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
+		/*GetArgs(const CefString& name, const cef_v8value_t* object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1162,7 +1162,7 @@ namespace CefV8AccessorExt {
 			arg.object = (cef_v8value_t*)object;
 			arg.retval = retval;
 			arg.exception = exception;
-		}
+		}*/
 		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, cef_v8value_t** retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);

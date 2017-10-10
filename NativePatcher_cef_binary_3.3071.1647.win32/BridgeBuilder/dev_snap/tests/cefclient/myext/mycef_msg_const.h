@@ -5,9 +5,7 @@
 
 const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
-const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
-
-
+const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102; 
 
 const int CEF_MSG_ClientHandler_CloseDevTools = 108;
 
@@ -23,7 +21,6 @@ const int CEF_MSG_OSR_Render = 155;
 const int CEF_MSG_OnQuery = 205;
 
 
-const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
 const int CEF_MSG_HereOnRenderer = 303;
 
 const int CEF_MSG_ClientHandler_NotifyTitle = 502;
