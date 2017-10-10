@@ -185,7 +185,8 @@ namespace LayoutFarm.CefBridge
         {
             //load text
             //this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
-            this.cefWebBrowser1.Agent.LoadText("<html><head><script>function docload(){ console.log(test001());}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>", "http://localhost");
+            //this.cefWebBrowser1.Agent.LoadText("<html><head><script>function docload(){ console.log(test001());console.log(test_myobj[\"12345\"]); console.log(test_myobj.myprop);}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>", "http://localhost");
+            this.cefWebBrowser1.Agent.LoadText("<html><head><script>function docload(){ console.log(test001()); console.log(test_myobj.myprop);}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>", "http://localhost");
 
         }
 

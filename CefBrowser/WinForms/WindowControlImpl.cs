@@ -46,8 +46,9 @@ namespace LayoutFarm.CefBridge
         IWindowControl IWindowControl.GetTopLevelControl()
         {
             //TODO: review here again
+            Form form1 = control.FindForm();
             Control realTopLevelWindowControl = control.TopLevelControl;
-
+            realTopLevelWindowControl = form1;
             ///MoonTrip version
             ///for use in extensions custom tool
             ///Form in ToolWindow is can not top level
@@ -162,8 +163,7 @@ namespace LayoutFarm.CefBridge
                 formHandle = myForm.Handle;
                 MyCefBrowser.DisposeAllChildWebBrowserControls(this);
                 tmClosingCheck.Enabled = true;
-            }
-
+            } 
         }
 
         void IWindowForm.Close()
@@ -190,6 +190,7 @@ namespace LayoutFarm.CefBridge
             }
             return myWinForm;
         }
+ 
     }
 
 

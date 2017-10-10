@@ -14,10 +14,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefAuthCallback : IDisposable
     {
-        const int _typeNAME = 80;
+        public const int _typeNAME = 80;
         const int CefAuthCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefAuthCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefAuthCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefAuthCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefAuthCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefAuthCallback(IntPtr nativePtr)
         {
@@ -70,7 +70,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRunFileDialogCallback : IDisposable
     {
-        const int _typeNAME = 81;
+        public const int _typeNAME = 81;
         const int CefRunFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefRunFileDialogCallback(IntPtr nativePtr)
@@ -92,7 +92,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPdfPrintCallback : IDisposable
     {
-        const int _typeNAME = 82;
+        public const int _typeNAME = 82;
         const int CefPdfPrintCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefPdfPrintCallback(IntPtr nativePtr)
@@ -114,7 +114,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDownloadImageCallback : IDisposable
     {
-        const int _typeNAME = 83;
+        public const int _typeNAME = 83;
         const int CefDownloadImageCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefDownloadImageCallback(IntPtr nativePtr)
@@ -135,10 +135,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefCallback : IDisposable
     {
-        const int _typeNAME = 84;
+        public const int _typeNAME = 84;
         const int CefCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefCallback(IntPtr nativePtr)
         {
@@ -183,7 +183,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefCompletionCallback : IDisposable
     {
-        const int _typeNAME = 85;
+        public const int _typeNAME = 85;
         const int CefCompletionCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefCompletionCallback(IntPtr nativePtr)
@@ -204,10 +204,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRunContextMenuCallback : IDisposable
     {
-        const int _typeNAME = 86;
+        public const int _typeNAME = 86;
         const int CefRunContextMenuCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRunContextMenuCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefRunContextMenuCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefRunContextMenuCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefRunContextMenuCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefRunContextMenuCallback(IntPtr nativePtr)
         {
@@ -258,7 +258,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefSetCookieCallback : IDisposable
     {
-        const int _typeNAME = 87;
+        public const int _typeNAME = 87;
         const int CefSetCookieCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefSetCookieCallback(IntPtr nativePtr)
@@ -280,7 +280,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDeleteCookiesCallback : IDisposable
     {
-        const int _typeNAME = 88;
+        public const int _typeNAME = 88;
         const int CefDeleteCookiesCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefDeleteCookiesCallback(IntPtr nativePtr)
@@ -301,10 +301,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefFileDialogCallback : IDisposable
     {
-        const int _typeNAME = 89;
+        public const int _typeNAME = 89;
         const int CefFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefFileDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefFileDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefFileDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefFileDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefFileDialogCallback(IntPtr nativePtr)
         {
@@ -355,9 +355,9 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefBeforeDownloadCallback : IDisposable
     {
-        const int _typeNAME = 90;
+        public const int _typeNAME = 90;
         const int CefBeforeDownloadCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefBeforeDownloadCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefBeforeDownloadCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefBeforeDownloadCallback(IntPtr nativePtr)
         {
@@ -397,11 +397,11 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefDownloadItemCallback : IDisposable
     {
-        const int _typeNAME = 91;
+        public const int _typeNAME = 91;
         const int CefDownloadItemCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDownloadItemCallback_Cancel_1 = (_typeNAME << 16) | 1;
-        const int CefDownloadItemCallback_Pause_2 = (_typeNAME << 16) | 2;
-        const int CefDownloadItemCallback_Resume_3 = (_typeNAME << 16) | 3;
+        public const int CefDownloadItemCallback_Cancel_1 = (_typeNAME << 16) | 1;
+        public const int CefDownloadItemCallback_Pause_2 = (_typeNAME << 16) | 2;
+        public const int CefDownloadItemCallback_Resume_3 = (_typeNAME << 16) | 3;
         internal IntPtr nativePtr;
         internal CefDownloadItemCallback(IntPtr nativePtr)
         {
@@ -458,7 +458,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefGetGeolocationCallback : IDisposable
     {
-        const int _typeNAME = 92;
+        public const int _typeNAME = 92;
         const int CefGetGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefGetGeolocationCallback(IntPtr nativePtr)
@@ -480,9 +480,9 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefGeolocationCallback : IDisposable
     {
-        const int _typeNAME = 93;
+        public const int _typeNAME = 93;
         const int CefGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefGeolocationCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefGeolocationCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefGeolocationCallback(IntPtr nativePtr)
         {
@@ -519,9 +519,9 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefJSDialogCallback : IDisposable
     {
-        const int _typeNAME = 94;
+        public const int _typeNAME = 94;
         const int CefJSDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefJSDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefJSDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefJSDialogCallback(IntPtr nativePtr)
         {
@@ -561,10 +561,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPrintDialogCallback : IDisposable
     {
-        const int _typeNAME = 95;
+        public const int _typeNAME = 95;
         const int CefPrintDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPrintDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefPrintDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefPrintDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefPrintDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefPrintDialogCallback(IntPtr nativePtr)
         {
@@ -611,9 +611,9 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefPrintJobCallback : IDisposable
     {
-        const int _typeNAME = 96;
+        public const int _typeNAME = 96;
         const int CefPrintJobCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPrintJobCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefPrintJobCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefPrintJobCallback(IntPtr nativePtr)
         {
@@ -647,7 +647,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefResolveCallback : IDisposable
     {
-        const int _typeNAME = 97;
+        public const int _typeNAME = 97;
         const int CefResolveCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefResolveCallback(IntPtr nativePtr)
@@ -668,10 +668,10 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRequestCallback : IDisposable
     {
-        const int _typeNAME = 98;
+        public const int _typeNAME = 98;
         const int CefRequestCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRequestCallback_Continue_1 = (_typeNAME << 16) | 1;
-        const int CefRequestCallback_Cancel_2 = (_typeNAME << 16) | 2;
+        public const int CefRequestCallback_Continue_1 = (_typeNAME << 16) | 1;
+        public const int CefRequestCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefRequestCallback(IntPtr nativePtr)
         {
@@ -718,9 +718,9 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefSelectClientCertificateCallback : IDisposable
     {
-        const int _typeNAME = 99;
+        public const int _typeNAME = 99;
         const int CefSelectClientCertificateCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefSelectClientCertificateCallback_Select_1 = (_typeNAME << 16) | 1;
+        public const int CefSelectClientCertificateCallback_Select_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefSelectClientCertificateCallback(IntPtr nativePtr)
         {
@@ -757,7 +757,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefEndTracingCallback : IDisposable
     {
-        const int _typeNAME = 100;
+        public const int _typeNAME = 100;
         const int CefEndTracingCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefEndTracingCallback(IntPtr nativePtr)
@@ -779,7 +779,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefWebPluginUnstableCallback : IDisposable
     {
-        const int _typeNAME = 101;
+        public const int _typeNAME = 101;
         const int CefWebPluginUnstableCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefWebPluginUnstableCallback(IntPtr nativePtr)
@@ -802,7 +802,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public struct CefRegisterCdmCallback : IDisposable
     {
-        const int _typeNAME = 102;
+        public const int _typeNAME = 102;
         const int CefRegisterCdmCallback_Release_0 = (_typeNAME << 16) | 0;
         internal IntPtr nativePtr;
         internal CefRegisterCdmCallback(IntPtr nativePtr)

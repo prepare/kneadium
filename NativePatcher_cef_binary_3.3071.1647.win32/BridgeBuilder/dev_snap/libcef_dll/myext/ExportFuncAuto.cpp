@@ -3572,8 +3572,10 @@ public:
 	//gen! bool FormatLabel(CefRefPtr<CefMenuModel> menu_model,CefString& label)
 	virtual bool FormatLabel(CefRefPtr<CefMenuModel> menu_model, CefString& label) {
 		if (mcallback) {
-			CefMenuModelDelegateExt::FormatLabelArgs args1(menu_model, &label);
+			auto temp_1 = label;
+			CefMenuModelDelegateExt::FormatLabelArgs args1(menu_model, &temp_1);
 			mcallback((CefMenuModelDelegateExt::_typeName << 16) | MyCefMenuModelDelegate_FormatLabel_7, &args1.arg);
+			label = temp_1;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5643,10 +5645,12 @@ public:
 	//gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(const CefString& name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
-			CefV8AccessorExt::GetArgs args1(&name, object, &temp1, &exception);
+			auto temp_2 = CefV8ValueCToCpp::Unwrap(retval);
+			auto temp_3 = exception;
+			CefV8AccessorExt::GetArgs args1(&name, object, &temp_2, &temp_3);
 			mcallback((CefV8AccessorExt::_typeName << 16) | MyCefV8Accessor_Get_1, &args1.arg);
-			CefV8ValueCToCpp::Wrap(temp1);
+			retval = CefV8ValueCToCpp::Wrap(temp_2);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5655,8 +5659,10 @@ public:
 	//gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(const CefString& name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8AccessorExt::SetArgs args1(&name, object, value, &exception);
+			auto temp_3 = exception;
+			CefV8AccessorExt::SetArgs args1(&name, object, value, &temp_3);
 			mcallback((CefV8AccessorExt::_typeName << 16) | MyCefV8Accessor_Set_2, &args1.arg);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5738,10 +5744,12 @@ public:
 	//gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(const CefString& name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
-			CefV8InterceptorExt::get_bynameArgs args1(&name, object, &temp1, &exception);
+			auto temp_2 = CefV8ValueCToCpp::Unwrap(retval);
+			auto temp_3 = exception;
+			CefV8InterceptorExt::get_bynameArgs args1(&name, object, &temp_2, &temp_3);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_1, &args1.arg);
-			CefV8ValueCToCpp::Wrap(temp1);
+			retval = CefV8ValueCToCpp::Wrap(temp_2);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5750,11 +5758,12 @@ public:
 	//gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	virtual bool Get(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-			 
-			auto temp1 = CefV8ValueCToCpp::Unwrap(retval);
-			CefV8InterceptorExt::get_byindexArgs args1(index, object, &temp1, &exception);
+			auto temp_2 = CefV8ValueCToCpp::Unwrap(retval);
+			auto temp_3 = exception;
+			CefV8InterceptorExt::get_byindexArgs args1(index, object, &temp_2, &temp_3);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Get_2, &args1.arg);
-			CefV8ValueCToCpp::Wrap(temp1);
+			retval = CefV8ValueCToCpp::Wrap(temp_2);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5763,8 +5772,10 @@ public:
 	//gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(const CefString& name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::set_bynameArgs args1(&name, object, value, &exception);
+			auto temp_3 = exception;
+			CefV8InterceptorExt::set_bynameArgs args1(&name, object, value, &temp_3);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_3, &args1.arg);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -5773,8 +5784,10 @@ public:
 	//gen! bool Set(int index,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 	virtual bool Set(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
-			CefV8InterceptorExt::set_byindexArgs args1(index, object, value, &exception);
+			auto temp_3 = exception;
+			CefV8InterceptorExt::set_byindexArgs args1(index, object, value, &temp_3);
 			mcallback((CefV8InterceptorExt::_typeName << 16) | MyCefV8Interceptor_Set_4, &args1.arg);
+			exception = temp_3;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -8830,8 +8843,10 @@ namespace CefDisplayHandlerExt {
 	//gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
 	bool OnTooltip(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefString& text) {
 		if (mcallback) {
-			OnTooltipArgs args1(browser, &text);
+			auto temp_1 = text;
+			OnTooltipArgs args1(browser, &temp_1);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTooltip_5, &args1.arg);
+			text = temp_1;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -9420,8 +9435,10 @@ namespace CefRequestHandlerExt {
 	//gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
 	void OnResourceRedirect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString& new_url) {
 		if (mcallback) {
-			OnResourceRedirectArgs args1(browser, frame, request, response, &new_url);
+			auto temp_4 = new_url;
+			OnResourceRedirectArgs args1(browser, frame, request, response, &temp_4);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceRedirect_5, &args1.arg);
+			new_url = temp_4;
 		}
 	}
 	//CefHandlerTx::GenerateCppImplMethodForNs ,156
@@ -9530,8 +9547,10 @@ namespace CefResourceBundleHandlerExt {
 	//gen! bool GetLocalizedString(int string_id,CefString& string)
 	bool GetLocalizedString(managed_callback mcallback, int string_id, CefString& string) {
 		if (mcallback) {
-			GetLocalizedStringArgs args1(string_id, &string);
+			auto temp_1 = string;
+			GetLocalizedStringArgs args1(string_id, &temp_1);
 			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetLocalizedString_1, &args1.arg);
+			string = temp_1;
 			return args1.arg.myext_ret_value;
 		}
 		return false;
@@ -9572,8 +9591,10 @@ namespace CefResourceHandlerExt {
 	//gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
 	void GetResponseHeaders(managed_callback mcallback, CefRefPtr<CefResponse> response, int64& response_length, CefString& redirectUrl) {
 		if (mcallback) {
-			GetResponseHeadersArgs args1(response, &response_length, &redirectUrl);
+			auto temp_2 = redirectUrl;
+			GetResponseHeadersArgs args1(response, &response_length, &temp_2);
 			mcallback((_typeName << 16) | CefResourceHandlerExt_GetResponseHeaders_2, &args1.arg);
+			redirectUrl = temp_2;
 		}
 	}
 	//CefHandlerTx::GenerateCppImplMethodForNs ,191
@@ -9724,13 +9745,12 @@ namespace CefV8HandlerExt {
 	//gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
 	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
-
-			//CefRefPtr<CefV8Value> ret2 = retval;
-			auto ret3 = CefV8ValueCToCpp::Unwrap(retval);
-			ExecuteArgs args1(&name, object, &arguments, &ret3, &exception);
+			auto temp_3 = CefV8ValueCToCpp::Unwrap(retval);
+			auto temp_4 = exception;
+			ExecuteArgs args1(&name, object, &arguments, &temp_3, &temp_4);
 			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1.arg);
-			//retval = CefV8Value::CreateString("ABCD");
-			retval = CefV8ValueCToCpp::Wrap(*args1.arg.retval);
+			retval = CefV8ValueCToCpp::Wrap(temp_3);
+			exception = temp_4;
 			return args1.arg.myext_ret_value;
 		}
 		return false;

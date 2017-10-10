@@ -468,10 +468,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsCode , " + (++codeGenNum));
-            if (codeGenNum == 486)
-            {
 
-            }
             //-----------------------------------------------------------------------
             _orgDecl = orgDecl;
             _typeTxInfo = implTypeDecl.TypePlan;//tx 
@@ -481,7 +478,7 @@ namespace BridgeBuilder
             int maxPar = 0;
             CodeGenUtils.AddComment(orgDecl.LineComments, csStruct);
             csStruct.AppendLine("public struct " + orgDecl.Name + ":IDisposable{");
-            csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
+            csStruct.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
             string releaseMetName = orgDecl.Name + "_Release_0";
             csStruct.AppendLine("const int " + releaseMetName + "= (_typeNAME <<16) | 0;");
 
@@ -496,7 +493,7 @@ namespace BridgeBuilder
                 {
                     metTx.CppMethodSwitchCaseName = implTypeDecl.Name + "_" + metTx.Name;
                 }
-                csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
+                csStruct.AppendLine("public const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
             }
             //-----------------------------------------------------------------------
             if (staticMethods != null)
@@ -977,7 +974,7 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 PrepareCsMetPars(met);
-                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
+                stbuilder.AppendLine("public const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
             }
 
 
@@ -1535,7 +1532,7 @@ namespace BridgeBuilder
         string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
-             
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -1886,7 +1883,7 @@ namespace BridgeBuilder
                         break;
                     case "ref bool":
                         //provide both getter and setter method
-                        {       
+                        {
 
                             stbuilder.AppendLine("unsafe{");
                             stbuilder.Append("return ");

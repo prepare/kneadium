@@ -48,11 +48,7 @@ namespace BridgeBuilder
                          Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
                      }
                 );
-            }
-            //-----------
-
-            //
-
+            } 
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
@@ -83,7 +79,7 @@ namespace BridgeBuilder
                 SetCurrentPreset((PatcherPreset)cmbCefSrcFolder.SelectedItem);
 
             };
-            cmbCefSrcFolder.SelectedIndex = 1; //set default
+            cmbCefSrcFolder.SelectedIndex = 0; //set default
         }
         private void cmdShowCefSourceFolder_Click(object sender, EventArgs e)
         {

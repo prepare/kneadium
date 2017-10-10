@@ -74,6 +74,9 @@ CefContextMenuHandlerExt::OnBeforeContextMenu(this->mcallback_,
 browser,
 frame,
 params, model);
+
+return;
+
 }
 //###_POST
 if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
