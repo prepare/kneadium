@@ -66,7 +66,7 @@ client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> a
 
 //3. create process-based client app. 1 process => 1 client app
 void* MyCefCreateClientApp(HINSTANCE hInstance)
-{	
+{
 	// Enable High-DPI support on Windows 7 or newer.
 #if OS_WIN
 	CefEnableHighDPISupport();
@@ -90,7 +90,7 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 		app_global = app;
 	}
 	else if (process_type == client::ClientApp::RendererProcess)
-	{  
+	{
 		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
 		app = new client::ClientAppRenderer();
 		app->myMxCallback_ = myMxCallback_;
@@ -103,12 +103,12 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 		app_global = app;
 	}
 	// Create the main message loop object.
-	message_loop = new client::MainMessageLoopStd(); 
+	message_loop = new client::MainMessageLoopStd();
 
 	//
 	CefMainArgs main_args(hInstance);
 	mainContext = DllInitMain(main_args, app, command_line);
-	
+
 	return app;
 
 }
@@ -116,20 +116,20 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app, CefRefPtr<CefCommandLine> command_line) {
 
 
-	void* sandbox_info = NULL; 
+	void* sandbox_info = NULL;
 #if defined(CEF_USE_SANDBOX)
 	// Manage the life span of the sandbox information object. This is necessary
 	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
 	CefScopedSandboxInfo scoped_sandbox;
 	sandbox_info = scoped_sandbox.sandbox_info();
 #endif  
- 
+
 	// Execute the secondary process, if any.
 	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
 	if (exit_code >= 0)
 	{
 		return NULL;
-	}  
+	}
 	auto mainContext1 = new client::MainContextImpl(command_line, true);
 	mainContext1->myMxCallback_ = myMxCallback_;
 	//setting 
@@ -140,21 +140,21 @@ client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> a
 	settings.no_sandbox = true;
 #endif
 	// Populate the settings based on command line arguments.	 
-	mainContext1->PopulateSettings(&settings); 
+	mainContext1->PopulateSettings(&settings);
 
-	 
+
 	//ask managed
 	if (myMxCallback_) {
 		//send direct setting? 
 		myMxCallback_(CEF_MSG_CefSettings_Init, &settings);
-	}	 
+	}
 	//
 
-	mainContext1->Initialize(main_args, settings, app, sandbox_info); 
+	mainContext1->Initialize(main_args, settings, app, sandbox_info);
 	return mainContext1;
 }
- 
- 
+
+
 class MyCefBrowserWindowDelegate :public client::BrowserWindow::Delegate {
 	//this class is used in this module only 
 public:
@@ -189,7 +189,7 @@ class MyBrowserWindowWrapper
 public:
 	client::BrowserWindow* bwWindow;
 };
- 
+
 void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
 	switch (keyName)
 	{
@@ -551,7 +551,7 @@ MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback c
 
 const int CefBw_MyCef_EnableKeyIntercept = 11;
 const int CefBw_SetSize = 25;
-
+const int CefBw_GetWindowHandle = 26;
 const int CefBw_PostData = 27;
 const int CefBw_CloseBw = 28;
 const int CefBw_GetMainFrame = 29;
@@ -567,6 +567,10 @@ void MyCefBwCall2(MyBrowserWindowWrapper* myBw, int methodName, jsvalue* ret, js
 	case CefBw_MyCef_EnableKeyIntercept: {
 		auto clientHandle = myBw->bwWindow->GetClientHandler();
 		clientHandle->MyCefEnableKeyIntercept(v1->i32);
+	}break;
+	case CefBw_GetWindowHandle: {
+		ret->ptr = myBw->bwWindow->GetWindowHandle();
+		ret->type = JSVALUE_TYPE_WRAPPED;
 	}break;
 	case CefBw_CloseBw: {
 		myBw->bwWindow->ClientClose();
