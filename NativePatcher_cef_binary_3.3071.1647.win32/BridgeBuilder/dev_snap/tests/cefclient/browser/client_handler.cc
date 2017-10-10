@@ -364,6 +364,9 @@ CefContextMenuHandlerExt::OnBeforeContextMenu(this->mcallback_,
 browser,
 frame,
 params, model);
+
+return;
+ 
 }
 //###_END
 
