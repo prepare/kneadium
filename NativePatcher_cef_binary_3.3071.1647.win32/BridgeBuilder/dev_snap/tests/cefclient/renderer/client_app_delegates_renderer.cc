@@ -50,6 +50,7 @@ void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
 	  IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
   };
    
+  delegates.insert(new MyCefRenderDelegate);
 
 #if BUILD_TEST
 //###_END
