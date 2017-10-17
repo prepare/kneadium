@@ -21,8 +21,11 @@ namespace LayoutFarm.CefBridge
         public override CefClientApp CreateClientApp()
         {
             //if (Cef3InitEssential.IsInRenderProcess)
-            //{
-            //    System.Windows.Forms.MessageBox.Show("RenderProcess", "RenderProcess");
+            //{ 
+            //    //you can choose debugger.break , or msgbox
+            //    //to break on renderer process
+            //    //System.Diagnostics.Debugger.Break();
+            //    //System.Windows.Forms.MessageBox.Show("RenderProcess", "RenderProcess");
             //}
 
             var clientApp = new ClientAppRenderer(
