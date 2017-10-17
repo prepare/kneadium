@@ -24,9 +24,8 @@ namespace LayoutFarm.CefBridge
 #endif
         
 
-            //ReferencePaths.LIB_PATH = @"D:\projects\kneadium\bin\Release"; //test
-            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
-            //ReferencePaths.SUB_PROCESS_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release\CefBwSp.exe";
+           
+            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";            
             ReferencePaths.OUTPUT_DIR = @"_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
