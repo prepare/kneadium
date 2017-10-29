@@ -37,7 +37,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_MainContext_GetConsoleLogPath = 151,
         CEF_MSG_OSR_Render = 155,
         CEF_MSG_OnQuery = 205,
-         
+
         CEF_MSG_HereOnRenderer = 303,
 
         CEF_MSG_ClientHandler_NotifyTitle = 502,
@@ -354,6 +354,14 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        static extern void AddListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
+
+        public static void AddListElement(int elemType, IntPtr list, ref JsValue jsvalue)
+        {
+            AddListElement(elemType, list, 0, ref jsvalue);
+        }
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);

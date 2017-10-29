@@ -197,7 +197,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             this.nativePtr = nativePtr;
         }
-       
+
     }
     public struct CefSize
     {
@@ -441,6 +441,17 @@ namespace LayoutFarm.CefBridge.Auto
         public CefV8ValueList(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
+        }
+        public static CefV8ValueList NewList()
+        {
+            //
+            return new CefV8ValueList(Cef3Binder.CreateStdList(4));
+        }
+        public void AddElement(CefV8Value value)
+        {
+            JsValue jsvalue = new JsValue();
+            jsvalue.Ptr = value.nativePtr;
+            Cef3Binder.AddListElement(4, nativePtr, ref jsvalue);
         }
     }
     public struct CefRequestContextSettings
