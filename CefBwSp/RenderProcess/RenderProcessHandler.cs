@@ -333,7 +333,7 @@ namespace LayoutFarm.CefBridge
     {
         public static void WriteLine(string log)
         {
-            File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
+            //File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
         }
     }
 
