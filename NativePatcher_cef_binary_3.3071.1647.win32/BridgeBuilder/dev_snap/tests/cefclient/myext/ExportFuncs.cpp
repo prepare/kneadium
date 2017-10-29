@@ -695,7 +695,7 @@ void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
 		break;
 	}
 }
-void AddListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
+void AddListElement(int elemType, void* list, jsvalue* jsvalue) {
 	switch (elemType) {
 	case 1:
 	{
