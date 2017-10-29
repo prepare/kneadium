@@ -47,6 +47,7 @@ private:
 IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
 };
 
+delegates.insert(new MyCefRenderDelegate);
 
 #if BUILD_TEST
 //###_POST

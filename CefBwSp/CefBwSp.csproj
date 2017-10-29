@@ -95,6 +95,7 @@
       <Link>LibFolderManager.cs</Link>
     </Compile>
     <Compile Include="RenderProcess\MyCefRenderProcessInitEssential.cs" />
+    <Compile Include="RenderProcess\MyJsFunc.cs" />
     <Compile Include="RenderProcess\RenderProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

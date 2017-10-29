@@ -17,6 +17,8 @@
 #include "tests/cefclient/browser/browser_window_std_win.h" 
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/v8context_ctocpp.h"
+#include "libcef_dll/ctocpp/ctocpp_ref_counted.h"
+#include "libcef_dll/ctocpp/v8value_ctocpp.h"
 //
 #include "libcef_dll/ctocpp/download_item_callback_ctocpp.h"
 #include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
@@ -627,7 +629,7 @@ void MyCefBwCall2(MyBrowserWindowWrapper* myBw, int methodName, jsvalue* ret, js
 }
 
 
-
+//--------------------------------------------------------------------------------------
 void* CreateStdList(int elemType) {
 	switch (elemType) {
 	case 1:
@@ -636,6 +638,8 @@ void* CreateStdList(int elemType) {
 		return new std::vector<CefString>();
 	case 3:
 		return new std::vector<CefCompositionUnderline>();
+	case 4:
+		return new std::vector<CefRefPtr<CefV8Value>>();
 	default:
 		return nullptr;
 	}
@@ -647,12 +651,13 @@ void GetListCount(int elemType, void* list, int32_t* size) {
 		*size = (int32_t)((std::vector<int64>*)list)->size();
 		break;
 	case 2:
-	{
 		*size = (int32_t)((std::vector<CefString>*)list)->size();
 		break;
-	}
 	case 3:
 		*size = (int32_t)((std::vector<CefCompositionUnderline>*)list)->size();
+		break;
+	case 4:
+		*size = (int32_t)((std::vector<CefRefPtr<CefV8Value>>*)list)->size();
 		break;
 	default:
 		*size = 0;
@@ -679,6 +684,43 @@ void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
 	}
 	case 3:
 		//nothing now
+		break;
+	case 4:
+	{
+		CefRefPtr<CefV8Value> cef_value = ((std::vector<CefRefPtr<CefV8Value>>*)list)->at(index);
+		jsvalue->ptr = CefV8ValueCToCpp::Unwrap(cef_value);
+	}
+	break;
+	default:
+		break;
+	}
+}
+void AddListElement(int elemType, void* list, jsvalue* jsvalue) {
+	switch (elemType) {
+	case 1:
+	{
+		((std::vector<int64>*)list)->push_back(jsvalue->i64);
+		break;
+	}
+	case 2:
+	{		
+		//create string holder for this 
+		MyCefStringHolder* myCefStringHolder = (MyCefStringHolder*)jsvalue->ptr;
+		//convert to cef string
+		CefString cefstr =  myCefStringHolder->value;
+		((std::vector<CefString>*)list)->push_back(cefstr);
+		break;
+	}
+	case 3:
+		//nothing now
+		break;
+	case 4:
+	{
+		 
+		CefRefPtr<CefV8Value> cefV8 = CefV8ValueCToCpp::Wrap((cef_v8value_t*)jsvalue->ptr);
+		((std::vector<CefRefPtr<CefV8Value>>*)list)->push_back(cefV8);
+	}
+	break;
 	default:
 		break;
 	}

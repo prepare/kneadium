@@ -22,6 +22,9 @@ namespace LayoutFarm.CefBridge
         {
             //if (Cef3InitEssential.IsInRenderProcess)
             //{
+            //    //you can choose debugger.break , or msgbox
+            //    //to break on renderer process
+            //    //System.Diagnostics.Debugger.Break();
             //    System.Windows.Forms.MessageBox.Show("RenderProcess", "RenderProcess");
             //}
 
