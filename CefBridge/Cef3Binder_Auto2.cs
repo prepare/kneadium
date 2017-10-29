@@ -435,8 +435,7 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefV8ValueList
     {
         //implemented by ...
-        //typedef std::vector<CefRefPtr<CefV8Value>> CefV8ValueList;
-
+        //typedef std::vector<CefRefPtr<CefV8Value>> CefV8ValueList; 
         internal IntPtr nativePtr;
         public CefV8ValueList(IntPtr nativePtr)
         {
@@ -444,7 +443,6 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public static CefV8ValueList NewList()
         {
-            //
             return new CefV8ValueList(Cef3Binder.CreateStdList(4));
         }
         public void AddElement(CefV8Value value)
@@ -452,6 +450,20 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue jsvalue = new JsValue();
             jsvalue.Ptr = value.nativePtr;
             Cef3Binder.AddListElement(4, nativePtr, ref jsvalue);
+        }
+        public CefV8Value GetElement(int index)
+        {
+            JsValue jsvalue = new JsValue();
+
+
+            Cef3Binder.GetListElement(4, nativePtr, index, ref jsvalue);
+            return new CefV8Value(jsvalue.Ptr);
+        }
+        public int GetListCount()
+        {
+            int result = 0;
+            Cef3Binder.GetListCount(4, nativePtr, out result);
+            return result;
         }
     }
     public struct CefRequestContextSettings

@@ -120,7 +120,7 @@ namespace LayoutFarm.CefBridge
                     char* h = stackalloc char[len];
                     int actualLen = 0;
                     Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, len, out actualLen);
-                    return new string(h);
+                    return new string(h, 0, len);
                 }
             }
             else
@@ -134,7 +134,7 @@ namespace LayoutFarm.CefBridge
                         Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, len, out actualLen);
                     }
                 }
-                return new string(buffer);
+                return new string(buffer, 0, len);
             }
         }
     }
@@ -320,8 +320,7 @@ namespace LayoutFarm.CefBridge
 
         internal static IntPtr MyCefCreateStringHolder(string str)
         {
-            IntPtr nativePtr = MyCefCreateStringHolder(str, str.Length);
-            return nativePtr;
+            return MyCefCreateStringHolder(str, str.Length);
         }
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefCreateStringHolder(string str, int len);
@@ -356,12 +355,8 @@ namespace LayoutFarm.CefBridge
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        static extern void AddListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
+        public static extern void AddListElement(int elemType, IntPtr list, ref JsValue jsvalue);
 
-        public static void AddListElement(int elemType, IntPtr list, ref JsValue jsvalue)
-        {
-            AddListElement(elemType, list, 0, ref jsvalue);
-        }
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
