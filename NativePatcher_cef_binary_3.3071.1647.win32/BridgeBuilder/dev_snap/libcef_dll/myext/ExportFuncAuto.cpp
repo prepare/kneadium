@@ -5552,12 +5552,26 @@ void MyCefMet_CefV8Context(cef_v8context_t* me1, int metName, jsvalue* ret, jsva
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,505
 
 		// gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
-		auto ret_result = me->Eval(GetStringHolder(v1)->value,
+
+		/*auto ret_result = me->Eval(GetStringHolder(v1)->value,
 			GetStringHolder(v2)->value,
 			v3->i32,
 			*((CefRefPtr<CefV8Value>*)v4->ptr),
-			*((CefRefPtr<CefV8Exception>*)v5->ptr));
+			*((CefRefPtr<CefV8Exception>*)v5->ptr));*/
+
+		CefRefPtr<CefV8Value> v8ret;
+		CefRefPtr<CefV8Exception> v8ex;
+		auto ret_result = me->Eval(GetStringHolder(v1)->value,
+			GetStringHolder(v2)->value,
+			v3->i32,
+			v8ret,
+			v8ex);
+		
+		v4->ptr = CefV8ValueCToCpp::Unwrap(v8ret);
+		v5->ptr = CefV8ExceptionCToCpp::Unwrap(v8ex);
+		
 		MyCefSetBool(ret, ret_result);
+
 	} break;
 	}
 	CefV8ContextCToCpp::Unwrap(me);
@@ -5612,6 +5626,7 @@ void MyCefMet_CefV8Accessor(cef_v8accessor_t* me1, int metName, jsvalue* ret, js
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,509
 
 		// gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
+
 		auto ret_result = me->Get(GetStringHolder(v1)->value,
 			CefV8ValueCToCpp::Wrap((cef_v8value_t*)v2->ptr),
 			*((CefRefPtr<CefV8Value>*)v3->ptr),
@@ -5689,20 +5704,32 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,511
 
 		// gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
+		CefRefPtr<CefV8Value> v3ret;
 		auto ret_result = me->Get(GetStringHolder(v1)->value,
 			CefV8ValueCToCpp::Wrap((cef_v8value_t*)v2->ptr),
 			*((CefRefPtr<CefV8Value>*)v3->ptr),
 			GetStringHolder(v4)->value);
+		/*auto ret_result = me->Get(GetStringHolder(v1)->value,
+			CefV8ValueCToCpp::Wrap((cef_v8value_t*)v2->ptr),
+			v3ret,
+			GetStringHolder(v4)->value);
+		v3->ptr = CefV8ValueCToCpp::Unwrap(v3ret);*/
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Interceptor_Get_2: {
 		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,512
 
 		// gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
+		/*CefRefPtr<CefV8Value> v3ret;*/
 		auto ret_result = me->Get(v1->i32,
 			CefV8ValueCToCpp::Wrap((cef_v8value_t*)v2->ptr),
 			*((CefRefPtr<CefV8Value>*)v3->ptr),
 			GetStringHolder(v4)->value);
+		/*auto ret_result = me->Get(v1->i32,
+			CefV8ValueCToCpp::Wrap((cef_v8value_t*)v2->ptr),
+			v3ret,
+			GetStringHolder(v4)->value);
+		v3->ptr = CefV8ValueCToCpp::Unwrap(v3ret);*/
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Interceptor_Set_3: {

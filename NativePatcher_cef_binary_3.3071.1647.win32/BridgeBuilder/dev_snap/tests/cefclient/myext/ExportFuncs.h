@@ -74,6 +74,7 @@ extern "C" {
 	MY_DLL_EXPORT void GetListCount(int elemType, void* list, int32_t* size);
 
 	MY_DLL_EXPORT void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue);
+	MY_DLL_EXPORT void AddListElement(int elemType, void* list, jsvalue* jsvalue);
 
 }
 
