@@ -40,14 +40,48 @@ namespace LayoutFarm.CefBridge
 
             //eg  "<html><head><script>function docload(){ console.log(test001()); console.log(test_myobj.myprop);console.log(test_myobj[12345]);}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>"
 
-            dbugRenderProcessLog.WriteLine("context_created");
+            dbugRenderProcessLog.WriteLine("context_created1");
             CefV8Context context = args.context();
-            Auto.CefV8Value cefV8Global = context.GetGlobal();
 
+            dbugRenderProcessLog.WriteLine("context_cx1");
+            //global => window object
+            CefV8Value cefV8Global = context.GetGlobal();
+
+            IntPtr ret = IntPtr.Zero;
+            IntPtr exception = IntPtr.Zero;
+            //string jscode = "(function(){ return function (){return 1.25;}})()";
+            string jscode = "(function(){ return function (){ console.log('hello-eval1'); return 1.25;}})()";
+            if (context.Eval(jscode, "", 1, ref ret, ref exception))
+            {
+                dbugRenderProcessLog.WriteLine("eval success");
+            }
+            else
+            {
+                dbugRenderProcessLog.WriteLine("eval fail");
+            }
+            //
+            using (CefV8Value cefv8_ret = new CefV8Value(ret))
+            using (CefV8Value cefv8_excep = new CefV8Value(exception))
+            {
+                if (cefv8_ret.IsFunction())
+                {
+                    CefV8Value obj1 = new CefV8Value(); //empty 
+                    CefV8ValueList args1 = CefV8ValueList.NewList();
+                    cefv8_ret.ExecuteFunction(obj1, args1);
+                    Cef3Binder.MyCefDeletePtr(args1.nativePtr);
+                }
+                else
+                {
+                    double v8ret_double = cefv8_ret.GetDoubleValue();
+                }
+            }
+
+            //
+            dbugRenderProcessLog.WriteLine("context_cx2");
             Auto.CefV8Handler funcHandler = new Auto.CefV8Handler(Cef3Binder.MyCefJs_New_V8Handler(Test002));
             var func = Auto.CefV8Value.CreateFunction("test001", funcHandler);
             cefV8Global.SetValue("test001", func, cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
-
+            dbugRenderProcessLog.WriteLine("context_cx3");
             CefV8Accessor accessor = CefV8Accessor.New((id, argPtr) =>
             {
                 //--------------------------
@@ -147,7 +181,7 @@ namespace LayoutFarm.CefBridge
         public void OnWebKitInitialized(CefRenderProcessHandler.OnWebKitInitializedArgs args)
         {
 
-            dbugRenderProcessLog.WriteLine("webkit_init");
+            dbugRenderProcessLog.WriteLine("webkit_init" + DateTime.Now.ToString());
             //sample!!!
             string extensionCode =
                       "var test;" +
@@ -171,7 +205,7 @@ namespace LayoutFarm.CefBridge
     {
         public static void WriteLine(string log)
         {
-            // File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
+            File.AppendAllText("d:\\WImageTest\\render_process_msg.txt", log + "\r\n");
         }
     }
 
