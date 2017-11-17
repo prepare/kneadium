@@ -16,16 +16,18 @@ namespace LayoutFarm.CefBridge
             ReferencePaths.LIB_PATH = is64BitsApp ?
                 @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Debug" :
                 @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
-#else
-           
-                 ReferencePaths.LIB_PATH = is64BitsApp ?
-                @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release":
-                @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
-#endif
-        
 
-           
-            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";            
+      
+#else
+            ReferencePaths.LIB_PATH = "./";//relative path, from current folder
+            //ReferencePaths.LIB_PATH = is64BitsApp ?
+            // @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release":
+            // @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
+#endif
+
+
+
+            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
             ReferencePaths.OUTPUT_DIR = @"_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
