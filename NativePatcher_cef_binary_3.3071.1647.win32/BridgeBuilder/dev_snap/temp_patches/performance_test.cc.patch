@@ -1,10 +1,22 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
 //###_BEGIN 0
 //###_PRE
+#include "include/wrapper/cef_stream_resource_handler.h"
+//###_PRE
+#include "tests/cefclient/renderer/performance_test_setup.h"
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+//###_POST
+namespace client {
+//###_POST
+namespace performance_test {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
 namespace client {
 //###_PRE
 namespace performance_test {
 #if BUILD_TEST 
+
 //###_POST
 // Use more interations for a Release build.
 //###_POST

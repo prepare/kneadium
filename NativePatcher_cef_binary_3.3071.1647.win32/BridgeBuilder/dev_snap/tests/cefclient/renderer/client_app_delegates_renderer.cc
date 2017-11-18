@@ -18,42 +18,42 @@ namespace client {
 // static
 void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
   renderer::CreateDelegates(delegates);
-
 //###_BEGIN
-  class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
-  public:
-	  MyCefRenderDelegate() {}
+class MyCefRenderDelegate : public ClientAppRenderer::Delegate {
+public:
+MyCefRenderDelegate() {}
 
-	  virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-		  CefRefPtr<CefBrowser> browser,
-		  CefRefPtr<CefFrame> frame,
-		  CefRefPtr<CefV8Context> context) OVERRIDE{
+virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
+CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+CefRefPtr<CefV8Context> context) OVERRIDE{
 
-		  if (app->myMxCallback_) {
-			  CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
-		  }
-	  }
-	  virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
-		  if (app->myMxCallback_) {
-			  CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
-		  }
-	  }
-	  virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
-		  CefRefPtr<CefBrowser> browser,
-		  CefRefPtr<CefFrame> frame,
-		  CefRefPtr<CefV8Context> context) {
-		  if (app->myMxCallback_){
-			  CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context); 
-		  }
-	  }
-  private:
-	  IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
-  };
-   
-  delegates.insert(new MyCefRenderDelegate);
+if (app->myMxCallback_) {
+CefRenderProcessHandlerExt::OnContextCreated(app->myMxCallback_, browser, frame, context);
+}
+}
+virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
+if (app->myMxCallback_) {
+CefRenderProcessHandlerExt::OnWebKitInitialized(app->myMxCallback_);
+}
+}
+virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+CefRefPtr<CefV8Context> context) {
+if (app->myMxCallback_){
+CefRenderProcessHandlerExt::OnContextReleased(app->myMxCallback_, browser, frame, context); 
+}
+}
+private:
+IMPLEMENT_REFCOUNTING(MyCefRenderDelegate);
+};
+
+delegates.insert(new MyCefRenderDelegate);
 
 #if BUILD_TEST
 //###_END
+
   performance_test::CreateDelegates(delegates);
 //###_BEGIN
 #endif //BUILD_TEST

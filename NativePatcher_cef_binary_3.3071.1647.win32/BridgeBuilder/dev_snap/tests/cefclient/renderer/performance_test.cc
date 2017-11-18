@@ -11,16 +11,19 @@
 #include "include/base/cef_logging.h"
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "tests/cefclient/renderer/performance_test_setup.h"
-//###_BEGIN  
+
+//###_BEGIN
 #include "tests/cefclient/myext/mycef_buildconfig.h"
 //###_END
+
 namespace client {
 namespace performance_test {
 
-//###_BEGIN  
+//###_BEGIN
 #if BUILD_TEST 
 
 //###_END
+
 // Use more interations for a Release build.
 #if DCHECK_IS_ON()
 const int kDefaultIterations = 100000;
@@ -166,12 +169,14 @@ class RenderDelegate : public ClientAppRenderer::Delegate {
 void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
   delegates.insert(new RenderDelegate);
 }
-//###_BEGIN 
+
+//###_BEGIN
 #else
 void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-  
+
 }
 #endif
 //###_END
+
 }  // namespace performance_test
 }  // namespace client
