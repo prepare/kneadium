@@ -73,12 +73,16 @@ main_url_ = kDefaultUrl;
     main_url_ = "http://tests/draggable";
   }
 #endif  // defined(OS_WIN) || defined(OS_LINUX)
-
-  //if (command_line_->HasSwitch(switches::kBackgroundColor)) {
-  //  // Parse the background color value.
-  //  background_color_ =
-  //      ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));
-  //}
+  
+  //###_START 4
+  if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+    // Parse the background color value.
+	//###_APPEND_START 4	
+    //background_color_ =
+    //ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));
+	//###_APPEND_STOP
+	//###_SKIP_UNTIL_AND_ACCEPT 4
+  }
 
   if (background_color_ == 0 && !use_views_) {
     // Set an explicit background color.
