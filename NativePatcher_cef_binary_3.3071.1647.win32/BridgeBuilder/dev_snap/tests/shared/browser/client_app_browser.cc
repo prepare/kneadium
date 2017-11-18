@@ -9,6 +9,12 @@
 #include "tests/shared/browser/main_message_loop_external_pump.h"
 #include "tests/shared/common/client_switches.h"
 
+//###_BEGIN
+#include "tests/shared/renderer/client_app_renderer.h" 
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "libcef_dll/myext/ExportFuncAuto.h"
+//###_END
+
 namespace client {
 
 ClientAppBrowser::ClientAppBrowser() {
@@ -51,6 +57,11 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
     DelegateSet::iterator it = delegates_.begin();
     for (; it != delegates_.end(); ++it)
       (*it)->OnBeforeCommandLineProcessing(this, command_line);
+	
+	if (this->myMxCallback_) {
+		CefAppExt::OnBeforeCommandLineProcessingArgs args1(&process_type, command_line);
+		this->myMxCallback_(1020, &args1);
+	 }
   }
 }
 
@@ -70,9 +81,11 @@ void ClientAppBrowser::OnContextInitialized() {
 
 void ClientAppBrowser::OnBeforeChildProcessLaunch(
     CefRefPtr<CefCommandLine> command_line) {
-  DelegateSet::iterator it = delegates_.begin();
-  for (; it != delegates_.end(); ++it)
-    (*it)->OnBeforeChildProcessLaunch(this, command_line);
+	 
+	DelegateSet::iterator it = delegates_.begin();
+	for (; it != delegates_.end(); ++it)
+		(*it)->OnBeforeChildProcessLaunch(this, command_line);
+	 
 }
 
 void ClientAppBrowser::OnRenderProcessThreadCreated(
