@@ -29,7 +29,7 @@ namespace LayoutFarm.CefBridge
     //---------------------------------------
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct JsValue
+    struct JsValue
     {
         /// <summary>
         /// type and flags
@@ -55,7 +55,7 @@ namespace LayoutFarm.CefBridge
 
 
 
-    public enum JsValueType
+    enum JsValueType
     {
         UnknownError = -1,
         Empty = 0,
