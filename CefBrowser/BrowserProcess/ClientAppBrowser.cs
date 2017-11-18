@@ -42,9 +42,13 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_AppExt_OnBeforeCommandLineProcessing:
                     {
-                        var args = new Auto.CefApp.OnBeforeCommandLineProcessingArgs(argsPtr);
-                        //args.command_line().AppendSwitch("no-proxy-server");
-                        args.command_line().AppendSwitchWithValue("proxy-server", "169.254.14.165:8080");
+                        //temp
+                        //set/change proxy here
+                        //if not set, chrome will use default setting on the machine...
+                        //set more setting options at http://www.chromium.org/developers/design-documents/network-settings#TOC-Preference-service-for-network-settings
+                        //var args = new Auto.CefApp.OnBeforeCommandLineProcessingArgs(argsPtr);
+                        ////args.command_line().AppendSwitch("no-proxy-server");
+                        //args.command_line().AppendSwitchWithValue("proxy-server", "169.254.14.165:8080");
                     }
                     break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
