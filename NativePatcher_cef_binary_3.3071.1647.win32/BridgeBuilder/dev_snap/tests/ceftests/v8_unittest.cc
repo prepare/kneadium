@@ -12,7 +12,7 @@
 #include "tests/gtest/include/gtest/gtest.h"
 #include "tests/shared/browser/client_app_browser.h"
 #include "tests/shared/renderer/client_app_renderer.h"
-#include "Windows.h"
+
 using client::ClientAppBrowser;
 using client::ClientAppRenderer;
 
@@ -1356,9 +1356,6 @@ class V8RendererTest : public ClientAppRenderer::Delegate,
 
     static const int kInterceptorValue = 20;
     static const int kAccessorValue = 30;
-
-	MessageBox(NULL, L"R", L"R", 0);
-
 
     class Interceptor : public CefV8Interceptor {
      public:
@@ -2832,9 +2829,6 @@ void CreateV8RendererTests(ClientAppRenderer::DelegateSet& delegates) {
 
 #define V8_TEST(name, test_mode) V8_TEST_EX(name, test_mode, kV8TestUrl)
 
-
-V8_TEST(ObjectAccessor, V8TEST_OBJECT_ACCESSOR);
-
 // Define the tests.
 V8_TEST(NullCreate, V8TEST_NULL_CREATE);
 V8_TEST(BoolCreate, V8TEST_BOOL_CREATE);
@@ -2848,7 +2842,7 @@ V8_TEST(ArrayCreate, V8TEST_ARRAY_CREATE);
 V8_TEST(ArrayValue, V8TEST_ARRAY_VALUE);
 V8_TEST(ObjectCreate, V8TEST_OBJECT_CREATE);
 V8_TEST(ObjectUserData, V8TEST_OBJECT_USERDATA);
-
+V8_TEST(ObjectAccessor, V8TEST_OBJECT_ACCESSOR);
 V8_TEST(ObjectAccessorException, V8TEST_OBJECT_ACCESSOR_EXCEPTION);
 V8_TEST(ObjectAccessorFail, V8TEST_OBJECT_ACCESSOR_FAIL);
 V8_TEST(ObjectAccessorReadOnly, V8TEST_OBJECT_ACCESSOR_READONLY);
