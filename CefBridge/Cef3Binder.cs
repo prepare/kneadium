@@ -42,6 +42,10 @@ namespace LayoutFarm.CefBridge
 
         CEF_MSG_ClientHandler_NotifyTitle = 502,
         CEF_MSG_ClientHandler_NotifyAddress = 503,
+        //
+        CEF_AppExt_OnBeforeCommandLineProcessing = 1020,
+
+
     }
 
     public enum CefSettingsKey

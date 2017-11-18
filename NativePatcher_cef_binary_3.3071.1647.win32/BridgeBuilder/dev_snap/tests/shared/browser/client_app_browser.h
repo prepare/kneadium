@@ -9,72 +9,76 @@
 #include <set>
 
 #include "tests/shared/common/client_app.h"
-
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "libcef_dll/myext/ExportFuncAuto.h"
+//###_END
 namespace client {
 
-// Client app implementation for the browser process.
-class ClientAppBrowser : public ClientApp, public CefBrowserProcessHandler {
- public:
-  // Interface for browser delegates. All Delegates must be returned via
-  // CreateDelegates. Do not perform work in the Delegate
-  // constructor. See CefBrowserProcessHandler for documentation.
-  class Delegate : public virtual CefBaseRefCounted {
-   public:
-    virtual void OnBeforeCommandLineProcessing(
-        CefRefPtr<ClientAppBrowser> app,
-        CefRefPtr<CefCommandLine> command_line) {}
+	// Client app implementation for the browser process.
+	class ClientAppBrowser : public ClientApp, public CefBrowserProcessHandler {
+	public:
+		// Interface for browser delegates. All Delegates must be returned via
+		// CreateDelegates. Do not perform work in the Delegate
+		// constructor. See CefBrowserProcessHandler for documentation.
+		class Delegate : public virtual CefBaseRefCounted {
+		public:
+			virtual void OnBeforeCommandLineProcessing(
+				CefRefPtr<ClientAppBrowser> app,
+				CefRefPtr<CefCommandLine> command_line) {}
 
-    virtual void OnContextInitialized(CefRefPtr<ClientAppBrowser> app) {}
+			virtual void OnContextInitialized(CefRefPtr<ClientAppBrowser> app) {}
 
-    virtual void OnBeforeChildProcessLaunch(
-        CefRefPtr<ClientAppBrowser> app,
-        CefRefPtr<CefCommandLine> command_line) {}
+			virtual void OnBeforeChildProcessLaunch(
+				CefRefPtr<ClientAppBrowser> app,
+				CefRefPtr<CefCommandLine> command_line) {}
 
-    virtual void OnRenderProcessThreadCreated(
-        CefRefPtr<ClientAppBrowser> app,
-        CefRefPtr<CefListValue> extra_info) {}
-  };
 
-  typedef std::set<CefRefPtr<Delegate>> DelegateSet;
+			virtual void OnRenderProcessThreadCreated(
+				CefRefPtr<ClientAppBrowser> app,
+				CefRefPtr<CefListValue> extra_info) {}
+		};
 
-  ClientAppBrowser();
+		typedef std::set<CefRefPtr<Delegate>> DelegateSet;
 
- private:
-  // Creates all of the Delegate objects. Implemented by cefclient in
-  // client_app_delegates_browser.cc
-  static void CreateDelegates(DelegateSet& delegates);
+		ClientAppBrowser();
 
-  // Create the Linux print handler. Implemented by cefclient in
-  // client_app_delegates_browser.cc
-  static CefRefPtr<CefPrintHandler> CreatePrintHandler();
+	private:
+		// Creates all of the Delegate objects. Implemented by cefclient in
+		// client_app_delegates_browser.cc
+		static void CreateDelegates(DelegateSet& delegates);
 
-  // CefApp methods.
-  void OnBeforeCommandLineProcessing(
-      const CefString& process_type,
-      CefRefPtr<CefCommandLine> command_line) OVERRIDE;
-  CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() OVERRIDE {
-    return this;
-  }
+		// Create the Linux print handler. Implemented by cefclient in
+		// client_app_delegates_browser.cc
+		static CefRefPtr<CefPrintHandler> CreatePrintHandler();
 
-  // CefBrowserProcessHandler methods.
-  void OnContextInitialized() OVERRIDE;
-  void OnBeforeChildProcessLaunch(
-      CefRefPtr<CefCommandLine> command_line) OVERRIDE;
-  void OnRenderProcessThreadCreated(
-      CefRefPtr<CefListValue> extra_info) OVERRIDE;
-  CefRefPtr<CefPrintHandler> GetPrintHandler() OVERRIDE {
-    return print_handler_;
-  }
-  void OnScheduleMessagePumpWork(int64 delay) OVERRIDE;
+		// CefApp methods.
+		void OnBeforeCommandLineProcessing(
+			const CefString& process_type,
+			CefRefPtr<CefCommandLine> command_line) OVERRIDE;
+		CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() OVERRIDE {
+			return this;
+		}
 
-  // Set of supported Delegates.
-  DelegateSet delegates_;
+		// CefBrowserProcessHandler methods.
+		void OnContextInitialized() OVERRIDE;
+		void OnBeforeChildProcessLaunch(
+			CefRefPtr<CefCommandLine> command_line) OVERRIDE;
+		void OnRenderProcessThreadCreated(
+			CefRefPtr<CefListValue> extra_info) OVERRIDE;
+		CefRefPtr<CefPrintHandler> GetPrintHandler() OVERRIDE {
+			return print_handler_;
+		}
+		void OnScheduleMessagePumpWork(int64 delay) OVERRIDE;
 
-  CefRefPtr<CefPrintHandler> print_handler_;
+		// Set of supported Delegates.
+		DelegateSet delegates_;
 
-  IMPLEMENT_REFCOUNTING(ClientAppBrowser);
-  DISALLOW_COPY_AND_ASSIGN(ClientAppBrowser);
-};
+		CefRefPtr<CefPrintHandler> print_handler_;
+
+		IMPLEMENT_REFCOUNTING(ClientAppBrowser);
+		DISALLOW_COPY_AND_ASSIGN(ClientAppBrowser);
+	};
 
 }  // namespace client
 

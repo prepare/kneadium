@@ -39,15 +39,21 @@ namespace LayoutFarm.CefBridge
             switch ((MyCefMsg)id)
             {
                 default:
-
-                    break; 
+                    break;
+                case MyCefMsg.CEF_AppExt_OnBeforeCommandLineProcessing:
+                    {
+                        var args = new Auto.CefApp.OnBeforeCommandLineProcessingArgs(argsPtr);
+                        //args.command_line().AppendSwitch("no-proxy-server");
+                        args.command_line().AppendSwitchWithValue("proxy-server", "169.254.14.165:8080");
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
                     {
                         InitCefSettings(new CefSettings(argsPtr));
                     }
                     break;
                 case MyCefMsg.CEF_MSG_MainContext_GetConsoleLogPath:
-                    {   
+                    {
                         NativeCallArgs nat1 = new NativeCallArgs(argsPtr);
                         nat1.SetOutputAsAsciiString(0, ReferencePaths.LOG_PATH);
                     }

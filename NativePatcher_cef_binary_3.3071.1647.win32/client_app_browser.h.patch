@@ -1,0 +1,13 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\shared\browser\client_app_browser.h
+//###_BEGIN 0
+//###_PRE
+#include <set>
+//###_PRE
+#include "tests/shared/common/client_app.h"
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "libcef_dll/myext/ExportFuncAuto.h"
+//###_POST
+namespace client {
+//###_POST
+// Client app implementation for the browser process.
+//###_END 0
