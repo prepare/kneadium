@@ -85,7 +85,7 @@
             this.cmdCefBridgeCodeGen.Name = "cmdCefBridgeCodeGen";
             this.cmdCefBridgeCodeGen.Size = new System.Drawing.Size(282, 40);
             this.cmdCefBridgeCodeGen.TabIndex = 6;
-            this.cmdCefBridgeCodeGen.Text = "TestWrapperApiBuilder";
+            this.cmdCefBridgeCodeGen.Text = "TestWrapApiBuilder";
             this.cmdCefBridgeCodeGen.UseVisualStyleBackColor = true;
             this.cmdCefBridgeCodeGen.Click += new System.EventHandler(this.cmdCefBridgeCodeGen_Click);
             // 

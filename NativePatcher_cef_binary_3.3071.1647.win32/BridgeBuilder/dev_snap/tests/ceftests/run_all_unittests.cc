@@ -111,9 +111,8 @@ int main(int argc, char* argv[]) {
 
 #if defined(OS_WIN)
   // Manages the life span of the sandbox information object.
- /* CefScopedSandboxInfo scoped_sandbox;
-  windows_sandbox_info = scoped_sandbox.sandbox_info();*/
-  //CefScopedSandboxInfo scoped_sandbox;
+  CefScopedSandboxInfo scoped_sandbox;
+  windows_sandbox_info = scoped_sandbox.sandbox_info();
 #endif
 
   // Create a ClientApp of the correct type.
@@ -158,14 +157,14 @@ int main(int argc, char* argv[]) {
 #endif
 
   // Create the MessageLoop.
-   scoped_ptr<client::MainMessageLoop> message_loop;
-  //if (!settings.multi_threaded_message_loop) {
-  //  if (settings.external_message_pump)
-  //    //message_loop = client::MainMessageLoopExternalPump::Create();
-  //  else
-  //    message_loop.reset(new client::MainMessageLoopStd);
-  //}
-  message_loop.reset(new client::MainMessageLoopStd);
+  scoped_ptr<client::MainMessageLoop> message_loop;
+  if (!settings.multi_threaded_message_loop) {
+    if (settings.external_message_pump)
+      message_loop = client::MainMessageLoopExternalPump::Create();
+    else
+      message_loop.reset(new client::MainMessageLoopStd);
+  }
+
   // Initialize CEF.
   CefInitialize(main_args, settings, app, windows_sandbox_info);
 

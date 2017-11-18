@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\shared\browser//client_app_browser.cc
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -57,11 +58,14 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
     DelegateSet::iterator it = delegates_.begin();
     for (; it != delegates_.end(); ++it)
       (*it)->OnBeforeCommandLineProcessing(this, command_line);
-	
+
+//###_BEGIN
 	if (this->myMxCallback_) {
-		CefAppExt::OnBeforeCommandLineProcessingArgs args1(&process_type, command_line);
-		this->myMxCallback_(1020, &args1);
-	 }
+		 CefAppExt::OnBeforeCommandLineProcessingArgs args1(&process_type, command_line);
+		 this->myMxCallback_(1020, &args1); 
+	}
+//###_END
+
   }
 }
 
@@ -81,11 +85,9 @@ void ClientAppBrowser::OnContextInitialized() {
 
 void ClientAppBrowser::OnBeforeChildProcessLaunch(
     CefRefPtr<CefCommandLine> command_line) {
-	 
-	DelegateSet::iterator it = delegates_.begin();
-	for (; it != delegates_.end(); ++it)
-		(*it)->OnBeforeChildProcessLaunch(this, command_line);
-	 
+  DelegateSet::iterator it = delegates_.begin();
+  for (; it != delegates_.end(); ++it)
+    (*it)->OnBeforeChildProcessLaunch(this, command_line);
 }
 
 void ClientAppBrowser::OnRenderProcessThreadCreated(

@@ -1227,7 +1227,7 @@ namespace BridgeBuilder
                                                     default:
                                                         throw new NotSupportedException();
                                                     case PrimitiveTypeKind.NotPrimitiveType:
-                                                        switch(ss.ToString())
+                                                        switch (ss.ToString())
                                                         {
                                                             case "CefDraggableRegion":
                                                                 return "CefDraggableRegionList";
@@ -1236,7 +1236,7 @@ namespace BridgeBuilder
                                                             default:
                                                                 return "List<object>";
                                                         }
-                                                         
+
                                                     case PrimitiveTypeKind.Int64:
                                                         //list of unit
                                                         return "List<long>";
@@ -1428,17 +1428,10 @@ namespace BridgeBuilder
                     break;
             }
             throw new NotSupportedException();
-
         }
-
-
         protected static void AddComment(Token[] lineTokens, CodeStringBuilder builder)
         {
             CodeGenUtils.AddComment(lineTokens, builder);
         }
     }
-
-
-
-
 }

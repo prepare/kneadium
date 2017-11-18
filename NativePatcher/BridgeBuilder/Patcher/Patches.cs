@@ -1008,6 +1008,8 @@ namespace BridgeBuilder
 
             if (!foundLandMark)
             {
+                //report
+                System.Diagnostics.Debug.WriteLine("not completed :" + input.Filename + ", landmark: " + this.LandMark);
                 return;
                 throw new NotSupportedException();
             }
