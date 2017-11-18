@@ -43,7 +43,7 @@ namespace LayoutFarm.CefBridge
             //-----------------------
             //this is TEST CODE
             //-----------------------
-
+            return;
 
             //eg  "<html><head><script>function docload(){ console.log(test001()); console.log(test_myobj.myprop);console.log(test_myobj[12345]);}</script><body onload=\"docload()\"><h1>hello!</h1></body></html>"
 
