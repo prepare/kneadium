@@ -1,0 +1,24 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3163.1671.win32\tests\cefclient\browser//root_window_win.h
+//###_BEGIN 0
+//###_PRE
+#include "tests/cefclient/browser/root_window.h"
+//###_PRE
+namespace client {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_POST
+// Windows implementation of a top-level native window in the browser process.
+//###_POST
+// The methods of this class must be called on the main thread unless otherwise
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+DISALLOW_COPY_AND_ASSIGN(RootWindowWin);
+//###_PRE
+};
+#endif //BUILD_TEST
+//###_POST
+}  // namespace client
+//###_POST
+#endif  // CEF_TESTS_CEFCLIENT_BROWSER_ROOT_WINDOW_WIN_H_
+//###_END 0
