@@ -143,7 +143,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    [System.Security.SuppressUnmanagedCodeSecurity]
+    [System.Security.SuppressUnmanagedCodeSecurityAttribute]
     static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
