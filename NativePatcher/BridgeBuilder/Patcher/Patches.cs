@@ -197,7 +197,8 @@ namespace BridgeBuilder
                     }
                     else
                     {
-                        throw new NotSupportedException();
+                        System.Diagnostics.Debug.WriteLine("output is not saved: " + ptask.Owner.OriginalFileName);
+                        return;
                     }
                 }
             }
@@ -894,8 +895,9 @@ namespace BridgeBuilder
                 if (foundAt < 0)
                 {
                     string ownerPatchFilename = this.Owner.OriginalFileName;
-
-                    throw new NotSupportedException();
+                    System.Diagnostics.Debug.WriteLine("not completed :" + output.Filename + ", landmark: " + this.LandMark);
+                    return -1;
+                    //throw new NotSupportedException();
                 }
                 else
                 {
@@ -919,8 +921,10 @@ namespace BridgeBuilder
                 if (foundAt < 0)
                 {
                     string ownerPatchFilename = this.Owner.OriginalFileName;
+                    System.Diagnostics.Debug.WriteLine("not completed :" + output.Filename + ", landmark: " + this.LandMark);
 
-                    throw new NotSupportedException();
+                    return -1;
+                    //throw new NotSupportedException();
                 }
                 else
                 {

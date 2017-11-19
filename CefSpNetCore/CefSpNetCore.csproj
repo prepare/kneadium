@@ -41,6 +41,7 @@
     <Compile Include="..\CefBrowser\LibFolderManager.cs" Link="LibFolderManager.cs" />
     <Compile Include="..\CefBwSp\RenderProcess\ClientAppRenderer.cs" Link="RenderProcess\ClientAppRenderer.cs" />
     <Compile Include="..\CefBwSp\RenderProcess\MyCefRenderProcessInitEssential.cs" Link="RenderProcess\MyCefRenderProcessInitEssential.cs" />
+    <Compile Include="..\CefBwSp\RenderProcess\MyJsFunc.cs" Link="RenderProcess\MyJsFunc.cs" />
     <Compile Include="..\CefBwSp\RenderProcess\RenderProcessHandler.cs" Link="RenderProcess\RenderProcessHandler.cs" />
   </ItemGroup>
 

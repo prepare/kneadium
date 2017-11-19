@@ -8,12 +8,36 @@ License :  MIT/ BSD
 
 ---
 
-preview: 
+## preview: 
 
+latest cef-chromium 61
+---
+
+![kn_ch61](https://user-images.githubusercontent.com/7447159/32987718-f43fe96a-cd25-11e7-9253-a648ccc2bb4c.png)
+_pic 1: CefBrowser - Chromium61_
+
+---
+### Web Assembly!
+
+Loading screen ...
+
+![kn_webasm1](https://user-images.githubusercontent.com/7447159/32987743-7ca4d07c-cd26-11e7-8d60-103eb0d9286d.png)
+_pic 2: see http://webassembly.org/demo/_
+
+---
+
+Tank! Demo
+
+![kn_webasm2](https://user-images.githubusercontent.com/7447159/32987742-7c6ee82c-cd26-11e7-994f-0443a92eb5f0.png)
+_pic 3: lets play!_
+
+
+---
+### netcore 2.0
 
 ![kn_snap_glfw_netcore20_pic2](https://user-images.githubusercontent.com/7447159/31279204-6b00f5ba-aad2-11e7-8d8e-d62abf79f659.png)
 
-_pic 1: test screen, x64 + netcore 2.0 + Glfw3_
+_pic 4: test screen, x64 + netcore 2.0 + Glfw3_
 
 
 We also provide the samples / tests on 
