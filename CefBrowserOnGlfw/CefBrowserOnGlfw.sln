@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowserOnGlfw", "CefBrowserOnGlfw.csproj", "{66B2CC90-5D7F-4706-9955-4A76F314AD32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBridge", "..\CefBridge\CefBridge.csproj", "{92688DA6-2690-485B-96B6-C99B8C4490EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFarm.MiniOpenTK", "..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.MiniOpenTK\PixelFarm.MiniOpenTK.csproj", "{7C154E68-1709-4D5D-AB76-833FEBE4B3B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFarm.MiniOpenTK", "..\..\PixelFarm\a_mini\projects\PixelFarm\PixelFarm.MiniOpenTK\PixelFarm.MiniOpenTK.csproj", "{7C154E68-1709-4D5D-AB76-833FEBE4B3B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFarm.NativeWindows", "..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.NativeWindows\PixelFarm.NativeWindows.csproj", "{198D20B3-0DBD-4C8C-8F0D-0D0FD9C61D43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFarm.NativeWindows", "..\..\PixelFarm\a_mini\projects\PixelFarm\PixelFarm.NativeWindows\PixelFarm.NativeWindows.csproj", "{198D20B3-0DBD-4C8C-8F0D-0D0FD9C61D43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelFarm.MiniOpenTK.NetCore", "..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.MiniOpenTK.NetCore\PixelFarm.MiniOpenTK.NetCore.csproj", "{782266C4-24F0-40A6-ADBD-56ECE7E5600A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelFarm.MiniOpenTK.NetCore", "..\..\PixelFarm\a_mini\projects\PixelFarm\PixelFarm.MiniOpenTK.NetCore\PixelFarm.MiniOpenTK.NetCore.csproj", "{782266C4-24F0-40A6-ADBD-56ECE7E5600A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelFarm.NativeWindows.NetCore", "..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.NativeWindows.NetCore\PixelFarm.NativeWindows.NetCore.csproj", "{9BA0566A-7D05-4E9F-BA5D-C03AB4BEADAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelFarm.NativeWindows.NetCore", "..\..\PixelFarm\a_mini\projects\PixelFarm\PixelFarm.NativeWindows.NetCore\PixelFarm.NativeWindows.NetCore.csproj", "{9BA0566A-7D05-4E9F-BA5D-C03AB4BEADAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CefBrowserOnNetCore", "..\CefBrowserOnNetCore\CefBrowserOnNetCore.csproj", "{FC576038-65CA-4FBE-A56F-BD12C4AB4591}"
 EndProject
