@@ -23,7 +23,7 @@ namespace BridgeBuilder
             //absolute path to this bridge builder app(eg.d:\\projects\\kneadium)
             string f_projects_kneadium = @"d:\projects\kneadium";
 
-           
+
             {
                 //chrome 59, x86
                 string f_cef_bin = "cef_binary_3.3071.1647.win32";
@@ -52,8 +52,8 @@ namespace BridgeBuilder
             }
             //-----------
             {
-                //chrome64, x86
-                string f_cef_bin = "cef_binary_3.3202.1686.win32";
+                //chrome61, x86
+                string f_cef_bin = "cef_binary_3.3163.1671.win32";
                 _patcherPresets.Add(
                      new PatcherPreset()
                      {
@@ -64,6 +64,21 @@ namespace BridgeBuilder
                      }
                 );
             }
+            //-----------
+            //{
+            //    //in development
+            //    //chrome62, x86
+            //    string f_cef_bin = "cef_binary_3.3202.1686.win32";
+            //    _patcherPresets.Add(
+            //         new PatcherPreset()
+            //         {
+            //             EnvName = EnvName.Win32,
+            //             CefSrcFolder = @"D:\projects\" + f_cef_bin,
+            //             NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
+            //             Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
+            //         }
+            //    );
+            //}
             //-----------
         }
         void SetCurrentPreset(PatcherPreset preset)
