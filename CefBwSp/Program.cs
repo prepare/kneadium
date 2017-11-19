@@ -5,13 +5,30 @@ using System;
 namespace LayoutFarm.CefBridge
 {
     static class Program
-    {    
+    {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
+#if DEBUG
+
+            //if (args.Length > 0)
+            //{
+
+            //    CefStartArgs cefStartArg = CefStartArgs.Parse(args);
+            //    Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");
+            //    Cef3InitEssential.IsInMainProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "");
+            //    //if (!Cef3InitEssential.IsInMainProcess)
+            //    //{
+            //    //    if (cefStartArg.ProcessType == "gpu-process")
+            //    //    {
+            //    //        MessageBox(IntPtr.Zero, cefStartArg.ProcessType, cefStartArg.ProcessType, 0);
+            //    //    } 
+            //    //}
+            //}
+#endif
             LibFolderManager.CheckNativeLibs();
             //---------------------
             //this is designed for cef subprocess(eg gpu process, render process)
@@ -46,5 +63,12 @@ namespace LayoutFarm.CefBridge
             //(***please note that 
             //*** we call ShutDownCef3 only in main thread ***)
         }
+#if DEBUG
+
+
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        static extern int MessageBox(IntPtr hwnd, string text, string caption, uint utype);
+
+#endif
     }
 }
