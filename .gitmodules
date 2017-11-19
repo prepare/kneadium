@@ -1,0 +1,3 @@
+[submodule "kn_patches"]
+	path = kn_patches
+	url = https://github.com/prepare/kn_patches
