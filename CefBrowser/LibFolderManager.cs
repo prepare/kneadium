@@ -18,22 +18,29 @@ namespace LayoutFarm.CefBridge
             //    @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Debug" :
             //    @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
 
-            //chromium 61
-            ReferencePaths.LIB_PATH = is64BitsApp ?
-                @"D:\projects\cef_binary_3.3163.1671.win64build\tests\cefclient\Debug" :
-                @"D:\projects\cef_binary_3.3163.1671.win32build\tests\cefclient\Debug";
+            ////chromium 61
+            //ReferencePaths.LIB_PATH = is64BitsApp ?
+            //    @"D:\projects\cef_binary_3.3163.1671.win64build\tests\cefclient\Debug" :
+            //    @"D:\projects\cef_binary_3.3163.1671.win32build\tests\cefclient\Debug";
 
-#else   
-            //chromium 59
+            //chromium 63
+
             ReferencePaths.LIB_PATH = "./";//relative path, from current folder
+
+#else
+            //chromium 59
+            //ReferencePaths.LIB_PATH = "./";//relative path, from current folder
             //ReferencePaths.LIB_PATH = is64BitsApp ?
             // @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release":
             // @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
-           
-           //chromium 61
-            ReferencePaths.LIB_PATH = is64BitsApp ?
-                @"D:\projects\cef_binary_3.3163.1671.win64build\tests\cefclient\Release" :
-                @"D:\projects\cef_binary_3.3163.1671.win32build\tests\cefclient\Release";
+
+            //chromium 61
+            //ReferencePaths.LIB_PATH = "./";
+            //chromium 63
+            ReferencePaths.LIB_PATH = "./";
+            //ReferencePaths.LIB_PATH = is64BitsApp ?
+            //    @"D:\projects\cef_binary_3.3163.1671.win64build\tests\cefclient\Release" :
+            //    @"D:\projects\cef_binary_3.3163.1671.win32build\tests\cefclient\Release";
 #endif
 
 
