@@ -1,0 +1,22 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3163.1671.win32\tests\cefclient\browser//views_menu_bar.h
+//###_BEGIN 0
+//###_PRE
+#include <string>
+//###_PRE
+#include <vector>
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_POST
+#include "include/cef_menu_model.h"
+//###_POST
+#include "include/cef_menu_model_delegate.h"
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+};
+//###_PRE
+}  // namespace client
+#endif
+//###_POST
+#endif  // CEF_TESTS_CEFCLIENT_BROWSER_VIEWS_MENU_BAR_H_
+//###_END 0

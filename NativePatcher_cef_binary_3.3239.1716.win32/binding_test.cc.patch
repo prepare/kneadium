@@ -1,0 +1,28 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3163.1671.win32\tests\cefclient\browser//binding_test.cc
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace binding_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_POST
+namespace {
+//###_POST
+const char kTestUrl[] = "http://tests/binding";
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+handlers.insert(new Handler());
+//###_PRE
+}
+#else
+void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers) {
+//blank
+}
+#endif //BUILD_TEST
+//###_POST
+}  // namespace binding_test
+//###_POST
+}  // namespace client
+//###_END 0

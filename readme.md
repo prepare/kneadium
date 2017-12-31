@@ -10,11 +10,11 @@ License :  MIT/ BSD
 
 ## preview: 
 
-latest cef-chromium 61
+latest cef-chromium 63
 ---
 
-![kn_ch61](https://user-images.githubusercontent.com/7447159/32987718-f43fe96a-cd25-11e7-9253-a648ccc2bb4c.png)
-_pic 1: CefBrowser - Chromium61_
+![cef_63](https://user-images.githubusercontent.com/7447159/34460099-47aea974-ee37-11e7-8920-52c8e50e545e.png)
+_pic 1: CefBrowser - Chromium63, win32, vs2017_
 
 ---
 ### Web Assembly!
