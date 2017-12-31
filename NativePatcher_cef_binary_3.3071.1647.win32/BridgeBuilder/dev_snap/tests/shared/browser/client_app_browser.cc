@@ -58,12 +58,11 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
     DelegateSet::iterator it = delegates_.begin();
     for (; it != delegates_.end(); ++it)
       (*it)->OnBeforeCommandLineProcessing(this, command_line);
-
 //###_BEGIN
-	if (this->myMxCallback_) {
-		 CefAppExt::OnBeforeCommandLineProcessingArgs args1(&process_type, command_line);
-		 this->myMxCallback_(1020, &args1); 
-	}
+if (this->myMxCallback_) {
+CefAppExt::OnBeforeCommandLineProcessingArgs args1(&process_type, command_line);
+this->myMxCallback_(1020, &args1); 
+}
 //###_END
 
   }
