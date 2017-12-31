@@ -12,7 +12,6 @@ License :  MIT/ BSD
 
 latest cef-chromium 63
 ---
-
 ![cef_63](https://user-images.githubusercontent.com/7447159/34460099-47aea974-ee37-11e7-8920-52c8e50e545e.png)
 _pic 1: CefBrowser - Chromium63, win32, vs2017_
 
