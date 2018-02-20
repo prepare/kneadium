@@ -45,8 +45,17 @@ namespace LayoutFarm.CefBridge
 
 
             //ReferencePaths.LIB_PATH = "./";
+            //-----
+            //test using another exe with the same name
+            //in sub-folder
 
-            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
+            string currentExecPath = System.Windows.Forms.Application.ExecutablePath;
+            string onlyDirName = System.IO.Path.GetDirectoryName(currentExecPath);
+            string onlyExeName = System.IO.Path.GetFileName(currentExecPath);
+
+            //-----
+            ReferencePaths.SUB_PROCESS_PATH = onlyDirName + "//sub//" + onlyExeName;
+            //ReferencePaths.SUB_PROCESS_PATH = onlyExeName;
             ReferencePaths.OUTPUT_DIR = @"_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir

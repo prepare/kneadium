@@ -7,7 +7,7 @@ namespace LayoutFarm.CefBridge
 {
     static class Program
     {
-       
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -21,7 +21,18 @@ namespace LayoutFarm.CefBridge
             //  if essential libs are available
             //------------------------------------------
             LibFolderManager.CheckNativeLibs();
-            //------------------------------------------
+            //move current dir to subfolder ***
+
+
+            string currentExecPath = System.Windows.Forms.Application.ExecutablePath;
+            string onlyDirName = System.IO.Path.GetDirectoryName(currentExecPath);
+            string onlyExeName = System.IO.Path.GetFileName(currentExecPath);
+
+            //move our current dir to Application dir
+            //before we load native dll
+            System.IO.Directory.SetCurrentDirectory(onlyDirName + "//sub");
+
+            ////------------------------------------------
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
             if (!MyCef3InitEssential.LoadAndInitCef3(args))
