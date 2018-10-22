@@ -54,9 +54,16 @@ namespace LayoutFarm.CefBridge
             string onlyExeName = System.IO.Path.GetFileName(currentExecPath);
 
             //-----
-            ReferencePaths.SUB_PROCESS_PATH = onlyDirName + "//sub//" + onlyExeName;
+            string subProcFolder = onlyDirName + "//sub";
+            if (!System.IO.Directory.Exists(subProcFolder))
+            {
+                System.IO.Directory.CreateDirectory(subProcFolder);
+            }
+            ReferencePaths.SUB_PROCESS_PATH = subProcFolder + "//" + onlyExeName;
+            // 
             //ReferencePaths.SUB_PROCESS_PATH = onlyExeName;
-            ReferencePaths.OUTPUT_DIR = @"_output";//dir
+
+            ReferencePaths.OUTPUT_DIR = subProcFolder + "//_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
@@ -66,6 +73,7 @@ namespace LayoutFarm.CefBridge
                 System.IO.Directory.CreateDirectory(ReferencePaths.OUTPUT_DIR);
             }
         }
+        
     }
 
 }
