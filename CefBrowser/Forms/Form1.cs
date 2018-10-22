@@ -28,6 +28,7 @@ namespace LayoutFarm.CefBridge
                 "http://www.youtube.com",
                 "https://www.google.com",
                 "http://localhost",
+                "https://localhost:8080",
                 "http://localhost/LiborMasekThesis.pdf",
                 "http://localhost/pdfjs/web/viewer.html",
                 "http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf",

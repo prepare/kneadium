@@ -28,6 +28,7 @@ namespace LayoutFarm.CefBridge
                 cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
             }
             cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
+            cefSettings.IgnoreCertErrror(true);
         }
         /// <summary>
         /// handle native reqiest , this is called by native side.
