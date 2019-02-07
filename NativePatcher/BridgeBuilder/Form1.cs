@@ -64,7 +64,7 @@ namespace BridgeBuilder
                      }
                 );
             }
-
+            //-----------
             {
                 //chrome63, x86
                 string f_cef_bin = "cef_binary_3.3239.1716.win32";
@@ -79,21 +79,20 @@ namespace BridgeBuilder
                 );
             }
             //-----------
-            //{
-            //    //in development
-            //    //chrome62, x86
-            //    string f_cef_bin = "cef_binary_3.3202.1686.win32";
-            //    _patcherPresets.Add(
-            //         new PatcherPreset()
-            //         {
-            //             EnvName = EnvName.Win32,
-            //             CefSrcFolder = @"D:\projects\" + f_cef_bin,
-            //             NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
-            //             Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
-            //         }
-            //    );
-            //}
-            //-----------
+            {
+                //chrome72, x86
+                string f_cef_bin = "cef_binary_3.3626.1882.win32";
+                _patcherPresets.Add(
+                     new PatcherPreset()
+                     {
+                         EnvName = EnvName.Win32,
+                         CefSrcFolder = @"D:\projects\" + f_cef_bin,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
+                         Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
+                     }
+                );
+            }
+
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
