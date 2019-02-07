@@ -1,0 +1,58 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient//cefclient_win.cc
+//###_BEGIN 0
+//###_PRE
+// can be found in the LICENSE file.
+//###_PRE
+#include <windows.h>
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "myext/mycef.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_POST
+#include "include/base/cef_scoped_ptr.h"
+//###_POST
+#include "include/cef_command_line.h"
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+}  // namespace
+//###_PRE
+}  // namespace client
+void MyCefStringGetRawPtr1(void* cefstring, char16** outputBuffer, int* actualLength) {
+CefString* cefStr = (CefString*)cefstring;
+*actualLength = (int)cefStr->length();
+*outputBuffer = (char16*)cefStr->c_str();;
+}
+void TestSetArgs(MyMetArgsN* metArgs) {
+jsvalue* a1 = &metArgs->vargs[1];
+char16* tmpArr = NULL;
+int actualLen = 0; 
+MyCefStringGetRawPtr1((void*)a1->ptr, &tmpArr, &actualLen);
+}
+//###_POST
+// Program entry point function.
+//###_POST
+int APIENTRY wWinMain(HINSTANCE hInstance,
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+UNREFERENCED_PARAMETER(hPrevInstance);
+//###_PRE
+UNREFERENCED_PARAMETER(lpCmdLine);
+//simple test args
+INIT_MY_MET_ARGS(args, 1);
+std::string tt = "hello!";
+CefString t2 = tt;
+SetCefStringToJsValue2(&vargs[1], t2);
+TestSetArgs(&args);
+//###_POST
+return client::RunMain(hInstance, nCmdShow);
+//###_POST
+}
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+return client::RunMain(hInstance, nCmdShow);
+//###_PRE
+}
+#endif //BUILD_TEST
+//###_END 0
