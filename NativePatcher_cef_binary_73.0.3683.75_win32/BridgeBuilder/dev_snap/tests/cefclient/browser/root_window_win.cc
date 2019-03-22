@@ -26,6 +26,11 @@
 
 namespace client {
 
+	//###_BEGIN
+	#include "tests/cefclient/myext/mycef_buildconfig.h"
+	#if BUILD_TEST_ROOT_WINDOW
+	//###_END	 
+
 namespace {
 
 // Message handler for the About box.
@@ -1029,7 +1034,10 @@ void RootWindowWin::OnSetTitle(const std::string& title) {
 
 void RootWindowWin::OnSetFullscreen(bool fullscreen) {
   REQUIRE_MAIN_THREAD();
-
+  //###_BEGIN
+  #if BUILD_TEST
+  //###_END
+	  
   CefRefPtr<CefBrowser> browser = GetBrowser();
   if (browser) {
     scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
@@ -1039,6 +1047,10 @@ void RootWindowWin::OnSetFullscreen(bool fullscreen) {
     else
       test_runner->Restore(browser);
   }
+  //###_BEGIN  
+  #endif //BUILD_TEST
+  //###_END
+	  
 }
 
 void RootWindowWin::OnAutoResize(const CefSize& new_size) {
@@ -1209,5 +1221,11 @@ void RootWindowWin::NotifyDestroyedIfDone() {
   if (window_destroyed_ && browser_destroyed_)
     delegate_->OnRootWindowDestroyed(this);
 }
+
+
+//###_BEGIN
+#endif //BUILD_TEST
+//###_END
+
 
 }  // namespace client

@@ -40,6 +40,13 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
 
   void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
     // Create the renderer-side router for query handling.
+
+	//###_BEGIN
+	// Create the renderer-side router for query handling. 
+	//show msgbox if we want to break a debugger in render process 
+	//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
+	//###_END		  
+
     CefMessageRouterConfig config;
     message_router_ = CefMessageRouterRendererSide::Create(config);
   }

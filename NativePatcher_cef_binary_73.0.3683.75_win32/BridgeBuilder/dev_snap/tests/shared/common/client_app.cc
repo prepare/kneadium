@@ -19,7 +19,12 @@ const char kZygoteProcess[] = "zygote";
 
 }  // namespace
 
-ClientApp::ClientApp() {}
+//###_START 0 -X
+ClientApp::ClientApp() {
+	//###_APPEND_START 0
+	myMxCallback_ = NULL;	
+}
+//###_APPEND_STOP
 
 // static
 ClientApp::ProcessType ClientApp::GetProcessType(

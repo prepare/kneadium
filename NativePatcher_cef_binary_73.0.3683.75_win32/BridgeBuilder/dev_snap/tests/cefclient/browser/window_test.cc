@@ -29,7 +29,10 @@
 
 namespace client {
 namespace window_test {
-
+	//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+	//###_END
 namespace {
 
 const char kTestUrlPath[] = "/window";
@@ -118,5 +121,13 @@ void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers) {
   handlers.insert(new Handler());
 }
 
+///###_BEGIN
+
+#else
+	void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers) {
+		//blank
+	}
+#endif
+///###_END
 }  // namespace window_test
 }  // namespace client

@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//root_window_manager.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,10 @@
 #include "tests/cefclient/browser/image_cache.h"
 #include "tests/cefclient/browser/root_window.h"
 #include "tests/cefclient/browser/temp_window.h"
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef.h"
+//###_END
 
 namespace client {
 
@@ -80,6 +85,11 @@ class RootWindowManager : public RootWindow::Delegate {
   bool request_context_per_browser() const {
     return request_context_per_browser_;
   }
+
+//###_BEGIN
+//my extension --for callback to managed side
+managed_callback myMxCallback_;
+//###_END
 
  private:
   // Allow deletion via scoped_ptr only.

@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//root_window_win.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -17,6 +18,11 @@
 #include "tests/cefclient/browser/root_window.h"
 
 namespace client {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 // Windows implementation of a top-level native window in the browser process.
 // The methods of this class must be called on the main thread unless otherwise
@@ -160,6 +166,10 @@ class RootWindowWin : public RootWindow, public BrowserWindow::Delegate {
 
   DISALLOW_COPY_AND_ASSIGN(RootWindowWin);
 };
+
+//###_BEGIN
+#endif //BUILD_TEST
+//###_END
 
 }  // namespace client
 

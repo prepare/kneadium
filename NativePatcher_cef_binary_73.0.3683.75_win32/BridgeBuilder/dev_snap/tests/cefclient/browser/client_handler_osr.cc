@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//client_handler_osr.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -95,15 +96,34 @@ void ClientHandlerOsr::OnPopupSize(CefRefPtr<CefBrowser> browser,
   return osr_delegate_->OnPopupSize(browser, rect);
 }
 
+//###_START 10
 void ClientHandlerOsr::OnPaint(CefRefPtr<CefBrowser> browser,
                                PaintElementType type,
                                const RectList& dirtyRects,
                                const void* buffer,
                                int width,
                                int height) {
+//###_FIND_NEXT_LANDMARK 10
   CEF_REQUIRE_UI_THREAD();
+//###_FIND_NEXT_LANDMARK 10
   if (!osr_delegate_)
+//###_FIND_NEXT_LANDMARK 10
     return;
+//###_APPEND_START 10
+//my extension ***
+if (this->mcallback_)
+{
+
+INIT_MY_MET_ARGS(metArgs, 3)
+MyCefSetVoidPtr2(&vargs[1], buffer);
+MyCefSetInt32(&vargs[2], width);
+MyCefSetInt32(&vargs[3], height);
+this->mcallback_(CEF_MSG_OSR_Render, &metArgs);
+if (vargs[0].i32 != 0) {
+return;
+}
+}
+//###_APPEND_STOP
   osr_delegate_->OnPaint(browser, type, dirtyRects, buffer, width, height);
 }
 

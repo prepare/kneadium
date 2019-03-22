@@ -8,13 +8,22 @@
 #include "include/cef_web_plugin.h"
 #include "tests/shared/common/client_switches.h"
 
+//###_BEGIN
+#include "tests/cefclient/myext/ExportFuncs.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
+//###_END
+
 namespace client {
 
 namespace {
 
-// The default URL to load in a browser window.
-const char kDefaultUrl[] = "http://www.google.com";
-
+	//###_START 1
+	// The default URL to load in a browser window.
+	//###_APPEND_START 1
+	const char kDefaultUrl[] = "about:blank";
+	//const char kDefaultUrl[] = "http://www.google.com";
+	//###_APPEND_STOP
+	//###_SKIP_UNTIL_AND_ACCEPT 1
 // Returns the ARGB value for |color|.
 cef_color_t ParseColor(const std::string& color) {
   std::string colorToLower;
@@ -142,9 +151,24 @@ MainContextImpl::~MainContextImpl() {
   // been shut down.
   DCHECK(!initialized_ || shutdown_);
 }
-
+//###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
-  return GetAppWorkingDirectory() + "console.log";
+	//###_APPEND_START 2
+	if (this->myMxCallback_) {
+
+		INIT_MY_MET_ARGS(metArgs, 0)
+			this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+
+		auto bufferHolder = GetBufferHolder(&vargs[0]);
+		std::string str = std::string(bufferHolder->buffer);
+		//delete bufferHolder;
+		return str;
+	}
+	else {
+		return GetAppWorkingDirectory() + "console.log";
+	}
+	//###_APPEND_STOP
+	//###_SKIP_UNTIL_AND_ACCEPT 2
 }
 
 std::string MainContextImpl::GetMainURL() {

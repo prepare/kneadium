@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//window_test_runner.h
 // Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -10,6 +11,11 @@
 
 namespace client {
 namespace window_test {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
 
 // Implement this interface for different platforms. Methods will be called on
 // the browser process UI thread unless otherwise indicated.
@@ -30,6 +36,10 @@ class WindowTestRunner {
 
   virtual ~WindowTestRunner() {}
 };
+
+//###_BEGIN
+#endif
+//###_END
 
 }  // namespace window_test
 }  // namespace client

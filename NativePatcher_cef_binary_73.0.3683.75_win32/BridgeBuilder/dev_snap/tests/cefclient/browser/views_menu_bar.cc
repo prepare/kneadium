@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//views_menu_bar.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,6 +10,11 @@
 #include "tests/cefclient/browser/views_style.h"
 
 namespace client {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 namespace {
 
@@ -289,5 +295,9 @@ void ViewsMenuBar::TriggerMenuButton(CefRefPtr<CefView> button) {
     menu_button->RequestFocus();
   menu_button->TriggerMenu();
 }
+
+//###_BEGIN
+#endif  
+//###_END
 
 }  // namespace client

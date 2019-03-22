@@ -14,6 +14,11 @@
 namespace client {
 namespace drm_test {
 
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
+
 namespace {
 
 // Application-specific error codes.
@@ -115,6 +120,14 @@ class Handler : public CefMessageRouterBrowserSide::Handler {
 void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers) {
   handlers.insert(new Handler());
 }
+#else
 
+//###_BEGIN
+void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers) {
+	//blank
+}
+
+#endif
+//###_END
 }  // namespace drm_test
 }  // namespace client

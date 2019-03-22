@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//views_style.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,6 +10,11 @@
 namespace client {
 
 namespace views_style {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 namespace {
 
@@ -98,6 +104,10 @@ void ApplyTo(CefRefPtr<CefMenuModel> menu_model) {
       ApplyTo(menu_model->GetSubMenuAt(i));
   }
 }
+
+//###_BEGIN
+#endif 
+//###_END
 
 }  // namespace views_style
 

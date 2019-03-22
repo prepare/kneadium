@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//scheme_test.cc
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -20,6 +21,11 @@
 
 namespace client {
 namespace scheme_test {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
 
 namespace {
 
@@ -148,6 +154,14 @@ void RegisterSchemeHandlers() {
   CefRegisterSchemeHandlerFactory("client", "tests",
                                   new ClientSchemeHandlerFactory());
 }
+
+//###_BEGIN
+#else
+void RegisterSchemeHandlers() {
+
+}
+#endif //BUILD_TEST
+//###_END
 
 }  // namespace scheme_test
 }  // namespace client

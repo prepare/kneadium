@@ -10,10 +10,18 @@
 
 namespace client {
 namespace window_test {
-
+	
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
 // Create message handlers. Called from test_runner.cc.
 void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers);
-
+//###_BEGIN
+#else
+ void CreateMessageHandlers(test_runner::MessageHandlerSet& handlers);
+#endif
+//###_END
 }  // namespace window_test
 }  // namespace client
 

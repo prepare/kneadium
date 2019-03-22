@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//root_window_create.cc
 // Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -20,6 +21,11 @@ namespace client {
 
 // static
 scoped_refptr<RootWindow> RootWindow::Create(bool use_views) {
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
+
   if (use_views) {
 #if defined(OS_WIN) || defined(OS_LINUX)
     return new RootWindowViews();
@@ -35,6 +41,10 @@ scoped_refptr<RootWindow> RootWindow::Create(bool use_views) {
 #elif defined(OS_MACOSX)
   return new RootWindowMac();
 #endif
+
+//###_BEGIN
+#endif //BUILD_TEST_ROOT_WINDOW
+//###_END
 
   return NULL;
 }

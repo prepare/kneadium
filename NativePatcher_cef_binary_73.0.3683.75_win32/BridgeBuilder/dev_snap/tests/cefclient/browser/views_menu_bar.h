@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//views_menu_bar.h
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,6 +10,11 @@
 #include <map>
 #include <string>
 #include <vector>
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 #include "include/cef_menu_model.h"
 #include "include/cef_menu_model_delegate.h"
@@ -120,5 +126,9 @@ class ViewsMenuBar : public CefMenuButtonDelegate, public CefMenuModelDelegate {
 };
 
 }  // namespace client
+
+//###_BEGIN
+#endif
+//###_END
 
 #endif  // CEF_TESTS_CEFCLIENT_BROWSER_VIEWS_MENU_BAR_H_

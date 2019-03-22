@@ -257,6 +257,7 @@ public:
 		return false;
 	}
 };
+
 //###_END
 class ClientDownloadImageCallback : public CefDownloadImageCallback {
  public:

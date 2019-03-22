@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//views_window.h
 // Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -24,6 +25,11 @@
 #include "include/views/cef_window_delegate.h"
 #include "tests/cefclient/browser/image_cache.h"
 #include "tests/cefclient/browser/views_menu_bar.h"
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 namespace client {
 
@@ -236,5 +242,9 @@ class ViewsWindow : public CefBrowserViewDelegate,
 };
 
 }  // namespace client
+
+//###_BEGIN
+#endif 
+//###_END
 
 #endif  // CEF_TESTS_CEFCLIENT_BROWSER_VIEWS_WINDOW_H_

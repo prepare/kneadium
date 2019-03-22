@@ -232,7 +232,7 @@ void OsrWindowWin::SetDeviceScaleFactor(float device_scale_factor) {
     browser_->GetHost()->WasResized();
   }
 }
-
+//###_START 0
 void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
   CEF_REQUIRE_UI_THREAD();
   DCHECK(!hwnd_ && !render_handler_.get());
@@ -245,7 +245,7 @@ void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
   const HBRUSH background_brush = CreateSolidBrush(
       RGB(CefColorGetR(background_color), CefColorGetG(background_color),
           CefColorGetB(background_color)));
-
+  //###_FIND_NEXT_LANDMARK 0
   RegisterOsrClass(hInst, background_brush);
 
   DWORD ex_style = 0;
@@ -253,14 +253,27 @@ void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
     // Don't activate the browser window on creation.
     ex_style |= WS_EX_NOACTIVATE;
   }
-
+  //###_FIND_NEXT_LANDMARK 0
   // Create the native window with a border so it's easier to visually identify
+  //###_FIND_NEXT_LANDMARK 0
   // OSR windows.
-  hwnd_ = ::CreateWindowEx(
-      ex_style, kWndClass, 0,
-      WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
-      rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-      parent_hwnd, 0, hInst, 0);
+
+  //###_APPEND_START 0
+  if (this->border_visible_) {
+	  hwnd_ = ::CreateWindow(kWndClass, 0,
+		  WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
+		  rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+		  parent_hwnd, 0, hInst, 0);
+  }
+  else {
+	  hwnd_ = ::CreateWindowEx(
+		  ex_style, kWndClass, 0,
+		  WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
+		  rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+		  parent_hwnd, 0, hInst, 0);
+  }
+  //###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 0
   CHECK(hwnd_);
 
   client_rect_ = rect;

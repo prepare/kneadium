@@ -9,6 +9,11 @@
 namespace client {
 namespace performance_test {
 
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
+		
 namespace {
 
 // Test function implementations.
@@ -387,6 +392,10 @@ const PerfTestEntry kPerfTests[] = {
 };
 
 const int kPerfTestsCount = (sizeof(kPerfTests) / sizeof(kPerfTests[0]));
+
+//###_BEGIN
+#endif //BUILD_TEST
+//###_END
 
 }  // namespace performance_test
 }  // namespace client

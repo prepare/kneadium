@@ -9,7 +9,7 @@
 #include <set>
 
 #include "tests/shared/common/client_app.h"
-
+ 
 namespace client {
 
 // Client app implementation for the browser process.

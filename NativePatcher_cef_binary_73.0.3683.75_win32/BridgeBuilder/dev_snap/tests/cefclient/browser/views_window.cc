@@ -5,6 +5,10 @@
 #include "tests/cefclient/browser/views_window.h"
 
 #include <algorithm>
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+ #if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 #include "include/base/cef_bind.h"
 #include "include/base/cef_build.h"
@@ -961,3 +965,6 @@ void ViewsWindow::OnExtensionWindowClosed() {
 }
 
 }  // namespace client
+//###_BEGIN
+#endif //BUILD_TEST_ROOT_WINDOW
+//###_END

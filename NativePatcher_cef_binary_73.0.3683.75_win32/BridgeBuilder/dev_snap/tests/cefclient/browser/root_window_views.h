@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//root_window_views.h
 // Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -12,6 +13,11 @@
 #include "tests/cefclient/browser/client_handler.h"
 #include "tests/cefclient/browser/root_window.h"
 #include "tests/cefclient/browser/views_window.h"
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_END
 
 namespace client {
 
@@ -129,5 +135,9 @@ class RootWindowViews : public RootWindow,
 };
 
 }  // namespace client
+
+//###_BEGIN
+#endif 
+//###_END
 
 #endif  // CEF_TESTS_CEFCLIENT_BROWSER_ROOT_WINDOW_VIEWS_H_

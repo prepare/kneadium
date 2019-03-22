@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//window_test_runner_views.cc
 // Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -11,6 +12,11 @@
 
 namespace client {
 namespace window_test {
+
+//###_BEGIN
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_END
 
 namespace {
 
@@ -55,6 +61,10 @@ void WindowTestRunnerViews::Maximize(CefRefPtr<CefBrowser> browser) {
 void WindowTestRunnerViews::Restore(CefRefPtr<CefBrowser> browser) {
   GetWindow(browser)->Restore();
 }
+
+//###_BEGIN
+#endif //BUILD_TEST
+//###_END
 
 }  // namespace window_test
 }  // namespace client
