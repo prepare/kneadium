@@ -1,0 +1,24 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//main_context.h
+//###_BEGIN 0
+//###_PRE
+#include "include/internal/cef_types_wrappers.h"
+//###_PRE
+#include "tests/cefclient/browser/osr_renderer.h"
+#include "tests/cefclient/myext/mycef.h" //my extension
+//###_POST
+namespace client {
+//###_POST
+class RootWindowManager;
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+// Returns the object used to create/manage RootWindow instances.
+//###_PRE
+virtual RootWindowManager* GetRootWindowManager() = 0;
+//my extension --for callback to managed side
+managed_callback myMxCallback_ = NULL;
+//###_POST
+protected:
+//###_POST
+MainContext();
+//###_END 0
