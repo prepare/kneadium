@@ -1,0 +1,188 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3626.1882.win32\tests\cefclient\browser//test_runner.cc
+//###_BEGIN 0
+//###_PRE
+#include "tests/cefclient/browser/urlrequest_test.h"
+//###_PRE
+#include "tests/cefclient/browser/window_test.h"
+#include "include/wrapper/cef_byte_read_handler.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
+//###_POST
+#include "tests/shared/browser/resource_util.h"
+//###_POST
+namespace client {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace test_runner {
+managed_callback mcallback_ = NULL;
+//###_POST
+namespace {
+//###_POST
+const char kTestOrigin[] = "http://tests/";
+//###_END 0
+//###_START 2
+class RequestDumpResourceProvider : public CefResourceManager::Provider {
+//###_FIND_NEXT_LANDMARK 2
+DISALLOW_COPY_AND_ASSIGN(RequestDumpResourceProvider);
+//###_FIND_NEXT_LANDMARK 2
+};
+//###_APPEND_START 2
+std::string RequestUrlFilter2(const std::string& url) {
+
+if (client::test_runner::mcallback_)
+{
+CefString cefStrUrl = url;
+INIT_MY_MET_ARGS(metArgs, 2)
+SetCefStringToJsValue2(&vargs[1], cefStrUrl);
+mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
+
+client::test_runner::mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
+
+if (vargs[0].i32 == 0) {
+//no change
+return url;
+}
+else {
+//changed
+//
+std::string s1("");
+s1.append((const char*)vargs[2].ptr, vargs[2].i32);
+return s1;
+}
+
+}
+return url;
+}
+//###_APPEND_STOP
+//###_BEGIN 0
+//###_PRE
+#endif
+//###_PRE
+}
+void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {
+
+// Provider of binary resources.
+class BinaryResourceProvider : public CefResourceManager::Provider {
+public:
+
+managed_callback mcallback;
+explicit BinaryResourceProvider(const std::string& url_path)
+: url_path_(url_path) {
+
+mcallback = NULL;
+DCHECK(!url_path.empty());
+
+}
+
+bool OnRequest(scoped_refptr<CefResourceManager::Request> request) OVERRIDE {
+CEF_REQUIRE_IO_THREAD();
+
+if (mcallback)
+{
+
+
+CefString cefStr(request->url());
+//0: bool , return value
+//1: [in] url
+//2: [in] request
+//3: [out] buffer stream
+//4: [out] stream kind
+
+INIT_MY_MET_ARGS(metArgs, 4)
+SetCefStringToJsValue2(&vargs[1], cefStr);
+MyCefSetVoidPtr(&vargs[2], request);
+
+mcallback_(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs);
+client::test_runner::mcallback_(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs);
+if (vargs[0].i32 == 0)
+{
+return false; //not handle by this handler
+}
+
+MyCefBufferHolder* bufferHolder = (MyCefBufferHolder*)vargs[3].ptr;
+//has resource in managed buffer form
+//so we need to copy to unmanaged form
+CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
+new CefByteReadHandler(
+(const unsigned char*)bufferHolder->buffer,
+(size_t)bufferHolder->len,
+NULL));
+CefRefPtr<CefResourceHandler> handler = new CefStreamResourceHandler(
+GetStringHolder(&vargs[4])->value,
+stream);
+
+request->Continue(handler);
+//-----
+//delete unmanaged args?/ check owner of the data?
+
+
+return true;
+}
+else
+{
+const std::string& url = request->url();
+if (url.find(url_path_) != 0L) {
+// Not handled by this provider.
+return false;
+}
+
+CefRefPtr<CefResourceHandler> handler;
+//get str after url
+const std::string& relative_path = url.substr(url_path_.length());
+if (!relative_path.empty()) {
+CefRefPtr<CefStreamReader> stream =
+GetBinaryResourceReader(relative_path.data());
+if (stream.get()) {
+handler = new CefStreamResourceHandler(
+request->mime_type_resolver().Run(url),
+stream);
+}
+}
+
+request->Continue(handler);
+return true;
+}
+}
+
+private:
+std::string url_path_;
+
+//DISALLOW_COPY_AND_ASSIGN(BinaryResourceProvider);
+};
+
+const std::string& test_origin = kTestOrigin;
+
+mcallback_ = mcallback;
+// Add the URL filter.
+resource_manager->SetUrlFilter(base::Bind(RequestUrlFilter2));
+
+auto binResProvider = new BinaryResourceProvider(test_origin);
+binResProvider->mcallback = mcallback;
+resource_manager->AddProvider(binResProvider, 100, std::string());
+
+
+//// Add provider for resource dumps.
+//resource_manager->AddProvider(
+//	new RequestDumpResourceProvider(test_origin + "request.html"),
+//	0, std::string());
+
+// Add provider for bundled resource files.
+#if defined(OS_WIN)
+/*	resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
+100, std::string());*/
+#elif defined(OS_POSIX)
+// Read resources from a directory on disk.
+std::string resource_dir;
+if (GetResourceDir(resource_dir)) {
+resource_manager->AddDirectoryProvider(test_origin, resource_dir,
+100, std::string());
+}
+#endif
+}
+//###_POST
+void Alert(CefRefPtr<CefBrowser> browser, const std::string& message) {
+//###_POST
+// Escape special characters in the message.
+//###_END 0
