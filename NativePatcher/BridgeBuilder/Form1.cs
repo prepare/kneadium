@@ -93,6 +93,21 @@ namespace BridgeBuilder
                 );
             }
 
+            //-----------
+            {
+                //chrome73, x86
+                string f_cef_bin = "cef_binary_73.0.3683.75_win32";
+                _patcherPresets.Add(
+                     new PatcherPreset()
+                     {
+                         EnvName = EnvName.Win32,
+                         CefSrcFolder = @"D:\projects\" + f_cef_bin,
+                         NewlyCreatedPatchSaveToFolder = "d:\\WImageTest\\cefbridge_patches_" + f_cef_bin,
+                         Backup_NativePatcher_Folder = f_projects_kneadium + @"\NativePatcher_" + f_cef_bin,
+                     }
+                );
+            }
+
         }
         void SetCurrentPreset(PatcherPreset preset)
         {
